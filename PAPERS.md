@@ -40,17 +40,21 @@
 
 [20] Judith Holler, Kobin H. Kendrick, and Stephen C. Levinson. 2018. Processing lan-guage in face-to-face conversation: Questions with gestures get faster responses.Psychon. B. Rev. 25, 5 (2018), 1900–1908. https://doi.org/10.3758/s13423-017-1363-
 
-[21] Sture Holm. 1979. A simple sequentially rejective multiple test procedure. Scand.J. Stat. 6, 2 (1979), 65–70. https://www.jstor.org/stable/4615733[22] International Telecommunication Union, Telecommunication StandardisationSector. 1996. Methods for subjective determination of transmission quality. Recom-mendation ITU-T P.800. https://www.itu.int/rec/T-REC-P.800-199608-I
+[21] Sture Holm. 1979. A simple sequentially rejective multiple test procedure. Scand.J. Stat. 6, 2 (1979), 65–70. https://www.jstor.org/stable/4615733
+
+[22] International Telecommunication Union, Telecommunication StandardisationSector. 1996. Methods for subjective determination of transmission quality. Recom-mendation ITU-T P.800. https://www.itu.int/rec/T-REC-P.800-199608-I
 
 [23] Patrik Jonell, Taras Kucherenko, Gustav Eje Henter, and Jonas Beskow. 2020.Let’s face it: Probabilistic multi-modal interlocutor-aware generation of facialgestures in dyadic settings. In Proceedings of the ACM International Conference on Intelligent Virtual Agents (IVA ’20). ACM, Article 31, 8 pages. https://doi.org/10.1145/3383652.3423911
 
-[24] Patrik Jonell, Taras Kucherenko, Ilaria Torre, and Jonas Beskow. 2020. Canwe trust online crowdworkers? Comparing online and offline participants ina preference test of virtual agents. In Proceedings of the ACM International Conference on Intelligent Virtual Agents (IVA ’20). ACM, Article 30, 8 pages. https://doi.org/10.1145/3383652.3423860
+[24] Patrik Jonell, Taras Kucherenko, Ilaria Torre, and Jonas Beskow. 2020. Can we trust online crowdworkers? Comparing online and offline participants ina preference test of virtual agents. In Proceedings of the ACM International Conference on Intelligent Virtual Agents (IVA ’20). ACM, Article 30, 8 pages. https://doi.org/10.1145/3383652.3423860
 
 [25] Patrik Jonell, Youngwoo Yoon, Pieter Wolfert, Taras Kucherenko, and Gustav EjeHenter. 2021. HEMVIP: Human evaluation of multiple videos in parallel. InProceedings of the ACM International Conference on Multimodal Interaction (ICMI ’21). ACM, 707–711. https://doi.org/10.1145/3462244.3479957
 
 [26] Naoshi Kaneko, Yuna Mitsubayashi, and Geng Mu. 2022. TransGesture: Autore-gressive gesture generation with RNN-transducer. In Proceedings of the ACMInternational Conference on Multimodal Interaction (ICMI ’22 ACM.
 
-[27] Simon King. 2014. Measuring a decade of progress in text-to-speech. Loquens 1,1 (2014), e006. https://doi.org/10.3989/loquens.2014.006[28] Vladislav Korzun, Anna Beloborodva, and Arkady Ilin. 2022. ReCell: replicatingrecurrent cell for auto-regressive pose generation. In Companion publicationof the 2021 ACM International Conference on Multimodal Interaction (ICMI ’22 ACM.
+[27] Simon King. 2014. Measuring a decade of progress in text-to-speech. Loquens 1,1 (2014), e006. https://doi.org/10.3989/loquens.2014.006
+
+[28] Vladislav Korzun, Anna Beloborodva, and Arkady Ilin. 2022. ReCell: replicatingrecurrent cell for auto-regressive pose generation. In Companion publicationof the 2021 ACM International Conference on Multimodal Interaction (ICMI ’22 ACM.
 
 [29] Vladislav Korzun, Ilya Dimov, and Andrey Zharkov. 2021. Audio and text-drivenapproach for conversational gestures generation. In Proceedings of Computational Linguistics and Intellectual Technologies (DIALOGUE ’21). http://www.dialog- 21.ru/media/5526/korzunvaplusdimovinpluszharkovaa031.pdf
 
