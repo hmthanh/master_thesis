@@ -56,7 +56,7 @@
 
 [28] Vladislav Korzun, Anna Beloborodva, and Arkady Ilin. 2022. ReCell: replicatingrecurrent cell for auto-regressive pose generation. In Companion publicationof the 2021 ACM International Conference on Multimodal Interaction (ICMI ’22 ACM.
 
-[29] Vladislav Korzun, Ilya Dimov, and Andrey Zharkov. 2021. Audio and text-drivenapproach for conversational gestures generation. In Proceedings of Computational Linguistics and Intellectual Technologies (DIALOGUE ’21). http://www.dialog- 21.ru/media/5526/korzunvaplusdimovinpluszharkovaa031.pdf
+[29] Vladislav Korzun, Ilya Dimov, and Andrey Zharkov. 2021. Audio and text-drivenapproach for conversational gestures generation. In Proceedings of Computational Linguistics and Intellectual Technologies (DIALOGUE ’21). http://www.dialog-21.ru/media/5526/korzunvaplusdimovinpluszharkovaa031.pdf
 
 [30] Taras Kucherenko, Dai Hasegawa, Gustav Eje Henter, Naoshi Kaneko, and Hedvig Kjellström. 2019. Analyzing input and output representations for speech-driven gesture generation. In Proceedings of the ACM International Conference on Intel-ligent Virtual Agents (IVA ’19). ACM, 97–104. https://doi.org/10.1145/3308532.3329472
 
@@ -125,5 +125,3 @@
 [62] Takenori Yoshimura, Gustav Eje Henter, Oliver Watts, Mirjam Wester, JunichiYamagishi, and Keiichi Tokuda. 2016. A hierarchical predictor of synthetic speechnaturalness using neural networks. In Proceedings of the Annual Conference of theInternational Speech Communication Association (Interspeech ’16). ISCA, 342–346.https://doi.org/10.21437/Interspeech.2016-847
 
 [63] Chi Zhou, Tengyue Bian, and Kang Chen. 2022. GestureMaster: Graph-basedspeech-driven gesture generation. In Proceedings of the ACM International Con-ference on Multimodal Interaction (ICMI ’22 ACM.
-
-
