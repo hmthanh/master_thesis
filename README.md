@@ -1,2 +1,2 @@
-# master_thesis
-Speech-Driven Gesture Generation
+# Speech-Driven Gesture Generation
+
