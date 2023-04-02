@@ -1,6 +1,6 @@
 # A Comprehensive Review of Data-Driven Co-Speech Gesture Generation
 
-### Abstract
+## Abstract
 
 - Gestures that accompany speech are important for natural and efficient embodied human communication.
 - Automatic generation of co-speech gestures is a long-standing problem in computer animation and is considered enabling technology for creating believable characters in film, games, and virtual social spaces, as well as for interaction with social robots.
