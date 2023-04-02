@@ -89,3 +89,10 @@ A detailed discussion on the theory and motivation for co-verbal gesture synthes
   - Các phương pháp học sâu có xu hướng tổng hợp chuyển động trên cơ sở từng khung hình.
   - Các phương pháp dựa trên quy tắc và thống kê thường dự đoán một nhãn cử chỉ được sử dụng để chỉ mục các đoạn chuyển động cử chỉ được thực hiện bằng tay hoặc được ghi sẵn. Trong khi đó, các phương pháp học sâu có xu hướng tổng hợp chuyển động trên cơ sở từng khung hình.
 
+
+Đoạn văn trình bày về sự phát triển của lĩnh vực tạo ra các cử chỉ kèm theo lời nói trong giao tiếp giữa con người và máy tính, từ các phương pháp dựa trên luật đến các phương pháp dựa trên dữ liệu. Hình 4 minh họa sự phát triển này và sự đánh đổi giữa tính tự nhiên và hiệu quả trong truyền đạt thông tin của các phương pháp khác nhau.
+
+Các phương pháp sử dụng thống kê đã cải thiện tính tự nhiên của cử chỉ, nhưng đánh đổi với hiệu quả truyền đạt thông tin.
+Ngược lại, các phương pháp dựa trên học sâu có thể tạo ra các cử chỉ liên tục và khá tự nhiên, nhưng hiệu quả truyền đạt thông tin lại thấp hơn.
+
+Nghiên cứu gần đây đã đề xuất các hệ thống kết hợp các phương pháp khác nhau để tạo ra các cử chỉ tự nhiên và có ý nghĩa ngữ nghĩa. Đoạn văn cũng đề cập đến các phương pháp khác nhau, bao gồm các hệ thống dựa trên luật, thống kê và học sâu, và chỉ ra các nghiên cứu tiêu biểu trong từng lớp phương pháp này.
