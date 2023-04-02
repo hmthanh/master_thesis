@@ -75,7 +75,11 @@ A detailed discussion on the theory and motivation for co-verbal gesture synthes
 
   - Vấn đề chính trong tổng hợp cử chỉ gồm vấn đề xác định cử chỉ và vấn đề tạo động cử chỉ.
   - Có nhiều phương pháp được sử dụng để xác định cử chỉ, bao gồm ngữ 音, văn bản và ý đồ giao tiếp, trong đó các mô hình dựa trên quy tắc, thống kê và học máy đã được sử dụng để xác định cử chỉ phù hợp.
-  - Có hai loại chính của mô hình sinh cử chỉ: mô hình dựa trên quy tắc và mô hình dữ liệu. Trong mô hình dữ liệu, có hai loại con là mô hình thống kê và mô hình học máy.
+  - Có hai loại chính của mô hình sinh cử chỉ:
+    - Mô hình dựa trên quy tắc
+    - Và mô hình dữ liệu. Trong mô hình dữ liệu, có hai loại con là
+      - Mô hình thống kê
+      - Mô hình học máy.
 
 - Các phương pháp mô hình sinh cử chỉ.
 
@@ -84,8 +88,4 @@ A detailed discussion on the theory and motivation for co-verbal gesture synthes
   - Các mô hình học máy tối ưu hóa các thông số của một hàm phi tuyến phức tạp để ánh xạ đầu vào âm thanh vào cử chỉ phù hợp.
   - Các phương pháp học sâu có xu hướng tổng hợp chuyển động trên cơ sở từng khung hình.
   - Các phương pháp dựa trên quy tắc và thống kê thường dự đoán một nhãn cử chỉ được sử dụng để chỉ mục các đoạn chuyển động cử chỉ được thực hiện bằng tay hoặc được ghi sẵn. Trong khi đó, các phương pháp học sâu có xu hướng tổng hợp chuyển động trên cơ sở từng khung hình.
-
-
-
-
 
