@@ -89,7 +89,6 @@ A detailed discussion on the theory and motivation for co-verbal gesture synthes
   - Các phương pháp học sâu có xu hướng tổng hợp chuyển động trên cơ sở từng khung hình.
   - Các phương pháp dựa trên quy tắc và thống kê thường dự đoán một nhãn cử chỉ được sử dụng để chỉ mục các đoạn chuyển động cử chỉ được thực hiện bằng tay hoặc được ghi sẵn. Trong khi đó, các phương pháp học sâu có xu hướng tổng hợp chuyển động trên cơ sở từng khung hình.
 
-
 Hình 4 minh họa sự phát triển này và sự đánh đổi giữa tính tự nhiên và hiệu quả trong truyền đạt thông tin của các phương pháp khác nhau.
 
 ![diagram.png](diagram.png)
@@ -98,4 +97,22 @@ Các phương pháp sử dụng thống kê đã cải thiện tính tự nhiên
 Ngược lại, các phương pháp dựa trên học sâu có thể tạo ra các cử chỉ liên tục và khá tự nhiên, nhưng hiệu quả truyền đạt thông tin lại thấp hơn.
 
 Nghiên cứu gần đây đã đề xuất các hệ thống kết hợp các phương pháp khác nhau để tạo ra các cử chỉ tự nhiên và có ý nghĩa ngữ nghĩa. Đoạn văn cũng đề cập đến các phương pháp khác nhau, bao gồm các hệ thống dựa trên luật, thống kê và học sâu, và chỉ ra các nghiên cứu tiêu biểu trong từng lớp phương pháp này.
+
+## 4. Rule-base approaches
+
+Đoạn văn trình bày về hai hệ thống đầu tiên để tự động tạo ra cử chỉ tay, di chuyển khuôn mặt và mô phỏng âm điệu phù hợp với bối cảnh giữa các nhân vật giống như con người. Hệ thống đầu tiên được giới thiệu là Animated Conversation [CPB∗ 94], nó được phát triển dựa trên quan hệ ẩn giữa lời nói và cử chỉ.
+Nó giới hạn trong việc tạo ra đối thoại giữa hai nhân vật trong một lĩnh vực nhất định. Ymir [Thó96] là hệ thống thứ hai được giới thiệu để cải tiến hệ thống Animated Conversation, cho phép đầu vào đa phương tiện từ người dùng bao gồm giọng nói, ánh mắt, cử chỉ và ngữ điệu. Tuy nhiên, hệ thống này chỉ có thể tạo ra đầu ra đa phương tiện hạn chế trong thời gian thực. Cuối cùng, hệ thống đối thoại hình thái Cassell et al. [CBC∗ 00] đã cải tiến hai hệ thống trước bằng cách tích hợp tính tương tác đa phương tiện trong thời gian thực của Ymir với khả năng mô phỏng đa phương tiện phong phú hơn của Animated Conversation.
+Kết quả là một khung nhân vật đối thoại được thể hiện một cách linh hoạt và mạnh mẽ trong các cuộc trò chuyện, mặc dù vẫn giới hạn trong việc tạo ra đối thoại dựa trên cơ sở tri thức tĩnh.
+
+- BEAT (Behaviour Expression Animation Toolkit) là một trong những công cụ tạo ra các cử chỉ không ngôn ngữ, được giới thiệu bởi Cassell và đồng nghiệp.
+- BEAT sử dụng thông tin ngữ cảnh tiềm ẩn trong văn bản để chọn các chuyển động tay, cánh tay và khuôn mặt đã được ghi trước.
+- Kopp và đồng nghiệp đã đề xuất một phương pháp dựa trên mô hình để tạo ra các lời nói đa phương tiện phức tạp từ các đặc tả XML về hình dạng của chúng.
+- Greta, được phát triển bởi Pelechaud và đồng nghiệp, là một đại diện ảo 3D mà các cử chỉ khuôn mặt của nó đã truyền tải trạng thái cảm xúc của đại diện.
+- Hướng nhìn, cử chỉ đầu và biểu cảm khuôn mặt là những hành vi phi ngôn ngữ quan trọng để truyền tải ý định và trạng thái cảm xúc của người nói.
+
+- Những hệ thống mới trong dựa trên quy tắc thường đòi hỏi phải phát triển một ngôn ngữ đặc thù (domain-specific language - DSL), thường được xây dựng dựa trên XML.
+- Có nhiều DSL khác nhau được sử dụng trong các hệ thống khác nhau.
+- Một nhóm các nhà nghiên cứu đã phát triển một ngôn ngữ thống nhất cho việc tạo hành vi đa dạng cho các đại diện ảo (virtual agents) có tên là Behavior Markup Language (BML).
+- BML được thiết kế trong bối cảnh của một framework toàn diện với các giai đoạn lập kế hoạch ý định (intent planning), lập kế hoạch hành vi (behavior planning) và thực hiện hành vi (behavior realization).
+- BML trở thành định dạng tiêu chuẩn cho các hệ thống dựa trên quy tắc, được sử dụng trong các framework mã nguồn mở như SmartBody và các đại diện nhân tạo khác như các robot humanoid.
 
