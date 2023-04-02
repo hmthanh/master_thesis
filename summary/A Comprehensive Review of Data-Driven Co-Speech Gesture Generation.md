@@ -69,3 +69,23 @@ A detailed discussion on the theory and motivation for co-verbal gesture synthes
   - Cử chỉ được đồng bộ hóa theo thời gian với lời nói của họ, thường xuất hiện trước lời nói đồng cảm khoảng 90% thời gian.
   - Người ta có thể không quá nhạy cảm với sai sót thời gian trong phạm vi +/- 0.6 giây.
 
+## 3. Approaches for gesture synthesis
+
+- Tổng hợp các cử chỉ đồng nói là cần thiết để tạo ra các nhân vật ảo tương tác và đáng tin cậy trong tương tác giữa con người và máy tính (HCI), đồ họa và robot xã hội.
+
+  - Vấn đề chính trong tổng hợp cử chỉ gồm vấn đề xác định cử chỉ và vấn đề tạo động cử chỉ.
+  - Có nhiều phương pháp được sử dụng để xác định cử chỉ, bao gồm ngữ 音, văn bản và ý đồ giao tiếp, trong đó các mô hình dựa trên quy tắc, thống kê và học máy đã được sử dụng để xác định cử chỉ phù hợp.
+  - Có hai loại chính của mô hình sinh cử chỉ: mô hình dựa trên quy tắc và mô hình dữ liệu. Trong mô hình dữ liệu, có hai loại con là mô hình thống kê và mô hình học máy.
+
+- Các phương pháp mô hình sinh cử chỉ.
+
+  - Các hệ thống dựa trên quy tắc sử dụng các thuật toán heuristics được thiết kế cẩn thận để chọn cử chỉ phù hợp với đầu vào âm thanh được cung cấp.
+  - Các hệ thống dữ liệu sử dụng các phương pháp thống kê hoặc mô hình phân bố để xác định cử chỉ phù hợp với đầu vào âm thanh.
+  - Các mô hình học máy tối ưu hóa các thông số của một hàm phi tuyến phức tạp để ánh xạ đầu vào âm thanh vào cử chỉ phù hợp.
+  - Các phương pháp học sâu có xu hướng tổng hợp chuyển động trên cơ sở từng khung hình.
+  - Các phương pháp dựa trên quy tắc và thống kê thường dự đoán một nhãn cử chỉ được sử dụng để chỉ mục các đoạn chuyển động cử chỉ được thực hiện bằng tay hoặc được ghi sẵn. Trong khi đó, các phương pháp học sâu có xu hướng tổng hợp chuyển động trên cơ sở từng khung hình.
+
+
+
+
+
