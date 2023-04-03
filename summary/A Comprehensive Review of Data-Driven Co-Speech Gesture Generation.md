@@ -104,17 +104,17 @@ Nghiên cứu gần đây đã đề xuất các hệ thống kết hợp các p
 Nó giới hạn trong việc tạo ra đối thoại giữa hai nhân vật trong một lĩnh vực nhất định. Ymir [Thó96] là hệ thống thứ hai được giới thiệu để cải tiến hệ thống Animated Conversation, cho phép đầu vào đa phương tiện từ người dùng bao gồm giọng nói, ánh mắt, cử chỉ và ngữ điệu. Tuy nhiên, hệ thống này chỉ có thể tạo ra đầu ra đa phương tiện hạn chế trong thời gian thực. Cuối cùng, hệ thống đối thoại hình thái Cassell et al. [CBC∗ 00] đã cải tiến hai hệ thống trước bằng cách tích hợp tính tương tác đa phương tiện trong thời gian thực của Ymir với khả năng mô phỏng đa phương tiện phong phú hơn của Animated Conversation.
 Kết quả là một khung nhân vật đối thoại được thể hiện một cách linh hoạt và mạnh mẽ trong các cuộc trò chuyện, mặc dù vẫn giới hạn trong việc tạo ra đối thoại dựa trên cơ sở tri thức tĩnh.
 
-    - BEAT (Behaviour Expression Animation Toolkit) là một trong những công cụ tạo ra các cử chỉ không ngôn ngữ, được giới thiệu bởi Cassell và đồng nghiệp.
-    - BEAT sử dụng thông tin ngữ cảnh tiềm ẩn trong văn bản để chọn các chuyển động tay, cánh tay và khuôn mặt đã được ghi trước.
-    - Kopp và đồng nghiệp đã đề xuất một phương pháp dựa trên mô hình để tạo ra các lời nói đa phương tiện phức tạp từ các đặc tả XML về hình dạng của chúng.
-    - Greta, được phát triển bởi Pelechaud và đồng nghiệp, là một đại diện ảo 3D mà các cử chỉ khuôn mặt của nó đã truyền tải trạng thái cảm xúc của đại diện.
-    - Hướng nhìn, cử chỉ đầu và biểu cảm khuôn mặt là những hành vi phi ngôn ngữ quan trọng để truyền tải ý định và trạng thái cảm xúc của người nói.
+- BEAT (Behaviour Expression Animation Toolkit) là một trong những công cụ tạo ra các cử chỉ không ngôn ngữ, được giới thiệu bởi Cassell và đồng nghiệp.
+- BEAT sử dụng thông tin ngữ cảnh tiềm ẩn trong văn bản để chọn các chuyển động tay, cánh tay và khuôn mặt đã được ghi trước.
+- Kopp và đồng nghiệp đã đề xuất một phương pháp dựa trên mô hình để tạo ra các lời nói đa phương tiện phức tạp từ các đặc tả XML về hình dạng của chúng.
+- Greta, được phát triển bởi Pelechaud và đồng nghiệp, là một đại diện ảo 3D mà các cử chỉ khuôn mặt của nó đã truyền tải trạng thái cảm xúc của đại diện.
+- Hướng nhìn, cử chỉ đầu và biểu cảm khuôn mặt là những hành vi phi ngôn ngữ quan trọng để truyền tải ý định và trạng thái cảm xúc của người nói.
 
-    - Những hệ thống mới trong dựa trên quy tắc thường đòi hỏi phải phát triển một ngôn ngữ đặc thù (domain-specific language - DSL), thường được xây dựng dựa trên XML.
-    - Có nhiều DSL khác nhau được sử dụng trong các hệ thống khác nhau.
-    - Một nhóm các nhà nghiên cứu đã phát triển một ngôn ngữ thống nhất cho việc tạo hành vi đa dạng cho các đại diện ảo (virtual agents) có tên là Behavior Markup Language (BML).
-    - BML được thiết kế trong bối cảnh của một framework toàn diện với các giai đoạn lập kế hoạch ý định (intent planning), lập kế hoạch hành vi (behavior planning) và thực hiện hành vi (behavior realization).
-    - BML trở thành định dạng tiêu chuẩn cho các hệ thống dựa trên quy tắc, được sử dụng trong các framework mã nguồn mở như SmartBody và các đại diện nhân tạo khác như các robot humanoid.
+- Những hệ thống mới trong dựa trên quy tắc thường đòi hỏi phải phát triển một ngôn ngữ đặc thù (domain-specific language - DSL), thường được xây dựng dựa trên XML.
+- Có nhiều DSL khác nhau được sử dụng trong các hệ thống khác nhau.
+- Một nhóm các nhà nghiên cứu đã phát triển một ngôn ngữ thống nhất cho việc tạo hành vi đa dạng cho các đại diện ảo (virtual agents) có tên là Behavior Markup Language (BML).
+- BML được thiết kế trong bối cảnh của một framework toàn diện với các giai đoạn lập kế hoạch ý định (intent planning), lập kế hoạch hành vi (behavior planning) và thực hiện hành vi (behavior realization).
+- BML trở thành định dạng tiêu chuẩn cho các hệ thống dựa trên quy tắc, được sử dụng trong các framework mã nguồn mở như SmartBody và các đại diện nhân tạo khác như các robot humanoid.
 
 - Advances in rule-based systems
 
@@ -162,17 +162,17 @@ The use of deep-learning approaches has moved the field for-ward substantially i
 
 The proliferation of deep learning in conversational gesture gen-eration has led to a large number of approaches that can be groupedbased on the input modalities, i.e. audio, text, audio and text, or au-dio with other non-communicative modalities, and control parame-ters. We employ this taxonomy to organize our exposition and givea summary of the models and their respective categories in Table 2. We only include approaches that produce hand gestures and were published before the submission deadline for our review. In sec-tions 5.3.1, 5.3.2, and 5.3.3 we discuss generation approaches thatuse audio-only, text-only, and a combination of audio and text in-put, respectively. Section 5.3.4 focuses on approaches that use non-linguistic input, i.e. input other than speech audio or text. Finally,Section 5.3.5 explores approaches that employ control input. The approaches within each modality section are presented in chrono-logical order to reflect the evolution of the field.
 
-    - Các mô hình sinh dựa trên học sâu gần đây thu hút sự quan tâm vì khả năng tổng hợp dữ liệu từ biểu diễn trừu tượng của tập dữ liệu huấn luyện. Chúng ngày càng nổi bật trong các ứng dụng hoạt hình nhân vật, bao gồm kiểm soát nhân vật trong trò chơi, hoạt hình khuôn mặt hoặc cử chỉ dựa trên âm thanh và văn bản trong đại lý ảo.
+- Các mô hình sinh dựa trên học sâu gần đây thu hút sự quan tâm vì khả năng tổng hợp dữ liệu từ biểu diễn trừu tượng của tập dữ liệu huấn luyện. Chúng ngày càng nổi bật trong các ứng dụng hoạt hình nhân vật, bao gồm kiểm soát nhân vật trong trò chơi, hoạt hình khuôn mặt hoặc cử chỉ dựa trên âm thanh và văn bản trong đại lý ảo.
 
-    - Việc sử dụng các phương pháp học sâu đã thúc đẩy ngành phát triển đáng kể về tính tự nhiên nhưng có thể bước lùi về hiệu quả giao tiếp so với các phương pháp trước đó. Các hệ thống dựa trên học sâu chủ yếu nhắm đến độ giống người và phù hợp với âm thanh và nội dung ngữ nghĩa.
+- Việc sử dụng các phương pháp học sâu đã thúc đẩy ngành phát triển đáng kể về tính tự nhiên nhưng có thể bước lùi về hiệu quả giao tiếp so với các phương pháp trước đó. Các hệ thống dựa trên học sâu chủ yếu nhắm đến độ giống người và phù hợp với âm thanh và nội dung ngữ nghĩa.
 
-    - Sự phổ biến của học sâu trong tạo ra cử chỉ đàm thoại đã dẫn đến nhiều phương pháp có thể được phân nhóm dựa trên các đầu vào như âm thanh, văn bản, âm thanh và văn bản, hoặc âm thanh với các đầu vào không giao tiếp khác. Bài báo này sắp xếp các phương pháp theo nhóm và tổng kết các mô hình và loại tương ứng trong Bảng 2.
+- Sự phổ biến của học sâu trong tạo ra cử chỉ đàm thoại đã dẫn đến nhiều phương pháp có thể được phân nhóm dựa trên các đầu vào như âm thanh, văn bản, âm thanh và văn bản, hoặc âm thanh với các đầu vào không giao tiếp khác. Bài báo này sắp xếp các phương pháp theo nhóm và tổng kết các mô hình và loại tương ứng trong Bảng 2.
 
 #### 5.3.1. Audio input
 
 Hasegawa et al. [HKS∗ 18] proposed an autoregressive approachto generate gesture from audio utterances using a bi-directionalLSTM [HS97]. The bi-directional LSTM learned audio-gesture re-lationships with both backward and forward consistencies over along period of time. The model was trained with a then novel audio-gesture dataset, collected using a headset and marker-based motioncapture [TKS∗ 17]. The model predicted a full skeletal human posefrom the utterance features input at every LSTM timestep. Tem-poral filtering was then used to smooth out discontinuities in thegenerated pose sequences.Kucherenko et al. [KHH∗ 19] extended the work of Hasegawa etal. [HKS∗ 18], removing the need for temporal smoothing throughrepresentation learning of an autoencoder. The proposed modeltransformed audio input into a gesture sequence in the form of3D joint coordinates. They achieved this by
 
-- (i) learning a lowerdimensional representation of human motion using a denoising au-toencoder consisting of a motion encoder (called MotionE) and amotion decoder (called MotionD) and
+- (i) learning a lowerdimensional representation of human motion using a denoising au-toencoder consisting of a motion encoder (called MotionE) and amotion decoder (called MotionD)
 
 - (ii) training a novel speechencoder (called SpeechE) to transform speech to the correspondingmotion representation with reduced dimensionality. During infer-ence, the SpeechE predicted the motion representations, based ona given speech signal, and the MotionD decoded the motion repre-sentations into gesture sequences. However, their approach was de-terministic and thus unable to capture the commonly observed phe-nomena where a person gesticulates differently at different pointsof the same utterance.
 
