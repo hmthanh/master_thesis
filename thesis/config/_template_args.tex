@@ -15,29 +15,33 @@
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
 \AtBeginDocument{%
-  \providecommand\BibTeX{{%
-    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+ \providecommand\BibTeX{{%
+   Bib\TeX}}}
+% \AtBeginDocument{%
+% 	\providecommand\BibTeX{{%
+% 			\normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
 
 %% Rights management information.  This information is sent to you
 %% when you complete the rights form.  These commands have SAMPLE
 %% values in them; it is your responsibility as an author to replace
 %% the commands and values with those provided to you when you
 %% complete the rights form.
-\setcopyright{acmcopyright}
-\acmJournal{TOG}
-\acmYear{2022}
-\acmVolume{41}
-\acmNumber{6}
-\acmArticle{209}
-\acmMonth{12}
+\setcopyright{acmlicensed}
+\copyrightyear{2024}
+\acmYear{2024}
 \acmDOI{10.1145/3550454.3555435}
 
 %% These commands are for a PROCEEDINGS abstract or paper.
-%\acmConference[SIGGRAPH '22]{SIGGRAPH 2022}{June 03--05, 2021}{Virtual Event}
-%% \acmBooktitle{Woodstock '18: ACM Symposium on Neural Gaze Detection,
-%% June 03--05, 2018, Woodstock, NY}
-%\acmPrice{15.00}
-%\acmISBN{978-1-4503-XXXX-X/18/06}
+\acmConference[Conference acronym 'XX]{Make sure to enter the correct
+  conference title from your rights confirmation emai}{June 03--05,
+  2018}{Woodstock, NY}
+%%
+%%  Uncomment \acmBooktitle if the title of the proceedings is different
+%%  from ``Proceedings of ...''!
+%%
+%%\acmBooktitle{Woodstock '18: ACM Symposium on Neural Gaze Detection,
+%%  June 03--05, 2018, Woodstock, NY}
+\acmISBN{978-1-4503-XXXX-X/18/06}
 
 %%
 %% Submission ID.
@@ -45,6 +49,20 @@
 %% receive a unique submission ID from the organizers
 %% of the event, and this ID should be used as the parameter to this command.
 \acmSubmissionID{146}
+%%\acmSubmissionID{123-A56-BU3}
+
+%%
+%% For managing citations, it is recommended to use bibliography
+%% files in BibTeX format.
+%%
+%% You can then either use BibTeX with the ACM-Reference-Format style,
+%% or BibLaTeX with the acmnumeric or acmauthoryear sytles, that include
+%% support for advanced citation of software artefact from the
+%% biblatex-software package, also separately available on CTAN.
+%%
+%% Look at the sample-*-biblatex.tex files for templates showcasing
+%% the biblatex styles.
+%%
 
 %%
 %% The majority of ACM publications use numbered citations and
@@ -56,9 +74,4 @@
 %% citations and references.
 %% Uncommenting
 %% the next command will enable that style.
-\citestyle{acmauthoryear}
-% \setcitestyle{square}
-
-% A useful command for controlling the number of authors per row.
-% The default value of "authorsperrow" is 2.
-% \settopmatter{authorsperrow=4}
+%%\citestyle{acmauthoryear}
