@@ -32,3 +32,5 @@ samples/sample-*.pdf
 *.fdb_latexmk
 *.fls
 
+thesis/main.pdf
+
