@@ -34,3 +34,5 @@ samples/sample-*.pdf
 
 thesis/main.pdf
 
+.DS_Store
+thesis/samples.ins
