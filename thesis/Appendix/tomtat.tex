@@ -2,12 +2,14 @@
 \label{abstract}
 
 Xây dựng người kỹ thuật số (digital human) hay các nhân vật trợ lý ảo siêu thật có thể tương tác như một con người là mục tiêu nghiên cứu từ lâu của các nhà khoa học máy tính. Với sự phát triển của đồ họa máy tính trong việc mô phỏng người siêu thật cũng như sự phát triển mạnh mẽ của phần cứng máy tính và thành công của các mô hình ngôn ngữ lớn gần đây.
-Thì nút thắt cổ chai duy nhất hiện nay là việc sinh ra các biểu cảm khuôn mặt, cũng như các khung xương (skeleton) hay các điểm (keypoint) 3D trước khi kết xuất để hiển thị lên màn hình cho người dùng.
+Thì nút thắt cổ chai duy nhất hiện nay là việc sinh ra các biểu cảm khuôn mặt (facial expression), cũng như các khung xương (joins) 3D trước khi kết xuất (render) để hiển thị lên màn hình cho người dùng.
 Sinh cử chỉ (gesture generation) không chỉ được sử dụng để xây dựng người trợ lý ảo mà còn được sử dụng trong game, robot cũng như trong công nghiệp điện ảnh.
-Để giải quyết vấn đề đồng bộ giữa âm thanh và cử chỉ, chúng tôi đề xuất phương pháp \textbf{OHGesture} dựa trên mô hình Diffuse với đầu vào là chuỗi âm thanh với độ dài tùy ý.
-Đóng góp của tôi là sử dụng cơ chế cross-attention và self-attention trong quá trình diffuse để sinh cử mượt mà và chân thực với với âm thanh hơn.
+Để giải quyết vấn đề đồng bộ giữa âm thanh và cử chỉ, chúng tôi đề xuất phương pháp \textbf{OHGesture} dựa trên mô hình diffusion với đầu vào là chuỗi cử chỉ khởi tạo, và đoạn âm thanh tương ứng.
+Đóng góp của tôi là sử dụng văn bản và cảm xúc, sử dụng cơ chế cross-attention và self-attention trong quá trình diffuse để sinh cử mượt mà và chân thực.
 
-Thực nghiệm chứng minh phương pháp của chúng tôi tốt hơn khi áp dụng cross-attention. Ngoài ra mô hình OHGesture cũng sinh được các cử chỉ với đa dạng cảm xúc khác nhau như vui vẻ, buồn bã, người già.
+Thực nghiệm chứng minh phương pháp của chúng tôi có thể giúp chúng tôi tạo ra cử chỉ theo nhiều cảm xúc khác nhau và đạt kết quả tốt hơn khi áp dụng cross-attention.
+
+% Ngoài ra mô hình OHGesture cũng sinh được các cử chỉ với đa dạng cảm xúc khác nhau như vui vẻ, buồn bã, người già.
 
 % OHGesture sẽ biểu diễn các dự liệu đầu vào thành các vùng trong không gian với mỗi vùng một đại diện tương ứng. Sau đó sắp xếp lại vị trí đại diện của mỗi vùng dựa trên khoảng cách với cử chỉ khởi tạo để tạo ra các chuỗi cử chỉ ứng viên.
 

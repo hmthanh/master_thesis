@@ -1,10 +1,3 @@
-    % Template KLTN cho SV trường ĐHKHTN
-% Liên hệ: nqminh@fit.hcmus.edu.vn
-% Last update: 08/06/2016
-
-% Chú ý: đọc các phần chú ý đóng khung của file này và chỉnh lại cho phù hợp.
-% Trước khi build, xóa hết các file được tạo ra trong quá trình build trước đó, và build theo thứ tự: BIB > PDF > PDF.
-% Nếu cập nhật tài liệu tham khảo, cũng cần build lại theo cách trên.
 
 \documentclass[oneside,a4paper,14pt]{extreport}
 
@@ -20,7 +13,7 @@
 \usepackage[
 	sorting=nty,
 	backend=bibtex,
-	defernumbers=true]{biblatex}
+  style=numeric]{biblatex}
 
 \usepackage[unicode]{hyperref} % Bookmark tiếng Việt
 \addbibresource{References/references.bib}
@@ -225,8 +218,8 @@
 % ===================================================================== %
 
 % Phần phụ lục
-% \include{Appendix/appendix1}
-% \include{Appendix/appendix2}
+ \include{Appendix/appendix1}
+ \include{Appendix/appendix2}
 
 \end{document}
 
