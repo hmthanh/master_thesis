@@ -63,14 +63,14 @@ Sinh cử chỉ là bài toán hồi quy (regression), với đầu vào là m�
 Mỗi khung hình chuyển động của một nhân vật hay khung xương (skeleton) bao gồm dữ liệu về toạ độ vị trí và vận tốc theo thời gian.
 Ở đây dữ liệu của chúng tôi của một khung xương với mỗi khung hình (frame) bao gồm:
 
-$$
+\begin{equation} \label{eq:gesturevector}
 \mathbf{g} = \Big[ \mathbf{p}_{\text{root}},  \mathbf{r}_{\text{root}},
 \mathbf{ p }'_{\text{root}},  \mathbf{r}'_{\text{root}},
 \mathbf{p}_{\text{joins}},  \mathbf{r}_{\text{joins}},
 \mathbf{p}'_{\text{joins}},  \mathbf{r}'_{\text{joins}},
 \mathbf{d}_{\text{gaze}}
 \Big]
-$$
+\end{equation}
 
 Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
 \begin{itemize}

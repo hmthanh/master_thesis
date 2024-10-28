@@ -10,7 +10,7 @@
 
     * Report: https://github.com/hmthanh/master_thesis
 
-    * Source code: https://github.com/hmthanh/BEAT
+    * Source code: https://github.com/hmthanh/BunGesture
 
 * Kaggle: https://www.kaggle.com/code/hmthanh/aemi-ai-speech-driven-gesture-generation/
 

@@ -2,47 +2,98 @@
 
 % \section*{3 Phương Pháp Của Chúng Tôi}
 % Diffusion là mô hình đằng sau các thành công của  Stable Diffusion, Midjourney và DALL-E trong việc tạo ra các tấm ảnh siêu thực.
-Diffusion \cite{ho2020denoising} là mô hình được lấy cảm hứng từ mô hình khuếch tán các chất trong hóa học.
 
-\section{Áp dụng phương pháp diffusion cho bài toán sinh cử chỉ}
 
-Ý tưởng chính của mô hình \textbf{OHGesture} là sử dụng mô hình diffusion \cite{ho2020denoising} để học từ một vector nhiễu ban đầu, bao gồm hai quá trình: quá trình tạo nhiễu (diffusion) $q$ và quá trình khử nhiễu (denoise) $p_{\theta}$. Kiến trúc của OHGesture được trình bày như hình \autoref{fig:architecture}. 
+%. Biếm tiềm ẩm ở đây là cử chỉ và điều kiện là cảm xúc. 
+%Kiến trúc của OHGesture được trình bày như hình \autoref{fig:diffusion_forward}.
+
+
+\section{Mô hình của đề xuất OHGesture}
+\label{sec:ohgesture}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{images/diffusion_forward}
+	\caption{Minh hoạ quá trình khử nhiễu (denoising) cử chỉ}
+	\label{fig:diffusion_forward}
+\end{figure}
+
+Mô hình \textbf{OHGesture} của chúng tôi áp dụng mô hình khuếch tán \cite{ho2020denoising} với điều kiện \cite{ho2022classifier} (Classifier-Free Diffusion Guidance). Trong đó $x_0$ là chuỗi cử chỉ $g \in \mathbb{R}^{N \times 1141}$, với điều kiện $c$bao gồm  .
+Với đầu vào bao gồm cử chỉ khởi tạo $x_{\text{seed}}$, âm thanh $a$ và văn bản $t$.
+% với biến tiềm ẩn   (diffusion latent variable)
+Mô hình diffusion bao gồm hai quá trình: quá trình tạo nhiễu (diffusion) $q$ và quá trình khử nhiễu (denoising process) $p_{\theta}$. 
+Trước tiên chúng tôi trình bày trước về phương pháp nền tảng (baseline) của mô hình diffusion.
+
+\subsection{Quá trình trích xuất đặc trưng}
+
+Dữ liệu để học của chúng tôi được lấy từ tập dữ liệu BEAT (Body-Expression-Audio-Text)
+\cite{liu2022beat}. Tương tự mô hình DiffuseStyleGesture \cite{yang2022DiffuseStyleGestureplus} chúng tôi cũng sử dụng đầu vào bao gồm âm thanh, cử chỉ và cảm xúc, ngoài ra chúng tôi sử dụng thêm dữ liệu văn bản.
+
+\begin{itemize}
+	\item \textbf{Cử chỉ}: Cử chỉ ground truth là dữ liệu bao gồm 75 khớp xương được trình bày ở công thức \ref{eq:gesturevector}. Chúng tôi cắt $N_{\text{seed}} = 8$ frame đầu để làm cử chỉ khởi tạo và $N$ frame tiếp theo làm cử chỉ để dự đoán theo âm thanh và văn bản.
+	
+%	\item\textbf{Âm thanh}: Âm thanh sẽ được dùng làm đặc trưng để sinh cử chỉ, Chúng tôi sử dụng các mô hình Pretrain có sẵn như WavLM \cite{chen2022wavlm} để trích xuất đặc trưng âm thanh. 
+%	Chúng tôi kết hợp thêm các đặc trưng về MFCC, Mel-Spectrum, Pitch, Enery và Onsets \cite{bello2005tutorial}
+  \item \textbf{Âm thanh}: Tất cả dữ liệu âm thanh được giảm số sample rate (downsampled) xuống $16 \mathrm{kHz}$ và các vector tiềm ẩn được lấy từ các mô hình pre-train của WavLM Large \cite{chen2022wavlm}. Chúng tôi sử dụng nội suy tuyến tính (interpolation) để căn chỉnh đặc trưng của vector tiềm ẩn trong WavLM và cử chỉ $x_{0}$ theo chiều thời gian thành $20fps$, sau đó sử dụng một lớp tuyến tính để giảm kích thước của đặc trưng xuống còn 64 tạo thành chuỗi đặc trưng âm thanh cuối cùng $\mathbf{A}$.
+		
+	\item \textbf{Cảm xúc}: Cảm xúc bao gồm 6 cảm xúc khác nhau được biểu diễn thành một vector theo phương pháp one-hot encoding.
+	
+	\item \textbf{Văn bản}: Văn bản được trích xuất thông qua mô hình FastText \cite{yoon2022genea} để lấy được vector word embedding.
+	
+	\item \textbf{Cử chỉ nhiễu} (Noisy gesture): khi huấn luyện, $x_{t}$ là cử chỉ nhiễu có cùng kích thước như cử chỉ gốc $x_{0}$ sẽ được sinh ngẫu nhiên từ phân phối chuẩn $\mathcal{N}(0, \mathbf{I})$. Khi sinh ngẫu nhiên, cử chỉ nhiễu ban đầu $x_{T}$ được lấy mẫu từ phân phối chuẩn tiêu chuẩn và các $x_{t}, t<T$ khác là kết quả của bước làm nhiễu trước đó. Sau đó, kích thước được điều chỉnh thành 256 như $\mathbf{G}$ bằng lớp linear.
+	
+\end{itemize}
+
+%\item Bước làm nhiễu: Trong quá trình huấn luyện, bước làm nhiễu $t$ được lấy mẫu từ phân phối chuẩn của $\{1,2, \ldots, T\}$, với mã hóa vị trí (position encoding) giống như mô hình Transformer \cite{vaswani2017attention}, sau đó được ánh xạ vào không gian $\mathbf{T}$ có kích thước 256 bằng một mạng perceptron nhiều lớp (MLP).
+%
+%
+%
+%\item Cảm xúc: Các cảm xúc của cử chỉ được biểu diễn dưới dạng vectơ one-hot encoding, tức thành vector toàn bộ là số $0$ và vị trí có cảm xúc tương ứng có vị trí là $1$, vector one-hot encoding được ánh xạ vào không gian có kích thước 64 $\mathbf{S}$ thông qua một lớp tuyến tính.
+%
+%\item Cử chỉ khởi tạo: Cử chỉ khởi tạo giúp tạo ra sự chuyển tiếp mượt mà giữa các lần sinh liên tiếp \cite{yoon2020speech}. Cử chỉ khởi được cắt ngắn xuống $g \in$ $\mathbb{R}^{(8+N) \times 1141}$. Trong quá trình training, $8$ frame đầu tiên của cử chỉ $g$ được sử dụng làm cử chỉ khởi tạo $d$ và $N$ frame còn lại được sử dụng làm cử chỉ thật $x_{0}$ để tính hàm loss $\mathcal{L}$. Sau đó, chúng tôi ánh xạ các đặc trưng của cử chỉ khởi tạo $d$ vào không gian $\mathbf{D}$ có kích thước $192$ chiều bằng một lớp tuyến tính. 
+%Kết quả cử chỉ được sinh ra trong $4$ giây, và vì cử chỉ sinh ra được chạy ở $20 \mathrm{fps}$ (tương đương 20 khung hình mỗi giây) nên kích thước $N=80$.
+
+%\section{Mô hình diffusion cho bài toán sinh cử chỉ}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{images/architecture_diffusion}
+	\caption{Kiến trúc OHGesture}
+	\label{fig:architecturediffusion}
+\end{figure}
 
 
 % Ý tưởng của chúng tôi là tạo ra các cử chỉ bằng một mô hình diffusion \cite{ho2020denoising} bằng cách học cách dần dần Denoise từ nhiễu hoàn toàn. Như được thể hiện trong Hình 2, mô hình diffusion bao gồm hai phần: quá trình tiến lùi (quá trình diffusion)  và quá trình ngược lại (quá trình Denoise).
 
-\subsection{Quá Trình Gây Nhiễu (Diffusion)}
+%\subsection{Quá Trình Gây Nhiễu (Diffusion)}
+%
+%Quá trình diffusion $q$ được mô hình hóa như là một quá trình Markov với đầu vào lần lượt được thêm nhiễu, và sau đó mô hình lần lượt từng bước học để có thể tái tạo lại cử chỉ ban đầu.
+%Trong bài toán sinh cử chỉ, đầu vào là các điểm trên tọa độ 3D, gọi là keypoint $x$, với $x_{0} \sim q\left(x_{0}\right)$ và $q\left(x_{0}\right)$ là phân phối của dữ liệu thực tế.
+%Trong đó mỗi bước phương sai được thay đổi theo hệ số $\beta_{1}, \beta_{2}, \ldots, \beta_{T}$ $\left(0<\beta_{1}<\beta_{2}<\cdots<\beta_{T}<1, T\right)$, chúng tôi thêm nhiễu Gaussian
+%
+%\begin{equation} \label{eq:gaussian}
+%q\left(x_{t} \mid x_{t-1}\right)=\mathcal{N}\left(x_{t} ; \sqrt{1-\beta_{t}} x_{t-1}, \beta_{t} \mathbf{I}\right)
+%\end{equation}
+%
+%vào cử chỉ tại mỗi thời điểm $t$ lần lượt, và sau khi nhiễu Guassian được thêm vào đến bước $T$ đủ lớn, đến khi kết quả trở nên nhiễu hoàn toàn và không thể phân biệt được với kết quả ban đầu.
 
-Quá trình diffusion $q$ được mô hình hóa như là một quá trình Markov với đầu vào lần lượt được thêm nhiễu, và sau đó mô hình lần lượt từng bước học để có thể tái tạo lại ảnh ban đầu.
-Trong bài toán sinh cử chỉ, đầu vào là các điểm trên tọa độ 3D, gọi là keypoint $x$, với $x_{0} \sim q\left(x_{0}\right)$ và $q\left(x_{0}\right)$ là phân phối của dữ liệu thực tế.
-Trong đó mỗi bước phương sai được thay đổi theo hệ số $\beta_{1}, \beta_{2}, \ldots, \beta_{T}$ $\left(0<\beta_{1}<\beta_{2}<\cdots<\beta_{T}<1, T\right)$, chúng tôi thêm nhiễu Gaussian
+%\subsection{Quá Trình Khử Nhiễu (Denoise)}
+%
+%Quá trình Denoise $p_{\theta}$ là quá trình học tham số $\theta$ thông qua một mạng neural. Giả sử quá trình Denoise cũng tuân theo phân phối Gaussian, tức là nhiễu $x_{t}$ tại thời điểm $t$ được sử dụng để học $\mu_{\theta}, \Sigma_{\theta}$, sau đó
+%
+%\begin{equation} \label{eq:diffusion}
+%p_{\theta}\left(x_{t-1} \mid x_{t}\right)=\mathcal{N}\left(x_{t-1} ; \mu_{\theta}\left(x_{t}, t\right), \Sigma_{\theta}\left(x_{t}, t\right)\right)
+%\end{equation}
+%
+%Để thuận tiện cho việc tính toán, ta cho $\alpha_{t}=1-\beta_{t}$ và viết gọn lại $\bar{\alpha}_{t}=\prod_{i=1}^{T} \alpha_{i}$. Sau đó, cử chỉ nhiễu $x_{t}$ tại thời điểm $t$ có thể được viết lại như sau:
+%
+%\begin{equation} \label{eq:denoisevariance}
+%q\left(x_{t} \mid x_{0}\right)=\mathcal{N}\left(x_{t} ; \sqrt{\bar{\alpha}_{t}} x_{0},\left(1-\bar{\alpha}_{t}\right) \mathbf{I}\right)
+%\end{equation}
+%
+%Mô hình học bằng cách tối ưu hóa bằng cách giảm thiểu sự khác biệt giữa nhiễu thực sự $\epsilon$ và nhiễu được dự đoán $\epsilon_{\theta}\left(x_{t}, t\right)$ \cite{ho2020denoising}. Khi lấy mẫu, chúng ta có thể học giá trị trung bình $\mu_{\theta}\left(x_{t}, t\right)=\frac{1}{\sqrt{\alpha_{t}}}\left(x_{t}-\frac{\beta_{t}}{\sqrt{1-\bar{\alpha}_{t}}} \epsilon_{\theta}\left(x_{t}, t\right)\right)$ với phương sai cố định.
 
-\begin{equation} \label{eq:gaussian}
-q\left(x_{t} \mid x_{t-1}\right)=\mathcal{N}\left(x_{t} ; \sqrt{1-\beta_{t}} x_{t-1}, \beta_{t} \mathbf{I}\right)
-\end{equation}
-
-
-vào cử chỉ tại mỗi thời điểm $t$ lần lượt, và sau khi nhiễu Guassian được thêm vào đến bước $T$ đủ lớn, đến khi kết quả trở nên nhiễu hoàn toàn và không thể phân biệt được với kết quả ban đầu.
-
-\subsection{Quá Trình Khử Nhiễu (Denoise)}
-
-Quá trình Denoise $p_{\theta}$ là quá trình học tham số $\theta$ thông qua một mạng neural. Giả sử quá trình Denoise cũng tuân theo phân phối Gaussian, tức là nhiễu $x_{t}$ tại thời điểm $t$ được sử dụng để học $\mu_{\theta}, \Sigma_{\theta}$, sau đó
-
-\begin{equation} \label{eq:diffusion}
-p_{\theta}\left(x_{t-1} \mid x_{t}\right)=\mathcal{N}\left(x_{t-1} ; \mu_{\theta}\left(x_{t}, t\right), \Sigma_{\theta}\left(x_{t}, t\right)\right)
-\end{equation}
-
-
-Để thuận tiện cho việc tính toán, ta cho $\alpha_{t}=1-\beta_{t}$ và viết gọn lại $\bar{\alpha}_{t}=\prod_{i=1}^{T} \alpha_{i}$. Sau đó, cử chỉ nhiễu $x_{t}$ tại thời điểm $t$ có thể được viết lại như sau:
-
-\begin{equation} \label{eq:denoisevariance}
-q\left(x_{t} \mid x_{0}\right)=\mathcal{N}\left(x_{t} ; \sqrt{\bar{\alpha}_{t}} x_{0},\left(1-\bar{\alpha}_{t}\right) \mathbf{I}\right)
-\end{equation}
-
-
-Mô hình học bằng cách tối ưu hóa bằng cách giảm thiểu sự khác biệt giữa nhiễu thực sự $\epsilon$ và nhiễu được dự đoán $\epsilon_{\theta}\left(x_{t}, t\right)$ \cite{ho2020denoising}. Khi lấy mẫu, chúng ta có thể học giá trị trung bình $\mu_{\theta}\left(x_{t}, t\right)=\frac{1}{\sqrt{\alpha_{t}}}\left(x_{t}-\frac{\beta_{t}}{\sqrt{1-\bar{\alpha}_{t}}} \epsilon_{\theta}\left(x_{t}, t\right)\right)$ với phương sai cố định.
-
-\subsection{Framework}
+\subsection{Sinh cử chỉ với điều kiện}
 
 Mục tiêu của chúng tôi là tổng hợp một cử chỉ con người $x^{1: N}$ có độ dài $N$ dựa trên điều kiện $c$. Trong mô hình OHGesture, tương tự như các phương pháp \cite{ramesh2022hierarchical} \cite{tevet2022human}, chúng tôi dự đoán dự liệu thật thay vì dự đoán nhiễu $\epsilon_{\theta}\left(x_{t}, t\right)$ như \cite{ho2020denoising}. Quá trình khử nhiễu (Denoise) tái tạo dữ liệu gốc $x_{0}$ dựa trên nhiễu đầu vào $x_{t}$, bước làm nhiễu $t$ và điều kiện $c$
 
@@ -56,27 +107,12 @@ Sau đó, hàm khử nhiễu có thể được huấn luyện bằng cách tố
 \mathcal{L}=E_{x_{0} \sim q\left(x_{0} \mid c\right), t \sim[1, T]}\left[\operatorname{HuberLoss}\left(x_{0}-\hat{x}_{0}\right)\right]
 \end{equation}
 
-
-
 \section{Áp dụng cơ chế Attention cho bài toán sinh cử chỉ}
 
 \subsection{Hàm xử lý đặc trưng của quá trình khử nhiễu}
 
-Như kiến trúc \textbf{OHGesture} trình bày trong hình \autoref{fig:architecture}, cử chỉ được tạo ra dựa trên bước làm nhiễu $t$, cử chỉ nhiễu $x_{t}$ và điều kiện $c$ (bao gồm âm thanh $a$, cảm xúc $s$ và cử chỉ khởi tạo $d$ ). Đối với mỗi đặc trưng, quá trình sinh cử chỉ được xử lý như sau:
+Như kiến trúc \textbf{OHGesture} trình bày trong hình \autoref{fig:architecturediffusion}, cử chỉ được tạo ra dựa trên bước làm nhiễu $t$, cử chỉ nhiễu $x_{t}$ và điều kiện $c$ (bao gồm âm thanh $a$, cảm xúc $s$ và cử chỉ khởi tạo $d$ ). Đối với mỗi đặc trưng, quá trình sinh cử chỉ được xử lý như sau:
 
-\begin{itemize}
-  \item Bước làm nhiễu: Trong quá trình huấn luyện, bước làm nhiễu $t$ được lấy mẫu từ phân phối chuẩn của $\{1,2, \ldots, T\}$, với mã hóa vị trí (position encoding) giống như mô hình Transformer \cite{vaswani2017attention}, sau đó được ánh xạ vào không gian $\mathbf{T}$ có kích thước 256 bằng một mạng perceptron nhiều lớp (MLP).
-
-  \item Cử chỉ nhiễu (Noisy gesture): khi huấn luyện, $x_{t}$ là cử chỉ nhiễu có cùng kích thước như cử chỉ gốc $x_{0}$ sẽ được sinh ngẫu nhiên từ phân phối chuẩn $\mathcal{N}(0, \mathbf{I})$. Khi sinh ngẫu nhiên, cử chỉ nhiễu ban đầu $x_{T}$ được lấy mẫu từ phân phối chuẩn tiêu chuẩn và các $x_{t}, t<T$ khác là kết quả của bước làm nhiễu trước đó. Sau đó, kích thước được điều chỉnh thành 256 như $\mathbf{G}$ bằng lớp linear.
-
-  \item Âm thanh: Tất cả dữ liệu âm thanh được giảm số sample rate (downsampled) xuống $16 \mathrm{kHz}$ và các vector tiềm ẩn được lấy từ các mô hình pre-train của WavLM Large \cite{chen2022wavlm}. Chúng tôi sử dụng nội suy tuyến tính (interpolation) để căn chỉnh đặc trưng của vector tiềm ẩn trong WavLM và cử chỉ $x_{0}$ theo chiều thời gian thành $20fps$, sau đó sử dụng một lớp tuyến tính để giảm kích thước của đặc trưng xuống còn 64 tạo thành chuỗi đặc trưng âm thanh cuối cùng $\mathbf{A}$.
-
-  \item Cảm xúc: Các cảm xúc của cử chỉ được biểu diễn dưới dạng vectơ one-hot encoding, tức thành vector toàn bộ là số $0$ và vị trí có cảm xúc tương ứng có vị trí là $1$, vector one-hot encoding được ánh xạ vào không gian có kích thước 64 $\mathbf{S}$ thông qua một lớp tuyến tính.
-
-  \item Cử chỉ khởi tạo: Cử chỉ khởi tạo giúp tạo ra sự chuyển tiếp mượt mà giữa các lần sinh liên tiếp \cite{yoon2020speech}. Cử chỉ khởi được cắt ngắn xuống $g \in$ $\mathbb{R}^{(8+N) \times 1141}$. Trong quá trình training, $8$ frame đầu tiên của cử chỉ $g$ được sử dụng làm cử chỉ khởi tạo $d$ và $N$ frame còn lại được sử dụng làm cử chỉ thật $x_{0}$ để tính hàm loss $\mathcal{L}$. Sau đó, chúng tôi ánh xạ các đặc trưng của cử chỉ khởi tạo $d$ vào không gian $\mathbf{D}$ có kích thước $192$ chiều bằng một lớp tuyến tính. 
-  Kết quả cử chỉ được sinh ra trong $4$ giây, và vì cử chỉ sinh ra được chạy ở $20 \mathrm{fps}$ (tương đương 20 khung hình mỗi giây) nên kích thước $N=80$.
-
-\end{itemize}
 
 \subsection{Cơ chế Attention trong hàm khử nhiễu}
 
@@ -86,7 +122,7 @@ Chúng tôi thực hiện việc khử nhiễu với kiến trúc dựa trên c�
 Sau đó, vectơ $\mathbf{Z}$ và các bản sao của nó được ghép thành một chuỗi vector đặc trưng để khớp với dòng thời gian của âm thanh và đặc trưng cử chỉ, sau đó ghép với âm thanh $\mathbf{A}$ và cử chỉ $\mathbf{G}$ để làm đầu vào cho lớp local attention (chú ý cục bộ). 
 Phương pháp sinh cử chỉ song hành với âm thanh của chúng tôi sử dụng lớp Local Attention được lấy ý tưởng từ phương pháp Routing Transformer \cite{roy2021efficient}, mà cho thấy rằng local attention quan trọng trong việc xây dựng biểu diễn trung gian, như được thể hiện trong Hình 3(c).
 
-Sau đó, chúng tôi nối đầu ra của lớp local attention với $\mathbf{Z}$ và đưa vào lớp self-attention, như được thể hiện trong \autoref{fig:architecture}. Cơ chế self-attention tương tự như trình mã hóa (encoding) của Transformer \cite{vaswani2017attention}, giúp tính toán được mối liên hệ giữa các chuỗi dữ liệu với công tức sau:
+Sau đó, chúng tôi nối đầu ra của lớp local attention với $\mathbf{Z}$ và đưa vào lớp self-attention, như được thể hiện trong \autoref{fig:architecturediffusion}. Cơ chế self-attention tương tự như trình mã hóa (encoding) của Transformer \cite{vaswani2017attention}, giúp tính toán được mối liên hệ giữa các chuỗi dữ liệu với công tức sau:
 
 
 \begin{equation} \label{eq:attention}
@@ -117,7 +153,6 @@ trong đó $\mathbf{Q}, \mathbf{K}, \mathbf{V}$ là vector query, key và value 
 \caption[Các loại attention khác nhau (full self-attention, sliding window attention, cross-local attention)]{Các loại attention khác nhau được sử dụng trong các thí nghiệm của chúng tôi, trong đó (a) và (c) là cơ chế attention được sử dụng trong mô hình của chúng tôi và (b) là một mẫu được sử dụng để đánh giá trong thực nghiệm. Mỗi dòng tương ứng với input và mỗi cột tương ứng với output của mô hình}
 \end{figure*}
 
-
 % Phần 4.3. Các hàng đại diện cho các đầu ra và các cột đại diện cho đầu vào. Các hình vuông màu sáng tô màu cho các phần tử liên quan đến mỗi dòng đầu ra.
 
 
@@ -126,8 +161,7 @@ tương tự như phương pháp Longformer \cite{beltagy2020longformer} chúng 
 
 \subsection{Phương pháp sample cử chỉ}
 
-
-Để có thể sinh cử chỉ với chiều dài tùy ý, chúng tôi cắt chuỗi ban đầu thành các đoạn ngắn có chiều dài $N$. Trong quá trình huấn luyện, cử chỉ khởi tạo đầu tiên có thể được tạo ra bằng cách lấy ngẫu nhiên cử chỉ từ tập dữ liệu hoặc từ lấy trung bình từ đoạn cắt được. Cụ thể ở đây, sẽ lấy góc quay trung bình trong các đoạn đã cắt được. Tiếp theo chúng ta chỉ việc lấy lần lượt các frame đã sinh ra và chọn $8$ frame cuối cùng làm cử chỉ khởi tạo ở lượt tiếp theo. Đối với mỗi đoạn đã cắt ra, cử chỉ $x_{t}$ lần lượt sẽ được áp dụng hàm khử nhiều $\hat{x}_{0} = Denoise \left(x_{t}, t, c\right)$ cho đến khi được  $x_{t-1}$, và $x_{t-1}$ sẽ tiếp tục được làm khử nhiễu cho đến bước khử nhiễu $t=T$ sẽ đạt được $x_{0}$ như kiến trúc trong phần \autoref{fig:architecture}.
+Để có thể sinh cử chỉ với chiều dài tùy ý, chúng tôi cắt chuỗi ban đầu thành các đoạn ngắn có chiều dài $N$. Trong quá trình huấn luyện, cử chỉ khởi tạo đầu tiên có thể được tạo ra bằng cách lấy ngẫu nhiên cử chỉ từ tập dữ liệu hoặc từ lấy trung bình từ đoạn cắt được. Cụ thể ở đây, sẽ lấy góc quay trung bình trong các đoạn đã cắt được. Tiếp theo chúng ta chỉ việc lấy lần lượt các frame đã sinh ra và chọn $8$ frame cuối cùng làm cử chỉ khởi tạo ở lượt tiếp theo. Đối với mỗi đoạn đã cắt ra, cử chỉ $x_{t}$ lần lượt sẽ được áp dụng hàm khử nhiều $\hat{x}_{0} = Denoise \left(x_{t}, t, c\right)$ cho đến khi được  $x_{t-1}$, và $x_{t-1}$ sẽ tiếp tục được làm khử nhiễu cho đến bước khử nhiễu $t=T$ sẽ đạt được $x_{0}$ như kiến trúc trong phần \autoref{fig:architecturediffusion}.
 
 
 % chúng tôi , trong mỗi bước làm nhiễu $t$, chúng tôi dự đoán cử chỉ sạch  $=$  $\left(x_{t}, t, c\right)$, và thêm nhiễu vào bước làm nhiễu $x_{t-1}$ sử dụng Phương trình (1) với quá trình trải đều. Quá trình này được lặp lại từ $t=T$ cho đến khi đạt được $x_{0}$ (Hình 2 dưới cùng).
@@ -156,7 +190,7 @@ tương tự như phương pháp Longformer \cite{beltagy2020longformer} chúng 
 
 
 Ở các bước trên mô hình đã có thể học được cách sinh cử chỉ, nhưng để mô hình có thể học được các cảm xúc ở các tình huống khác nhau sẽ được giải quyết bằng cách tham số hóa và lần lượt thay đổi từng cảm xúc để sao cho khi thay đổi cảm xúc thì kết quả dự đoán phải có cảm xúc tương ứng.
-Tham số để điều khiển ở đây là $c$, việc điều khiển ở đây không chỉ có thể là âm thanh $a$ mà còn là cảm xúc $s$ hoặc cử chỉ khởi tạo $d$, v.v. Chúng tôi tham khảo phương pháp của \cite{ho2022classifier}, \cite{tevet2022human}, bằng cách thêm một lớp mặt nạ ngẫu nhiên (random mask) trên các vector đặc trưng của cử chỉ khởi tạo $d$ và cảm xúc $s$ vào mô hình như hình minh họa \autoref{fig:architecture} để giúp kiểm soát chính xác việc mô hình có thể học được các đặc trưng ở các điều kiện khác nhau. Khi đó, mô hình chỉ việc thay đổi nhãn tương ứng với lớp mask đã lấy ngẫu nhiên để mô hình có thể tối ưu theo các điều kiện khác nhau. Khi đó hàm khử nhiễu $\text{Denoise} \left(x_{t}, t, c_{1}\right), c_{1}=[d, s, a]$ và hàm khử nhiễu mà không có điều kiện $\text{Denoise} \left(x_{t}, t, c_{2}\right), c_{2}=[\varnothing, \varnothing, a]$ sẽ được tối ưu trong quá trình huấn luyện, theo công thức
+Tham số để điều khiển ở đây là $c$, việc điều khiển ở đây không chỉ có thể là âm thanh $a$ mà còn là cảm xúc $s$ hoặc cử chỉ khởi tạo $d$, v.v. Chúng tôi tham khảo phương pháp của \cite{ho2022classifier}, \cite{tevet2022human}, bằng cách thêm một lớp mặt nạ ngẫu nhiên (random mask) trên các vector đặc trưng của cử chỉ khởi tạo $d$ và cảm xúc $s$ vào mô hình như hình minh họa \autoref{fig:architecturediffusion} để giúp kiểm soát chính xác việc mô hình có thể học được các đặc trưng ở các điều kiện khác nhau. Khi đó, mô hình chỉ việc thay đổi nhãn tương ứng với lớp mask đã lấy ngẫu nhiên để mô hình có thể tối ưu theo các điều kiện khác nhau. Khi đó hàm khử nhiễu $\text{Denoise} \left(x_{t}, t, c_{1}\right), c_{1}=[d, s, a]$ và hàm khử nhiễu mà không có điều kiện $\text{Denoise} \left(x_{t}, t, c_{2}\right), c_{2}=[\varnothing, \varnothing, a]$ sẽ được tối ưu trong quá trình huấn luyện, theo công thức
 
 \begin{equation} \label{eq:denoise}
 \hat{x}_{0 \gamma, c_{1}, c_{2}}=\gamma \text{Denoise} \left(x_{t}, t, c_{1}\right)+(1-\gamma) \text{Denoise} \left(x_{t}, t, c_{2}\right)
@@ -200,9 +234,7 @@ Trong thực tế, hàm Denoise học cả phân phối có điều kiện và k
 
 % Cụ thể quá trình huấn luyện của mô hình bao gồm các quá trình như sau: Lượng tử hóa (Quantization), Ghép các chuyển động cử chỉ (Motion Matching), Điều hướng dựa theo pha của cử chỉ (Phrase Guided).
 
-% Kiến trúc mô hình được trình bày minh họa trong hình \autoref{fig:architecture}.
-
-
+% Kiến trúc mô hình được trình bày minh họa trong hình \autoref{fig:architecturediffusion}.
 
 
 

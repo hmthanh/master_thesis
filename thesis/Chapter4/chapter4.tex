@@ -4,11 +4,51 @@
 \section{So với các phương pháp hiện tại}
 \label{sec:result}
 
+
 Chúng tôi so sánh mô hình đề xuất của chúng tôi với StyleGestures \cite{alexanderson2020style}, Audio2Gestures \cite{li2021audio2gestures}, ExampleGestures \cite{ghorbani2023zeroeggs}. Hiện tại, các cử chỉ điều khiển bằng giọng nói thiếu các chỉ số mục tiêu phản ánh một cách nhất quán với nhận thức chủ quan của con người \cite{yoon2022genea}; \cite{kucherenko2021large}; \cite{alexanderson2022listen}, ngay cả với Fréchet gesture distance (FGD) \cite{yoon2022genea}, \cite{dabral2023mofusion}, do đó tất cả các điểm số thực nghiệm của chúng tôi được thực hiện thông qua đánh giá chủ quan của con người. Chúng tôi thực hiện đánh giá trên ba chiều. Hai chiều đầu tiên theo đánh giá trong GENEA \cite{yoon2022genea}, bao gồm đánh giá về độ giống con người và sự phù hợp giữa cử chỉ và giọng nói. Chiều thứ ba là sự phù hợp giữa cử chỉ và phong cách.
 
 Nghiên cứu Người Dùng. Để hiểu về hiệu suất thị giác thực tế của phương pháp của chúng tôi, chúng tôi tiến hành một nghiên cứu người dùng giữa các trình tự cử chỉ được tạo ra bởi mỗi phương pháp được so sánh và dữ liệu chụp chuyển động thực. Độ dài của các đoạn clip được đánh giá dao động từ 11 đến 51 giây, với độ dài trung bình là 31.6 giây. Lưu ý rằng các cử chỉ clip được sử dụng cho đánh giá chủ quan ở đây dài hơn so với đánh giá GENEA \cite{yoon2022genea} (8-10 giây), vì một khoảng thời gian dài có thể tạo ra kết quả phù hợp rõ ràng và thuyết phục hơn \cite{yang2022reprgesture}. Người tham gia đánh giá trên một khoảng điểm từ 5 đến 1, với các nhãn (tốt nhất đến tệ nhất) là "tuyệt vời," "tốt," "công bằng," "kém," và "tệ." Thêm chi tiết về nghiên cứu người dùng được hiển thị trong tư liệu bổ sung.
 
 Điểm số ý kiến trung bình (MOS) về độ giống con người, phù hợp giọng nói và phù hợp phong cách được báo cáo trong \autoref{fig:mosscore}. Nếu các góc của hai hộp không chồng lên nhau, chúng ta có thể coi đây là bằng chứng mạnh mẽ rằng các phân phối khác nhau đáng kể \cite{mcgill1978variations}. Phương pháp của chúng tôi vượt trội đáng kể so với các phương pháp tiên tiến được so sánh với độ giống con người, phù hợp giữa cử chỉ và giọng nói, cũng như phù hợp giữa cử chỉ và phong cách, và thậm chí tạo ra các kết quả cạnh tranh với dữ liệu thực tế ở cả ba chiều. Theo phản hồi từ người tham gia, cử chỉ được tạo ra bởi chúng tôi "có ý nghĩa ngữ nghĩa hơn", "tự nhiên hơn," và "phù hợp với phong cách," trong khi phương pháp của chúng tôi có "chuyển động trượt chân" so với Dữ liệu Thực. Tuy nhiên, đây là một vấn đề phổ biến đối với các hệ thống tạo ra chuyển động không dựa trên vật lý và có thể được giải quyết thông qua xử lý sau \cite{ghorbani2023zeroeggs}, \cite{luvizon2023scene}.
+
+\begin{table}[t]
+	\centering
+	\caption{Impact of the positional encoding block.}
+	\label{tab:pos_enc}
+	
+	\newcolumntype{Y}{>{\raggedleft\arraybackslash}X}
+	\newcolumntype{Z}{>{\centering\arraybackslash}X}
+%	\begin{tabularx}{\linewidth}{XlYY}
+	
+%		
+	
+%		\bottomrule
+%		\begin{tabularx}{\linewidth}{XlYY}
+%		\toprule
+%		Dataset & System & FGD $\downarrow$ & PMB ($\%$) $\uparrow$ \\
+%		\toprule
+%		\multirow{2}{*}{TED} & Without positional encoding & 2.19 & 88.13 \\
+%		& With positional encoding & $\bm{2.04}$ & $\bm{89.52}$ \\
+%		\bottomrule
+%		\end{tabularx}
+ \begin{tabularx}{\linewidth}{XlYY}
+	\toprule
+	Dataset & System & FGD $\downarrow$ & PMB ($\%$) $\uparrow$ \\
+	\toprule
+	\multirow{2}{*}{TED} & encoding & 2.19 & 88.13 \\
+	& With positional encoding & $2.04$ & $89.52$ \\
+	\bottomrule
+\end{tabularx}
+%		\multirow{2}*{Trinity} & Without positional encoding & 11.15 & 89.98 \\
+%				& With positional encoding & $\bm{10.78}$ & $\bm{91.36}$ \\
+%\hline
+%This is a long entry that will automatically adjust its width. & Short text & Another long entry that will also adjust its width. \\
+%\hline
+%More text & Another short entry & Yet another long entry to demonstrate text wrapping and width adjustment. \\
+%\hline
+
+\end{table}
+
 
 % \section{Đánh Giá}
 % \label{sec:experiments}
