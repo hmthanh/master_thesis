@@ -87,11 +87,29 @@ Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
 	\item $\mathbf{d}_{\text{gaze}} \in \mathbb{R}^3$: Là hướng nhìn
 \end{itemize}
 
-\begin{figure}
+
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=0.8\linewidth]{images/skeleton_sample.png}
+%	\caption{Minh họa một cử chỉ và mô hình nhân vật}
+%	\label{fig:software}
+%\end{figure}
+
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.8\linewidth]{images/skeleton_sample.png}
-	\caption{Minh họa một cử chỉ và mô hình nhân vật}
-	\label{fig:software}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=6cm]{images/Skeleton.png}
+		\caption{Khung xương và tên của các khớp của một khung xương trong mỗi khung hình.}
+		\label{fig:Skeleton}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=6cm]{images/MotionPastAndFuture.png}
+		\caption{Chuỗi chuyển động của cử chỉ bao gồm 6 cử chỉ quá khứ và 6 cử chỉ tương lai.}
+		\label{fig:MotionPastAndFuture}
+	\end{subfigure}
 \end{figure}
 
 Tổng cộng có $75$ khớp (joins) hay $n_{\text{join}} = 75$, với mỗi khung hình (frame) ta sẽ có một vector gồm 1141 chiều.
