@@ -1,0 +1,72 @@
+
+
+\begin{frame}{Độ đo}
+	Các độ đo trong Gesture Generation:
+	\begin{itemize}
+		\item Human-likeness
+		\item Gesture-Speech Appropriateness
+		\item Gesture-style Appropriateness
+	\item {FID (Fréchet Inception Distance)}:
+%	\vspace{-5mm}
+	\begin{equation*}
+		\operatorname{FID} = \left\| \mu_{\operatorname{real}} - \mu_{\operatorname{fake}} \right\|^2 + \operatorname{Tr} \left( \Sigma_{\operatorname{real}} + \Sigma_{\operatorname{fake}} - 2 \left( \Sigma_{\operatorname{real}} \Sigma_{\operatorname{fake}} \right)^{\frac{1}{2}} \right)
+	\end{equation*}
+%	\vspace{-5mm}
+	 \item Mean opinion scores (MOS)
+	
+\end{itemize}
+\end{frame}
+\begin{frame}{Kết quả}
+	\begin{columns}
+	\begin{column}{0.33\textwidth}
+		\includegraphics[width=\linewidth]{BoxHumanLikeness.pdf}
+	\end{column}
+	
+	\begin{column}{0.33\textwidth}
+		\includegraphics[width=\linewidth]{BoxSpeechAppropriateness.pdf}
+	\end{column}
+	
+	\begin{column}{0.33\textwidth}
+		\includegraphics[width=\linewidth]{BoxStyleAppropriateness.pdf}
+	\end{column}
+\end{columns}
+
+%Thử nghiệm với các thành phần cấu trúc trong mô hình:	
+%
+%\begin{enumerate}
+%\item Sử dụng đặc trưng WavLM
+%\item 
+%\end{enumerate}
+
+%\begin{itemize}
+%	\item (1)sdf 
+%\end{itemize}
+
+\begin{table}[!t]
+%	\footnotesize
+\tiny
+	\centering
+	\resizebox{\columnwidth}{!}{%
+		\begin{tabular}{lcc}
+			\hline
+			\multicolumn{1}{c}{Name} &
+			\begin{tabular}[c]{@{}c@{}}Human\\ likeness \end{tabular}$\uparrow$ &
+			\begin{tabular}[c]{@{}c@{}}Gesture-speech\\ appropriateness\end{tabular}$\uparrow$ \\ \hline
+			Ground Truth          & 4.15 $\pm$ 0.11          & 4.25 $\pm$ 0.09          \\
+			Ours                  & \textbf{4.11 $\pm$ 0.08} & \textbf{4.11 $\pm$ 0.10} \\
+			\quad$-$ WavLM             & 4.05 $\pm$ 0.10          & 3.91 $\pm$ 0.11          \\
+			\quad$-$ Cross-local attention   & 3.76 $\pm$ 0.09          & 3.51 $\pm$ 0.15          \\
+			\quad$-$ Self-attention    & 3.55 $\pm$ 0.13          & 3.08 $\pm$ 0.10          \\
+			% \begin{tabular}[c]{@{}c@{}}$-$ attention (GRU based) \\ (GRU based)\end{tabular} &
+			\quad$-$ Attention + GRU&
+			3.10 $\pm$ 0.11 &
+			2.98 $\pm$ 0.14 \\
+			\quad$+$ Forward attention & 3.75 $\pm$ 0.15          & 3.23 $\pm$ 0.24          \\
+			\hline
+		\end{tabular}%
+	}
+%	\caption{Kết quả của các nghiên cứu loại bỏ (Ablation studies). "$-$" chỉ các mô-đun không được sử dụng và "$+$" chỉ các mô-đun bổ sung. Chữ in đậm chỉ ra chỉ số tốt nhất.}
+	\label{Ab}
+\end{table}
+
+\end{frame}
