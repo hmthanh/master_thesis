@@ -35,21 +35,22 @@ Phương pháp thống kê sử dụng phân phối xác xuất để tìm sự 
 
 \subsubsection{Phương pháp học sâu}
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{pdf/survey_generation.pdf}
+	\caption{
+		Tổng quan về các mô hình tạo sinh khác nhau.}
+	\vspace{-10pt}
+	\label{fig:generative-models}
+\end{figure}
+
 Phương pháp học sâu sử dụng mạng nơ-ron (neural) thông qua nhiều lớp ẩn để học một cách tự động các phối xác xuất giữa cử chỉ và âm thanh.
 
 Mô hình được kết hợp với văn bản đầu vào được gắn thẻ với chủ đề, trọng tâm câu và thành ngữ để tạo ra các kịch bản cử chỉ, sau đó được ánh xạ sang một chuỗi các cử chỉ được chọn từ một từ điển hoạt họa. \cite{chiu2015predicting} huấn luyện một mô hình phân loại thần kinh để chọn một đơn vị cử chỉ phù hợp dựa trên đầu vào lời nói. Nghiên cứu gần đây đã bắt đầu tận dụng học sâu và huấn luyện các mô hình kết thúc đến cuối sử dụng dữ liệu cử chỉ thô trực tiếp, giải phóng các nỗ lực thủ công trong thiết kế từ điển cử chỉ và các quy tắc ánh xạ. Cử chỉ có thể được tổng hợp bằng các mô hình xác định như perceptron đa tầng (MLP) \cite{kucherenko2020gesticulator}, recurrent neural networks \cite{bhattacharya2021speech2affectivegestures}, \cite{liu2022learning}, \cite{hasegawa2018evaluation}, \cite{yoon2020speech}, convolutional networks \cite{habibie2021learning} và transformer \cite{bhattacharya2021text2gestures} và các mô hình như normalizing flow \cite{alexanderson2020style}, WGAN \cite{wu2021probabilistic} và phương pháp học code nhiễu \cite{xu2022freeform}.
 
 %\section{Mô hình diffusion}
 
-\begin{figure}[t]
-	\centering
-	\includegraphics[width=\linewidth]{pdf/survey_generation.pdf}
-	\caption{
-		Tổng quan về các mô hình tạo sinh khác nhau.
-	}
-	\vspace{-3mm}
-	\label{fig:generative-models}
-\end{figure}
+
 
 Với đặc điểm dữ liệu là giá trị của các góc quay, các toạ độ của điểm khớp, nên cần độ chi tiết cao để tạo ra sự chân thực trong các chuyển động của nhân vật. Ngoài ra dữ liệu sẽ thiếu và rất ít dữ liệu trong các trường hợp cực trị của tham số.
 Nên chúng tôi sử dụng mô hình Diffusion, với đặc điểm là có thể học được độ chi tiết cao hơn và có thể phủ được dữ liệu trong các trường hợp cực trị của tham số.

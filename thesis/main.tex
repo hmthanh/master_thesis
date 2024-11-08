@@ -1,4 +1,3 @@
-
 \documentclass[oneside,a4paper,14pt]{extreport}
 
 % Font tiếng Việt
@@ -9,7 +8,6 @@
 \DeclareTextSymbolDefault{\DH}{T1}
 
 % Tài liệu tham khảo
-
 \usepackage[
 	sorting=nty,
 	backend=bibtex,
@@ -24,126 +22,10 @@
 
 % Chèn hình, các hình trong luận văn được để trong thư mục Images/
 \usepackage{graphicx}
-\graphicspath{ {Images/} }
-
-% Chèn và định dạng mã nguồn
-\usepackage{listings}
-\usepackage{color}
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\footnotesize,
-    breakatwhitespace=false,     
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
-}
-\lstset{style=mystyle}
 
 
-% Chèn và định dạng mã giả
-\usepackage{amsmath}
-\usepackage{algorithm}
-\usepackage[noend]{algpseudocode}
-\makeatletter
-\def\BState{\State\hskip-\ALG@thistlm}
-\makeatother
-
-% Bảng biểu
-\usepackage{multirow}
-\usepackage{array}
-\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-
-% Đổi tên mặc định
-\renewcommand{\chaptername}{Chương}
-\renewcommand{\figurename}{Hình}
-\renewcommand{\tablename}{Bảng}
-\renewcommand{\contentsname}{Mục lục}
-\renewcommand{\listfigurename}{Danh sách hình}
-\renewcommand{\listtablename}{Danh sách bảng}
-\renewcommand{\appendixname}{Phụ lục}
-
-% Định nghĩa
-\newtheorem{definition}{Định nghĩa}
-% Vẽ cây
-\usepackage{tikz}
-\usetikzlibrary{calc}
-\usetikzlibrary{trees}
-
-% Dãn dòng 1.5
-\usepackage{setspace}
-\onehalfspacing
-
-% Thụt vào đầu dòng
-\usepackage{indentfirst}
-
-% Canh lề
-\usepackage[
-  top=30mm,
-  bottom=25mm,
-  left=30mm,
-  right=20mm,
-  includefoot]{geometry}
-  
-% Trang bìa
-\usepackage{tikz}
-\usetikzlibrary{calc}
-\newcommand\HRule{\rule{\textwidth}{1pt}}
-% ========================================================================================= %
-% PACKAGE CUSTOMIZE
-% pdf
-\usepackage{pdfpages}
-
-\usepackage[strings]{underscore}
-\usepackage{url}
-
-% Math
-\usepackage{amsfonts}
-
-\usepackage{stmaryrd}
-\newcommand*\concat{\mathbin{\|}} % parallel
-
-% Vẽ cây
-\usetikzlibrary{trees}
-
-% caption
-\usepackage[justification=centering,font=small,labelfont=bf]{caption}
-\captionsetup[figure]{font=small}
-% % subfigure
-\usepackage[font=small,labelfont=bf]{subcaption}
-\usepackage{wrapfig}
-% \usepackage[justification=centering,font=normalsize]{caption}
-
-\renewcommand{\figureautorefname}{Hình}
-% \renewcommand{\thesection}{\arabic{section}}
-% \renewcommand\thesubsection{\alph{subsection}.}
-\renewcommand{\thefigure}{\arabic{figure}}
-\renewcommand{\theequation}{\arabic{equation}} % Change equation numbering style to consecutive numbers
-\renewcommand{\equationautorefname}{Phương trình} % Change "Equation" to "Formula"
-\usepackage{tocloft}
-\usepackage{tabularx}
-\usepackage{booktabs}
-
-% Bảng thuật ngữ
-\usepackage[acronym,nomain]{glossaries}
-
-% Customize 
-\usepackage[export]{adjustbox}
+\input{Preamble/preamble.tex}
+\input{Preamble/commands.tex}
 % ========================================================================================= %
 % CHÚ Ý: Thông tin chung về KLTN - sinh viên điền vào đây để tự động update các trang khác  %
 % ========================================================================================= %
@@ -211,8 +93,10 @@
 
 % \DeclareNameAlias{sortname}{last-first}
 % \DeclareNameAlias{default}{last-first}
-
+{
+\tiny
 \printbibliography[heading=subbibliography, title={Reference}, resetnumbers=1] 
+}
 % ===================================================================== %
 % CHÚ Ý: phải gán lại resetnumbers=số tài liệu tham khảo tiếng Việt + 1 %
 % ===================================================================== %

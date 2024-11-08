@@ -1,15 +1,23 @@
 \chapter{Kết luận}
 \label{Chapter5}
 
-Trong bài báo này, chúng tôi đề xuất \textbf{OHGesture}, một phương pháp dựa trên mô hình diffusion để tạo ra đồng thời cử chỉ dựa trên âm thanh. \textbf{OHGesture} thể hiện ba điểm mạnh chính:
+Việc học cử chỉ tương ứng với giọng nói (speech-drive gesture generation) qua thực tế cho thấy mô hình chúng tôi đề xuất \textbf{OHGesture} không chỉ đạt kết quả tốt với dữ liệu gốc mà cử chỉ còn có thể sinh ra cử chỉ đạt kết quả tốt ở những âm thanh không có trong dữ liệu. Qua quá trình thực nghiệm, chúng tôi có thể chứng mô hình \textbf{OHGesture} đạt được kết quả sau:
 
-1) Dựa trên một mô hình diffusion, ánh xạ xác suất tăng cường sự đa dạng trong khi cho phép tạo ra các cử chỉ chất lượng cao, giống con người.
+1). Mô hình đạt kết quả tốt trong việc sinh cử chỉ dựa trên âm thanh, tạo ra các cử chỉ chất lượng cao, giống con người (human-likeness).
 
-2) Mô hình của chúng tôi tổng hợp các cử chỉ sao cho chúng khớp với nhịp âm thanh và ngữ nghĩa văn bản dựa trên các cơ chế tập trung chéo và tập trung tự.
+2) Dựa trên phương pháp Classifier-Free Guidance, chúng tôi có thể sử dụng mô hình diffusion có điều kiện, với điều kiện bao gồm cảm xúc và cử chỉ khởi tạo. Mô hình đã có thể nội suy ra được những cảm xúc, hoặc khoảng cách ở giữa hai cảm xúc. 
 
-3) Sử dụng phương pháp huấn luyện hướng dẫn không cần bộ phân loại, chúng ta có thể kiểm soát các điều kiện cụ thể, tức là phong cách và cử chỉ ban đầu, và thực hiện nội suy hoặc mở rộng để đạt được một mức kiểm soát cao đối với các cử chỉ được tạo ra.
+3) Dựa vào cơ chế self-attention và cross attention, chúng tôi có thể sinh ra cử chỉ tương ứng với giọng nói, có khả năng liên với bối cảnh.
 
-Đánh giá chủ quan cho thấy rằng mô hình của chúng tôi vượt trội so với các phương pháp hiện có trong nhiệm vụ tạo ra cử chỉ đồng thời dựa trên âm thanh và thể hiện khả năng thao tác phong cách cao hơn. Còn nhiều không gian để cải thiện trong nghiên cứu này, ví dụ, giải quyết vấn đề nhiều bước lấy mẫu và tiêu thụ thời gian lâu của các phương pháp diffusion để sử dụng trong các hệ thống thời gian thực là hướng nghiên cứu của chúng tôi trong tương lai.
+%Mô hình của chúng tôi tổng hợp các cử chỉ sao cho chúng khớp với nhịp âm thanh và ngữ nghĩa văn bản dựa trên các cơ chế tập trung chéo và tập trung tự.
+
+%3) Sử dụng phương pháp huấn luyện hướng dẫn không cần bộ phân loại, chúng ta có thể kiểm soát các điều kiện cụ thể, tức là cảm xúc và cử chỉ khởi tạo, và thực hiện nội suy hoặc mở rộng để đạt được một mức kiểm soát cao đối với các cử chỉ được tạo ra.
+
+4) Kết quả thực nghiệm cho thấy, mô hình của chúng tôi có thể sinh cử chỉ đạt kết quả tốt ngay cả với trường hợp âm thanh không nằm trong tập huấn luyện.
+
+Trong các độ đo về human-likeness, emotion-likeness và speech appropriateness mô hình của chúng tôi vượt trội so với các phương pháp hiện có trong nhiệm vụ tạo ra cử chỉ đồng thời dựa trên âm thanh và thể hiện khả năng thao tác phong cách cao hơn.
+Trong hướng nghiên cứu tương lai, chúng tôi dự định sẽ sử dụng các thuật toán Fourier để tách chuỗi chuyển động của cử chỉ để có thể học được pha trong các chuyển động cử chỉ.
+% Còn nhiều không gian để cải thiện trong nghiên cứu này, ví dụ, giải quyết vấn đề nhiều bước lấy mẫu và tiêu thụ thời gian lâu của các phương pháp diffusion để sử dụng trong các hệ thống thời gian thực là hướng nghiên cứu của chúng tôi trong tương lai.
 
 % Trong phần này chúng tôi đưa ra các kết quả đạt được của mô hình chúng tôi, chúng tôi cố gắng tìm hiểu các đặc trưng của các bộ dữ liệu tương ứng để cố gắng lý giải thích tại sao mô hình của chúng tôi hoặc các công trình khác có được kết quả tốt trên tập dữ liệu tương ứng đó. Những kết quả của hai đề xuất của chúng tôi cũng như các dịnh hướng nghiên cứu của chúng tôi trong tương lai.
 

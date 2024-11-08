@@ -60,6 +60,24 @@ Mục tiêu của việc sinh cử chỉ (gesture generation) bằng phương ph
 %Sinh cử chỉ (gesture generation) là bài toán dựa vào những dữ liệu trước đó bao gồm văn bản và âm thanh, cử chỉ khởi tạo để nội suy ra chuỗi cử chỉ tiếp theo.
 Sinh cử chỉ là bài toán hồi quy (regression), với đầu vào là một chuỗi cử chỉ cho trước và kết quả đầu ra là chuỗi cử chỉ tiếp tục với cử chỉ trước đó.
 
+
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[height=10cm]{images/Skeleton.png}
+		\caption{\small Khung xương và tên của các khớp của một khung xương trong mỗi khung hình.}
+		\label{fig:Skeleton}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[height=10cm]{images/MotionPastAndFuture.png}
+		\caption{\small Chuỗi chuyển động của cử chỉ bao gồm 6 cử chỉ quá khứ và 6 cử chỉ tương lai.}
+		\label{fig:MotionPastAndFuture}
+	\end{subfigure}
+\end{figure}
+
 Mỗi khung hình chuyển động của một nhân vật hay khung xương (skeleton) bao gồm dữ liệu về toạ độ vị trí và vận tốc theo thời gian.
 Ở đây dữ liệu của chúng tôi của một khung xương với mỗi khung hình (frame) bao gồm:
 
@@ -72,7 +90,12 @@ Mỗi khung hình chuyển động của một nhân vật hay khung xương (sk
 \Big]
 \end{equation}
 
+
+
 Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
+{
+	\small
+
 \begin{itemize}
 	\item $\mathbf{p}_{\text{root}} \in \mathbb{R}^3$: Toạ độ của điểm gốc
 	\item $\mathbf{r}_{\text{root}} \in \mathbb{R}^4$: Góc quay của điểm gốc
@@ -85,7 +108,7 @@ Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
 	\item $\mathbf{r}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của góc quay các khung xương
 	
 	\item $\mathbf{d}_{\text{gaze}} \in \mathbb{R}^3$: Là hướng nhìn
-\end{itemize}
+\end{itemize}}
 
 
 %\begin{figure}
@@ -95,27 +118,22 @@ Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
 %	\label{fig:software}
 %\end{figure}
 
-\begin{figure}[htbp]
-	\centering
-	\begin{subfigure}{0.45\textwidth}
-		\centering
-		\includegraphics[height=6cm]{images/Skeleton.png}
-		\caption{Khung xương và tên của các khớp của một khung xương trong mỗi khung hình.}
-		\label{fig:Skeleton}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.45\textwidth}
-		\centering
-		\includegraphics[height=6cm]{images/MotionPastAndFuture.png}
-		\caption{Chuỗi chuyển động của cử chỉ bao gồm 6 cử chỉ quá khứ và 6 cử chỉ tương lai.}
-		\label{fig:MotionPastAndFuture}
-	\end{subfigure}
-\end{figure}
 
 Tổng cộng có $75$ khớp (joins) hay $n_{\text{join}} = 75$, với mỗi khung hình (frame) ta sẽ có một vector gồm 1141 chiều.
 Tập dữ liệu là tập nhiều chuỗi cử chỉ với độ dài tuỳ ý, từ mỗi cử chỉ độ dài tuỳ tý ta sẽ cắt thành các đoạn $8 + N$ khung hình, $g \in \mathbb{R}^{(8+N) \times 1141}$ , trong đó cử chỉ $g \in \mathbb{R}^{8 \times 1141}$ đầu tiên là cử chỉ khởi tạo (seed gesture), $g \in \mathbb{R}^{N \times 1141}$ cử chỉ tiếp theo cho việc dự đoán.
 
-Dữ liệu âm thanh $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{wave\_size } }$  là một chuỗi waveform có độ dài tương ứng với cử chỉ được đọc với sample rate là 16000. Chuỗi waveform sẽ được cắt thành các đoạn chồng nhau, áp dụng Hamming windows, và áp dụng thuật toán fast fourier transform để biến đổi chuỗi âm thanh thành các hệ số thể hiện cường độ của các tần số trong chuỗi âm thanh, các hệ số này được làm tròn thành các đoạn tần số (frequency bins), các đoạn hệ số này được chuẩn hoá theo hệ cơ số log để tương ứng với cảm nhận của tai người để có được đặc trưng MFCC $\mathbf{a} \in \mathbb{R}^{\text{size} \times \mathcal{C}}$ trong đó $\mathcal{C}=13$ là số frequency bins. 
+
+Dữ liệu âm thanh $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length } }$  là một chuỗi waveform có độ dài tương ứng với cử chỉ được đọc với sample rate là 16000. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{GestureSeries}
+	\caption{Minh hoạ một chuỗi cử chỉ, ta lấy $N$ frame đầu làm cử chỉ khởi tạo $s$ (seed gesture) và $M$ khung hình còn lại làm cử chỉ để học}
+	\label{fig:GestureSeries}
+\end{figure}
+
+
+%Chuỗi waveform sẽ được cắt thành các đoạn chồng nhau, áp dụng Hamming windows, và áp dụng thuật toán fast fourier transform để biến đổi chuỗi âm thanh thành các hệ số thể hiện cường độ của các tần số trong chuỗi âm thanh, các hệ số này được làm tròn thành các đoạn tần số (frequency bins), các đoạn hệ số này được chuẩn hoá theo hệ cơ số log để tương ứng với cảm nhận của tai người để có được đặc trưng MFCC $\mathbf{a} \in \mathbb{R}^{\text{size} \times \mathcal{C}}$ trong đó $\mathcal{C}=13$ là số frequency bins. 
 
 
 % \begin{figure}
@@ -139,16 +157,21 @@ Thứ tư, \textit{chi phí tính toán với nhiều loại dữ liệu của m
 
 Cuối cùng, \textit{các bước xử lý phải yêu cầu tuần tự}, cách hiệu quả nhất để con người tương tác với máy tính là thông qua giọng nói và nhập từ bàn phím, tuy nhiên việc xử lý được văn bản và giọng nói để làm đầu vào cho mô hình phải thực hiện tuần tự, độ trễ để có thể suy luận trong sản phẩm thực tế cũng là một vấn đề bởi người dùng không thể đợi lâu để nhận được kết quả cử chỉ và từ cử chỉ đó biểu diễn lên máy tính bằng kỹ thuật đồ họa máy tính.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{MotionCapture}
+	\caption{Khung chương trình xây dựng hệ thống sinh cử chỉ}
+	\label{fig:MotionCapture}
+\end{figure}
 
 \section{Đóng góp của chúng tôi}
 
 \begin{itemize}
-\item Chúng tôi mở rộng mô hình diffusion với thông tin thời gian cho việc sinh cử chỉ kèm theo lời nói dựa trên âm thanh. Nhờ mô hình diffusion, chúng tôi có thể kiểm soát một cách linh hoạt cử chỉ được sinh ra, ví dụ: chỉnh sửa phong cách của cử chỉ, thiết lập cử chỉ ban đầu, và sinh cử chỉ đa dạng.
+\item Chúng tôi mở rộng mô hình diffusion với thông tin thời gian cho việc sinh cử chỉ kèm theo lời nói dựa trên âm thanh. Nhờ mô hình diffusion, chúng tôi có thể kiểm soát một cách linh hoạt cử chỉ được sinh ra, ví dụ: chỉnh sửa phong cách của cử chỉ, thiết lập cử chỉ khởi tạo, và sinh cử chỉ đa dạng.
 
-\item Chúng tôi sử dụng chú ý cục bộ chéo và tự chú ý toàn cục để nắm bắt thông tin đặc trưng và sinh ra cử chỉ phù hợp hơn với lời nói.
+\item Chúng tôi sử dụng cross-local attention và self-attention để để học được bối cảnh và những quan hệ giữa cử chỉ và lời nói.
 
-\item Các thử nghiệm mở rộng chỉ ra rằng mô hình của chúng tôi có thể sinh ra cử chỉ giống người, phù hợp với lời nói, phù hợp với phong cách vượt trội so với các phương pháp sinh cử chỉ hiện có.
-
+\item Các thử nghiệm mở rộng chỉ ra rằng mô hình của chúng tôi có thể sinh ra cử chỉ giống người, phù hợp với lời nói (speech-appropriateness), phù hợp với cảm xúc (style-appropriateness) vượt trội so với các phương pháp sinh cử chỉ hiện có.
 \end{itemize}
 
 
