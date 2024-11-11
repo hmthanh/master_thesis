@@ -1,30 +1,19 @@
 
 \section{Mô hình sinh cử chỉ}
 
-\begin{frame}{Tổng quan về bài toán}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.8\linewidth]{SequenceGesture.jpg}
-	\end{figure}
-	
-	Cho chuỗi cử chỉ $\mathbf{g} \in \mathbb{R}^{(N+ M) \times D}$, với $\mathbf{s} \in \mathbb{R}^{N \times D}$ và đoạn cử chỉ nhãn $\mathbf{x}_0 \in \mathbb{R}^{M \times D}$ với $D=1141$, $N=8$, $M=80$. Chuỗi âm thanh $\mathbf{a} \in \mathbb{R}^{64000}$ (4s: $16000$ sample rate). Cảm xúc $\mathbf{e} \in \mathbb{R}^6$. 
-%	$\{\beta_t \in (0, 1)\}_{t=1}^T$
+%\begin{frame}{Tổng quan về bài toán}
+%%	\begin{figure}
+%%		\centering
+%%		\includegraphics[width=0.8\linewidth]{SequenceGesture.jpg}
+%%	\end{figure}
+%%	
+%	Cho chuỗi cử chỉ $\mathbf{g} \in \mathbb{R}^{(N+ M) \times D}$, với $\mathbf{s} \in \mathbb{R}^{N \times D}$ và đoạn cử chỉ nhãn $\mathbf{x}_0 \in \mathbb{R}^{M \times D}$ với $D=1141$, $N=8$, $M=80$. Chuỗi âm thanh $\mathbf{a} \in \mathbb{R}^{64000}$ (4s: $16000$ sample rate). Cảm xúc $\mathbf{e} \in \mathbb{R}^6$. 
+%%	$\{\beta_t \in (0, 1)\}_{t=1}^T$
+%
+%\end{frame}
 
-\end{frame}
 
-\begin{frame}{Vanilla Diffusion với $\epsilon$ Objective}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.95\linewidth]{GaussianDrift.jpg}
-	\end{figure}
-\end{frame}
 
-\begin{frame}{Condition Diffusion với $\mathbf{x}_0$ Objective}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.95\linewidth]{TrainingAndSampling.jpg}
-	\end{figure}
-\end{frame}
 
 \begin{frame}{Tổng quan phương pháp}
 	
@@ -38,7 +27,7 @@
 \begin{frame}{Kiến trúc OHGesture}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.8\linewidth]{OHGesture}
+		\includegraphics[width=0.9\linewidth]{OHGesture}
 	\end{figure}
 \end{frame}
 

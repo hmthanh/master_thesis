@@ -81,10 +81,10 @@
 				\Big]$
 			\end{itemize}
 			\vspace{10pt}
-			\textbf{Loại bài toán}: Hồi quy (regression)
-			\begin{itemize}
-				\item Cho trước $N$ khung hình (frame) cử chỉ, dự đoán $M$ khung hình tiếp theo tương ứng với âm thanh $\mathbf{a}$.
-			\end{itemize}
+%			\textbf{Loại bài toán}: Hồi quy (regression)
+%			\begin{itemize}
+%				\item Cho trước $N$ khung hình (frame) cử chỉ, dự đoán $M$ khung hình tiếp theo tương ứng với âm thanh $\mathbf{a}$.
+%			\end{itemize}
 		
 		\end{column}
 		
@@ -95,6 +95,38 @@
 				\end{figure}
 		\end{column}
 		
+	\end{columns}
+	
+\end{frame}
+
+\begin{frame}{Chuyển động của toạ độ}
+		\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth, height=40pt]{MotionXYZ.png}
+		\caption{Minh hoạ chuyển động của góc quay một Bone trong toạ độ}
+	\end{figure}
+	
+	\begin{columns}
+		\begin{column}{0.8\textwidth}
+			\begin{itemize}
+				\item $\mathbf{p} \in \mathbb{R}^3$: Toạ độ của điểm gốc
+				\item $\mathbf{r} \in \mathbb{R}^4$: Góc quay của điểm gốc
+				\item $\mathbf{p}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của toạ độ gốc
+				\item $\mathbf{r}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của góc quay gốc
+				
+				\item $\mathbf{p}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: Toạ độ của các khung xương
+				\item $\mathbf{r}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: Góc quay của các khung xương
+				\item $\mathbf{p}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của toạ độ các khung xương
+				\item $\mathbf{r}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của góc quay các khung xương
+				
+				\item $\mathbf{d}_{\text{gaze}} \in \mathbb{R}^3$: Là hướng nhìn
+			\end{itemize}
+		\end{column}
+		
+		\begin{column}{0.2\textwidth}
+			image here
+			
+		\end{column}
 	\end{columns}
 	
 \end{frame}
@@ -117,8 +149,8 @@
 		
 		\textbf{Input}
 		\begin{itemize}
-			\item Chuỗi cử chỉ khởi tạo: $\mathbf{g} \in \mathbb{R}^{N \times D}$
-			\item Chuỗi âm thanh: $\mathbf{a}_{\text{raw}}^{length}$ sample rate 16000 trong 4s: $\mathbf{a} \in \mathbb{R}^{6400}$
+			\item Chuỗi cử chỉ khởi tạo: $\mathbf{s} \in \mathbb{R}^{N \times D}$
+			\item Chuỗi âm thanh: $\mathbf{a}^{length}$ sample rate 16000 được cắt thành từng đoạn 4s: $\mathbf{a} \in \mathbb{R}^{6400}$
 %			trích xuất đặc trưng MFCC: $\mathbf{a} \in \mathbb{R}^{M \times C_{\text{mfcc}}}$
 			\item Cảm xúc: $\mathbf{e} \in \mathbb{R}^6$ (\texttt{Happy},  \texttt{Sad},  \texttt{Neutral}, \texttt{Angry}, \texttt{Old}, \texttt{Funny})
 		\end{itemize}
@@ -140,21 +172,25 @@
 \end{frame}
 
 \begin{frame}{Khung chương trình}
+	Sử dụng mô hình Diffusion Classifier-Free Guidance (có điều kiện) với cử chỉ $\bx^{1:M \times D}$ làm $x_0$ và điều kiện $c = [{\mathbf{s}, \mathbf{a}, \mathbf{e}}]$. $N = 8$, $M = 80 \sim \text{4 giây}$
+%	$N=8$ khung hình đầu làm khởi tạo và $M=80$ khung hình để dự đoán
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=\textwidth]{MotionCapture}
+			\includegraphics[width=\textwidth]{Framework}
 		\end{figure}
 	
-\textbf{Training}
-	\begin{itemize}
-		\item $f_{\theta}(\mathbf{g}_0, \mathbf{a}, \mathbf{e})$
-	\end{itemize}
+%\textbf{Training}
+%	\begin{itemize}
+%		\item $f_{\theta}(\mathbf{g}_0, \mathbf{a}, \mathbf{e})$
+%	\end{itemize}
+%
+%\textbf{Inference}
+%
+%	\begin{itemize}
+%		\item $\mathbf{x}' = f_{\theta'}$
+%	\end{itemize}
+%Dữ liệu phải được chuẩn hoá trên toàn bộ tập dữ liệu với $\mu(g) = 0$ và $\sigma = 1$. $\bx_{i} = \frac{\bx_{i} - \mu}{\sigma}$.
 
-\textbf{Inference}
-
-	\begin{itemize}
-		\item $\mathbf{x}' = f_{\theta'}$
-	\end{itemize}
 \end{frame}
 
 %\[
