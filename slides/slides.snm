@@ -1,6 +1,3 @@
-\beamer@slide {alg:training}{19}
-\beamer@slide {alg:sampling}{20}
-\beamer@slide {eq:attention}{24}
-\beamer@slide {eq:condition}{25}
-\beamer@slide {eq:denoise}{25}
-\beamer@slide {eq:huberloss}{25}
+\beamer@slide {Ab}{4}
+\beamer@slide {frame<1>}{6}
+\beamer@slide {frame}{6}

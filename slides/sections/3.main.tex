@@ -13,9 +13,45 @@
 %\end{frame}
 
 
+\begin{frame}{Diffusion cho bài toán sinh cử chỉ}
+	\textbf{Điểm giống}
+	\begin{itemize}
+		\item Sử dụng mô hình Diffusion \cite{yang2023diffusestylegesture} trên cử chỉ $\bx^{1:M \times D}$,  với $M$ frame theo thời gian, $D=1141$ là các điểm toạ độ chuyển động của mỗi khung hình (tương tự width và height trong ảnh).
+		\item Classifier-Free Diffusion Guidance với $\bx_0$ objective.
+		\item Latent vector có số chiều là $256$.
+		\end{itemize}
+		
+		\textbf{Điểm khác}
+		
+		\begin{itemize}
+			\item Sinh cử chỉ có điều kiện:
+			\begin{itemize}
+				\item Điều kiện cảm xúc: $c = \big[ \mathbf{s}, \mathbf{e}, \mathbf{a} \big]$ và $c_{\varnothing} = \big[ \varnothing, \varnothing, \mathbf{a} \big]$.
+				\item Nội suy trạng thái giữa hai cảm xúc $\mathbf{e}_1, \mathbf{e}_2$, sử dụng điều kiện: $c = \big[ \mathbf{s}, \mathbf{e}_1, \mathbf{a} \big]$ và $c_{\varnothing} = \big[ \mathbf{s}, \mathbf{e}_2, \mathbf{a} \big]$.
+			\end{itemize}
+			\item Self-Attention: Mối liên hệ giữa các cảm xúc, cử chỉ khởi tạo và từng frame (tương tự DALL-E 2 - mối liên hệ giữa văn bản và ảnh).
+			\item Concat âm thanh (Giống ControlNet - Pixel-wise Condition)
+%			\item Học mối liên hệ giữa điều kiện và các frame bằng Local-Cross Attention
+		\end{itemize}
+\end{frame}
 
+\begin{frame}{Tổng quan các công đoạn}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=\linewidth]{AllStage}
+	\end{figure}
+	
+\end{frame}
 
-\begin{frame}{Tổng quan phương pháp}
+\begin{frame}{Các công đoạn trong mô hình OHGesture}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\linewidth]{ModelStage}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Diffusion cho bài toán sinh cử chỉ}
 	
 	\begin{figure}
 		\centering
@@ -31,6 +67,13 @@
 	\end{figure}
 \end{frame}
 
+
+\begin{frame}{Attention}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.85\linewidth]{Attention}
+	\end{figure}
+\end{frame}
 
 \begin{frame}{Cross-Local Attention and Self-Attention}
 	\small
@@ -61,73 +104,9 @@
 			\end{figure}
 		\end{column}
 	\end{columns}
-	
-	
-	
+
 \end{frame}
 
-
-
-%\begin{frame}{}
-%%	Mục tiêu: Áp dụng mô hình Diffusion cho vector tiềm ẩn:
-%	1. Forward process:
-%	$$
-%	x_t = \sqrt{\alpha_t}x_0 + \sqrt{1-\alpha_t}\epsilon, \text{ where } \epsilon \sim \mathcal{N}(0,1)
-%	$$
-%	
-%	2. Model prediction
-%	- Input: $x_t$
-%	- Output: $\hat{x}_0$ (predicted clean motion)
-%	- Conversion between $\hat{x}_0$ and $\hat{\epsilon}$:
-%	$$
-%	\hat{\epsilon} = \frac{x_t - \sqrt{\alpha_t}\hat{x}_0}{\sqrt{1-\alpha_t}}
-%	$$
-%	
-%	$$\hat{x}_0 = \frac{x_t - \sqrt{1-\alpha_t}\hat{\epsilon}}{\sqrt{\alpha_t}}$$
-%	
-%	3. Loss
-%	$$\mathcal{L} = \| x_0 - \hat{x}_0\|^2 \text{ or } \|\epsilon - \hat{\epsilon}\|^2$$
-%
-%4. Sampling (Inference):
-%	$$x_{t-1} = \sqrt{\alpha_{t-1}}\hat{x}_0 + \sqrt{1-\alpha_{t-1}-\sigma_t^2}\hat{\epsilon} + \sigma_t z$$
-%%	\begin{figure}
-%%		\centering
-%%		\includegraphics[width=\linewidth]{OverviewArchitecture}
-%%	\end{figure}
-%	
-%\end{frame}
-%OverviewConditionDiffusion
-
-
-\begin{frame}{Emotion-controllable Gesture Generation}
-	\begin{equation} \label{eq:condition}
-		\hat{\mathbf{x}}_{0} = G \left(\mathbf{x}_{t}, t, c\right)
-	\end{equation}
-	
-	\textbf{Classifier-free guidance}
-	\begin{itemize}
-		\item Unconditional: $c_1 = [ \varnothing, \varnothing, a ]$
-		\item Conditional: $c_1 = [ s, e, a ]$:
-	\end{itemize}
-	\begin{equation} \label{eq:denoise}
-		\hat{\mathbf{x}}_{0 \gamma, c_{1}, c_{2}}=\gamma G \left(\mathbf{x}_{t}, t, c_{1}\right)+(1-\gamma) G \left(\mathbf{x}_{t}, t, c_{2}\right)
-	\end{equation}
-	Emotion-controllable: $c_1 = [ s, e_1, a ]$, $c_2 = [ s, e_2, a ]$.
-	
-	\textbf{Huber Loss}
-	
-	\begin{equation} \label{eq:huberloss}
-		\mathcal{L}=E_{\mathbf{x}_{0} \sim q\left(\mathbf{x}_{0} \mid c\right), t \sim[1, T]}\left[\operatorname{HuberLoss}\left(\mathbf{x}_{0}-\hat{\mathbf{x}}_{0}\right)\right]
-	\end{equation}
-	
-	$\mathcal{L}_{\delta}(y, f(x)) = 
-	\begin{cases} 
-		\frac{1}{2} (y - f(x))^2 & \operatorname{for } |y - f(x)| \leq \delta, \\
-		\delta \cdot |y - f(x)| - \frac{1}{2} \delta^2 & \operatorname{otherwise}.
-	\end{cases}
-	$
-	
-\end{frame}
 
 %\begin{frame}
 %	\begin{figure}

@@ -9,11 +9,9 @@
 \usepackage[backend=biber,style=numeric,citestyle=ieee]{biblatex}
 %\usepackage[backend=biber,style=authoryear,citestyle=ieee]{biblatex}
 
-\addbibresource{references.bib}
-
 % ~~~~~~~~~~~
 % References
-%\addbibresource{references.bib}
+\addbibresource{references.bib}
 
 
 %********************* Custom  *********************  
@@ -64,10 +62,11 @@
 
 \include{preamble/meta.tex}
 
+%\input{}
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \begin{document}
-
+%
 %\begin{frame}[plain]
 %	\titlepage
 %\end{frame}
@@ -77,20 +76,22 @@
 
 %\include{sections/1.introduction.tex}
 
-\include{sections/2.relatedwork.tex}
-\input{sections/2.ddpm.tex}
-\input{sections/2.xzero.tex}
-\input{sections/2.condition.tex}
+%\include{sections/2.relatedwork.tex}
+%\input{sections/2.ddpm.tex}
+%\input{sections/2.xzero.tex}
+%\input{sections/2.condition.tex}
+%
+%\include{sections/3.main.tex}
+%\include{sections/3.ohgesture.tex}
+%%
+%
+\include{sections/4.experiment.tex}
+%
+\include{sections/5.evaluation.tex}
+%
+\include{sections/6.conclusion.tex}
 
-\include{sections/3.main.tex}
-
-%\include{sections/4.experiment.tex}
-
-%\include{sections/5.evaluation.tex}
-
-%\include{sections/6.conclusion.tex}
-
-%\include{sections/7.references.tex}
+\include{sections/7.references.tex}
 
 \end{document}
 
