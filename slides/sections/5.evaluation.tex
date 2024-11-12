@@ -1,20 +1,44 @@
 
 
 \begin{frame}{Độ đo}
-	Các độ đo trong Gesture Generation:
+	\textbf{Mean opinion scores (MOS)}
+%	Độ đo theo đánh giá của con người:
+	
 	\begin{itemize}
-		\item Human-likeness 
+		\item Human-likeness
 		\item Gesture-Speech Appropriateness
 		\item Gesture-style Appropriateness
-	\item {FID (Fréchet Inception Distance)}:
-%	\vspace{-5mm}
-	\begin{equation*}
-		\operatorname{FID} = \left\| \mu_{\operatorname{real}} - \mu_{\operatorname{fake}} \right\|^2 + \operatorname{Tr} \left( \Sigma_{\operatorname{real}} + \Sigma_{\operatorname{fake}} - 2 \left( \Sigma_{\operatorname{real}} \Sigma_{\operatorname{fake}} \right)^{\frac{1}{2}} \right)
-	\end{equation*}
-%	\vspace{-5mm}
-	 \item Mean opinion scores (MOS)
+	\end{itemize}
 	
-\end{itemize}
+	\textbf{FID (Fréchet Inception Distance)}: Sự tương đồng về phân phối của cử chỉ tạo sinh $\mathbf{g} \in \mathbb{R}^{1:M \times D}$ (generated) và $\mathbf{r} \in \mathbb{R}^{1:M \times D}$ (real)
+%	\vspace{-5mm}
+%	\begin{equation*}
+%		\operatorname{FID} = \left\| \mu_{\operatorname{real}} - \mu_{\operatorname{predict}} \right\|^2 + \operatorname{Tr} \left( \Sigma_{\operatorname{real}} + \Sigma_{\operatorname{predict}} - 2 \left( \Sigma_{\operatorname{real}} \Sigma_{\operatorname{predict}} \right)^{\frac{1}{2}} \right)
+%	\end{equation*}
+	
+	\begin{equation}
+	FID = \left\| \mu_r - \mu_g \right\|^2 + \operatorname{Tr}\left( \Sigma_r + \Sigma_g - 2\sqrt{\Sigma_r \Sigma_g} \right)
+	\end{equation}
+	
+%\begin{itemize}
+%	\item $\mu_r$ và $\Sigma_r$ là vector trung bình và ma trận hiệp phương sai của đặc trưng từ dữ liệu thực tế (real gestures).
+%	\item $\mu_g$ và $\Sigma_g$ là vector trung bình và ma trận hiệp phương sai của đặc trưng từ cử chỉ tổng hợp (generated gestures).
+%	\item $\|\mu_r - \mu_g\|^2$ là bình phương khoảng cách Euclidean giữa các vector trung bình.
+%	\item $\text{Tr}\left( \Sigma_r + \Sigma_g - 2\sqrt{\Sigma_r \Sigma_g} \right)$ là trace của ma trận hiệp phương sai kết hợp, đo lường sự khác biệt giữa hai phân phối Gaussian.
+%\end{itemize}
+	
+	Trong đó
+	\begin{itemize}
+		\item $\mu$: Trung bình các đặc trưng của cử chỉ
+		\item $\Sigma$: Ma trận hiệp phương sai, $\operatorname{Tr}$ là tổng đường chéo chính.
+		\item $\sqrt{\Sigma_r \Sigma_g}$: Sự tương đồng giữa các phân phối.
+	\end{itemize}
+	
+%	\begin{itemize}
+%		\item \textbf{FID thấp}: Cho thấy phân phối của cử chỉ sinh ra rất gần với phân phối của cử chỉ thực tế, tức là cử chỉ tổng hợp trông tự nhiên hơn.
+%		\item \textbf{FID cao}: Gợi ý rằng các cử chỉ sinh ra khác biệt nhiều so với các cử chỉ thực tế, tức là chất lượng kém hơn.
+%	\end{itemize}
+%	
 \end{frame}
 \begin{frame}{Kết quả}
 	\begin{columns}
