@@ -59,28 +59,30 @@
 				\item Âm thanh tương ứng với cử chỉ.
 			\end{itemize}
 			
-			\textbf{Kiến trúc khung xương}
+			\textbf{Kiến trúc khung xương trong file BVH}
 			\begin{itemize}
-				\item Chuỗi chuyển động khung xương $60 \text{fps}$
+				\item \textbf{HIERARCHY}: Định nghĩa vị trí và thành phần trong khung xương.
 				\begin{itemize}
-					\item Skeleton: 75 bones: $\mathbf{B} = \{ \mathbf{b}_i \}^{75} $ \\
+					\item Skeleton: 75 bones : 
+%					\mathbf{B} =
 					\small{(\texttt{Head}, \texttt{Spine}, \texttt{Hips}, \texttt{LeftArm},\texttt{RightArm}... )} \\
-					Dữ liệu BVH: $\mathbf{b}_{i} = \{r_x, r_y, r_z\}$
+%					Dữ liệu BVH: $\mathbf{b}_{i} = \{r_x, r_y, r_z\}$
 				\end{itemize}
+				\item \textbf{MOTION}: Chuỗi chuyển động khung xương $60 \text{fps}$
 				\begin{figure}[h]
 					\centering
 					\includegraphics[width=0.9\textwidth]{BoneRotationSeries}
 				\end{figure}
 				
-				\item Dữ liệu sau xử lý: $\mathbf{g} \in \mathbb{R}^{D}$, với $D=1141$ 
-				$\mathbf{g} = \Big[ \mathbf{p},  \mathbf{r},
-				\mathbf{ p }',  \mathbf{r}',
-				\mathbf{p}_{\text{joins}},  \mathbf{r}_{\text{joins}},
-				\mathbf{p}'_{\text{joins}},  \mathbf{r}'_{\text{joins}},
-				\mathbf{d}_{\text{gaze}}
-				\Big]$
+				
 			\end{itemize}
-			\vspace{10pt}
+			Dữ liệu sau xử lý: $\mathbf{g} \in \mathbb{R}^{D}$, với $D=1141$ 
+			$\mathbf{g} = \Big[ \mathbf{p},  \mathbf{r},
+			\mathbf{ p }',  \mathbf{r}',
+			\mathbf{p}_{\text{joins}},  \mathbf{r}_{\text{joins}},
+			\mathbf{p}'_{\text{joins}},  \mathbf{r}'_{\text{joins}},
+			\mathbf{d}_{\text{gaze}}
+			\Big]$
 %			\textbf{Loại bài toán}: Hồi quy (regression)
 %			\begin{itemize}
 %				\item Cho trước $N$ khung hình (frame) cử chỉ, dự đoán $M$ khung hình tiếp theo tương ứng với âm thanh $\mathbf{a}$.
@@ -105,9 +107,13 @@
 		\includegraphics[width=\textwidth, height=40pt]{MotionXYZ.png}
 		\caption{Minh hoạ chuyển động của góc quay một Bone trong toạ độ}
 	\end{figure}
-	
+	\vspace{-15pt}
 	\begin{columns}
-		\begin{column}{0.8\textwidth}
+		\begin{column}{0.78\textwidth}
+			$$
+			D = 3 + 4 + 3 + 3 + 3 \times 75 + 6 \times 75 + 3 \times 75 + 3 \times 75 + 3
+			$$
+			\vspace{-20pt}
 			\begin{itemize}
 				\item $\mathbf{p} \in \mathbb{R}^3$: Toạ độ của điểm gốc
 				\item $\mathbf{r} \in \mathbb{R}^4$: Góc quay của điểm gốc
@@ -115,7 +121,7 @@
 				\item $\mathbf{r}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của góc quay gốc
 				
 				\item $\mathbf{p}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: Toạ độ của các khung xương
-				\item $\mathbf{r}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: Góc quay của các khung xương
+				\item $\mathbf{r}_{\text{joins}} \in \mathbb{R}^{6 n_{\text{join} }}$: Góc quay của các khung xương
 				\item $\mathbf{p}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của toạ độ các khung xương
 				\item $\mathbf{r}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của góc quay các khung xương
 				
@@ -123,13 +129,74 @@
 			\end{itemize}
 		\end{column}
 		
-		\begin{column}{0.2\textwidth}
-			image here
+		\begin{column}{0.22\textwidth}
+			\vspace{12pt}
+			\begin{figure}
+				\centering
+				\includegraphics[width=\textwidth]{Bone.png}
+			\end{figure}
 			
 		\end{column}
 	\end{columns}
 	
 \end{frame}
+
+\begin{frame}
+%	Mỗi Bone được biểu diễn thành: 
+%	$$q = w + xi + yj + zk$$
+%	
+%	$$i^2 = j^2 = k^2 = ijk = -1$$
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{BVH}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{Góc quay của một khung xương}
+	\small
+	\textbf{Hierachy}: bao gồm 75 Bone $\{ \mathbf{t}_i \}^{75} $, có vị trí ban đầu  $\mathbf{t}_{i} = \{t_x, t_y, t_z\}$
+	
+	\vspace{5pt}
+	
+	\textbf{Bone} trong dữ liệu BVH bao gồm vị trí $\mathbf{position}_{\operatorname{local}}  \in \mathbb{R}^{3}$ và góc quay $\mathbf{rotation}_{\operatorname{local}} \in \mathbb{R}^{3}$.
+%	\begin{figure}
+%		\centering
+%		\includegraphics[width=0.25\textwidth]{BVHFile}
+%	\end{figure}
+	$\mathbf{rotation}_i^{\operatorname{local}} = \{ \alpha ,\beta , \gamma \}$ lần lượt là góc quay quanh các trục $Z$ ,$Y$ , và $X$, góc quay tổng hợp trong không gian Eule là $R = R_Z(\alpha) R_Y(\beta) R_X(\gamma)$:
+	\begin{equation}
+		\mathbf{position}_{\text{global}} = R \cdot \mathbf{position}_{\text{local}} + \mathbf{t}
+	\end{equation}
+	Chuyển góc quay từng Bone dạng Euler ZYX sang dạng Quaternion, mỗi Bone biểu diễn bằng $q = (q_w, q_x, q_y, q_z)$
+	%	Mỗi Bone được biểu diễn thành: 
+	%	$$q = w + xi + yj + zk$$
+	%	c
+	%	$$i^2 = j^2 = k^2 = ijk = -1$$
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{itemize}
+				\item $c_{\alpha} = \cos\left(\frac{\alpha}{2}\right), \quad s_{\alpha} = \sin\left(\frac{\alpha}{2}\right)$
+				\item $c_{\beta} = \cos\left(\frac{\beta}{2}\right), \quad s_{\beta} = \sin\left(\frac{\beta}{2}\right)$
+				\item $c_{\gamma} = \cos\left(\frac{\gamma}{2}\right), \quad s_{\gamma} = \sin\left(\frac{\gamma}{2}\right)$
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+				\begin{itemize}
+				\item $q_w = c_{\alpha} c_{\beta} c_{\gamma} + s_{\alpha} s_{\beta} s_{\gamma}$
+				\item $q_x = c_{\alpha} c_{\beta} s_{\gamma} - s_{\alpha} s_{\beta} c_{\gamma}$
+				\item $q_y = c_{\alpha} s_{\beta} c_{\gamma} + s_{\alpha} c_{\beta} s_{\gamma}$
+				\item $q_z = s_{\alpha} c_{\beta} c_{\gamma} - c_{\alpha} s_{\beta} s_{\gamma}$
+			\end{itemize}
+		\end{column}
+	\end{columns}
+	\begin{equation}
+	\mathbf{p}_{\text{global}} = q \cdot \mathbf{p}_{\text{local}} \cdot q^{-1} + \mathbf{t}
+	\end{equation}
+	
+	$\mathbf{t}$ là vị trí gốc của bone trong không gian toàn cục.
+\end{frame}
+
 
 \begin{frame}{Phát biểu bài toán}
 %\frametitle{Group lasso \\[-0.3em] 
@@ -153,6 +220,7 @@
 			\item Chuỗi âm thanh: $\mathbf{a}^{length}$ sample rate 16000 được cắt thành từng đoạn 4s: $\mathbf{a} \in \mathbb{R}^{6400}$
 %			trích xuất đặc trưng MFCC: $\mathbf{a} \in \mathbb{R}^{M \times C_{\text{mfcc}}}$
 			\item Cảm xúc: $\mathbf{e} \in \mathbb{R}^6$ (\texttt{Happy},  \texttt{Sad},  \texttt{Neutral}, \texttt{Angry}, \texttt{Old}, \texttt{Funny})
+			\item Văn bản: $\text{"Love what you do"}$
 		\end{itemize}
 		
 	\end{column}
@@ -173,10 +241,11 @@
 
 \begin{frame}{Khung chương trình}
 	Sử dụng mô hình Diffusion Classifier-Free Guidance (có điều kiện) với cử chỉ $\bx^{1:M \times D}$ làm $x_0$ và điều kiện $c = [{\mathbf{s}, \mathbf{a}, \mathbf{e}}]$. $N = 8$, $M = 80 \sim \text{4 giây}$
+	\vspace{-15pt}
 %	$N=8$ khung hình đầu làm khởi tạo và $M=80$ khung hình để dự đoán
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=\textwidth]{Framework}
+			\includegraphics[width=0.95\textwidth]{Framework}
 		\end{figure}
 	
 %\textbf{Training}
