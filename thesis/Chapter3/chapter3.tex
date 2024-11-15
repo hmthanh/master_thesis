@@ -31,6 +31,7 @@ Mô hình diffusion có khả năng phủ được phân bố dữ liệu trong 
 \section{Mô hình diffusion cơ bản}
 \label{sec:summary_diffusion}
 
+\setcounter{figure}{4}
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth]{diffusion_forward}
@@ -50,6 +51,7 @@ Tương tự phương pháp VAE, mã hoá (encode) ma trận đầu vào thành 
 
 Cho dữ liệu $\mathbf{x}_{0}$ là được lấy từ dữ liệu thật $\mathbf{x}_{0} \sim q(x)$, với mỗi bước ta sẽ thêm nhiễu vào đầu vào $x_{0}$ với tỷ lệ nhiễu và ảnh gốc được kiểm soát bằng hệ số $\beta$:
 \vspace{-20pt}
+\setcounter{figure}{5}
 \begin{figure*}
 	\centering
 	\includegraphics[height=180pt]{AlgorithmForwardDiffusion}
@@ -95,6 +97,7 @@ Vì nhiễu $\boldsymbol{\epsilon}_{t-1}, \boldsymbol{\epsilon}_{t-2}, \dots \si
 \subsection{Quá trình khử nhiễu (denoising process)}
 \label{subsection:denoising_process}
 
+\setcounter{figure}{6}
 \begin{figure}[]
 	\centering
 	\includegraphics[height=280pt]{AlgorithmSamplingDiffusion.png}

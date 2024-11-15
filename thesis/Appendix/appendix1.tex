@@ -5,9 +5,11 @@
 
 \section{Sự thay đổi của $\sqrt{\alpha}$ và $\sqrt{1 - \alpha}$}
 
+\setcounter{figure}{13}
 \begin{figure}
 	\includegraphics[width=0.5\linewidth]{SquareAlpha}
 	\label{fig:wrapfig}
+	\caption{Sự thay đổi của $\sqrt{\alpha}$ và $\sqrt{1 - \alpha}$}
 \end{figure}
 
 Trong quá trình diffusion, hệ thống muốn giảm dần sự hiện diện của $\bx$ và tăng dần sự hiện diện của nhiễu $\epsilon_t$. Với $\mathbf{x}_t = \sqrt{\alpha_t} \mathbf{x}_t + \sqrt{1 - \alpha_t} \epsilon_t$. Các hệ số $\sqrt{\alpha_t}$ và $\sqrt{1 - \alpha_t}$ giúp điều khiển quá trình này như sau:
@@ -26,9 +28,12 @@ Cả hai đại lượng này thay đổi theo thời gian trong quá trình dif
 \section{Sự thay đổi của $\sqrt{\bar{\alpha}}$ và $\sqrt{1 - \bar{\alpha}}$}
 
 $\bar{\alpha}_t = \prod_{i=1}^t \alpha_i$.  $\sqrt{1 - \bar{\alpha}_t} = \sqrt{1 - \prod_{i=1}^t \alpha_i}$. Cả $\sqrt{\bar{\alpha}}$ và $\sqrt{1 - \bar{\alpha}}$ đóng một vai trò quan trọng trong quá trình huấn luyện và sinh cử chỉ. Giúp kiểm soát mức độ nhiễu được thêm vào và cử chỉ, ta có thể thấy $\sqrt{\bar{\alpha}}$ giảm dần còn $\sqrt{1 - \bar{\alpha}}$ thì tăng dần..
+
+
 \begin{figure}
 	\includegraphics[width=\linewidth]{AlphaCumprod}
 	\label{fig:AlphaCumprod}
+	\caption{Quá trình thay đổi của $\sqrt{\bar{\alpha}}$ và $\sqrt{1 - \bar{\alpha}}$}
 \end{figure}
 
 
