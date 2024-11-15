@@ -2,14 +2,14 @@
 \headcommand {\beamer@framepages {1}{1}}
 \headcommand {\beamer@sectionpages {1}{1}}
 \headcommand {\beamer@subsectionpages {1}{1}}
-\headcommand {\sectionentry {1}{Minh hoạ}{2}{Minh hoạ}{0}}
+\headcommand {\sectionentry {1}{Minh ho^^e1^^ba^^a1}{2}{Minh ho^^e1^^ba^^a1}{0}}
 \headcommand {\slideentry {1}{0}{1}{2/2}{}{0}}
 \headcommand {\beamer@framepages {2}{2}}
 \headcommand {\slideentry {1}{0}{2}{3/3}{}{0}}
 \headcommand {\beamer@framepages {3}{3}}
 \headcommand {\beamer@sectionpages {2}{3}}
 \headcommand {\beamer@subsectionpages {2}{3}}
-\headcommand {\sectionentry {2}{Giới thiệu}{4}{Giới thiệu}{0}}
+\headcommand {\sectionentry {2}{Gi^^e1^^bb^^9bi thi^^e1^^bb^^87u}{4}{Gi^^e1^^bb^^9bi thi^^e1^^bb^^87u}{0}}
 \headcommand {\slideentry {2}{0}{1}{4/4}{}{0}}
 \headcommand {\beamer@framepages {4}{4}}
 \headcommand {\slideentry {2}{0}{2}{5/5}{}{0}}
@@ -28,7 +28,7 @@
 \headcommand {\beamer@framepages {11}{11}}
 \headcommand {\beamer@sectionpages {4}{11}}
 \headcommand {\beamer@subsectionpages {4}{11}}
-\headcommand {\sectionentry {3}{Công trình liên quan}{12}{Công trình liên quan}{0}}
+\headcommand {\sectionentry {3}{C^^c3^^b4ng tr^^c3^^acnh li^^c3^^aan quan}{12}{C^^c3^^b4ng tr^^c3^^acnh li^^c3^^aan quan}{0}}
 \headcommand {\slideentry {3}{0}{1}{12/12}{}{0}}
 \headcommand {\beamer@framepages {12}{12}}
 \headcommand {\slideentry {3}{0}{2}{13/13}{}{0}}
@@ -67,7 +67,7 @@
 \headcommand {\beamer@framepages {29}{29}}
 \headcommand {\beamer@sectionpages {12}{29}}
 \headcommand {\beamer@subsectionpages {12}{29}}
-\headcommand {\sectionentry {4}{Mô hình sinh cử chỉ}{30}{Mô hình sinh cử chỉ}{0}}
+\headcommand {\sectionentry {4}{M^^c3^^b4 h^^c3^^acnh sinh c^^e1^^bb^^ad ch^^e1^^bb^^89}{30}{M^^c3^^b4 h^^c3^^acnh sinh c^^e1^^bb^^ad ch^^e1^^bb^^89}{0}}
 \headcommand {\slideentry {4}{0}{1}{30/30}{}{0}}
 \headcommand {\beamer@framepages {30}{30}}
 \headcommand {\slideentry {4}{0}{2}{31/31}{}{0}}
@@ -92,7 +92,7 @@
 \headcommand {\beamer@framepages {40}{40}}
 \headcommand {\beamer@sectionpages {30}{40}}
 \headcommand {\beamer@subsectionpages {30}{40}}
-\headcommand {\sectionentry {5}{Thực nghiệm}{41}{Thực nghiệm}{0}}
+\headcommand {\sectionentry {5}{Th^^e1^^bb^^b1c nghi^^e1^^bb^^87m}{41}{Th^^e1^^bb^^b1c nghi^^e1^^bb^^87m}{0}}
 \headcommand {\slideentry {5}{0}{1}{41/41}{}{0}}
 \headcommand {\beamer@framepages {41}{41}}
 \headcommand {\slideentry {5}{0}{2}{42/42}{}{0}}
@@ -105,22 +105,17 @@
 \headcommand {\beamer@framepages {45}{45}}
 \headcommand {\slideentry {5}{0}{6}{46/46}{}{0}}
 \headcommand {\beamer@framepages {46}{46}}
-\headcommand {\beamer@sectionpages {41}{47}}
-\headcommand {\beamer@subsectionpages {41}{47}}
-\headcommand {\sectionentry {6}{Kết luận}{48}{Kết luận}{0}}
-\headcommand {\slideentry {6}{0}{1}{48/48}{}{0}}
+\headcommand {\beamer@sectionpages {41}{46}}
+\headcommand {\beamer@subsectionpages {41}{46}}
+\headcommand {\sectionentry {6}{K^^e1^^ba^^bft lu^^e1^^ba^^adn}{47}{K^^e1^^ba^^bft lu^^e1^^ba^^adn}{0}}
+\headcommand {\slideentry {6}{0}{1}{47/47}{}{0}}
+\headcommand {\beamer@framepages {47}{47}}
+\headcommand {\slideentry {6}{0}{2}{48/48}{}{0}}
 \headcommand {\beamer@framepages {48}{48}}
-\headcommand {\slideentry {6}{0}{2}{49/49}{}{0}}
+\headcommand {\slideentry {6}{0}{3}{49/49}{}{0}}
 \headcommand {\beamer@framepages {49}{49}}
-\headcommand {\beamer@sectionpages {48}{49}}
-\headcommand {\beamer@subsectionpages {48}{49}}
-\headcommand {\sectionentry {7}{References}{50}{References}{0}}
-\headcommand {\slideentry {7}{0}{0}{50/50}{}{0}}
-\headcommand {\beamer@framepages {50}{50}}
-\headcommand {\slideentry {7}{0}{0}{50/51}{}{0}}
-\headcommand {\beamer@framepages {50}{51}}
-\headcommand {\beamer@partpages {1}{51}}
-\headcommand {\beamer@subsectionpages {48}{51}}
-\headcommand {\beamer@sectionpages {48}{51}}
-\headcommand {\beamer@documentpages {51}}
-\headcommand {\gdef \inserttotalframenumber {50}}
+\headcommand {\beamer@partpages {1}{49}}
+\headcommand {\beamer@subsectionpages {47}{49}}
+\headcommand {\beamer@sectionpages {47}{49}}
+\headcommand {\beamer@documentpages {49}}
+\headcommand {\gdef \inserttotalframenumber {49}}

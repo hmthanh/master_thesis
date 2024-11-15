@@ -3,24 +3,33 @@
 \chapter{Các tham số}
  \label{Appendix1}
 
-\section{Sự thay đổi của $\sqrt{\beta}$ và $\sqrt{1-\beta}$}
+\section{Sự thay đổi của $\sqrt{\alpha}$ và $\sqrt{1 - \alpha}$}
 
-%Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer 
-%adipiscing elit. Duis fringilla tristique neque. Sed interdum 
-%libero ut metus. Pellentesque placerat.
+\begin{figure}
+	\includegraphics[width=0.5\linewidth]{SquareAlpha}
+	\label{fig:wrapfig}
+\end{figure}
 
-Quá trình diffusion có thể được hiểu là một chuỗi các bước nhỏ, trong đó mỗi bước sẽ thay đổi trạng thái của hệ thống theo một cách ngẫu nhiên. Các hệ số quan trọng trong quá trình này bao gồm:
+Trong quá trình diffusion, hệ thống muốn giảm dần sự hiện diện của $\bx$ và tăng dần sự hiện diện của nhiễu $\epsilon_t$. Với $\mathbf{x}_t = \sqrt{\alpha_t} \mathbf{x}_t + \sqrt{1 - \alpha_t} \epsilon_t$. Các hệ số $\sqrt{\alpha_t}$ và $\sqrt{1 - \alpha_t}$ giúp điều khiển quá trình này như sau:
+
+
+
 \begin{itemize}
-	\item $\sqrt{\beta_t}$: Biểu diễn sự thay đổi trong mỗi bước $t$, đặc trưng cho cường độ của nhiễu trong từng bước.
-	\item $\sqrt{1 - \beta}$: Biểu thị xác suất hệ thống giữ lại trạng thái trước đó mà không bị ảnh hưởng bởi nhiễu.
+	\item $\sqrt{\alpha_t}$: Ban đầu giá trị lớn nhưng giảm dần để giảm sự ảnh hưởng vào kết quả tổng giữa nhiễu và $\bx_t$
+	\item $\sqrt{1 - \alpha_t}$: Ban đầu giá trị nhỏ nhưng tăng dần theo từng bước. Với mục tiêu là đến cuối cùng thì sự ảnh hưởng của nhiễu càng lớn và trở thành nhiễu hoàn toàn.
 \end{itemize}
 
-\begin{wrapfigure}{l}{0.3\textwidth}
-	\includegraphics[width=0.9\linewidth]{images/beta_sqrtbeta}
-	\label{fig:wrapfig}
-\end{wrapfigure}
 
-Cả hai đại lượng này thay đổi theo thời gian trong quá trình diffusion, từ đó quyết định mức độ ngẫu nhiên và mức độ giữ lại trạng thái trước đó qua từng bước. Chúng đóng vai trò quan trọng trong việc xác định cách thức mà trạng thái của hệ thống tiến dần đến một trạng thái cuối cùng hoặc trạng thái cân bằng.
+Cả hai đại lượng này thay đổi theo thời gian trong quá trình diffusion, từ đó quyết định mức độ nhiễu được thêm vào từng bước $t$ và mức độ giữ lại trạng thái trước đó qua từng bước.
+
+
+\section{Sự thay đổi của $\sqrt{\bar{\alpha}}$ và $\sqrt{1 - \bar{\alpha}}$}
+
+$\bar{\alpha}_t = \prod_{i=1}^t \alpha_i$.  $\sqrt{1 - \bar{\alpha}_t} = \sqrt{1 - \prod_{i=1}^t \alpha_i}$. Cả $\sqrt{\bar{\alpha}}$ và $\sqrt{1 - \bar{\alpha}}$ đóng một vai trò quan trọng trong quá trình huấn luyện và sinh cử chỉ. Giúp kiểm soát mức độ nhiễu được thêm vào và cử chỉ, ta có thể thấy $\sqrt{\bar{\alpha}}$ giảm dần còn $\sqrt{1 - \bar{\alpha}}$ thì tăng dần..
+\begin{figure}
+	\includegraphics[width=\linewidth]{AlphaCumprod}
+	\label{fig:AlphaCumprod}
+\end{figure}
 
 
 

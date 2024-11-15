@@ -56,7 +56,7 @@ Với sự thành công của các mô hình ngôn ngữ tự nhiên trong việ
 
 \section{Phát biểu bài toán}
 
-Mục tiêu của việc sinh cử chỉ (gesture generation) bằng phương pháp học máy là tạo ra các cử chỉ tự nhiên, chân thật như con người và đồng thời phù hợp với ngữ cảnh.
+Mục tiêu của việc sinh cử chỉ (gesture generation) bằng phương pháp học máy là tạo ra các cử chỉ tự nhiên, chân thật như con người (human-likeness) và đồng thời phù hợp với ngữ cảnh.
 %Sinh cử chỉ (gesture generation) là bài toán dựa vào những dữ liệu trước đó bao gồm văn bản và âm thanh, cử chỉ khởi tạo để nội suy ra chuỗi cử chỉ tiếp theo.
 Sinh cử chỉ là bài toán hồi quy (regression), với đầu vào là một chuỗi cử chỉ cho trước và kết quả đầu ra là chuỗi cử chỉ tiếp tục với cử chỉ trước đó.
 
@@ -103,7 +103,7 @@ Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
 	\item $\mathbf{r}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của góc quay gốc
 	
 	\item $\mathbf{p}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: Toạ độ của các khung xương
-	\item $\mathbf{r}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: Góc quay của các khung xương
+	\item $\mathbf{r}_{\text{joins}} \in \mathbb{R}^{6 n_{\text{join} }}$: Góc quay của các khung xương theo mặc phẳng X và Y
 	\item $\mathbf{p}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của toạ độ các khung xương
 	\item $\mathbf{r}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của góc quay các khung xương
 	
@@ -120,19 +120,24 @@ Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
 
 
 Tổng cộng có $75$ khớp (joins) hay $n_{\text{join}} = 75$, với mỗi khung hình (frame) ta sẽ có một vector gồm 1141 chiều.
-Tập dữ liệu là tập nhiều chuỗi cử chỉ với độ dài tuỳ ý, từ mỗi cử chỉ độ dài tuỳ tý ta sẽ cắt thành các đoạn $8 + N$ khung hình, $g \in \mathbb{R}^{(8+N) \times 1141}$ , trong đó cử chỉ $g \in \mathbb{R}^{8 \times 1141}$ đầu tiên là cử chỉ khởi tạo (seed gesture), $g \in \mathbb{R}^{N \times 1141}$ cử chỉ tiếp theo cho việc dự đoán.
+Tập dữ liệu là tập nhiều chuỗi cử chỉ với độ dài tuỳ ý, từ mỗi cử chỉ độ dài tuỳ tý ta sẽ cắt thành các đoạn $N + M$ khung hình, $g \in \mathbb{R}^{(N + M) \times 1141}$ , trong đó cử chỉ $\mathbf{s} \in \mathbb{R}^{N \times 1141}$ đầu tiên là cử chỉ khởi tạo (seed gesture), $\bx \in \mathbb{R}^{M \times 1141}$ cử chỉ tiếp theo cho việc dự đoán.
 
 
-Dữ liệu âm thanh $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length } }$  là một chuỗi waveform có độ dài tương ứng với cử chỉ được đọc với sample rate là 16000. 
+Dữ liệu âm thanh $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length } }$ là chuỗi âm thanh thô được đọc ở sample rate 16000, sau đó được cắt thành $\mathbf{a} \in \mathbb{R}^{64000}$ tương ứng với 4 giây.
+% để  là một chuỗi waveform có độ dài tương ứng với cử chỉ được đọc với sample rate là 16000. 
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\linewidth]{GestureSeries}
-	\caption{Minh hoạ một chuỗi cử chỉ, ta lấy $N$ frame đầu làm cử chỉ khởi tạo $s$ (seed gesture) và $M$ khung hình còn lại làm cử chỉ để học}
+	\includegraphics[width=\linewidth]{GestureSeries.jpg}
+	\caption{Minh hoạ một chuỗi cử chỉ, ta lấy $N$ frame đầu làm cử chỉ khởi tạo $\mathbf{s}$ (seed gesture) và $M$ khung hình còn lại làm cử chỉ để học}
 	\label{fig:GestureSeries}
 \end{figure}
 
 
+Quá trình xử lý dữ liệu được trình bày đầy đủ ở phụ lục \ref{Appendix2}.
+
+
+%Quá trình chuyển từ không gian Eule sang không gian Quaternion được minh hoạ ở phụ lục \ref{}
 %Chuỗi waveform sẽ được cắt thành các đoạn chồng nhau, áp dụng Hamming windows, và áp dụng thuật toán fast fourier transform để biến đổi chuỗi âm thanh thành các hệ số thể hiện cường độ của các tần số trong chuỗi âm thanh, các hệ số này được làm tròn thành các đoạn tần số (frequency bins), các đoạn hệ số này được chuẩn hoá theo hệ cơ số log để tương ứng với cảm nhận của tai người để có được đặc trưng MFCC $\mathbf{a} \in \mathbb{R}^{\text{size} \times \mathcal{C}}$ trong đó $\mathcal{C}=13$ là số frequency bins. 
 
 
@@ -145,7 +150,8 @@ Dữ liệu âm thanh $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length } }
 
 \section{Các khó khăn cần giải quyết}
 
-Có rất nhiều khó khăn trong việc xây dựng một mô hình có thể học được các đăng trưng cử chỉ hội thoại như con người theo thời gian thực:
+Có rất nhiều khó khăn trong việc xây dựng một mô hình có thể học được các đăng trưng cử chỉ hội thoại như con người 
+%theo thời gian thực:
 
 Thứ nhất, \textit{dữ liệu không đủ nhiều và chất lượng}, chi phí để tạo ra một bộ dữ liệu trong ngành công nghiệp Motion Capture có chất lượng và quy mô lớn để ứng dụng vào trong thực tế là rất lớn.
 
@@ -157,22 +163,42 @@ Thứ tư, \textit{chi phí tính toán với nhiều loại dữ liệu của m
 
 Cuối cùng, \textit{các bước xử lý phải yêu cầu tuần tự}, cách hiệu quả nhất để con người tương tác với máy tính là thông qua giọng nói và nhập từ bàn phím, tuy nhiên việc xử lý được văn bản và giọng nói để làm đầu vào cho mô hình phải thực hiện tuần tự, độ trễ để có thể suy luận trong sản phẩm thực tế cũng là một vấn đề bởi người dùng không thể đợi lâu để nhận được kết quả cử chỉ và từ cử chỉ đó biểu diễn lên máy tính bằng kỹ thuật đồ họa máy tính.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=\linewidth]{MotionCapture}
-	\caption{Khung chương trình xây dựng hệ thống sinh cử chỉ}
-	\label{fig:MotionCapture}
-\end{figure}
 
-\section{Đóng góp của chúng tôi}
+\section{Đóng góp dự kiến}
 
 \begin{itemize}
-\item Chúng tôi mở rộng mô hình diffusion với thông tin thời gian cho việc sinh cử chỉ kèm theo lời nói dựa trên âm thanh. Nhờ mô hình diffusion, chúng tôi có thể kiểm soát một cách linh hoạt cử chỉ được sinh ra, ví dụ: chỉnh sửa phong cách của cử chỉ, thiết lập cử chỉ khởi tạo, và sinh cử chỉ đa dạng.
-
-\item Chúng tôi sử dụng cross-local attention và self-attention để để học được bối cảnh và những quan hệ giữa cử chỉ và lời nói.
-
-\item Các thử nghiệm mở rộng chỉ ra rằng mô hình của chúng tôi có thể sinh ra cử chỉ giống người, phù hợp với lời nói (speech-appropriateness), phù hợp với cảm xúc (style-appropriateness) vượt trội so với các phương pháp sinh cử chỉ hiện có.
+	\item Dựa trên tập dữ liệu có sẵn, chúng tôi chuyển âm thanh của dữ liệu thành văn bản, và dùng văn bản đó để làm dữ liệu huấn luyện mới.
+%	\item Tích hợp đặc trưng văn bản vào mô hình DiffuseStyleGesture:** Chúng tôi cải tiến DiffuseStyleGesture bằng cách đưa thông tin văn bản vào quá trình khử nhiễu có điều kiện, giúp hệ thống sinh ra các cử chỉ chi tiết và phù hợp hơn với nội dung hội thoại.
+	
+	
+	\item Dựa trên mô hình cơ bản DiffuseStyleGesture, chúng tôi mở rộng thêm đặc trưng văn bản trong quá trình khử nhiễu có điều kiện.
+	
+	\item Chúng tôi sử dụng Unity để render, trích xuất dữ liệu và trực quan hoá kết quả sinh cử chỉ.
+	
+	\item Chúng tôi xây dựng hệ thống kết xuất, và minh hoạ chương trình bằng Unity
+	
+	
+	
+%	với thông tin thời gian cho việc sinh cử chỉ kèm theo lời nói dựa trên âm thanh. Nhờ mô hình diffusion, chúng tôi có thể kiểm soát một cách linh hoạt cử chỉ được sinh ra, ví dụ: chỉnh sửa phong cách của cử chỉ, thiết lập cử chỉ khởi tạo, và sinh cử chỉ đa dạng.
+	
+%	\item Chúng tôi sử dụng cross-local attention và self-attention để để học được bối cảnh và những quan hệ giữa cử chỉ và lời nói.
+%	
+%	\item Các thử nghiệm mở rộng chỉ ra rằng mô hình của chúng tôi có thể sinh ra cử chỉ giống người, phù hợp với lời nói (speech-appropriateness), phù hợp với cảm xúc (style-appropriateness) vượt trội so với các phương pháp sinh cử chỉ hiện có.
 \end{itemize}
+
+
+
+%\item **Sử dụng Unity để render, trích xuất dữ liệu và trực quan hoá kết quả sinh cử chỉ:** Chúng tôi triển khai Unity như một công cụ trực quan hóa để mô phỏng và hiển thị kết quả của hệ thống sinh cử chỉ. Với các tính năng mô phỏng 3D mạnh mẽ, Unity cho phép chúng tôi kiểm nghiệm và đánh giá hiệu quả của các cử chỉ được sinh ra từ mô hình, đồng thời hỗ trợ trực quan hóa các đặc trưng chuyển động của cử chỉ. Hệ thống cũng sẽ được phát triển để cho phép dễ dàng trích xuất dữ liệu cử chỉ và so sánh kết quả trực quan giữa các mô hình khác nhau, giúp nâng cao tính khả thi và giá trị thực nghiệm của hệ thống.
+%
+%\item **Xây dựng hệ thống kết xuất và minh hoạ chương trình bằng Unity:** Ngoài việc render và trực quan hóa kết quả sinh cử chỉ, chúng tôi phát triển hệ thống kết xuất hoàn chỉnh, bao gồm các thành phần giúp dễ dàng minh hoạ quá trình sinh cử chỉ theo từng giai đoạn. Hệ thống này không chỉ cung cấp công cụ để kiểm nghiệm chất lượng cử chỉ sinh mà còn giúp mô tả rõ ràng từng bước trong quá trình sinh cử chỉ, từ giai đoạn tiền xử lý dữ liệu, khử nhiễu, đến việc ứng dụng các đặc trưng văn bản và âm thanh để tạo ra cử chỉ. Điều này sẽ làm tăng tính minh bạch và khả năng giải thích của hệ thống, đồng thời hỗ trợ các nhà nghiên cứu và người dùng dễ dàng quan sát và hiểu sâu hơn về các bước sinh cử chỉ. 
+
+%\begin{itemize}
+%\item Chúng tôi mở rộng mô hình diffusion với thông tin thời gian cho việc sinh cử chỉ kèm theo lời nói dựa trên âm thanh. Nhờ mô hình diffusion, chúng tôi có thể kiểm soát một cách linh hoạt cử chỉ được sinh ra, ví dụ: chỉnh sửa phong cách của cử chỉ, thiết lập cử chỉ khởi tạo, và sinh cử chỉ đa dạng.
+%
+%\item Chúng tôi sử dụng cross-local attention và self-attention để để học được bối cảnh và những quan hệ giữa cử chỉ và lời nói.
+%
+%\item Các thử nghiệm mở rộng chỉ ra rằng mô hình của chúng tôi có thể sinh ra cử chỉ giống người, phù hợp với lời nói (speech-appropriateness), phù hợp với cảm xúc (style-appropriateness) vượt trội so với các phương pháp sinh cử chỉ hiện có.
+%\end{itemize}
 
 
 % Đầu vào của hệ thống trí tuệ nhân tạo cho việc sinh cử chỉ bao gồm: 
