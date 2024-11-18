@@ -59,11 +59,20 @@
 % \makeatother
 
 
+\renewcommand{\chaptername}{Chương}
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
+\renewcommand{\contentsname}{Mục lục}
+\renewcommand{\listfigurename}{Danh sách hình}
+\renewcommand{\listtablename}{Danh sách bảng}
+\renewcommand{\appendixname}{Phụ lục}
+
+
 % \Huge
 % Customize chapter title (equivalent to Word styles)
 \titleformat{\chapter} % Adjust the chapter heading
   {\LARGE\bfseries}     % Font size: Huge (24.27pt), bold
-  {\chaptername\ \thechapter.}       % Chapter number with a period
+  {\chaptername\ \MakeUppercase\thechapter.}       % Chapter number with a period
   {20pt}               % Space between the number and title
   {\MakeUppercase}     % Title format
 
@@ -87,3 +96,6 @@
 {\thesubsection}       % Subsection numbering
 {10pt}                 % Space between the number and title
 {\normalsize\bfseries}      % Title format
+
+
+

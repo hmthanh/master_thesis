@@ -104,7 +104,7 @@
 \renewcommand{\cfttabaftersnum}{:}
 \addtolength{\cfttabnumwidth}{3em} % Tăng khoảng cách giữa số và tiêu đề bảng
 
-\graphicspath{ {images/} }
+
 
 %\newcommand{\tenSV}{Hoàng~Minh~Thanh} % Dấu ~ là khoảng trắng không được tách (các chữ nối với nhau bằng dấu ~ sẽ nằm cùng 1 dòng
 %\newcommand{\mssv}{21C11029}
@@ -116,8 +116,7 @@
 \input{Preamble/commands.tex}
 \input{Preamble/config.tex}
 
-
-
+\graphicspath{ {images/} }
 
 \begin{document}
 
@@ -152,12 +151,11 @@
 
 \input{6_Conclusion/Conclusion.tex}
 
-%
 \input{References/References.tex}
 \include{References/Publish}
 
-%\include{Appendix/Appendix1}
-%\include{Appendix/Appendix2}
+\include{Appendix/Appendix1}
+\include{Appendix/Appendix2}
 %\include{Appendix/Appendix3}
 
 \end{document}

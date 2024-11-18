@@ -6,6 +6,13 @@
 % Bỏ qua tiêu đề tự động của \tableofcontents
 \renewcommand{\contentsname}{}
 
+%\renewcommand{\cftchappresnum}{\chaptername222 \quad \ \MakeUppercase} 
+% Điều chỉnh cách hiển thị số chương trong TOC
+\renewcommand{\cftchappresnum}{\chaptername\ \MakeUppercase} 
+% Điều chỉnh khoảng cách giữa số chương và tiêu đề trong TOC
+\setlength{\cftchapnumwidth}{4.5em} % Điều chỉnh độ rộng số chương
+\setlength{\cftchapindent}{0em}     % Điều chỉnh độ thụt đầu dòng
+
 \begin{center}
 \textbf{\huge MỤC LỤC}
 \end{center}

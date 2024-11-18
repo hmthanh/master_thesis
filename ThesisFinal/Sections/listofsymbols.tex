@@ -2,18 +2,44 @@
 \pagebreak
 \phantomsection
 \addcontentsline{toc}{section}{Danh mục các ký hiệu, các chữ viết tắt}
-\section*{\textbf{DANH MỤC CÁC KÝ HIỆU, CÁC CHỮ VIẾT TẮT}}
+\section*{\textbf{ \Large DANH MỤC CÁC KÝ HIỆU, CÁC CHỮ VIẾT TẮT}}
 
 \begin{center}
-\begin{tabular}{|p{3cm}|p{7cm}|}
+\begin{tabular}{|p{3cm}|p{10cm}|}
 \hline
 \textbf{Từ viết tắt} & \textbf{Nội dung đầy đủ} \\
 \hline
-MSSQL & Microsoft SQL Server \\
+$\theta$ & Trọng số huấn luyện cần để học \\
 \hline
-PDI & Pentaho Data Integration \\
+$\theta'$ & Trọng số huấn luyện sau khi học xong dùng để lấy mẫu \\
 \hline
-ETL & Extract, Transform, Load \\
+$\epsilon$ & Nhiễu được thêm vào ảnh \\
+\hline
+$\hat{\epsilon}$ & Nhiễu dự đoán\\
+\hline
+$N$, $M$, $D$ & Các số thể hiệu số chiều của ma trận hoặc vector \\
+\hline
+$t: 1 \rightarrow T$ & Bước gây nhiễu $t$ từ bước $t=1$ đến $t=T$ \\
+\hline
+$n_{\operatorname{joins}}$ & Số khung xương \\
+\hline
+%$\mathcal{0, \mathbf{I}}$ & Phân phối chuẩn với mean là $0$ và phương sai là $1$ \\
+%\hline
+$\mathcal{N}(0, \mathbf{I})$ & Phân phối chuẩn với mean là $0$ và phương sai là $1$ \\
+\hline
+$\mathbf{x}_{t}^{1:M}$ & Dữ liệu cử chỉ ở bước thứ $t$, bắt đầu từ khung hình thứ $1$ đến khung hình thứ $M$ \\
+\hline
+$\hat{\mathbf{x}}_0$ &  Dữ liệu dự đoán của mô hình \\
+\hline
+$f(x | y)$ & Hàm xác xuất có điều kiện với y có trước tìm xác xuất để có x \\
+\hline
+$q(\bx_t | \bx_{t-1})$ & Hàm xác xuất có điều kiện của hàm gây nhiễu, khi biết trước $\bx_t$ và tìm $\bx_{t-1}$  \\
+\hline
+$p_{\theta} (\bx_{t-1} | \bx_{t})$ & Hàm xác xuất của quá trình khử nhiễu khi biết trước $\bx_{t}$ và tìm $\bx_{t-1}$ . Quá trình học để cập trọng số $\theta$   \\
+\hline
+$\mathbb{E}$ & Kỳ vọng \\
+\hline
+$\mathcal{L}_t$ & Hàm mất mát ở bước thứ $t$ \\
 \hline
 \end{tabular}
 \end{center}
