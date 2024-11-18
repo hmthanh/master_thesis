@@ -38,6 +38,7 @@
 \usepackage[T5]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{mathptmx}
 \usepackage{amssymb}
 \DeclareTextSymbolDefault{\DH}{T1}
 
@@ -176,6 +177,7 @@ includefoot]{geometry}
 
 % Customize 
 \usepackage[export]{adjustbox}
+\usepackage{forest}
 
 %\input{Preamble/preamble.tex}
 \input{Preamble/commands.tex}
@@ -188,6 +190,10 @@ includefoot]{geometry}
 \newcommand{\tenKL}{XÂY DỰNG HỆ THỐNG SINH CỬ CHỈ TỪ ÂM THANH CHO TRỢ LÝ ẢO} % Chú ý dấu ~ trong tên khóa luận
 \newcommand{\tenGVHD}{PSG. TS. Lý Quốc Ngọc}
 \newcommand{\tenBM}{BM. Khoa~Học~Máy~Tính}
+
+\includeonly{
+	Chapter2/chapter2,
+	Chapter2/diffusionbase}
 
 
 \begin{document}
@@ -226,6 +232,7 @@ includefoot]{geometry}
 
 % Các công trình liên quan
 \include{Chapter2/chapter2}
+\include{Chapter2/diffusionbase}
 
 % Phương pháp đề xuất
 \include{Chapter3/chapter3}

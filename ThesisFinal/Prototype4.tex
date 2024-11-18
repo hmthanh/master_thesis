@@ -1,0 +1,530 @@
+%Đây là template dùng cho đề cương đề tài tốt nghiệp
+%Khoa Công nghệ Thông tin
+%Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM
+
+%Liên hệ về mẫu LaTEX này: Thầy Bùi Huy Thông (bhthong@fit.hcmus.edu.vn)
+
+\documentclass{article}[14pt]
+\usepackage[utf8]{vietnam}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage[left=2cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{fancyhdr}
+\usepackage{fancybox,framed}
+\linespread{1.3}
+\usepackage{lastpage}
+\usepackage{floatrow}
+\usepackage{floatrow}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\pagenumbering{arabic}
+%\pagestyle{fancy}
+\newfloatcommand{capbtabbox}{table}[][\FBwidth]
+\usepackage{caption}
+\captionsetup[figure]{font=large} 
+\usepackage{blindtext}
+\usepackage{titlesec}
+\usepackage[nottoc]{tocbibind}
+
+
+\usepackage{array} % Gói cần thiết cho kiểu cột m{}
+
+
+
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\Large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+%\addbibresource{ref.bib}
+
+
+\begin{document}
+    \begin{figure}[h]
+        \begin{floatrow}
+        \ffigbox{\includegraphics[scale = .4]{logo.png}}  
+        {%
+    
+        }
+        \capbtabbox{
+            \begin{tabular}{l}
+            \multicolumn{1}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN\\KHOA CÔNG NGHỆ THÔNG TIN\end{tabular}}} \\ \\ \\
+            \end{tabular}
+        }
+        {%
+    
+        }
+        \end{floatrow}
+    \end{figure}
+    
+    \begin{center}
+        
+        %Xác định loại đề tài tốt nghiệp tương ứng: Khóa luận, Thực tập, Đồ án
+        \textbf{\Large LUẬN VĂN \\  TỐT NGHIỆP} \\ 
+    \end{center}
+    
+    %\vspace{.5cm}
+    
+    \begin{center}
+    %Tên đề tài phải VIẾT HOA
+        
+        \textbf{\huge Hệ quản trị cơ sở dữ liệu quan hệ phân tán hỗ trợ xử lý dữ liệu lớn trực tuyến } 
+        \\
+        
+    %Tên đề tài bằng tiếng Anh (nếu có)
+    \vspace{.5cm}
+        \textit{\textbf{\Large (Distributed Relational Database Management System Supporting Online Big Data Processing  )}}
+    \end{center}
+    
+    \vspace{.5cm}
+    
+    \Large
+    \section{THÔNG TIN CHUNG}
+    \begin{itemize}[label = {}]
+        
+        \item \textbf{Người hướng dẫn:} 
+        %Thể hiện dạng: <Chức danh> <Họ và tên> (<Đơn vị công tác>)
+        \begin{itemize}
+            \item TS. Ngô Huy Biên (Khoa Công nghệ Thông tin)
+        \end{itemize}{}
+    
+        
+        \item \textbf{Học viên thực hiện:}
+        
+        %Thể hiện dạng: <Họ và tên sinh viên> (MSSV: )
+        \begin{itemize}
+        
+            \item Trần Hữu Nghĩa (MSSV: 21C12005) 
+           
+        \end{itemize}
+
+       %Chọn loại thích hợp
+        \item \textbf{Mã số ngành:} 8480104
+        
+        \item \textbf{Thời gian thực hiện:} Từ \textit{06/2023} đến \textit{12/2023}
+        
+        
+    \end{itemize}
+    
+    \pagebreak 
+
+   
+    \begin{figure}[h]
+        \begin{floatrow}
+        \ffigbox{\includegraphics[scale = .4]{logo.png}}  
+        {%
+    
+        }
+        \capbtabbox{
+            \begin{tabular}{l}
+            \multicolumn{1}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN\\KHOA CÔNG NGHỆ THÔNG TIN\end{tabular}}} \\ \\ \\
+            \end{tabular}
+        }
+        {%
+    
+        }
+        \end{floatrow}
+    \end{figure}
+    
+    \begin{center}
+        
+        %Xác định loại đề tài tốt nghiệp tương ứng: Khóa luận, Thực tập, Đồ án
+        \textbf{\Large ĐỀ CƯƠNG LUẬN VĂN \\  TỐT NGHIỆP} \\ 
+    \end{center}
+    
+    %\vspace{.5cm}
+    
+    \begin{center}
+    %Tên đề tài phải VIẾT HOA
+        
+        \textbf{\huge Hệ quản trị cơ sở dữ liệu quan hệ phân tán hỗ trợ xử lý dữ liệu lớn trực tuyến } 
+        \\
+        
+    %Tên đề tài bằng tiếng Anh (nếu có)
+    \vspace{.5cm}
+        \textit{\textbf{\Large (Distributed Relational Database Management System Supporting Online Big Data Processing  )}}
+    \end{center}
+    
+    \vspace{.5cm}
+    
+    \Large
+    \section{THÔNG TIN CHUNG}
+    \begin{itemize}[label = {}]
+        
+        \item \textbf{Người hướng dẫn:} 
+        %Thể hiện dạng: <Chức danh> <Họ và tên> (<Đơn vị công tác>)
+        \begin{itemize}
+            \item TS. Ngô Huy Biên (Khoa Công nghệ Thông tin)
+        \end{itemize}{}
+    
+        
+        \item \textbf{Học viên thực hiện:}
+        
+        %Thể hiện dạng: <Họ và tên sinh viên> (MSSV: )
+        \begin{itemize}
+        
+            \item Trần Hữu Nghĩa (MSSV: 21C12005) 
+           
+        \end{itemize}
+
+       %Chọn loại thích hợp
+        \item \textbf{Mã số ngành:} 8480104
+        
+        \item \textbf{Thời gian thực hiện:} Từ \textit{04/2023} đến \textit{12/2024}
+        
+        
+    \end{itemize}
+    
+    \pagebreak 
+    
+    \section{Lời cảm ơn}
+    {
+    Trước tiên, em xin được gửi lời cảm ơn sâu sắc nhất tới Thầy TS. Ngô Huy Biên. Với tâm huyết và sự tận tâm không ngừng, Thầy đã truyền đạt cho em những kiến thức chuyên sâu về cloud và hệ thống phân tán. Thầy không chỉ là người hướng dẫn đắc lực, luôn động viên em trong suốt quá trình nghiên cứu, mà còn là nguồn cảm hứng với những đề tài thực tiễn, giúp em tiếp cận gần hơn với các bài toán thực tế và vượt qua mọi thử thách. Nhờ Thầy, em đã có được mọi điều kiện tốt nhất để hoàn thành luận văn này.
+
+Em cũng xin được bày tỏ lòng biết ơn vô hạn tới các Thầy/Cô của khoa Hệ Thống Thông Tin, trường Đại Học Khoa Học Tự Nhiên TP. HCM, những người đã không ngừng nỗ lực trong việc giảng dạy và truyền đạt những nền tảng kiến thức vững chắc, từ đó giúp em phát triển những khái niệm và năng lực cần thiết cho luận văn của mình.
+
+Cuối cùng, em xin dành lời cảm ơn chân thành nhất tới Cha Mẹ - những người đã sinh thành và dưỡng dục em, luôn là bến đỗ tinh thần vững chắc cho em trong mọi hoàn cảnh. Sự ủng hộ và động viên không điều kiện từ Cha Mẹ đã trở thành nguồn động lực mạnh mẽ, giúp em vượt qua mọi khó khăn và đạt được những thành tựu ngày hôm nay.
+    }
+
+     \section{Lời cam đoan}
+    {
+Tôi cam đoan luận văn thạc sĩ ngành Hệ Thống Thông Tin, với đề tài Hệ quản trị cơ sở dữ liệu quan hệ phân tán hỗ trợ xử lý dữ liệu lớn trực tuyến là công trình khoa học do Tôi thực hiện dưới sự hướng dẫn của TS. Ngô Huy Biên Những kết quả nghiên cứu của luận văn hoàn toàn trung thực và chính xác.
+    }
+
+     \section{Bảng thuật ngữ, từ viết tắt và ký hiệu}
+    {
+    
+    }
+
+     \section{Mục lục}
+    {
+    
+    }
+
+    
+     \section{Danh sách hình}
+    {
+    
+    }
+
+    \section{Tóm tắt}
+    {
+    
+    }
+
+    
+    
+    \section{NỘI DUNG THỰC HIỆN LUẬN VĂN}
+    {
+
+    %Mỗi mục dưới đây phải viết ít nhất là 5 câu mô tả/giới thiệu.
+    
+
+
+    
+\subsection{Mở đầu}
+Trong thời đại kỹ thuật số hiện nay, dữ liệu đóng vai trò quan trọng trong hầu hết mọi khía cạnh của công nghệ thông tin. Đặc biệt, trong các hệ thống quản lý thành viên trực tuyến như ASP.NET Membership database, việc xử lý và quản lý dữ liệu lớn trở thành một thách thức đáng kể. MS SQL Server, một hệ quản trị cơ sở dữ liệu quan hệ phổ biến, đã được sử dụng rộng rãi trong việc quản lý dữ liệu này. Tuy nhiên, với sự phát triển nhanh chóng của dữ liệu và yêu cầu ngày càng cao về hiệu suất và khả năng mở rộng, MS SQL Server bắt đầu cho thấy những hạn chế của mình.
+
+Khi đối mặt với lượng dữ liệu ngày càng tăng, MS SQL Server thường xuất hiện một số vấn đề nghiêm trọng ảnh hưởng đến hiệu suất và khả năng mở rộng. Đầu tiên và rõ ràng nhất là vấn đề tốc độ truy vấn chậm. Trong bối cảnh dữ liệu lớn, việc tìm kiếm và xử lý dữ liệu trở nên phức tạp và tốn thời gian, đặc biệt với các truy vấn liên kết nhiều bảng và có nhiều điều kiện. Điều này không chỉ gây trở ngại cho quá trình truy xuất dữ liệu mà còn làm giảm trải nghiệm người dùng cuối.
+
+Một vấn đề khác là quản lý tài nguyên và bộ nhớ không hiệu quả. MS SQL Server có thể không tối ưu hóa việc sử dụng bộ nhớ và tài nguyên máy chủ khi phải đối phó với lượng lớn giao dịch và dữ liệu. Các vấn đề như sự phân mảnh (fragmentation) của dữ liệu và quản lý bộ nhớ cache không hiệu quả có thể xuất hiện, làm tăng độ trễ trong việc truy cập dữ liệu và ảnh hưởng đến hiệu suất tổng thể.
+
+Ngoài ra, MS SQL Server cũng gặp phải hạn chế về khả năng mở rộng. Trong mô hình truyền thống, việc mở rộng quy mô cơ sở dữ liệu, đặc biệt là mở rộng ngang, không phải lúc nào cũng dễ dàng hoặc kinh tế. Việc tăng cường cơ sở hạ tầng có thể đòi hỏi đầu tư lớn và làm phức tạp quá trình quản lý dữ liệu, đặc biệt là trong các hệ thống cần xử lý lượng lớn dữ liệu liên tục và đồng thời.
+
+Chính những hạn chế này đã tạo ra nhu cầu cấp thiết cho một giải pháp thay thế, và đây là lúc cơ sở dữ liệu phân tán bước vào. Với khả năng mở rộng linh hoạt, quản lý hiệu quả tài nguyên và bộ nhớ, cùng với việc giảm thiểu độ trễ trong xử lý truy vấn nhờ vào cơ chế phân phối dữ liệu qua nhiều nút, cơ sở dữ liệu phân tán trở thành một giải pháp hấp dẫn và hiệu quả hơn trong việc xử lý các thách thức của dữ liệu lớn.
+
+Trong bối cảnh này, cơ sở dữ liệu phân tán đưa ra một giải pháp hứa hẹn. Khác biệt so với mô hình truyền thống, cơ sở dữ liệu phân tán có thể phân chia và quản lý dữ liệu trên nhiều máy chủ, giúp giảm tải cho từng hệ thống và tăng cường hiệu suất tổng thể. Điều này không chỉ giúp giảm độ trễ trong truy vấn mà còn cung cấp khả năng mở rộng và bảo mật dữ liệu tốt hơn.
+
+Mục tiêu của luận văn này là khám phá và phân tích sâu rộng về việc chuyển đổi từ MS SQL Server sang cơ sở dữ liệu phân tán, nhằm giải quyết các vấn đề liên quan đến quản lý dữ liệu lớn trong ASP.NET Membership database. Bằng cách này, nghiên cứu nhằm đề xuất một giải pháp có thể cải thiện đáng kể hiệu suất, khả năng mở rộng, và độ tin cậy của hệ thống quản lý dữ liệu.
+
+Nghiên cứu này không chỉ có ý nghĩa với các nhà phát triển và quản trị viên hệ thống mà còn đóng góp vào lĩnh vực nghiên cứu cơ sở dữ liệu. Kết quả từ nghiên cứu này có thể được áp dụng rộng rãi trong các hệ thống quản lý dữ liệu lớn khác, đặc biệt trong các ứng dụng web hiện đại yêu cầu cao về hiệu suất và khả năng mở rộng.
+
+\subsection{Cơ sở lý thuyết}
+Đầu tiên Microsoft SQL Server là một hệ thống quản lý cơ sở dữ liệu quan hệ (RDBMS) phát triển bởi Microsoft. Nó là một giải pháp dữ liệu toàn diện, cung cấp các công cụ và dịch vụ hỗ trợ quản lý, lưu trữ và xử lý dữ liệu trong môi trường doanh nghiệp. SQL Server bao gồm nhiều tính năng và công cụ hỗ trợ, từ quản lý dữ liệu quan hệ và thực hiện truy vấn SQL, đến phân tích dữ liệu, báo cáo và tích hợp dữ liệu.
+
+SQL Server được thiết kế để đáp ứng nhu cầu đa dạng của doanh nghiệp, bao gồm xử lý giao dịch trực tuyến (OLTP), hệ thống hỗ trợ quyết định (DSS), và cung cấp khả năng mở rộng và hiệu suất cao cho cơ sở dữ liệu lớn. Nó cũng đặc biệt mạnh mẽ trong việc đảm bảo an toàn và bảo mật dữ liệu, với các tính năng như mã hóa, quản lý quyền truy cập, và các chính sách bảo mật nâng cao.
+
+
+
+\begin{figure}
+   \centering
+    \includegraphics[width=0.7\linewidth]{images/SQLServerAr1.png}
+    \caption{Kiến trúc của Microsoft SQL Server}
+    \label{fig:overviewsmssql}
+\end{figure}
+
+Hình ảnh \ref{fig:overviewsmssql} được đề cập cung cấp một cái nhìn tổng quan về
+kiến trúc của Microsoft SQL Server, Relational Engine đóng vai trò trung tâm trong việc xử lý các truy vấn SQL. Bắt đầu với CMD Parser, nơi mà truy vấn được phân tích cú pháp và chuyển thành một "query tree" – một biểu diễn cấu trúc của các hành động cần thực hiện. Điều này cho phép SQL Server hiểu và chuẩn bị cho việc tối ưu hóa truy vấn.
+
+Tiếp đến là Optimizer, một thành phần chức năng quan trọng của Relational Engine, chịu trách nhiệm cho việc lựa chọn kế hoạch truy vấn hiệu quả nhất từ nhiều lựa chọn có thể. Optimizer xác định chiến lược thực thi dựa trên chi phí tài nguyên như CPU, bộ nhớ và đĩa cứng. Quá trình này đảm bảo rằng truy vấn được thực hiện một cách hiệu quả nhất.
+
+Sau khi kế hoạch được tối ưu hóa, Query Executor bắt đầu công việc của mình, thực thi kế hoạch truy vấn đã được chọn lọc, làm việc cùng với Storage Engine để truy xuất, cập nhật hoặc xóa dữ liệu cần thiết từ cơ sở dữ liệu.
+
+Vai trò của Storage Engine trong kiến trúc này cũng cực kỳ quan trọng. Nó quản lý việc lưu trữ và truy xuất dữ liệu từ đĩa cứng thông qua các phương pháp truy cập dữ liệu. Trong khi đó, Transaction Manager giữ vai trò quản lý các giao dịch, đảm bảo rằng mọi thay đổi dữ liệu đều theo dõi được và có thể khôi phục nếu cần.
+
+Buffer Manager là một phần khác của Storage Engine, quản lý bộ nhớ đệm nơi trang dữ liệu được lưu giữ tạm thời trước khi ghi ra đĩa hoặc sau khi đọc từ đĩa. Quản lý này giúp tối ưu hóa truy cập dữ liệu và tăng cường hiệu suất I/O.
+
+SQL Server còn có SQL Server Network Interface (SNI), cung cấp giao tiếp mạng giữa server và client sử dụng giao thức TDS (Tabular Data Stream). TDS là giao thức truyền tải dữ liệu khi một ứng dụng client gửi yêu cầu tới SQL Server, yêu cầu đó được đóng gói theo định dạng TDS trước khi được gửi qua mạng. Máy chủ SQL Server sau đó giải mã gói tin TDS để thực hiện các truy vấn và gửi lại kết quả cho client theo cùng một giao thức.
+
+Trong khi Protocol Layer quản lý gói tin TDS giữa client và server, đảm bảo thông tin được truyền đi chính xác và hiệu quả, Buffer Pool gồm Plan Cache và Data Cache đóng một vai trò quan trọng trong việc cải thiện hiệu suất bằng cách lưu giữ các kế hoạch truy vấn và dữ liệu thường xuyên được truy cập. Ngoài ra, Dirty Pages là những trang dữ liệu đã thay đổi trong bộ nhớ đệm và chờ được ghi ra đĩa.
+
+Cuối cùng, Transaction Log ghi lại tất cả các thay đổi dữ liệu để hỗ trợ phục hồi dữ liệu, trong khi các Data File lưu trữ dữ liệu thực tế của cơ sở dữ liệu. Đây là các file vật lý chứa thông tin cần thiết để bảo quản và bảo mật dữ liệu.
+
+Kiến trúc này minh họa một cách chi tiết cách mà SQL Server xử lý các truy vấn từ khi chúng được gửi tới cho đến khi kết quả được trả về, đồng thời duy trì hiệu suất và độ tin cậy.
+
+Microsoft SQL Server là một hệ thống quản lý cơ sở dữ liệu quan hệ và được ưa chuộng trên toàn cầu. Tuy nhiên, như mọi hệ thống công nghệ thông tin, nó không phải là không có điểm yếu. Một trong những thách thức lớn nhất mà SQL Server đối mặt là khi xử lý các bộ dữ liệu lớn và phức tạp, đặc biệt trong môi trường có yêu cầu cao về phân tích dữ liệu và báo cáo thời gian thực. Các vấn đề có thể bao gồm chậm chạp trong truy vấn, thời gian chờ (timeouts), và khó khăn trong việc mở rộng quy mô cơ sở dữ liệu.
+
+Trong khi SQL Server có thể xử lý tốt các tải trọng dữ liệu trung bình và lớn, nó không được thiết kế từ đầu để làm việc hiệu quả với cơ sở dữ liệu kích thước rất lớn (big data) hoặc xử lý phân tích song song đại trà (massively parallel processing - MPP). Đây là nơi mà các hệ thống như Greenplum Database bước vào.
+
+Greenplum Database là một RDBMS mã nguồn mở được xây dựng dựa trên PostgreSQL và được thiết kế để chạy trên kiến trúc MPP, cho phép nó xử lý và phân tích lượng dữ liệu lớn một cách nhanh chóng và hiệu quả. Greenplum có khả năng phân phối và xử lý dữ liệu trên nhiều nút và máy chủ khác nhau, giảm đáng kể vấn đề về thời gian chờ và cải thiện đáng kể hiệu suất so với các hệ thống không được thiết kế để mở rộng quy mô theo cách này.
+
+Greenplum có những đặc trưng sau:
+
+Greenplum sử dụng kiến trúc Massively parallel processing (MPP): MPP là một
+cách xử lý dữ liệu mà trong đó nhiều bộ vi xử lý thực hiện các tác vụ
+khác nhau đồng thời. Điều này giúp xử lý dữ liệu lớn hoặc phức tạp
+một cách nhanh chóng và hiệu quả. MPP thường được sử dụng trong
+các máy chủ lớn và các hệ thống cơ sở dữ liệu, nơi mà việc xử lý song
+song có thể cải thiện đáng kể tốc độ và hiệu suất.
+Mỗi máy chủ hoạt động như một "segment" tự chứa, xử lý một phần
+của dữ liệu và truy vấn một cách độc lập.Cấu trúc này giúp giảm độ trễ và tăng hiệu suất tổng thể bằng cách
+song song hóa các tác vụ, đặc biệt quan trọng khi xử lý các tác vụ đòi
+hỏi nhiều tài nguyên tính toán.
+
+Tối ưu hóa cho Online Transaction Processing (OLTP) và OLAP: Tiết kiệm chi phí và đơn giản hóa kiến trúc IT: Do khả năng xử lý cả
+OLTP và OLAP trên cùng một hệ thống, Greenplum giúp doanh
+nghiệp giảm thiểu sự cần thiết của việc duy trì nhiều hệ thống, từ đó
+tiết kiệm chi phí và giảm bớt độ phức tạp của hạ tầng. Giao thức cam kết một pha (One-Phase Commit Protocol): Đối với
+các giao dịch chỉ ảnh hưởng đến dữ liệu trên một phân đoạn đơn lẻ
+của Greenplum, hệ thống sử dụng giao thức cam kết một pha thay vì
+hai pha thông thường. Giao thức hai pha (two-phase commit protocol) là một cơ chế đồng bộ
+hóa dùng trong các hệ thống phân tán để đảm bảo rằng tất cả thay đổi
+trong một giao dịch được cam kết (commit) một cách đồng nhất trên
+tất cả các node hệ thống. Giao thức một pha loại bỏ bước thứ hai,
+giảm độ phức tạp và thời gian xử lý cho những giao dịch đơn giản, từ
+đó cải thiện hiệu suất và đáp ứng nhanh chóng hơn cho các yêu cầu
+OLTP
+
+Khả năng mở rộng Greenplum có thể mở rộng theo chiều ngang bằng cách thêm node vào cụm mà không làm gián đoạn dịch vụ. Khả năng mở rộng này cho phép Greenplum tăng cường nhanh chóng năng lực xử lý khi lượng dữ liệu tăng lên.
+Các công cụ này giúp đơn giản hóa việc phân tích dữ liệu phức tạp và
+dự đoán, đem lại giá trị từ dữ liệu lớn.
+
+Ngoài việc xử lý các truy vấn SQL cơ bản, Greenplum còn hỗ trợ các
+công cụ phân tích dữ liệu nâng cao như machine learning và xử lý dữ
+liệu lớn
+
+
+Những đặc trưng này, khi kết hợp, tạo nên một hệ thống mạnh mẽ, linh hoạt,
+và hiệu quả cho việc xử lý khối lượng dữ liệu lớn, đáp ứng cả nhu cầu xử lý
+giao dịch hàng ngày và phân tích dữ liệu chuyên sâu.
+
+
+
+Nghiên cứu và cài đặt hệ thống Greenplum với mỗi node có hiệu suất tương
+đương cơ sở dữ liệu Massively Parallel Processing (MPP) kiến trúc của hệ
+thống. Hình \ref{fig:gp-architecture} mô tả kiến trúc của Greenplum.
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[scale=.4]{images/gp-architecture.png}}
+\captionsetup{font=Large}
+\caption{Kiến trúc hệ thống cơ sở dữ liệu Greenplum. \cite{vmware_greenplum}. }
+\label{fig:gp-architecture}
+\end{figure}
+
+Greenplum là hệ thống cơ sở dữ liệu được xây dựng dựa trên kiến
+trúc MPP, được tối ưu hóa để xử lý dữ liệu lớn và phân tích. Nó sử dụng kiến
+trúc shared-nothing, nơi mỗi node trong hệ thống là độc lập và tự cung cấp tài nguyên cho chính mình, từ CPU, bộ nhớ đến lưu trữ.
+
+Các thành phần chính của kiến trúc Greenplum:
+
+Coordinator trong kiến trúc Greenplum là nơi quản lý và điều phối
+toàn bộ hoạt động của cơ sở dữ liệu. Hình \ref{fig:admin_guide-graphics-standby_coordinator} Mô tả coordinator trong kiến trúc Greenplum.
+Dưới đây là các yếu tố cụ thể:
+
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[scale=.7]{images/admin_guide-graphics-standby_coordinator.jpg}}
+\captionsetup{font=Large}
+\caption{Coordinator trong kiến trúc Greenplum \cite{vmware_greenplum}.}
+\label{fig:admin_guide-graphics-standby_coordinator}
+\end{figure}
+
+Quản lý truy vấn và điều phối: Coordinator nhận các truy vấn từ ứng dụng người dùng và chịu trách nhiệm phân tích cú pháp, tối ưu hóa truy vấn, và lập kế hoạch thực thi truy vấn. Nó phân phối các phần của truy vấn đã được tối ưu hóa đến các segment nodes để thực hiện.
+
+
+Duy trì Metadata: Coordinator duy trì danh mục (catalog) của cơ sở dữ liệu, nơi lưu giữ thông tin về sơ đồ, dữ liệu, và cấu trúc của các bảng, cũng như các thông tin thống kê cần thiết cho việc tối ưu hóa truy vấn.
+
+Quản lý giao dịch: Coordinator xử lý và quản lý các giao dịch, đảm bảo tính toàn vẹn, nhất quán, và cô lập dữ liệu. Nó sử dụng giao thức cam kết hai pha (two-phase commit protocol) để đảm bảo các thay đổi được thực hiện một cách đồng nhất trên tất cả các segment nodes.
+
+Quản lý giao dịch: Coordinator xử lý và quản lý các giao dịch, đảm bảo tính toàn vẹn, nhất quán, và cô lập dữ liệu. Nó sử dụng giao thức cam kết hai pha (two-phase commit protocol) để đảm bảo các thay đổi được thực hiện một cách đồng nhất trên tất cả các segment nodes.
+
+Quản lý Tài nguyên: Coordinator quản lý các nguồn tài nguyên như bộ nhớ và CPU cho các truy vấn và có thể thiết lập các ưu tiên dựa trên chính sách quản lý tài nguyên.
+
+Phục hồi và Sao lưu: Trong trường hợp có sự cố, master host có trách nhiệm khởi tạo các quy trình sao lưu và phục hồi để bảo đảm tính sẵn sàng và liên tục của hệ thống.
+
+Monitoring và Logging: Coordinator cũng có trách nhiệm giám sát hoạt động của cả hệ thống và ghi lại các sự kiện hệ thống, giúp trong việc phân tích hiệu suất và khắc phục sự cố. Coordinator đóng vai trò trung tâm trong kiến trúc Greenplum, đảm nhiệm nhiều chức năng quan trọng từ việc quản lý truy vấn đến quản lý tài nguyên và đảm bảo tính ổn định của hệ thống.
+
+Trong kiến trúc Greenplum, segment là những máy chủ cơ sở dữ liệu hoặc
+"nodes" làm việc song song để xử lý và lưu trữ dữ liệu. Dưới đây là mô tả chi tiết về segment trong Greenplum:
+
+Xử lý dữ liệu song song: Mỗi segment là một node xử lý độc lập, chạy một instance của cơ sở dữ liệu PostgreSQL. Các segment làm việc cùng nhau một cách song song, mỗi segment xử lý một phần của truy vấn tổng thể và dữ liệu liên quan.
+
+Lưu trữ phân tán: Dữ liệu trong Greenplum được phân phối đều ra các segment. Mỗi segment chứa một phần dữ liệu và được quản lý độc lập.
+Kỹ thuật phân phối có thể bao gồm hash-based, random, hoặc các phân vùng
+dữ liệu cụ thể. 
+
+Tính độc lập và kiến trúc shared-nothing:
+Mỗi segment có bộ nhớ và không gian lưu trữ của riêng mình, tuân theo kiến trúc shared-nothing. Điều này đảm bảo rằng không có sự phụ thuộc giữa các segment, giảm thiểu các điểm nghẽn và cải thiện hiệu suất.
+
+Tự động phục hồi: Greenplum có khả năng tự động phục hồi từ lỗi ở cấp segment. Khi một segment gặp sự cố, Greenplum có thể chuyển công việc sang một segment dự bị hoặc phục hồi segment bị lỗi.
+
+Hiệu suất cao và khả năng mở rộng: Do mỗi segment xử lý một phần nhỏ của dữ liệu, hệ thống có thể mở rộng quy mô một cách linh hoạt bằng cách thêm segment vào hệ thống để xử lý khối lượng dữ liệu lớn hơn.
+Sự mở rộng này có thể được thực hiện mà không cần thay đổi cấu trúc hoặc
+cấu hình của các segment hiện có.
+
+Quản lý và giám sát:
+Mỗi segment được giám sát bởi coordinator, đảm bảo rằng nó hoạt động đúng
+và hiệu quả. Coordinator có thể giám sát tình trạng và hiệu suất của từng segment, và thực hiện các điều chỉnh khi cần thiết.
+
+Cân bằng tải: Greenplum sử dụng cơ chế cân bằng tải để đảm bảo rằng không có segment nào bị quá tải hoặc nhàn rỗi.
+Việc phân phối công việc giữa các segment được thực hiện dựa trên cấu hình và tình trạng hiện tại của hệ thống.
+
+Segments đóng vai trò quan trọng trong việc đảm bảo khả năng xử lý dữ liệu lớn và phức tạp của Greenplum, giúp nó trở thành một giải pháp mạnh mẽ cho việc kho dữ liệu và phân tích dữ liệu quy mô lớn.
+
+Greenplum đã giới thiệu một node kế hoạch mới có tên là Motion để thực hiện việc di chuyển dữ liệu này. Node Motion sử dụng mạng để gửi và nhận dữ liệu từ các segment khác nhau, tạo điều kiện cho việc phân chia kế hoạch truy vấn thành nhiều phần khác nhau, mỗi phần được gọi là một "slice". Mỗi slice sau đó được thực thi bởi một nhóm các quá trình phân tán, được gọi chung là "gang". Với việc sử dụng node Motion và khái niệm gang, kế hoạch truy vấn và quá trình thực thi của Greenplum trở nên phân tán. Kế hoạch sẽ được gửi đến từng quá trình, và mỗi quá trình sẽ thực thi phần slice của kế hoạch dựa trên ngữ cảnh và trạng thái cục bộ của mình. Điều này phản ánh kỹ thuật Single Program Multiple Data (SPMD), nơi cùng một kế hoạch được phân phát đến các nhóm quá trình trên khắp cụm. Các quá trình khác nhau được tạo ra bởi các segment khác nhau sẽ có ngữ cảnh, trạng thái và dữ liệu cục bộ riêng của chúng. Hình \ref{fig:plan} ví dụ về kế hoạch phân tán và thực thi của Greenplum.
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[scale=.8]{images/plan.PNG}}
+\captionsetup{font=Large}
+\caption{Kế hoạch phân tán và thực thi của Greenplum \cite{lyu2021greenplum}}
+\label{fig:plan}
+\end{figure}
+
+Từ hình \ref{fig:plan} cho thấy Greenplum bảng student được tạo với việc phân phối dữ liệu dựa trên cột id. Điều này có nghĩa là dữ liệu sẽ được phân chia giữa các segment sao cho mỗi id student sẽ chỉ tồn tại trên một segment cụ thể. Bảng class được tạo với dữ liệu phân phối một cách ngẫu nhiên, không theo một quy tắc cụ thể nào. Khi truy vấn "SELECT * FROM student JOIN class USING (id);" được thực hiện, hệ thống sẽ tạo ra một kế hoạch thực thi phân tán. Kế hoạch này xác định làm thế nào dữ liệu từ cả hai bảng sẽ được kết hợp dựa trên cột id. Các segment thực hiện quét tuần tự (Seq Scan) trên bảng student và class để lấy các bản ghi cần thiết cho việc thực hiện join. Motion Sender: Nằm trên mỗi Motion Sender: Nằm trên mỗi segment, sẽ xác định các bản ghi từ bảng
+class mà cần được di chuyển để join với bảng student.
+Motion Receiver nằm trên segment đích, sẽ nhận các bản ghi từ bảng class
+đã được gửi qua và chuẩn bị cho việc join, sẽ xác định các bản ghi từ bảng class mà cần được di chuyển để join với bảng student. Motion Receiver nằm trên segment đích, sẽ nhận các bản ghi từ bảng class đã được gửi qua và chuẩn bị cho việc join. Trong mỗi segment, một "Hash Join" được thực hiện giữa các bản ghi từ bảng student và các bản ghi từ bảng class đã được di chuyển đến. Đây là bước dữ liệu từ bảng class có thể cần được phân phối lại (redistributed) giữa các phân đoạn để đảm bảo rằng mỗi student có thể được join với đúngclass dựa trên id. Sau khi join được thực hiện trên các phân đoạn, kết quả sau cùng sẽ được gửi về cho "Gather Receiver" ở coordinator, nơi tất cả kết quả từ các phân đoạn được tổng hợp lại. Coordinator sau đó sẽ trả về kết quả cuối cùng của truy vấn join cho người dùng hoặc ứng dụng đã yêu cầu truy vấn. Trong quá trình này, "Gang1" và "Gang2" có thể hiểu là nhóm các quá trình làm việc trên các phân đoạn khác nhau để thực hiện các phần khác nhau của kế hoạch thực thi (ví dụ: quét tuần tự, join). Mỗi "gang" có thể gồm nhiều "slice", tương ứng với một phần của công việc cần thực hiện trên mỗi phân
+đoạn.
+
+Trong Greenplum, khóa được sử dụng rộng rãi để ngăn chặn các tình huống
+đua tranh ở nhiều cấp độ khác nhau. Có ba loại khóa khác nhau được thiết kế cho các trường hợp sử dụng khác nhau: khóa quay vòng (spin locks), khóa nhẹ (LWlocks), và khóa đối tượng (Object locks).
+
+Khóa quay vòng là loại khóa cực kỳ đơn giản, thường được sử dụng để bảo
+vệ các cấu trúc dữ liệu nhỏ và đơn giản. Khi một tiến trình cần truy cập vào một tài nguyên được bảo vệ bởi một spin lock, nó sẽ liên tục kiểm tra (hay "quay vòng") để xem khóa có sẵn hay không. Nếu khóa không sẵn có, tiến trình sẽ tiếp tục vòng lặp này cho đến khi nó có thể giành được khóa. Spin locks phù hợp khi thời gian giữ khóa ngắn, vì nó yêu cầu tiến trình tiêu tốn CPU cho việc quay vòng kiểm tra khóa. Nếu một tiến trình giữ spin lock trong thời gian dài, nó có thể gây ra hiệu suất kém vì các tiến trình khác sẽ phải chờ đợi trong vòng lặp quay vòng.
+LWlocks phức tạp hơn spin locks và thường được sử dụng để bảo vệ các cấu
+trúc dữ liệu lớn hơn hoặc các hoạt động phức tạp hơn. Chúng cho phép một
+số mức độ đọc hoặc viết song song, và cung cấp một cơ chế chờ đợi hiệu quả
+hơn so với việc quay vòng liên tục. Khi một tiến trình cần một LWlock nhưng không thể lấy được ngay lập tức, nó sẽ đi vào trạng thái chờ đợi thay vì quay vòng. Điều này giúp giảm tải cho CPU và cho phép xử lý các tiến trình khác trong khi đang chờ.
+
+Khóa đối tượng: Là một cơ chế khóa ở cấp độ cao, được sử dụng để quản lý
+truy cập và cập nhật trên các đối tượng cơ sở dữ liệu như bảng, bản ghi, và giao dịch. Đảm bảo rằng nhiều quá trình có thể đồng thời làm việc trên cùng một cơ sở dữ liệu mà không làm ảnh hưởng đến tính toàn vẹn và nhất quán của dữ liệu. Truy cập song song: Khi nhiều quá trình cần truy cập hoặc thao tác trên cùng một đối tượng, khóa đối tượng sẽ quản lý cách thức và mức độ mà mỗi quá trình có thể tương tác với đối tượng đó.
+
+Bảng \ref{tab:khoadoituong} mô tả các cấp độ khóa trong khóa đối tượng: 
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{1cm}|>{\raggedright\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{5cm}|}
+\hline
+\textbf{Tên khóa} & \textbf{Mức độ} & \textbf{Xung đột} & \textbf{Lệnh} &\textbf{Mô tả}\\ 
+\hline
+AccessShareLock & 1 & 8 & select & Đây là chế độ khóa nhẹ nhất, thường được sử dụng cho các lệnh đọc dữ liệu không thay đổi dữ liệu (như SELECT). Nó chỉ xung đột với chế độ khóa cao nhất, AccessExclusiveLock, giúp cho nhiều quá trình có thể đọc cùng một dữ liệu cùng lúc. \\
+\hline
+RowShareLock  & 2 & 7, 8 & Select for update & Khóa này được áp dụng trong các thao tác SELECT FOR UPDATE. Nó khóa các hàng được chọn để cập nhật nhưng vẫn cho phép các giao dịch khác đọc các hàng này. \\
+\hline
+RowExclusiveLock & 3 & 5, 6, 7, 8 & Insert & Thường được sử dụng trong các thao tác INSERT. Nó ngăn các giao dịch khác sửa đổi cùng một hàng, nhằm đảm bảo tính toàn vẹn dữ liệu khi chèn. \\
+\hline
+ShareUpdateExclusiveLock & 4 & 4, 5, 6, 7, 8 & Vacuum (not full) & Thường được sử dụng trong các thao tác bảo trì như VACUUM (không phải toàn bộ). Khóa này hạn chế hơn để tránh xung đột trong các tác vụ bảo trì. \\
+\hline
+ShareLock & 5& 3, 4, 6, 7, 8 & Create index & Được áp dụng trong các thao tác như CREATE INDEX. Nó hạn chế hơn để bảo vệ cấu trúc của bảng trong khi chỉ mục đang được tạo. \\
+\hline
+ShareRowExclusiveLock & 6 & 3, 4, 5, 6, 7, 8 & Collation create & Được sử dụng trong các thao tác sửa đổi lược đồ, như tạo collation. Khóa này khá hạn chế để đảm bảo sự nhất quán của các thay đổi lược đồ. \\
+\hline
+ExclusiveLock & 7 & 2, 3, 4, 5, 6, 7, 8 & Concurrent refresh matview & Áp dụng trong các thao tác như REFRESH MATERIALIZED VIEW CONCURRENTLY. Nó rất hạn chế để ngăn các giao dịch khác thực hiện các thay đổi có thể xung đột với việc làm mới view. \\
+\hline
+AccessExclusiveLock & 8& 1, 2, 3, 4, 5, 6, 7, 8 & Alter table & Khóa hạn chế nhất, được sử dụng trong các thao tác như ALTER TABLE. Cơ bản nó khóa tất cả các thao tác khác trên bảng để đảm bảo tính toàn vẹn của các thay đổi cấu trúc lớn. \\
+\hline
+\caption{Mô tả các cấp độ khóa trong khóa đối tượng \cite{lyu2021greenplum}}
+\label{tab:khoadoituong}
+\end{longtable}
+
+Khóa đối tượng phân biệt giữa các thao tác đọc và ghi, cho phép độc lập trong
+truy cập đọc trong khi quản lý cẩn thận truy cập bản ghi để tránh xung đột dữ
+liệu.
+
+
+\subsection{Phát biểu bài toán}
+
+Trong bối cảnh công nghệ thông tin ngày càng phát triển, Microsoft SQL Server (MSSQL) đã trở thành nền tảng không thể thiếu trong việc quản lý và xử lý dữ liệu lớn, đặc biệt là trong các hệ thống quản lý người dùng như ASP.NET Membership. Tuy nhiên, các thách thức về hiệu suất đã trở nên rõ rệt khi hệ thống phải đối mặt với lượng dữ liệu ngày càng tăng. Điều này đặc biệt trở nên nghiêm trọng trong các hệ thống có hàng triệu người dùng, nơi mà MSSQL cần xử lý một lượng lớn các yêu cầu truy vấn phức tạp và dữ liệu liên tục.
+
+Vấn đề này không chỉ dẫn đến sự chậm trễ trong việc xử lý truy vấn, mà còn tạo ra tình trạng hệ thống thường xuyên bị timed out, đặc biệt trong các trường hợp truy vấn dữ liệu lớn hoặc trong giờ cao điểm. Những vấn đề hiệu suất này không chỉ gây ra sự không tin cậy trong hệ thống mà còn ảnh hưởng trực tiếp đến trải nghiệm của người dùng, khiến họ phải đối mặt với thời gian tải trang lâu và trải nghiệm không mượt mà. Đồng thời, khả năng mở rộng và bảo mật của hệ thống cũng trở thành những thách thức đáng kể. Việc mở rộng cơ sở dữ liệu để xử lý hiệu quả lượng dữ liệu ngày càng lớn đòi hỏi phải vượt qua những rào cản về mặt kỹ thuật, trong khi những vấn đề hiệu suất không ổn định có thể làm tăng rủi ro bảo mật, gây ra nguy cơ tổn thương cho hệ thống.
+
+Những thách thức này không chỉ là vấn đề kỹ thuật cần giải quyết mà còn có tác động sâu rộng đến hoạt động kinh doanh và sự phát triển lâu dài của tổ chức. Chính vì vậy, việc tìm kiếm và áp dụng các giải pháp tối ưu hóa hiệu suất MSSQL trong môi trường ASP.NET Membership trở thành một yêu cầu cấp thiết, không chỉ để cải thiện hiệu suất kỹ thuật mà còn để nâng cao sự hài lòng của người dùng và đảm bảo sự ổn định trong quản lý dữ liệu.
+
+
+Hơn nữa, những vấn đề về hiệu suất không chỉ ảnh hưởng đến người dùng cuối mà còn gây ra những thách thức lớn trong việc mở rộng và bảo mật hệ thống. Khi hệ thống không thể xử lý hiệu quả các yêu cầu ngày càng tăng, khả năng mở rộng để đáp ứng nhu cầu tăng trưởng trở nên hạn chế, làm cản trở sự phát triển của doanh nghiệp. Ngoài ra, hệ thống bị chậm trễ và không ổn định cũng tạo ra các lỗ hổng bảo mật tiềm tàng, đe dọa đến tính bảo mật của dữ liệu quan trọng.
+
+
+Trong thế giới sôi động của thương mại điện tử, một trang web lớn đang phục vụ hàng triệu khách hàng, nơi hàng ngày diễn ra vô số giao dịch. Được vận hành trên nền tảng ASP.NET Membership và MSSQL, hệ thống này gặp thách thức không nhỏ trong việc quản lý và phân tích lượng dữ liệu khổng lồ từ thông tin khách hàng và giao dịch. Quản trị viên của trang web phải đối mặt với nhiệm vụ đầy thách thức: tổng hợp báo cáo doanh thu hàng tháng và thống kê chi tiết về số lượng khách hàng cùng các giao dịch, yêu cầu xử lý dữ liệu từ nhiều nguồn khác nhau, từ thông tin giao dịch, hành vi mua sắm, đến số lượng sản phẩm bán ra.
+
+Tuy nhiên, quá trình tạo báo cáo này trở nên khó khăn khi quản trị viên phải vật lộn với những vấn đề về hiệu suất của hệ thống. Mỗi lần họ thực hiện truy vấn tổng hợp dữ liệu, hệ thống MSSQL mất nhiều thời gian để xử lý, bởi phải quét qua hàng triệu bản ghi dữ liệu, gây ra độ trễ đáng kể trong việc tải báo cáo. Hơn nữa, trong giờ cao điểm, khi lượng truy cập tăng vọt, các truy vấn lớn và phức tạp thường không được hệ thống xử lý kịp thời, dẫn đến tình trạng thời gian chờ tăng lên. Điều này không chỉ ảnh hưởng đến quản trị viên mà còn tới trải nghiệm của người dùng khác trên trang web. Thêm vào đó, khi cập nhật dữ liệu giao dịch và thông tin người dùng, hệ thống đôi khi gặp phải tình trạng bế tắc, với các truy vấn cạnh tranh nhau để truy cập cùng một tập dữ liệu, làm gián đoạn hoạt động của hệ thống.Một trang web lớn sử dụng ASP.NET Membership và MSSQL phải đối mặt với hàng loạt thách thức đáng kể liên quan đến hiệu suất trong việc xử lý và tổng hợp dữ liệu:
+
+Chậm trễ (Slowness) trong tổng hợp dữ Liệu:
+Khi quản trị viên bắt đầu quá trình tổng hợp dữ liệu cho báo cáo, họ phải đối mặt với nhiệm vụ khổng lồ: xử lý hàng triệu bản ghi dữ liệu. Việc thực hiện các truy vấn phức tạp, cần quét qua lượng lớn dữ liệu, dẫn đến thời gian chờ kéo dài bất thường. Kết quả là, thời gian cần thiết để tải và xem báo cáo tăng lên đáng kể, gây ra độ trễ không mong muốn và ảnh hưởng đến quá trình ra quyết định kinh doanh.
+
+Thời gian chờ (timeout) trong giờ cao điểm:
+Đặc biệt trong những khoảng thời gian cao điểm của hoạt động kinh doanh, như trong các sự kiện khuyến mãi hoặc mùa lễ, áp lực đối với hệ thống tăng lên đáng kể. Số lượng lớn truy cập cùng lúc và hàng loạt truy vấn đồng thời gửi đến cơ sở dữ liệu gây ra tình trạng quá tải. Hệ thống, dưới sự nặng nề của truy vấn và cập nhật liên tục, thường xuyên rơi vào tình trạng thời gian chờ dài, ảnh hưởng đến hiệu suất tổng thể và trải nghiệm người dùng.
+
+Deadlocks trong xử lý dữ liệu:
+Một thách thức khác nổi bật là tình trạng bế tắc trong quá trình xử lý dữ liệu. Khi nhiều truy vấn cùng lúc cố gắng cập nhật hoặc truy xuất thông tin từ cùng một bộ dữ liệu, hệ thống có thể rơi vào trạng thái khóa lẫn nhau. Sự cố này không chỉ làm giảm tốc độ xử lý dữ liệu mà còn có thể gây ra các sự cố nghiêm trọng trong việc cập nhật và duy trì dữ liệu, gây gián đoạn cho các hoạt động của trang web.
+
+Những thách thức này tạo ra một môi trường đầy áp lực cho quản trị viên và đòi hỏi cần phải có giải pháp công nghệ tiên tiến và sáng tạo để xử lý dữ liệu một cách hiệu quả hơn, đảm bảo rằng hệ thống có thể đáp ứng nhanh chóng và chính xác theo nhu cầu kinh doanh và người dùng.
+
+
+
+
+\subsection{Giải pháp đề xuất}
+Để giải quyết vấn đề trên(5.3), việc áp dụng một nền tảng dữ liệu song song đóng vai trò quan trọng. Đối mặt với những thách thức về hiệu suất trong việc tổng hợp và phân tích dữ liệu lớn của web thương mại điện tử là triển khai nền tảng dữ liệu song song. Thông qua việc phân tán quy trình xử lý dữ liệu trên một hệ thống các máy chủ và nút, hệ thống không những cải thiện đáng kể tốc độ xử lý dữ liệu mà còn giảm thiểu thời gian chờ xuống mức tối thiểu.
+
+Bằng cách phân tán tải xử lý, các truy vấn dữ liệu lớn và phức tạp, trước đây là nguồn gốc của sự chậm trễ, nay trở nên linh hoạt và nhanh chóng. Điều này không chỉ tối ưu hóa quá trình tổng hợp báo cáo mà còn nâng cao hiệu quả trong việc phân tích dữ liệu. Kết quả là các báo cáo phức tạp từ doanh thu đến xu hướng hành vi khách hàng, giờ đây có thể được tạo ra một cách nhanh chóng và chính xác, mang lại cái nhìn sâu sắc và toàn diện về hoạt động kinh doanh.
+
+Việc áp dụng nền tảng dữ liệu song song thực sự là một bước ngoặt, biến thách thức về dữ liệu lớn thành cơ hội, mở ra cánh cửa mới cho việc phân tích sâu và chi tiết, đồng thời nâng cao hiệu suất và khả năng phục vụ của hệ thống.
+
+Trong bối cảnh cạnh tranh gay gắt của thương mại điện tử hiện đại, việc áp dụng công nghệ Big Data, và cụ thể hơn, việc sử dụng Greenplum trong việc xử lý và phân tích dữ liệu lớn. Greenplum, với khả năng xử lý song song và hiệu suất làm việc ấn tượng, có thể thay thế trong việc giải quyết các thách thức liên quan đến bộ dữ liệu lớn và phức tạp. Hơn nữa, Greenplum mang lại khả năng tạo ra các báo cáo chi tiết và chính xác, cung cấp cái nhìn đa chiều về doanh thu, hành vi khách hàng, và các xu hướng nổi bật trên thị trường.
+
+Xử lý song song và tối ưu hóa hiệu suất: Greenplum sử dụng mô hình xử lý song song, phân chia công việc xử lý dữ liệu lớn thành các tác vụ nhỏ hơn và phân tán chúng qua nhiều nút. Điều này giúp giảm đáng kể thời gian cần thiết để xử lý truy vấn phức tạp, giải quyết vấn đề chậm trễ mà các hệ thống cơ sở dữ liệu truyền thống thường gặp phải.
+
+Khả năng mở rộng linh hoạt: Greenplum cho phép mở rộng cơ sở dữ liệu một cách linh hoạt, hỗ trợ xử lý dữ liệu lớn mà không làm giảm hiệu suất. Điều này đặc biệt quan trọng đối với trang thương mại điện tử, nơi lượng dữ liệu tăng lên nhanh chóng.
+
+Hiệu quả trong việc giảm ghời gian chờ: Nhờ vào khả năng xử lý song song, Greenplum giảm thiểu tình trạng thời gian chờ khi thực hiện các truy vấn lớn, đặc biệt trong những thời điểm cao điểm của trang web.
+
+Phân tích dữ liệu mạnh mẽ: Greenplum không chỉ là một giải pháp lưu trữ dữ liệu mà còn cung cấp công cụ phân tích mạnh mẽ, cho phép trích xuất, hỗ trợ việc phân tích dữ liệu sâu và rộng.
+
+giảm thiểu rủi ro deadlocks: Trong môi trường xử lý song song, Greenplum giảm thiểu rủi ro deadlocks mà các hệ thống truyền thống thường gặp phải khi xử lý nhiều truy vấn cùng một lúc.
+
+Qua việc triển khai Greenplum, trang thương mại điện tử có thể không chỉ tăng cường hiệu suất và giảm thiểu các vấn đề về chậm trễ, thời gian chờ, và deadlocks, mà còn mở ra cơ hội phân tích dữ liệu một cách chi tiết và chính xác, tối ưu hóa quyết định kinh doanh và cải thiện trải nghiệm người dùng.
+
+\subsection{Cài đặt giải pháp}
+Bổ sung sau
+\subsection{Đánh giá giải pháp}
+Bổ sung sau
+    
+   
+    \pagebreak 
+    %TÀI LIỆU TRÍCH DẪN
+    %Đây là ví dụ
+    \bibliographystyle{ieeetr}
+    \bibliography{References/references}
+    \nocite{*}
+
+    \begin{table}[h]
+    \centering
+        \begin{tabular}{p{7cm}p{7cm}}
+        \textbf{\begin{tabular}[c]{@{}c@{}}\\XÁC NHẬN\\CỦA NGƯỜI HƯỚNG DẪN\\ \textit{(Ký và ghi rõ họ tên)}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}\textit{TP. Hồ Chí Minh, ngày... tháng... năm...}\\HỌC VIÊN THỰC HIỆN\\\textit{(Ký và ghi rõ họ tên}) \end{tabular}}
+        \end{tabular}
+    \end{table}
+
+\end{document}
