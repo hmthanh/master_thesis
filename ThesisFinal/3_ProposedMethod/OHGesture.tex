@@ -6,7 +6,7 @@
 
 %. Biếm tiềm ẩm ở đây là cử chỉ và điều kiện là cảm xúc. 
 %Kiến trúc của OHGesture được trình bày như hình \autoref{fig:diffusion_forward}.
-
+\pagebreak
 
 \section{Mô hình của đề xuất OHGesture}
 \label{sec:ohgesture}
@@ -25,7 +25,7 @@
 %%	\label{fig:TrainingAndSampling}
 %\end{figure*}
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{AllStage}
 	\caption{Quá trình Huấn luyện và lấy mẫu trong OHGesture}
@@ -47,7 +47,7 @@ Tương tự mô hình diffusion cơ bản bao gồm hai quá trình: quá trìn
 Dữ liệu để học của chúng tôi được lấy từ tập dữ liệu ZeroEGGS \cite{ghorbani2022zeroeggszeroshotexamplebasedgesture}. Bao gồm âm thanh, cử chỉ khởi tạo, cảm xúc và văn bản.
 %Tương tự mô hình DiffuseStyleGesture \cite{yang2022DiffuseStyleGestureplus} chúng tôi cũng sử dụng đầu vào bao gồm âm thanh, cử chỉ và cảm xúc
 %ngoài ra chúng tôi sử dụng thêm dữ liệu văn bản.
-\begin{figure*}
+\begin{figure*}[H]
 	\centering
 	\includegraphics[width=\textwidth]{OHGesture}
 	\caption{Mô hình trong OHGesture}
@@ -205,7 +205,7 @@ Cuối cùng, đầu ra của self-attention được ánh xạ lại cùng kíc
 %\caption[Các loại attention khác nhau (full self-attention, sliding window attention, cross-local attention)]{Các loại attention khác nhau được sử dụng trong các thí nghiệm của chúng tôi, trong đó (a) và (c) là cơ chế attention được sử dụng trong mô hình của chúng tôi và (b) là một mẫu được sử dụng để đánh giá trong thực nghiệm. Mỗi dòng tương ứng với input và mỗi cột tương ứng với output của mô hình}
 %\end{figure*}
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{CrossLocalAttention}
 	\caption{Cơ chế Self-Attention trong Transformer Encoder và Cross-Local Attention}
