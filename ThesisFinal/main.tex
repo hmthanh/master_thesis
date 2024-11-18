@@ -7,7 +7,6 @@
 \usepackage{enumitem}
 \usepackage{multicol}
 \usepackage{listings}
-%\usepackage[left=2cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
 \usepackage[a4paper, top=3.5cm,bottom=3cm,left=3.5cm,right=2cm]{geometry}
 \usepackage{verbatim}
 \usepackage{graphicx}
@@ -25,11 +24,15 @@
 %\pagestyle{fancy}
 \newfloatcommand{capbtabbox}{table}[][\FBwidth]
 \usepackage{caption}
-\captionsetup[figure]{font=normalsize} 
+%\captionsetup[figure]{font=normalsize}
 \usepackage{blindtext}
 \usepackage{titlesec}
 \usepackage[nottoc]{tocbibind}
 \usepackage{bookmark}
+%\usepackage[backend=bibtex,style=numeric,defernumbers=true,sorting=none]{biblatex}
+% \usepackage[backend=biber]{biblatex}
+%\bibliographystyle{plain}
+%\bibliography{References/references.bib}
 
 % ******************************************************************************
 %\setlength{\topmargin}{-0.5cm} % Lề trên
@@ -60,7 +63,7 @@
 \titleformat*{\section}{\LARGE\bfseries}
 \titleformat*{\subsection}{\Large\bfseries}
 \titleformat*{\subsubsection}{\large\bfseries}
-%\addbibresource{ref.bib}
+
 
 \usepackage{mdframed}
 
@@ -108,10 +111,13 @@
 %\newcommand{\tenKL}{OPENHUMAN: HỆ THỐNG} % Chú ý dấu ~ trong tên khóa luận
 %\newcommand{\tenGVHD}{PSG. TS. Lý Quốc Ngọc}
 %\newcommand{\tenBM}{BM. Khoa~Học~Máy~Tính}
-
+\input{Preamble/meta.tex}
 \input{Preamble/packages.tex}
 \input{Preamble/commands.tex}
 \input{Preamble/config.tex}
+
+
+
 
 \begin{document}
 
@@ -126,6 +132,7 @@
 \input{Sections/listoffigures.tex}
 \input{Sections/listofnumbers.tex}
 \input{Sections/listofsymbols.tex}
+\input{Sections/listofglossary.tex}
 \input{Sections/inforthesis.tex}
 \input{Sections/inforthesis_en.tex}
 
@@ -144,12 +151,13 @@
 \input{5_Evaluation/Evaluation.tex}
 
 \input{6_Conclusion/Conclusion.tex}
-%
- \input{References/references.tex}
-\include{Appendix/publish}
 
-\include{Appendix/Appendix1}
-\include{Appendix/Appendix2}
+%
+\input{References/References.tex}
+\include{References/Publish}
+
+%\include{Appendix/Appendix1}
+%\include{Appendix/Appendix2}
 %\include{Appendix/Appendix3}
 
 \end{document}

@@ -1,0 +1,93 @@
+@book{CockroachDBGuide,
+  author    = {Guy Harrison and Jesse Seldess and Ben Darnell},
+  title     = {CockroachDB: The Definitive Guide: Distributed Data at Scale},
+  year      = {2022},
+  publisher = {O'Reilly Media; 1st edition (May 17, 2022)},
+}
+
+@inproceedings{ongaro2014raft,
+  author    = {Diego Ongaro and John Ousterhout},
+  title     = {In Search of an Understandable Consensus Algorithm},
+  booktitle = {Proceedings of the 2014 USENIX Conference on USENIX Annual Technical Conference},
+  pages     = {305--320},
+  year      = {2014},
+  publisher = {USENIX Association},
+  address   = {Philadelphia, PA, USA},
+  isbn      = {9781931971102},
+  series    = {USENIX ATC'14},
+  abstract  = {Raft is a consensus algorithm for managing a replicated log. It produces a result equivalent to (multi-)Paxos, and it is as efficient as Paxos, but its structure is different from Paxos; this makes Raft more understandable than Paxos and also provides a better foundation for building practical systems. In order to enhance understandability, Raft separates the key elements of consensus, such as leader election, log replication, and safety, and it enforces a stronger degree of coherency to reduce the number of states that must be considered. Results from a user study demonstrate that Raft is easier for students to learn than Paxos. Raft also includes a new mechanism for changing the cluster membership, which uses overlapping majorities to guarantee safety.}
+}
+
+
+@inproceedings{lyu2021greenplum,
+  title     = {Greenplum: A Hybrid Database for Transactional and Analytical Workloads},
+  author    = {Zhenghua Lyu and Huan Hubert Zhang and Gang Xiong and Gang Guo and Haozhou Wang and Jinbao Chen and Asim Praveen and Yu Yang and Xiaoming Gao and Alexandra Wang and others},
+  booktitle = {Proceedings of the 2021 International Conference on Management of Data},
+  pages     = {2530--2542},
+  year      = {2021},
+}
+
+
+@inproceedings{taft2020cockroachdb,
+  title={Cockroachdb: The resilient geo-distributed sql database},
+  author={Taft, Rebecca and Sharif, Irfan and Matei, Andrei and VanBenschoten, Nathan and Lewis, Jordan and Grieger, Tobias and Niemi, Kai and Woods, Andy and Birzin, Anne and Poss, Raphael and others},
+  booktitle={Proceedings of the 2020 ACM SIGMOD international conference on management of data},
+  pages={1493--1509},
+  year={2020}
+}
+
+@article{huang2020tidb,
+  title={TiDB: a Raft-based HTAP database},
+  author={Huang, Dongxu and Liu, Qi and Cui, Qiu and Fang, Zhuhe and Ma, Xiaoyu and Xu, Fei and Shen, Li and Tang, Liu and Zhou, Yuxing and Huang, Menglong and others},
+  journal={Proceedings of the VLDB Endowment},
+  volume={13},
+  number={12},
+  pages={3072--3084},
+  year={2020},
+  publisher={VLDB Endowment}
+}
+
+@article{article,
+author = {Dewitt, David and Gray, Jim},
+year = {2001},
+month = {01},
+pages = {},
+title = {Parallel Database Systems: The Future of High Performance Database Processing}
+}
+
+@article{2pl,
+author = {Barthels, Claude and M\"{u}ller, Ingo and Taranov, Konstantin and Alonso, Gustavo and Hoefler, Torsten},
+title = {Strong consistency is not hard to get: two-phase locking and two-phase commit on thousands of cores},
+year = {2019},
+issue_date = {September 2019},
+publisher = {VLDB Endowment},
+volume = {12},
+number = {13},
+issn = {2150-8097},
+url = {https://doi.org/10.14778/3358701.3358702},
+doi = {10.14778/3358701.3358702},
+abstract = {Concurrency control is a cornerstone of distributed database engines and storage systems. In pursuit of scalability, a common assumption is that Two-Phase Locking (2PL) and Two-Phase Commit (2PC) are not viable solutions due to their communication overhead. Recent results, however, have hinted that 2PL and 2PC might not have such a bad performance. Nevertheless, there has been no attempt to actually measure how a state-of-the-art implementation of 2PL and 2PC would perform on modern hardware.The goal of this paper is to establish a baseline for concurrency control mechanisms on thousands of cores connected through a low-latency network. We develop a distributed lock table supporting all the standard locking modes used in database engines. We focus on strong consistency in the form of strict serializability implemented through strict 2PL, but also explore read-committed and repeatable-read, two common isolation levels used in many systems. We do not leverage any known optimizations in the locking or commit parts of the protocols. The surprising result is that, for TPC-C, 2PL and 2PC can be made to scale to thousands of cores and hundreds of machines, reaching a throughput of over 21 million transactions per second with 9.5 million New Order operations per second. Since most existing relational database engines use some form of locking for implementing concurrency control, our findings provide a path for such systems to scale without having to significantly redesign transaction management. To achieve these results, our implementation relies on Remote Direct Memory Access (RDMA). Today, this technology is commonly available on both Infiniband as well as Ethernet networks, making the results valid across a wide range of systems and platforms, including database appliances, data centers, and cloud environments.},
+journal = {Proc. VLDB Endow.},
+month = {sep},
+pages = {2325–2338},
+numpages = {14}
+}
+
+
+@inproceedings{orca,
+author = {Soliman, Mohamed A. and Antova, Lyublena and Raghavan, Venkatesh and El-Helw, Amr and Gu, Zhongxian and Shen, Entong and Caragea, George C. and Garcia-Alvarado, Carlos and Rahman, Foyzur and Petropoulos, Michalis and Waas, Florian and Narayanan, Sivaramakrishnan and Krikellas, Konstantinos and Baldwin, Rhonda},
+title = {Orca: a modular query optimizer architecture for big data},
+year = {2014},
+isbn = {9781450323765},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/2588555.2595637},
+doi = {10.1145/2588555.2595637},
+abstract = {The performance of analytical query processing in data management systems depends primarily on the capabilities of the system's query optimizer. Increased data volumes and heightened interest in processing complex analytical queries have prompted Pivotal to build a new query optimizer.In this paper we present the architecture of Orca, the new query optimizer for all Pivotal data management products, including Pivotal Greenplum Database and Pivotal HAWQ. Orca is a comprehensive development uniting state-of-the-art query optimization technology with own original research resulting in a modular and portable optimizer architecture.In addition to describing the overall architecture, we highlight several unique features and present performance comparisons against other systems.},
+booktitle = {Proceedings of the 2014 ACM SIGMOD International Conference on Management of Data},
+pages = {337–348},
+numpages = {12},
+keywords = {cost model, mpp, parallel processing, query optimization},
+location = {Snowbird, Utah, USA},
+series = {SIGMOD '14}
+}
