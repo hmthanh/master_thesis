@@ -1,15 +1,14 @@
-\documentclass{extreport}[13.5pt, oneside,a4paper]
-\usepackage{anyfontsize}  % For arbitrary font sizes
-\renewcommand{\normalsize}{\fontsize{13.5}{16.5}\selectfont}
+\documentclass[12pt,a4paper]{extreport}
 \usepackage[utf8]{inputenc}
+%\usepackage[T5]{fontenc}
 \usepackage[utf8]{vietnam}
-\usepackage{mathptmx}
+\usepackage{times}
 \usepackage{enumerate}
 \usepackage{enumitem}
 \usepackage{multicol}
 \usepackage{listings}
 %\usepackage[left=2cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
-\usepackage[top=3.5cm,bottom=3cm,left=3.5cm,right=2cm]{geometry}
+\usepackage[a4paper, top=3.5cm,bottom=3cm,left=3.5cm,right=2cm]{geometry}
 \usepackage{verbatim}
 \usepackage{graphicx}
 \usepackage{url}
@@ -21,8 +20,7 @@
 \usepackage{floatrow}
 \usepackage{array}
 \usepackage{longtable}
-\usepackage{geometry}
-\geometry{a4paper, margin=1in}
+
 \pagenumbering{arabic}
 %\pagestyle{fancy}
 \newfloatcommand{capbtabbox}{table}[][\FBwidth]
@@ -33,10 +31,20 @@
 \usepackage[nottoc]{tocbibind}
 \usepackage{bookmark}
 
+% ******************************************************************************
+%\setlength{\topmargin}{-0.5cm} % Lề trên
+%\setlength{\oddsidemargin}{-0.5cm} % Lề trái
+%\setlength{\evensidemargin}{-0.5cm} % Lề phải
+%\setlength{\textwidth}{15.5cm} % Chiều rộng văn bản
+%\setlength{\textheight}{24cm} % Chiều cao văn bản
+%\setlength{\footskip}{1cm} % Khoảng cách giữa nội dung và số trang
+
+% For line spacing 1.5
+%\usepackage{setspace}
+%\renewcommand{\baselinestretch}{1.5}
 
 % ******************************************************************************
 \usepackage{hyperref}
-
 % Cấu hình cho \paragraph để nó xuống hàng sau tiêu đề
 \titleformat{\paragraph}[block]
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
@@ -61,12 +69,27 @@
 \usepackage{caption}
 
 \usepackage{tikz}
+\usetikzlibrary{calc}
+\fancyfoot[C]{\thepage}
+
+% Math
+\usepackage{amsfonts}
+
 
 % ******************************************************************************
+% Cấu trúc chương và mục
+\renewcommand{\thechapter}{\arabic{chapter}} % Số chương bằng số tự nhiên
+\renewcommand{\thesection}{\arabic{section}} % Số mục bằng số tự nhiên
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}} % Số tiểu mục
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}} % Số tiểu tiểu mục
 
-% Định nghĩa lại cách đánh số cho hình ảnh, bao gồm số chương (section) và số thứ tự
-\renewcommand{\thefigure}{\thesection.\arabic{figure}}
-\renewcommand{\thetable}{\thesection.\arabic{table}}
+% Đánh số hình, bảng, phương trình theo chương
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}} % Đánh số hình
+\renewcommand{\thetable}{\thechapter.\arabic{table}} % Đánh số bảng
+\renewcommand{\theequation}{\thechapter.\arabic{equation}} % Đánh số phương trình
+
+% Tạo danh mục viết tắt
+\newcommand{\acronym}[2]{\textbf{#1} (\textit{#2})}
 
 % Tùy chỉnh tiêu đề và khoảng cách trong danh mục hình ảnh
 \renewcommand{\cftfigpresnum}{Hình~} % Tiền tố trước số hình ảnh
@@ -78,7 +101,7 @@
 \renewcommand{\cfttabaftersnum}{:}
 \addtolength{\cfttabnumwidth}{3em} % Tăng khoảng cách giữa số và tiêu đề bảng
 
-\graphicspath{ {images2/} }
+\graphicspath{ {images/} }
 
 %\newcommand{\tenSV}{Hoàng~Minh~Thanh} % Dấu ~ là khoảng trắng không được tách (các chữ nối với nhau bằng dấu ~ sẽ nằm cùng 1 dòng
 %\newcommand{\mssv}{21C11029}
@@ -86,6 +109,9 @@
 %\newcommand{\tenGVHD}{PSG. TS. Lý Quốc Ngọc}
 %\newcommand{\tenBM}{BM. Khoa~Học~Máy~Tính}
 
+\input{Preamble/packages.tex}
+\input{Preamble/commands.tex}
+\input{Preamble/config.tex}
 
 \begin{document}
 
@@ -106,25 +132,18 @@
 \pagenumbering{arabic}
 
 \input{1_Introduction/introduction.tex}
-%\input{Chapters/introduction.tex}
-
 \input{2_RelatedWork/relatedwork.tex}
+%
+%\input{3_ProposedSolution/proposedsolution.tex}
+%
+%\input{4_Experiment/experiment.tex}
+%
+%\input{5_Evaluation/evaluation.tex}
+%
+%\input{6_Conclusion/conclusion.tex}
+%
+%\include{Appendix/publish}
 
-\input{3_ProposedSolution/proposedsolution.tex}
-
-\input{4_Experiment/experiment.tex}
-
-\input{5_Evaluation/evaluation.tex}
-
-\input{6_Conclusion/conclusion.tex}
-
-
-\pagebreak 
-%TÀI LIỆU TRÍCH DẪN
-%Đây là ví dụ
-
-\renewcommand{\bibname}{TÀI LIỆU THAM KHẢO} % Đổi tên phần tiêu đề của tài liệu tham khảo
-\bibliographystyle{plain}
-\bibliography{References/references}
+ \input{References/references.tex}
 
 \end{document}
