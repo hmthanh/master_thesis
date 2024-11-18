@@ -1,0 +1,17 @@
+
+% Thêm "Danh mục các bảng số liệu" vào mục lục mà không liên quan đến \listoftables
+\phantomsection
+\addcontentsline{toc}{section}{Danh mục các bảng số liệu}
+
+
+% Tạm thời ngừng việc thêm vào mục lục
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+
+% Sử dụng \listoftables mà không hiển thị trong mục lục
+\renewcommand{\listtablename}{\makebox[\linewidth]{DANH MỤC CÁC BẢNG SỐ LIỆU}}
+
+\listoftables
+
+% Khôi phục lại việc thêm vào mục lục cho các phần sau
+\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+
