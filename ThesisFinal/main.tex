@@ -25,7 +25,7 @@
 %\pagestyle{fancy}
 \newfloatcommand{capbtabbox}{table}[][\FBwidth]
 \usepackage{caption}
-\captionsetup[figure]{font=large} 
+\captionsetup[figure]{font=normalsize} 
 \usepackage{blindtext}
 \usepackage{titlesec}
 \usepackage[nottoc]{tocbibind}
@@ -35,9 +35,9 @@
 %\setlength{\topmargin}{-0.5cm} % Lề trên
 %\setlength{\oddsidemargin}{-0.5cm} % Lề trái
 %\setlength{\evensidemargin}{-0.5cm} % Lề phải
-%\setlength{\textwidth}{15.5cm} % Chiều rộng văn bản
-%\setlength{\textheight}{24cm} % Chiều cao văn bản
-%\setlength{\footskip}{1cm} % Khoảng cách giữa nội dung và số trang
+\setlength{\textwidth}{15.5cm} % Chiều rộng văn bản
+\setlength{\textheight}{24cm} % Chiều cao văn bản
+\setlength{\footskip}{1cm} % Khoảng cách giữa nội dung và số trang
 
 % For line spacing 1.5
 %\usepackage{setspace}
@@ -63,10 +63,10 @@
 %\addbibresource{ref.bib}
 
 \usepackage{mdframed}
+
 \usepackage{alltt}
 \usepackage{color}
 \usepackage{tocloft}
-\usepackage{caption}
 
 \usepackage{tikz}
 \usetikzlibrary{calc}
@@ -79,7 +79,7 @@
 % ******************************************************************************
 % Cấu trúc chương và mục
 \renewcommand{\thechapter}{\arabic{chapter}} % Số chương bằng số tự nhiên
-\renewcommand{\thesection}{\arabic{section}} % Số mục bằng số tự nhiên
+\renewcommand{\thesection}{\thechapter.\arabic{section}} % Số mục bằng số tự nhiên
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}} % Số tiểu mục
 \renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}} % Số tiểu tiểu mục
 
@@ -123,27 +123,33 @@
 
 \input{Sections/tableofcontent.tex}
 
-%\input{Sections/listoffigures.tex}
-%\input{Sections/listofnumbers.tex}
-%\input{Sections/listofsymbols.tex}
-%\input{Sections/inforthesis.tex}
-%\input{Sections/inforthesis_en.tex}
+\input{Sections/listoffigures.tex}
+\input{Sections/listofnumbers.tex}
+\input{Sections/listofsymbols.tex}
+\input{Sections/inforthesis.tex}
+\input{Sections/inforthesis_en.tex}
 
 \pagenumbering{arabic}
 
-\input{1_Introduction/introduction.tex}
-\input{2_RelatedWork/relatedwork.tex}
-%
-%\input{3_ProposedSolution/proposedsolution.tex}
-%
-%\input{4_Experiment/experiment.tex}
-%
-%\input{5_Evaluation/evaluation.tex}
-%
-%\input{6_Conclusion/conclusion.tex}
-%
-%\include{Appendix/publish}
+\input{1_Introduction/Introduction.tex}
 
+\input{2_RelatedWork/RelatedWork.tex}
+\input{2_RelatedWork/DiffusionBase.tex}
+
+\input{3_ProposedMethod/ProposedMethod.tex}
+\input{3_ProposedMethod/OHGesture.tex}
+
+\input{4_Experiment/Experiment.tex}
+
+\input{5_Evaluation/Evaluation.tex}
+
+\input{6_Conclusion/Conclusion.tex}
+%
  \input{References/references.tex}
+\include{Appendix/publish}
+
+\include{Appendix/Appendix1}
+\include{Appendix/Appendix2}
+%\include{Appendix/Appendix3}
 
 \end{document}

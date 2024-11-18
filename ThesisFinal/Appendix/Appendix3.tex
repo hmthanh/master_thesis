@@ -1,0 +1,37 @@
+\chapter{Training và Sampling}
+\label{Appendix3}
+
+\section{Thuật toán Training trong Diffusion cơ bản}
+\begin{algorithm}[H]
+	\caption{Training} \label{alg:training}
+	\begin{algorithmic}[1]
+		\footnotesize
+		\Repeat
+		\State $\bx_0 \sim q(\bx_0)$
+		\State $t \sim \mathrm{Uniform}(\{1, \dotsc, T\})$
+		\State $\bepsilon\sim\mathcal{N}(\bzero,\bI)$
+		\State Take gradient descent step on
+		\Statex $\qquad \grad_\theta \left\| \bepsilon - \bepsilon_\theta(\mathbf{x}_t, t) \right\|^2$
+		\Until{converged}
+	\end{algorithmic}
+\end{algorithm}
+
+\section{Thuật toán Sampling trong Diffusion cơ bản}
+
+\begin{algorithm}[H]
+	\caption{Sampling} \label{alg:sampling}
+	\footnotesize
+	\begin{algorithmic}[1]
+		\footnotesize
+		\State $\bx_T \sim \mathcal{N}(\bzero, \bI)$
+		\For{$t=T, \dotsc, 1$}
+		\State $\bz \sim \mathcal{N}(\bzero, \bI)$ if $t > 1$, else $\bz = \bzero$
+		\State $\mu = \frac{1}{\sqrt{\alpha_t}}\left( \bx_t - \frac{1-\alpha_t}{\sqrt{1-\bar\alpha_t}} \bepsilon_\theta(\bx_t, t) \right) $
+		\State $\bx_{t-1} = \mu + \sigma_t \bz$
+		%					+ \sigma_t \bz
+		%_\theta (\mathbf{x}_t,	 t)
+		\EndFor
+		\State \textbf{return} $\bx_0$
+		\vspace{.04in}
+	\end{algorithmic}
+\end{algorithm}
