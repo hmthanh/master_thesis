@@ -1,6 +1,6 @@
-%\documentclass{article}[13pt]
-\documentclass[50pt]{extarticle}
-%\usepackage{fontspec}
+\documentclass{article}[13pt]
+\usepackage{anyfontsize}  % For arbitrary font sizes
+\renewcommand{\normalsize}{\fontsize{13.5}{16.5}\selectfont}
 \usepackage[utf8]{vietnam}
 \usepackage{mathptmx}
 \usepackage{enumerate}
@@ -34,6 +34,7 @@
 \usepackage{bookmark}
 
 
+% ******************************************************************************
 
 
 % Cấu hình cho \paragraph để nó xuống hàng sau tiêu đề
@@ -48,20 +49,20 @@
 
 \usepackage{array} % Gói cần thiết cho kiểu cột m{}
 
-
-
 \titleformat*{\section}{\LARGE\bfseries}
 \titleformat*{\subsection}{\Large\bfseries}
 \titleformat*{\subsubsection}{\large\bfseries}
 %\addbibresource{ref.bib}
-
-
 
 \usepackage{mdframed}
 \usepackage{alltt}
 \usepackage{color}
 \usepackage{tocloft}
 \usepackage{caption}
+
+\usepackage{tikz}
+
+% ******************************************************************************
 
 % Định nghĩa lại cách đánh số cho hình ảnh, bao gồm số chương (section) và số thứ tự
 \renewcommand{\thefigure}{\thesection.\arabic{figure}}
@@ -77,162 +78,24 @@
 \renewcommand{\cfttabaftersnum}{:}
 \addtolength{\cfttabnumwidth}{3em} % Tăng khoảng cách giữa số và tiêu đề bảng
 
+\graphicspath{ {images2/} }
+
+%\newcommand{\tenSV}{Hoàng~Minh~Thanh} % Dấu ~ là khoảng trắng không được tách (các chữ nối với nhau bằng dấu ~ sẽ nằm cùng 1 dòng
+%\newcommand{\mssv}{21C11029}
+%\newcommand{\tenKL}{OPENHUMAN: HỆ THỐNG} % Chú ý dấu ~ trong tên khóa luận
+%\newcommand{\tenGVHD}{PSG. TS. Lý Quốc Ngọc}
+%\newcommand{\tenBM}{BM. Khoa~Học~Máy~Tính}
+
+
 \begin{document}
 
+\input{Sections/title.tex}
 
-\begin{mdframed}[linewidth=1pt, % Độ dày của viền
-                     linecolor=black, % Màu của viền
-                     leftmargin=0, % Khoảng cách lề trái
-                     rightmargin=0, % Khoảng cách lề phải
-                     innertopmargin=20mm, % Khoảng cách lề trên trong
-                     innerbottommargin=20mm, % Khoảng cách lề dưới trong
-                     innerleftmargin=25mm, % Khoảng cách lề trái trong
-                     innerrightmargin=25mm, % Khoảng cách lề phải trong
-                     skipabove=0, % Khoảng trắng trước khung
-                     skipbelow=0] % Khoảng trắng sau khung
-    \centering
-    \vspace*{1cm}
-    
-    {\fontsize{13}{15}\selectfont{ ĐẠI HỌC QUỐC GIA TP. HCM}}\\
-    \vspace{0.25cm}
-    {\fontsize{13}{15}\selectfont\textbf{TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN}}\\
-    
-    \vspace{3cm}
-    
-    {\fontsize{14}{16}\selectfont\textbf{HOÀNG MINH THANH}}\\
-    
-    \vspace{3cm}
-    
-    {\fontsize{14}{16}\selectfont\textbf{\MakeUppercase{OPENHUMAN: MÔ HÌNH TỔNG HỢP CỬ CHỈ HỘI THOẠI ĐA PHƯƠNG THỨC DỰA TRÊN VĂN BẢN VÀ ÂM THANH}}}\\
-    
-    \vspace{3cm}
-    
-    {\fontsize{14}{16}\selectfont\textbf{LUẬN VĂN THẠC SĨ}}\\
-    
-    \vfill
-    
-    \vspace{3cm}
-    
-    {\fontsize{13}{15}\selectfont TP. Hồ Chí Minh – Năm 2024}
-\end{mdframed}
-    
-\pagenumbering{gobble}  
-\pagebreak
+\input{Sections/reassurances.tex}
 
-\begin{mdframed}[linewidth=1pt, 
-                 linecolor=black, 
-                 innerleftmargin=10mm, 
-                 innerrightmargin=10mm, 
-                 innertopmargin=10mm, 
-                 innerbottommargin=10mm]
-    \centering
-    \vspace*{1cm}
-    
-    \Large ĐẠI HỌC QUỐC GIA TP. HCM\\
-    \vspace{0.25cm}
-    \Large \textbf{TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN}\\
-    
-    \vspace{2cm}
-    
-    \Large HOÀNG MINH THANH \\
-    
-    \vspace{3cm}
-    
-    \Large \textbf{\MakeUppercase{OPENHUMAN: MÔ HÌNH TỔNG HỢP CỬ CHỈ HỘI THOẠI ĐA PHƯƠNG THỨC DỰA TRÊN VĂN BẢN VÀ ÂM THANH}}\\
-    
-    \vspace{1cm}
-    
-    \flushleft
-    {\fontsize{13}{15}\selectfont Ngành: Khoa học máy tính}\\
-    {\fontsize{13}{15}\selectfont Mã số Ngành: 8480101}\\
-    
-    \vspace{3cm}
-    
-    \centering
-    \Large NGƯỜI HƯỚNG DẪN KHOA HỌC\\
-    \Large HDC: PSG. TS. LÝ QUỐC NGỌC \\
+\input{Sections/thanks.tex}
 
-    \vfill
-    \vspace{3cm}
-    
-    {\fontsize{12}{13} TP. Hồ Chí Minh – Năm 2024}
-\end{mdframed}
-    
- 
-
-  \pagenumbering{gobble}  
-\pagebreak
-\pagenumbering{roman}
-
-
-
-
- \pagebreak
-
-\section*{\centering  LỜI CAM ĐOAN}
-\phantomsection
-\addcontentsline{toc}{section}{Lời cam đoan}
-
-
-{
-Tôi cam đoan luận văn thạc sĩ ngành Khoa học máy tính, với đề tài OpenHuman: Mô hình tổng hợp cử chỉ hội thoại đa phương thức dựa trên văn bản và âm thanh là công trình khoa học do tôi thực hiện dưới sự hướng dẫn của TS. Lý Quốc Ngọc, những kết quả nghiên cứu của luận văn hoàn toàn trung thực và chính xác.
-
-Bản quyền toàn bộ các sản phẩm của luận văn này thuộc về thầy Lý Quốc Ngọc và Trường Đại học Khoa học tự nhiên. Tôi sẽ không sử dụng chúng ở những nơi khác, với bất kỳ mục đích nào khác.
-
-
-
-\begin{table}[h]
-    \centering
-        \begin{tabular}{p{7cm}p{7cm}}
-        \textbf{\begin{tabular}[c]{@{}c@{}}\\\\\\ \textit{}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}\textit{TP. Hồ Chí Minh, ngày... tháng... năm...}\\HỌC VIÊN THỰC HIỆN\\\textit{(Ký và ghi rõ họ tên}) \end{tabular}}
-        \end{tabular}
-    \end{table}
-    }
-    \pagebreak
-
-\pagebreak
-
-\phantomsection
-\addcontentsline{toc}{section}{Lời cảm ơn}
-\section*{\centering \MakeUppercase{LỜI CẢM ƠN}}
-
-    
-{
-Chúng tôi xin chân thành cảm ơn thầy Lý Quốc Ngọc đã tận tình hướng dẫn, truyền đạt kiến thức và kinh nghiệm, và đưa ra các giải pháp cho chúng tôi trong suốt quá trình thực hiện đề tài luận văn tốt nghiệp này.
-
-Xin gửi lời cảm ơn đến quý thầy cô Khoa Công Nghệ Thông Tin trường Đại Học Khoa Học Tự Nhiên - Đại Học Quốc Gia Thành Phố Hồ Chí Minh, những người đã truyền đạt kiến thức quý báu cho chúng tôi trong thời gian học tập vừa qua.
-
-Đồng thời cảm ơn các nhà khoa học đã nghiên cứu về đề tài mà chúng tôi đã trích dẫn để có thể có những kiến thức hoàn thiện luận văn của chúng tôi.
-
-Sau cùng chúng tôi xin gửi lời cảm ơn đến gia đình, bạn bè,.. những người luôn động viên, giúp đỡ chúng tôi trong quá trình làm luận văn. 
-
-Một lần nữa, xin chân thành cảm ơn !
-}
-
-\pagebreak
-
-
-
-% Ngắt việc thêm mục lục vào chính nó
-\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
-% Căn giữa chữ "Mục lục"
-% Bỏ qua tiêu đề tự động của \tableofcontents
-\renewcommand{\contentsname}{}
-
-\begin{center}
-\textbf{\huge MỤC LỤC}
-\end{center}
-
-\tableofcontents
-% Khôi phục lại thêm các mục vào mục lục sau đó
-\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
-
-
-
-
-
-\pagebreak
-
+\input{Sections/tableofcontent.tex}
 
 % Thêm "Danh mục hình ảnh" vào mục lục mà không liên quan đến \listoffigures
 \phantomsection
@@ -291,17 +154,19 @@ ETL & Extract, Transform, Load \\
 
 
 \pagebreak
+
+
 \phantomsection
 \addcontentsline{toc}{section}{Trang thông tin luận văn tiếng Việt}
 \section*{\centering \MakeUppercase{TRANG THÔNG TIN LUẬN VĂN}}
 
 
-Tên đề tài luận văn: Hệ quản trị cơ sở dữ liệu quan hệ phân tán hỗ trợ xử lý dữ liệu lớn trực tuyến\\
-Ngành: Hệ thống thông tin\\
-Mã số ngành: 8480104\\
-Họ tên học viên cao học: Trần Hữu Nghĩa\\
-Khóa đào tạo: 31\\
-Người hướng dẫn khoa học: TS. Ngô Huy Biên\\
+Tên đề tài luận văn: OpenHuman: Hệ thống tổng hợp cử chỉ hội thoại đa phương thức dựa trên văn bản và âm thanh \\
+Ngành: Khoa học máy tính \\
+Mã số ngành:  Science \\
+Họ tên học viên cao học: Hoàng Minh Thanh \\
+Khóa đào tạo: 31 \\
+Người hướng dẫn khoa học: PGS. TS. Lý Quốc Ngọc \\
 Cơ sở đào tạo: Trường Đại học Khoa học Tự nhiên, ĐHQG.HCM
 
 
@@ -344,7 +209,7 @@ Luận văn không chỉ có giá trị lý thuyết mà còn mở ra nhiều kh
 
 Thesis title: Distributed Relational Database Management System
 Supporting Online Big Data Processing\\
-Speciality: Information Systems\\
+Speciality: Computer Science \\
 Code: 8480104\\
 Name of Master Student: Tran Huu Nghia\\
 Academic year: 31\\
@@ -441,7 +306,7 @@ Thuật ngữ shared-nothing \cite{article} là một kiến trúc phân tán tr
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{images/ShareNothingAr.png}
+    \includegraphics[width=1\linewidth]{ShareNothingAr.png}
     \caption{Kiến trúc Shared-nothing}
     \label{fig:ShareNothingAr}
 \end{figure}
@@ -482,7 +347,7 @@ CockroachDB triển khai một kiến trúc shared-nothing cho các cụm cơ s�
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/CockroachdbArc.png}
+    \includegraphics[width=0.8\linewidth]{CockroachdbArc.png}
     \caption{Kiến trúc một cụm trong CockroachDB \cite{CockroachDBGuide}}
     \label{fig:CockroachdbArc}
 \end{figure}
@@ -536,7 +401,7 @@ Mỗi tầng trong kiến trúc CockroachDB được thiết kế để đáp �
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/layercrdb.png}
+    \includegraphics[width=0.8\linewidth]{layercrdb.png}
     \caption{Kiến trúc tầng trong CockroachDB \cite{CockroachDBGuide}}
     \label{fig:layercrdb}
 \end{figure}
@@ -551,7 +416,7 @@ Kiến trúc TiDB gồm 3 thành phần chính là TiDB Server, Placement Driver
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.6\linewidth]{images/TiDBArchiteture.png}
+    \includegraphics[width=0.6\linewidth]{TiDBArchiteture.png}
     \caption{Kiến trúc của TiDB\protect\footnotemark}
     \label{fig:TiDBArchiteture}
 \end{figure}
@@ -585,7 +450,7 @@ Khả năng mở rộng theo chiều ngang: TiKV có thể mở rộng ngang m�
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/YugaArchitecture.png}
+    \includegraphics[width=0.8\linewidth]{YugaArchitecture.png}
     \caption{Kiến trúc của Yugabyte \protect\footnotemark}
     \label{fig:YugaArchitecture}
 \end{figure}
@@ -652,7 +517,7 @@ Tổng hợp lại, Greenplum là một giải pháp quản lý dữ liệu đa 
 Greenplum với mỗi node có hiệu suất tương đương cơ sở dữ liệu MPP kiến trúc của hệ thống. Hình \ref{fig:gp-architecture} mô tả kiến trúc của Greenplum.
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[scale=.4]{images/gp-architecture.png}}
+\centerline{\includegraphics[scale=.4]{gp-architecture.png}}
 \captionsetup{font=Large}
 \caption{Kiến trúc hệ thống cơ sở dữ liệu Greenplum\protect\footnotemark.  }
 \label{fig:gp-architecture}
@@ -672,7 +537,7 @@ Dưới đây là các yếu tố cụ thể:
 
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[scale=.7]{images/admin_guide-graphics-standby_coordinator.jpg}}
+\centerline{\includegraphics[scale=.7]{admin_guide-graphics-standby_coordinator.jpg}}
 \captionsetup{font=Large}
 \caption{Coordinator trong kiến trúc Greenplum \protect\footnotemark}
 \label{fig:admin_guide-graphics-standby_coordinator}
@@ -727,7 +592,7 @@ Segments đóng vai trò quan trọng trong việc đảm bảo khả năng xử
 Greenplum đã giới thiệu một node kế hoạch mới có tên là Motion để thực hiện việc di chuyển dữ liệu này. Node Motion sử dụng mạng để gửi và nhận dữ liệu từ các segment khác nhau, tạo điều kiện cho việc phân chia kế hoạch truy vấn thành nhiều phần khác nhau, mỗi phần được gọi là một slice. Mỗi slice sau đó được thực thi bởi một nhóm các quá trình phân tán, được gọi chung là gang. Với việc sử dụng node Motion và khái niệm gang, kế hoạch truy vấn và quá trình thực thi của Greenplum trở nên phân tán. Kế hoạch sẽ được gửi đến từng quá trình, và mỗi quá trình sẽ thực thi phần slice của kế hoạch dựa trên ngữ cảnh và trạng thái cục bộ của mình. Điều này phản ánh kỹ thuật Single Program Multiple Data (SPMD), nơi cùng một kế hoạch được phân phát đến các nhóm quá trình trên khắp cụm. Các quá trình khác nhau được tạo ra bởi các segment khác nhau sẽ có ngữ cảnh, trạng thái và dữ liệu cục bộ riêng của chúng. Hình \ref{fig:plan} ví dụ về kế hoạch phân tán và thực thi của Greenplum.
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[scale=1]{images/plan.PNG}}
+\centerline{\includegraphics[scale=1]{plan.PNG}}
 \captionsetup{font=Large}
 \caption{Kế hoạch phân tán và thực thi của Greenplum \cite{lyu2021Greenplum}}
 \label{fig:plan}
@@ -775,7 +640,7 @@ Cuối cùng, sau khi Executor hoàn thành việc thực thi kế hoạch truy 
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{images/architect-orca.png}
+    \includegraphics[width=1\linewidth]{architect-orca.png}
     \caption{Kiến trúc tổng quát của orca \cite{orca}}
     \label{fig:architect-orca}
 \end{figure}
@@ -783,7 +648,7 @@ Cuối cùng, sau khi Executor hoàn thành việc thực thi kế hoạch truy 
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{images/interac-orca.png}
+    \includegraphics[width=1\linewidth]{interac-orca.png}
     \caption{Tương tác Orca với Greenplum \cite{orca}}
     \label{fig:interac-orca}
 \end{figure}
@@ -853,7 +718,7 @@ Nếu sau một vòng lặp không có đỉnh hoặc cạnh nào được loạ
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{images/algorithmGreenplum.png}
+    \includegraphics[width=1\linewidth]{algorithmGreenplum.png}
     \caption{Thuật toán global deadlock detect \cite{lyu2021Greenplum}}
     \label{fig:algorithmGreenplum}
 \end{figure}
@@ -897,7 +762,7 @@ Việc chuyển đổi cơ sở dữ liệu ASP.NET Membership từ một hệ t
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\linewidth]{images/schema.png}
+    \includegraphics[width=1\linewidth]{schema.png}
     \caption{Sơ đồ ASP.NET Membership}
     \label{fig:schema}
 \end{figure}
@@ -1245,7 +1110,7 @@ Kết luận từ chương này là việc chuyển đổi và triển khai hệ
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/profile.png}
+    \includegraphics[width=0.8\linewidth]{profile.png}
     \caption{Cấu hình Shell trong PDI để thực thi ứng dụng .NET cho chuyển đổi dữ liệu từ MSSQL sang Greenplum}
     \label{fig:aspnetProfile}
 \end{figure}
@@ -1279,21 +1144,21 @@ Việc chuyển đổi hệ thống cơ sở dữ liệu từ MSSQL sang Greenpl
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/vrt.png}
+    \includegraphics[width=0.8\linewidth]{vrt.png}
     \caption{View Results Tree trong JMeter}
     \label{fig:vrt}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/sr.png}
+    \includegraphics[width=0.8\linewidth]{sr.png}
      \caption{Summary Report trong JMeter}
     \label{fig:sr}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/ar.png}
+    \includegraphics[width=0.8\linewidth]{ar.png}
     \caption{Aggregate Report trong JMeter}
     \label{fig:ar}
 \end{figure}
@@ -1894,7 +1759,7 @@ Trong quá trình chuyển đổi dữ liệu từ MSSQL sang Greenplum, PDI đ�
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/ConMSSQL.png}
+    \includegraphics[width=0.8\linewidth]{ConMSSQL.png}
     \caption{Kết nối PDI với MSSQL}
     \label{fig:ConMSSQL}
 \end{figure}
@@ -1902,14 +1767,14 @@ Trong quá trình chuyển đổi dữ liệu từ MSSQL sang Greenplum, PDI đ�
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/ConGreenplum.png}
+    \includegraphics[width=0.8\linewidth]{ConGreenplum.png}
     \caption{Kết nối PDI với Greenplum}
     \label{fig:ConGreenplum}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/ComMSGL.png}
+    \includegraphics[width=0.8\linewidth]{ComMSGL.png}
     \caption{Kết nói thành công MSSQL và Greenplum}
     \label{fig:ComMSGL}
 \end{figure}
@@ -1929,7 +1794,7 @@ Hình \ref{fig:roles} sử dụng Table Input để lấy thông tin role trong 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/roles.png}
+    \includegraphics[width=0.8\linewidth]{roles.png}
     \caption{Table Input của aspnet\_Roles của MSSQL}
     \label{fig:roles}
 \end{figure}
@@ -1938,7 +1803,7 @@ Hình \ref{fig:usersl} sử dụng Table Input để lấy thông tin users tron
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/users.png}
+    \includegraphics[width=0.8\linewidth]{users.png}
     \caption{Table Input của aspnet\_Users của MSSQL}
     \label{fig:usersl}
 \end{figure}
@@ -1947,7 +1812,7 @@ Hình \ref{fig:UsersInRoles} sử dụng Table Input để lấy thông tin role
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/UsersInRoles.png}
+    \includegraphics[width=0.8\linewidth]{UsersInRoles.png}
     \caption{Table Input của aspnet\_UsersInRoles của MSSQL}
     \label{fig:UsersInRoles}
 \end{figure}
@@ -1956,7 +1821,7 @@ Hình \ref{fig:Membership} sử dụng Table Input để lấy thông tin Member
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/Membership.png}
+    \includegraphics[width=0.8\linewidth]{Membership.png}
     \caption{Table Input của aspnet\_Membership của MSSQL}
     \label{fig:Membership}
 \end{figure}
@@ -1969,7 +1834,7 @@ Hình \ref{fig:groles} sử dụng Execute SQL script để lấy thông tin rol
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/groles.png}
+    \includegraphics[width=0.8\linewidth]{groles.png}
      \caption{Execute SQL script aspnet\_roles của Greenplum}
     \label{fig:groles}
 \end{figure}
@@ -1979,7 +1844,7 @@ Hình \ref{fig:bulk_users1} sử dụng PostgreSQL bulk loader để lấy thôn
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/bulk_users1.png}
+    \includegraphics[width=0.8\linewidth]{bulk_users1.png}
      \caption{PostgreSQL bulk loader aspnet\_users của Greenplum}
     \label{fig:bulk_users1}
 \end{figure}
@@ -1989,7 +1854,7 @@ Hình \ref{fig:Bulk_uir} sử dụng PostgreSQL bulk loader để lấy thông t
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/Bulk_uir.png}
+    \includegraphics[width=0.8\linewidth]{Bulk_uir.png}
     \caption{PostgreSQL bulk loader aspnet\_usersinroles của Greenplum}
     \label{fig:Bulk_uir}
 \end{figure}
@@ -2000,7 +1865,7 @@ Hình \ref{fig:bulk_mem} sử dụng Execute SQL script để lấy thông tin m
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/bulk_mem.png}
+    \includegraphics[width=0.8\linewidth]{bulk_mem.png}
      \caption{Execute SQL script aspnet\_membership của Greenplum}
     \label{fig:bulk_mem}
 \end{figure}
@@ -2015,7 +1880,7 @@ Cuối cùng như hình \ref{fig:job} sử dụng Job để sử dụng các tra
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/jobcom.png}
+    \includegraphics[width=0.8\linewidth]{jobcom.png}
     \caption{Job ETL}
     \label{fig:job}
 \end{figure}
@@ -2045,14 +1910,14 @@ Listeners trong JMeter đóng vai trò quan trọng trong việc theo dõi, ghi 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/testjmeter.png}
+    \includegraphics[width=0.8\linewidth]{testjmeter.png}
     \caption{Thông số thread group trong JMeter}
     \label{fig:testjmeter}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/day.png}
+    \includegraphics[width=0.8\linewidth]{day.png}
     \caption{Giao diện hiển thị thống kê thành viên trong hệ thống ASP.NET Membership}
     \label{fig:day}
 \end{figure}
@@ -2060,7 +1925,7 @@ Listeners trong JMeter đóng vai trò quan trọng trong việc theo dõi, ghi 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/list.png}
+    \includegraphics[width=0.8\linewidth]{list.png}
     \caption{Giao diện hiển thị danh sách thành viên trong hệ thống ASP.NET Membership}
     \label{fig:list}
 \end{figure}

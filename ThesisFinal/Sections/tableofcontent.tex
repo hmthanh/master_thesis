@@ -1,0 +1,18 @@
+
+
+% Ngắt việc thêm mục lục vào chính nó
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+% Căn giữa chữ "Mục lục"
+% Bỏ qua tiêu đề tự động của \tableofcontents
+\renewcommand{\contentsname}{}
+
+\begin{center}
+\textbf{\huge MỤC LỤC}
+\end{center}
+
+\tableofcontents
+% Khôi phục lại thêm các mục vào mục lục sau đó
+\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+
+
+\pagebreak
