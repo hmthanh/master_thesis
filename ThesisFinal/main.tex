@@ -78,13 +78,15 @@
 % Math
 \usepackage{amsfonts}
 
+\usepackage[numbers]{natbib}
+
 
 % ******************************************************************************
 % Cấu trúc chương và mục
 \renewcommand{\thechapter}{\arabic{chapter}} % Số chương bằng số tự nhiên
 \renewcommand{\thesection}{\thechapter.\arabic{section}} % Số mục bằng số tự nhiên
-\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}} % Số tiểu mục
-\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}} % Số tiểu tiểu mục
+%\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}} % Số tiểu mục
+%\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}} % Số tiểu tiểu mục
 
 % Đánh số hình, bảng, phương trình theo chương
 \renewcommand{\thefigure}{\thechapter.\arabic{figure}} % Đánh số hình
@@ -156,6 +158,6 @@
 
 \include{Appendix/Appendix1}
 \include{Appendix/Appendix2}
-%\include{Appendix/Appendix3}
+\include{Appendix/Appendix3}
 
 \end{document}

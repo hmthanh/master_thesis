@@ -1,8 +1,52 @@
 \chapter{Quá trình xử lý dữ liệu BVH}
 \label{Appendix2}
 
+\section{Cấu trúc khung xương của một nhân vật}
+
+Một số tên khung xương nhân vật trong $75$ khung xương chuyển động bao gồm:
+
+{
+\small
+\texttt{Hips},
+\texttt{Spine},
+\texttt{Neck},
+\texttt{Head},
+\texttt{RightShoulder},
+\texttt{RightArm},
+\texttt{RightForeArm},
+\texttt{RightHand},
+\texttt{LeftShoulder},
+\texttt{LeftArm},
+\texttt{LeftForeArm},
+\texttt{LeftHand},
+\texttt{RightUpLeg},
+\texttt{RightLeg},
+\texttt{RightFoot},
+\texttt{RightToeBase},
+\texttt{LeftUpLeg},
+\texttt{LeftLeg},
+\texttt{LeftFoot},
+\texttt{LeftToeBase},
+...
+}
+
+%\begin{itemize}
+%	\item Left
+%\end{itemize}
+
+%\begincolcol}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=10.5cm]{Bone}
+\caption{Khung xương của một nhân vật}
+\label{fig:Bone}
+\end{figure}
+
 \section{Cấu trúc tệp dữ liệu BVH}
 
+
+\includegraphics[width=0.4\linewidth]{BVHFile}
 File BVH (Biovision Hierarchy) là một định dạng file dữ liệu chứa thông tin về cấu trúc xương và dữ liệu về chuyển động của xương trong một hệ thống xương. File BVH bao gồm hai phần chính: phần khai báo cấu trúc xương và phần dữ liệu chuyển động của xương. 
 %Mỗi phần được phân cách bởi từ khóa \texttt{MOTION}.
 
@@ -15,17 +59,52 @@ File BVH (Biovision Hierarchy) là một định dạng file dữ liệu chứa 
 \end{figure}
 
 
-	\textbf{Hierachy}: bao gồm 75 Bone $\{ \mathbf{t}_i \}^{75} $, có vị trí ban đầu  $\mathbf{t}_{i} = \{t_x, t_y, t_z\}$
-
-\vspace{5pt}
-
-\textbf{Motion}:
-Bone trong dữ liệu BVH bao gồm vị trí $\mathbf{position}_{\operatorname{local}}  \in \mathbb{R}^{3}$ và góc quay $\mathbf{rotation}_{\operatorname{local}} \in \mathbb{R}^{3}$.
 %	\begin{figure}
 	%		\centering
 	%		\includegraphics[width=0.25\textwidth]{BVHFile}
 	%	\end{figure}
-$\mathbf{rotation}_i^{\operatorname{local}} = \{ \alpha ,\beta , \gamma \}$ lần lượt là góc quay quanh các trục $Z$ ,$Y$ , và $X$, góc quay tổng hợp ba trục trong không gian Eule là $R = R_Z(\alpha) R_Y(\beta) R_X(\gamma)$.
+	
+$\mathbf{rotation}_i^{\operatorname{local}} = \{ \alpha ,\beta , \gamma \}$ lần lượt là góc quay quanh các trục $Z$ ,$Y$ , và $X$, góc quay tổng hợp ba trục trong không gian Eule là 
+
+\begin{equation}
+R = R_Z(\alpha) R_Y(\beta) R_X(\gamma)
+\end{equation}
+
+Trong đó:
+
+1. \textbf{Ma trận quay quanh trục \(Z\)}:
+
+\[
+R_Z(\alpha) = 
+\begin{bmatrix}
+	\cos(\alpha) & -\sin(\alpha) & 0 \\
+	\sin(\alpha) & \cos(\alpha) & 0 \\
+	0 & 0 & 1
+\end{bmatrix}
+\]
+
+2. \textbf{Ma trận quay quanh trục \(Y\)}:
+
+\[
+R_Y(\beta) = 
+\begin{bmatrix}
+	\cos(\beta) & 0 & \sin(\beta) \\
+	0 & 1 & 0 \\
+	-\sin(\beta) & 0 & \cos(\beta)
+\end{bmatrix}
+\]
+
+3. \textbf{Ma trận quay quanh trục \(X\)}:
+
+\[
+R_X(\gamma) = 
+\begin{bmatrix}
+	1 & 0 & 0 \\
+	0 & \cos(\gamma) & -\sin(\gamma) \\
+	0 & \sin(\gamma) & \cos(\gamma)
+\end{bmatrix}
+\]
+
 Để tính toạ độ chuyển động của một nhân vật, ta thực hiện phép toán sau:
 
 \begin{equation}

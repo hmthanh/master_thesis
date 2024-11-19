@@ -10,11 +10,11 @@
 %
 %Tuy nhiên, do hạn chế tài nguyên, các đánh giá hiện tại vẫn chủ yếu dựa trên các kết quả chủ quan và kết quả từ mô hình cơ sở, chưa hoàn toàn phản ánh chất lượng thực tế của hệ thống đề xuất.
 
-Trong luận văn này, chúng tôi đã phát triển và thử nghiệm thành công mô hình sinh cử chỉ OHGesture, một hệ thống có khả năng tạo ra cử chỉ rất tự nhiên, mang lại cảm giác giống người. Điểm nổi bật của mô hình là khả năng đồng bộ chính xác giữa cử chỉ và cảm xúc, nội dung của âm thanh đầu vào, đồng thời có khả năng suy luận vượt ra khỏi các dữ liệu được huấn luyện ban đầu. Điều này có nghĩa là mô hình dựa trên Diffusion  không chỉ phụ thuộc vào các mẫu dữ liệu cử chỉ đã được học mà còn có thể có tính khái quát hoá cao, và có thể sinh cử chỉ cho các âm thanh và ngữ cảnh có xác xuất dữ liệu thấp.
+Trong luận văn này, chúng tôi đã phát triển và thử nghiệm thành công mô hình sinh cử chỉ OHGesture, một hệ thống có khả năng tạo ra cử chỉ rất tự nhiên, mang lại cảm giác giống người. Điểm nổi bật của mô hình là khả năng đồng bộ chính xác giữa cử chỉ và cảm xúc, nội dung của âm thanh đầu vào, đồng thời có khả năng suy luận vượt ra khỏi các dữ liệu được huấn luyện ban đầu. Điều này có nghĩa là mô hình dựa trên Diffusion không chỉ phụ thuộc vào các mẫu dữ liệu cử chỉ đã được học mà còn có thể có tính khái quát hoá cao, và có thể sinh cử chỉ cho các âm thanh và ngữ cảnh có xác xuất dữ liệu thấp.
 
 %Để hỗ trợ cộng đồng nghiên cứu và mở rộng ứng dụng, chúng tôi đã cung cấp phiên bản pretrained của mô hình OHGesture trên nền tảng Huggingface, có thể truy cập tại địa chỉ \hyperlink{https://huggingface.co/openhuman/openhuman}{huggingface.co/openhuman/openhuman}. Bên cạnh đó, toàn bộ mã nguồn của mô hình cùng các cải tiến trong quá trình xử lý dữ liệu và sinh cử chỉ đã được công khai trên GitHub tại kho lưu trữ \hyperlink{https://github.com/hmthanh/OHGesture}{hmthanh/OHGesture}, cho phép các nhà nghiên cứu và nhà phát triển dễ dàng tải xuống, tùy chỉnh và thử nghiệm. Để hỗ trợ việc đánh giá và so sánh kết quả, chúng tôi cũng đã tải lên toàn bộ các video render của mô hình trên YouTube, giúp trực quan hóa và đối chiếu giữa kết quả cử chỉ sinh ra bởi OHGesture và cử chỉ từ dữ liệu thực tế (GroundTruth).
 
-Một điểm đáng chú ý khác trong nghiên cứu này là việc mở rộng dữ liệu đầu vào. Chúng tôi không chỉ giới hạn ở cử chỉ, âm thanh và nhãn cảm xúc mà còn tích hợp thêm các công cụ chuyển đổi văn bản thành giọng nói để chuyển âm thanh thành văn bản. Nhờ vậy, mô hình có thêm nguồn thông tin để học cách khử nhiễu có điều kiện, giúp hệ thống hiểu rõ hơn ngữ cảnh và tạo ra cử chỉ phù hợp với từng nội dung cụ thể.
+Một điểm đáng chú ý khác trong nghiên cứu này là việc mở rộng dữ liệu đầu vào. Chúng tôi không chỉ giới hạn ở cử chỉ, âm thanh và nhãn cảm xúc mà còn tích hợp thêm các công cụ chuyển đổi văn bản thành giọng nói để chuyển âm thanh thành văn bản. Nhờ có thêm một đặc trưng về văn bản, mô hình có thể bổ sung thêm đặc trưng về ngữ nghĩa của cử chỉ và giúp mô hình có thêm nguồn thông tin để đạt kết quả sinh tốt hơn, đồng thời giúp hệ thống hiểu rõ hơn ngữ cảnh và tạo ra cử chỉ phù hợp với từng nội dung cụ thể.
 
 %Tuy nhiên, do hạn chế về tài nguyên, việc đánh giá chất lượng của mô hình hiện tại vẫn chủ yếu dựa trên các kết quả chủ quan và kết quả của các mô hình cơ sở. Dù cho các kết quả đánh giá này khá khả quan, chúng chưa thể hoàn toàn phản ánh chất lượng thực tế của hệ thống đề xuất trong mọi bối cảnh và điều kiện. Điều này là một hạn chế cần được cải thiện trong các nghiên cứu tiếp theo nhằm đạt được sự đánh giá chính xác và toàn diện hơn.
 
@@ -24,6 +24,8 @@ Một điểm đáng chú ý khác trong nghiên cứu này là việc mở rộ
 
 
 Mô hình sinh cử chỉ OHGesture có nhiều ưu điểm đáng kể, góp phần quan trọng trong việc phát triển các hệ thống tương tác người-máy tự nhiên và linh hoạt hơn. Tuy nhiên, vẫn còn một số nhược điểm để cải thiện hiệu quả trong tương lai.
+
+\vspace{10pt}
 
 \textbf{Ưu điểm:}
 

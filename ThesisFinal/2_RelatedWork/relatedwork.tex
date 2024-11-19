@@ -1,9 +1,10 @@
-\chapter{CÁC CÔNG TRÌNH LIÊN QUAN}
+\chapter{TỔNG QUAN}
 \label{Chapter2}
 
-Bài toán sinh cử chỉ là cũng tương tự như các bài toán khác đều đã nghiên cứu và phát triển song hành cùng các phương pháp học máy truyền thống cũng như các phương pháp học sâu hiện đại ngày nay, gồm các nhóm phương pháp dựa trên luật và các phương pháp dựa trên dữ liệu. 
+Bài toán sinh cử chỉ là cũng tương tự như các bài toán khác đều đã nghiên cứu và phát triển song hành cùng các phương pháp học máy truyền thống cũng như các phương pháp học sâu hiện đại ngày nay, gồm các nhóm phương pháp dựa trên luật và các phương pháp dựa trên dữ liệu.  Đầu tiên chúng tôi chứng minh mối quan hệ giữa cử chỉ và lời nói \ref{sec:relationspeechandgesture}, từ đó là tiền đề thể hiện sự đồng bộ về  dữ liệu giữa cử chỉ và lời nói. Ở phần \ref{sec:relatedwork} chúng tôi trình bày về các phương pháp đã được sử dụng trong quá trình sinh cử chỉ.
 
 \section{Mối quan hệ giữa cử chỉ và lời nói}
+\label{sec:relationspeechandgesture}
 
 Cử chỉ được chia thành 6 nhóm chính theo ngôn ngữ  học \cite{ekman1969repertoire}, \cite{sebeok2011advances} cử chỉ thích nghi (adaptors), cử chỉ biểu tượng (emblems), cử chỉ chỉ định (deictics), cử chỉ biểu trưng (iconics), cử chỉ ẩn dụ (metaphorics) và cử chỉ nhấn mạnh (beat).
 
@@ -18,6 +19,7 @@ Như được chỉ ra trong các tài liệu ngôn ngữ học \cite{kipp2005ge
 cử chỉ được sử dụng trong cuộc hội thoại hàng ngày có thể được chia thành một số lượng hạn chế các đơn vị ngữ nghĩa với các biến thể chuyển động khác nhau. Chúng tôi giả định rằng các đơn vị ngữ nghĩa này, thường được gọi là từ ngữ, liên quan đến các đặc trưng cấp cao của âm thanh lời nói, trong khi các biến thể chuyển động được xác định bởi các đặc trưng âm thanh cấp thấp. Do đó, chúng tôi tách rời các đặc trưng cấp cao và cấp thấp từ các lớp khác nhau của bộ mã hóa âm thanh và học các ánh xạ giữa chúng và các từ ngữ cử chỉ và các biến thể chuyển động, tương ứng. Các thử nghiệm chứng minh cơ chế này thành công trong việc tách rời các đặc trưng ở nhiều cấp độ của cả lời nói và chuyển động và tổng hợp các cử chỉ phù hợp về mặt ngữ nghĩa và có phong cách.
 
 \section{Tổng quan các phương pháp cho bài toán sinh cử chỉ}
+\label{sec:relatedwork}
 
 \subsection{Phương pháp dựa trên luật}
 
@@ -43,7 +45,7 @@ Phương pháp thống kê sử dụng phân phối xác xuất để tìm sự 
 	\label{fig:generative-models}
 \end{figure}
 
-Phương pháp sinh cử chỉ được chia thành hai nhóm chính. Bao gồm các mô hình ước lượng log likelihood (likelihood-base model)  và phương pháp dựa vào các mô hình sinh ngầm định (implicit generative models).
+Phương pháp sinh cử chỉ được chia thành hai nhóm chính. Bao gồm các mô hình ước lượng log likelihood (likelihood-base model)  và phương pháp dựa vào các mô hình sinh ngầm định (implicit generative models) \cite{song2021score}. 
 
 \subsubsection{Likelihood-base Model}
 
@@ -64,7 +66,7 @@ Cử chỉ có thể được tổng hợp bằng các mô hình xác định nh
 
 Trong các phương pháp dựa vào mô hình sinh ngầm định, phân phối của dữ liệu được học một cách ngầm định thông qua việc quá sinh lấy mẫu (sampling). Ví dụ tiêu biểu nhất là mô hình generative adversarial networks (GANs). Khi dữ liệu được tổng hợp bằng cách chuyển phân phối dữ liệu ban đầu ở dạng phân phối chuẩn về phân phối của dữ liệu.
 
-Trong mục tiêu theo chúng tôi sẽ trình bày các phương pháp sử dụng mô hình Diffusion.
+%Trong mục tiêu theo chúng tôi sẽ trình bày các phương pháp sử dụng mô hình Diffusion.
 
 %chuyển phân phối của dữ liệu ở dạng phân phối chuẩn hay ở một vị trí bất kỳ về phân phối chuẩn bằng hàm neuron network. 
 

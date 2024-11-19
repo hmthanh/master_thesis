@@ -2,35 +2,52 @@
 \pagebreak
 \phantomsection
 \addcontentsline{toc}{section}{Trang thông tin luận văn tiếng Anh}
-\section*{\centering \MakeUppercase{THESIS INFORMATION}}
+\begin{center}
+	{\centering \MakeUppercase \LARGE \fontsize{16.16}{19.26}\selectfont \bfseries THESIS INFORMATION}
+\end{center}
 
+
+
+{
+	\setlength{\parindent}{0pt}
 Thesis title: OpenHuman: A conversational gesture synthesis system based on emotions and semantics \\
 Speciality: Computer Science \\
 Code: 8480104\\
 Name of Master Student: Hoàng Minh Thanh \\
 Academic year: 31\\
 Supervisor: Associate Professor Ly Quoc Ngoc\\
-At: VNUHCM - University of Science
+At: VNUHCM - University of Science}
 
 
+\vspace{5pt}
+{\MakeUppercase\Large \bfseries{1. SUMMARY:}}
 
-\subsection*{1 SUMMARY}
-In the context of the rapid development of big data and modern information systems, the use of Microsoft SQL Server (MSSQL) to manage online membership systems like ASP.NET Membership has begun to reveal significant limitations. ASP.NET Membership, originally designed to manage users and related information, has witnessed a considerable increase in the volume of data that needs to be processed, especially as the system continues to expand. However, when faced with large volumes of data and the demand for fast processing speeds, MSSQL often encounters performance issues, such as slow query speeds, inefficient resource management, and limited scalability.
+Along with the explosion of hardware advancements, large language models, text-based AI systems such as ChatGPT, CharacterAI, Gemini, and the development of computer graphics, the current bottleneck in creating digital humans lies in generating character movements corresponding to text or audio inputs.
 
-These limitations not only degrade the user experience but also pose significant challenges for system administrators in maintaining and enhancing the performance of ASP.NET Membership. To address these issues, this thesis proposes and implements a solution to transition from MSSQL to the distributed database system Greenplum. This solution aims to significantly improve the performance and scalability of ASP.NET Membership, meeting the demands of big data processing and the increasingly high requirements of online membership management systems.
+One major challenge in gesture generation is the lack of sufficient and high-quality gesture data, as well as the lack of contextual consistency in gestures, making system development more difficult. Among current approaches, diffusion models achieve the best results due to their ability to generalize and handle imbalanced feature distributions and low-data-density regions effectively.
 
-The experimental section of the thesis conducts rigorous tests to compare the performance of the system after transitioning to Greenplum with the original MSSQL system. The tests focus on critical tasks such as user search, registration, and login. Performance metrics such as query latency, processing speed, and scalability are carefully measured. The experimental results show that Greenplum offers significant improvements in processing speed and scalability, effectively meeting the stringent requirements of large data systems.
-
-The thesis concludes that transitioning from MSSQL to Greenplum is an effective solution to enhance the performance and scalability of the ASP.NET Membership online management system. Additionally, the thesis opens up future research directions on integrating advanced data analytics tools and optimizing system architecture to meet the growing demands of modern web applications.
-
-
-\subsection*{2 NOVELTY OF THESIS}
-The thesis has achieved several significant results in the field of distributed database management, particularly in demonstrating the ability to improve performance and scalability when transitioning from MSSQL to Greenplum in the ASP.NET Membership system. Experimental results show that distributed databases, especially Greenplum, have significantly reduced query times and enhanced the processing performance of large data volumes. Additionally, the thesis proposes an effective process for transitioning from a centralized database system to a distributed system, covering everything from hardware preparation, software installation, to system configuration optimization.
+To generate gestures corresponding to audio and emotional information, we employ a conditional diffusion model. The conditions include initial gestures, emotions, audio, and corresponding text. We extend the DiffuseStyleGesture model to propose the \textbf{OHGesture} model. Our method converts audio into text as an additional semantic feature for training. We leverage the Unity codebase of the DeepPhase model for rendering and visualizing character movements. Lastly, we make all our source code publicly available to encourage further development of gesture generation systems by the research community.
 
 
-\subsection*{3 APPLICATIONS/ APPLICABILITY/ PERSPECTIVE}
+\vspace{5pt}
+{\MakeUppercase\Large \bfseries 2. NOVELTY OF THESIS:}
 
-The thesis not only holds theoretical value but also opens up numerous practical applications in large data management, especially in high-performance and high-availability web systems. Businesses can apply this solution to enhance the performance of existing systems and meet future scalability demands. However, there remain several issues that require further research, such as optimizing fault tolerance and data security in larger distributed environments, as well as more deeply integrating data analytics and machine learning tools to fully exploit the potential of distributed database systems.
+
+%2. NOVEL CONTRIBUTIONS OF THE THESIS:
+First, through actual gesture generation results, we demonstrate that the proposed OHGesture model achieves high-quality gesture generation with synchronization between gestures, audio, and emotions.
+
+Second, by integrating text to supplement semantic features, we provide an additional mechanism to help the model understand specific contexts during gesture generation.
+
+Third, this research contributes a novel method for constructing standardized evaluation systems for gesture generation models. By combining data from multiple linguistic sources and utilizing human evaluations, we establish an objective and comprehensive benchmarking platform.
+
+Finally, we utilize animated character visualization, source code hosted on GitHub, and pretrained models on Huggingface. The proposed model achieves favorable results even with inputs outside the training dataset.
+
+\vspace{5pt}
+{\MakeUppercase\Large \bfseries 3. APPLICATIONS/ APPLICABILITY/ PERSPECTIVE:}
+
+The OHGesture model is capable of generating gestures from emotion labels, audio, and corresponding text. This enables the development of human-interactive systems by integrating it with other text-based processing agents like Character.AI or the ChatGPT API. Additionally, we envision creating a store similar to the App Store but dedicated to virtual humans. Each virtual human, acting as an app, could be developed by various contributors and serve diverse applications such as virtual girlfriends, education, and customer assistance.
+
+Currently, the model treats gesture sequences as images for denoising, which limits its performance. We plan to improve it by employing Fast Fourier Transform (FFT) to extract phase features of movements, aiming to develop a better gesture generation system.
 
 \begin{center}
     \begin{tabular}{c c}
@@ -38,7 +55,7 @@ The thesis not only holds theoretical value but also opens up numerous practical
         (Signature, full name) & (Signature, full name) \\
     \end{tabular}
     
-    \vspace{6cm} % Điều chỉnh khoảng cách này nếu cần
+    \vspace{2.5cm} % Điều chỉnh khoảng cách này nếu cần
     
     \textbf{CERTIFICATION} \\
     \textbf{CERTIFICATION UNIVERSITY OF SCIENCE} \\
