@@ -104,7 +104,7 @@ Sự thay đổi của $\sqrt{\alpha}$ và  $\sqrt{1- \alpha}$ trong quá trình
 	\includegraphics[height=280pt]{AlgorithmSamplingDiffusion}
 	\caption{Minh hoạ quá trình khử nhiễu (Denoise)}
 	\label{fig:AlgorithmSamplingDiffusion}
-	\vspace{-20pt}
+	\vspace{-5pt}
 \end{figure}
 
 Quá trình khử nhiễu $p_\theta(\mathbf{x}_{t-1} \vert \mathbf{x}_t)$  ở bước thứ $t$ từ $T \to 1$ được bắt đầu từ $\bx_T$ là hoàn toàn nhiễu $\mathcal{N} (\mathbf{0}, \mathbf{I})$. Ta sẽ dùng một neural network $f_{\theta} (x_t, t)$ để dự đoán nhiễu $\hat{\epsilon} = f_{\theta}(\bx_t, t)$ đã được thêm vào để được $\bx_{t-1}$ từ $\bx_t$.
@@ -150,7 +150,8 @@ Qúa trình khử nhiễu là quá trình bắt đầu từ nhiễu hoàn toàn,
 		\centering
 		\includegraphics[width=\linewidth]{DDPMTraining}
 		\caption{Mô hình diffusion cơ bản}
-		\label{fig:basic_diffusion}
+		\label{fig:basic_diffusion}\
+		\vspace{-5pt}
 	\end{figure}
 	
 	Mô hình diffusion sẽ học trọng số $\theta$ của hàm dự đoán lỗi $f_{\theta} (x_t, t)$ hay còn ký hiệu là  $\epsilon_{\theta} (x_t, t)$. Trong quá trình denoising, ta sẽ tối ưu độ lỗi giữa nhiễu dự đoán $\boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t)$ và nhiễu thực tế $\boldsymbol{\epsilon}_t$. Với mỗi bước thứ $t$ ta sẽ tối ưu hàm loss $\mathcal{L}_{t}$ để thu được trọng số $\theta$.
