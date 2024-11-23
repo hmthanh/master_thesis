@@ -1,0 +1,207 @@
+\section{Cài đặt giải pháp}
+
+\textit{Chương 4 tập trung vào quá trình cài đặt và triển khai giải pháp chuyển đổi từ MSSQL sang Greenplum để giải quyết các vấn đề về hiệu suất và khả năng mở rộng trong hệ thống quản lý thành viên ASP.NET Membership. Nội dung chương bao gồm việc mô tả chi tiết môi trường triển khai, công cụ sử dụng, và những thử thách gặp phải trong quá trình thực hiện. Các bước cài đặt được trình bày cụ thể, từ việc thiết lập môi trường phát triển đến cấu hình hệ thống Greenplum để đảm bảo hoạt động hiệu quả.}
+
+\textit{Chương này cũng đề cập đến các giải pháp kỹ thuật được áp dụng nhằm khắc phục các vấn đề phát sinh, đồng thời đánh giá kết quả đạt được trong quá trình triển khai. Qua đó, chương 4 cung cấp một cái nhìn toàn diện về cách thức triển khai giải pháp giúp hiểu rõ hơn về quá trình chuyển đổi và những lợi ích mà hệ thống cơ sở dữ liệu phân tán Greenplum mang lại.}
+
+Ở chương 3 đã giới thiệu giải pháp chuyển đổi từ hệ thống quản trị cơ sở dữ liệu MSSQL sang Greenplum nhằm tối ưu hóa hiệu suất và khả năng mở rộng cho hệ thống quản lý thành viên ASP.NET Membership. Chương này sẽ đi sâu vào hành trình triển khai giải pháp, phân tích chi tiết quy trình thực hiện, làm rõ những thách thức gặp phải và cách thức đã vượt qua để đạt được mục tiêu đề ra.
+
+Quá trình triển khai giải pháp được tiến hành theo từng bước, từ việc thiết lập kết nối ban đầu cho đến tinh chỉnh các chi tiết kỹ thuật cuối cùng, mỗi bước đều được mô tả chi tiết để cung cấp một cái nhìn toàn diện về phương pháp, công cụ và kỹ thuật đã sử dụng. Đặc biệt trong chương này cũng đề cập tới những thách thức liên quan đến sự khác biệt trong cấu trúc dữ liệu và ngôn ngữ truy vấn giữa hai hệ thống. Những khác biệt này yêu cầu không chỉ sử dụng các công cụ chuyển đổi dữ liệu như Pentaho và dotConnect for PostgreSQL mà còn phải phát triển các script tùy chỉnh để đảm bảo tính tương thích và bảo toàn dữ liệu.
+
+
+\subsection{Môi Trường Triển Khai}
+
+Giải pháp đã được triển khai trên một cụm máy chủ đa nodes, hoạt động trên nền tảng hệ điều hành Linux, cụ thể là Ubuntu, được lựa chọn bởi tính ổn định và mạnh mẽ của nó. Các máy chủ này đều được vận hành trên môi trường đám mây của DigitalOcean, cho phép tận dụng lợi thế của cơ sở hạ tầng ảo hóa linh hoạt và dễ dàng mở rộng.
+
+Cụ thể, cụm máy chủ bao gồm ba nodes, mỗi node được trang bị với 8 GB RAM và 4 CPUs của AMD, đảm bảo đủ khả năng xử lý các yêu cầu kỹ thuật cao từ Greenplum. Mỗi máy cũng được cấu hình với ổ cứng 160 GB NVMe SSD, cung cấp khả năng truy cập dữ liệu cực nhanh, từ đó thúc đẩy hiệu suất xử lý tổng thể của hệ thống.
+
+Mạng nội bộ kết nối các nodes này được thiết kế để cho phép truyền tải dữ liệu một cách ổn định và hiệu quả, tối ưu hóa giao tiếp giữa các thành phần hệ thống và đảm bảo rằng dữ liệu luôn sẵn sàng khi cần thiết. Lựa chọn cấu hình này không chỉ nhằm mục đích cải thiện hiệu suất tổng thể mà còn nhằm đảm bảo khả năng mở rộng linh hoạt của hệ thống để phù hợp với các nhu cầu tăng trưởng trong tương lai. Việc sử dụng DigitalOcean như một nền tảng đám mây mang lại khả năng triển khai nhanh chóng và dễ dàng quản lý.
+
+
+
+\subsection{Công Cụ}
+
+\textbf{Greenplum:} Phiên bản mới nhất của Greenplum đã được chọn nhằm tận dụng những cải tiến mới nhất về tính năng và hiệu suất. Là một hệ quản trị cơ sở dữ liệu phân tán, Greenplum hỗ trợ xử lý dữ liệu lớn một cách hiệu quả, đáp ứng nhu cầu phức tạp của dự án về phân tích dữ liệu và lưu trữ. Sự lựa chọn này không chỉ đảm bảo khả năng mở rộng và tính bền vững của hệ thống mà còn tối ưu hóa quá trình truy vấn và phân tích dữ liệu.
+
+\textbf{pgAdmin:} Là giao diện quản lý đồ họa cho PostgreSQL và Greenplum, pgAdmin giúp việc quản lý, giám sát và tối ưu hóa hệ thống trở nên dễ dàng hơn. Công cụ này cung cấp một môi trường trực quan cho phép người dùng thực hiện các tác vụ quản lý cơ sở dữ liệu mà không cần sâu về mặt kỹ thuật, làm cho việc bảo trì và cập nhật cơ sở dữ liệu trở nên thuận tiện và chính xác hơn.
+
+\textbf{Apache JMeter:} Được sử dụng rộng rãi trong kiểm thử hiệu năng, Apache JMeter cho phép đánh giá hiệu suất của hệ thống dưới nhiều điều kiện tải khác nhau. Công cụ này rất quan trọng trong việc xác định các điểm yếu của hệ thống, giúp đội ngũ phát triển hiểu rõ cách các truy vấn và giao dịch được xử lý, từ đó có những điều chỉnh kịp thời để cải thiện.
+
+\textbf{Pentaho Data Integration (PDI):} Là một công cụ tích hợp dữ liệu mã nguồn mở, PDI được sử dụng để quản lý và chuẩn bị dữ liệu cho phân tích. Với khả năng trích xuất, biến đổi và tải dữ liệu Pentaho hỗ trợ tối ưu hóa quá trình xử lý và phân tích dữ liệu. Công cụ này đặc biệt hữu ích trong việc kết nối và hòa nhập dữ liệu từ các nguồn khác nhau, giúp mang lại cái nhìn toàn diện hơn cho việc quản lý và phân tích dữ liệu, đồng thời giảm thiểu sai sót và thời gian xử lý.
+
+
+\subsection{Thử thách và giải pháp}
+
+Trong quá trình chuyển đổi dữ liệu từ MSSQL sang Greenplum, đã gặp phải nhiều vấn đề liên quan đến tương thích dữ liệu và cấu trúc schema. Để đảm bảo rằng dữ liệu được chuyển đổi một cách chính xác và hệ thống hoạt động hiệu quả trên nền tảng Greenplum đã thực hiện một loạt các bước chi tiết và cẩn thận.
+
+
+
+\subsubsection{Tương thích kiểu dữ liệu}
+
+Trong quá trình chuyển đổi dữ liệu từ MSSQL sang Greenplum, nhiều vấn đề liên quan đến tương thích dữ liệu và cấu trúc schema đã phát sinh. Để đảm bảo rằng dữ liệu được chuyển đổi một cách chính xác và hệ thống hoạt động hiệu quả trên nền tảng Greenplum, một loạt các bước chi tiết đã được thực hiện.
+
+Một trong những thách thức là sự khác biệt về kiểu dữ liệu giữa MSSQL và Greenplum. Như bảng \ref{tab:tbtype} MSSQL sử dụng kiểu dữ liệu DATETIME, trong khi Greenplum sử dụng TIMESTAMP. Điều này đòi hỏi phải chuyển đổi các kiểu dữ liệu này để đảm bảo rằng các giá trị thời gian được lưu trữ và truy xuất chính xác. Ngoài ra, MSSQL hỗ trợ cả NVARCHAR và VARCHAR, nhưng Greenplum chỉ hỗ trợ VARCHAR, yêu cầu phải chuyển đổi tất cả các trường NVARCHAR thành VARCHAR. Đối với các trường UNIQUEIDENTIFIER trong MSSQL, việc chuyển đổi thành UUID trong Greenplum là cần thiết để duy trì tính nhất quán và hiệu suất.
+
+
+Chuyển đổi kiểu dữ liệu để phù hợp Greenplum
+
+\begin{longtable}{|p{0.4\textwidth}|p{0.4\textwidth}|}
+\hline
+\textbf{MSSQL} & \textbf{Greenplum} \\ \hline  % Added \hline here
+UNIQUEIDENTIFIER & UUID \\ \hline
+NVARCHAR & VARCHAR \\ \hline
+BIT & BOOLEAN \\ \hline
+DATETIME & TIMESTAMP \\ \hline
+IMAGE & BYTEA \\ \hline
+TEXT & TEXT \\ \hline
+\caption{Sự khác biệt về kiểu dữ liệu giữa MSSQL và Greenplum}
+\label{tab:tbtype}
+\end{longtable}
+
+Bước đầu tiên là sử dụng SQL Server Management Studio (SSMS) để trích xuất và phân tích các kiểu dữ liệu hiện tại từ MSSQL. Quá trình kiểm tra này giúp xác định các kiểu dữ liệu không tương thích cần được chuyển đổi. Ví dụ, kiểu dữ liệu DATETIME trong MSSQL được chuyển đổi thành TIMESTAMP trong Greenplum bằng cách sử dụng câu lệnh CREATE TABLE với kiểu dữ liệu phù hợp.Tương tự, các trường NVARCHAR được chuyển đổi thành VARCHAR để phù hợp với cấu trúc dữ liệu của Greenplum. Đối với các trường UNIQUEIDENTIFIER, việc chuyển đổi thành UUID trong Greenplum giúp duy trì tính nhất quán và hiệu suất của hệ thống.
+
+Các biện pháp này đã giúp khắc phục các vấn đề về tương thích dữ liệu và cấu trúc schema giữa MSSQL và Greenplum. Việc chuyển đổi thành công các kiểu dữ liệu và tối ưu hóa cấu trúc bảng đã đảm bảo rằng hệ thống mới hoạt động ổn định và hiệu quả. Những cải tiến này không chỉ giúp duy trì tính toàn vẹn dữ liệu mà còn tối ưu hóa hiệu suất tổng thể của hệ thống, tận dụng tối đa khả năng của Greenplum trong việc xử lý dữ liệu lớn.
+
+\subsubsection{Tích hợp provider sử dụng cho Greenplum}
+
+Trong quá trình triển khai hệ thống quản lý thành viên và quyền hạn đã đối mặt với thách thức lớn trong việc tích hợp các chức năng từ ASP.NET Membership sang Greenplum, do sự khác biệt rõ rệt trong cấu trúc dữ liệu và cơ chế truy vấn. Để giải quyết những vấn đề này đã chọn áp dụng giải pháp dotConnect for PostgreSQL của Devart, một thư viện dữ liệu .NET mạnh mẽ, cung cấp các provider tương thích cho ASP.NET Membership, Role, và Profile.
+
+
+Chuyển đổi hệ thống từ MSSQL sang Greenplum đã phức tạp hóa việc duy trì các chức năng quản lý thành viên và quyền hạn, do Greenplum không hỗ trợ trực tiếp các provider của ASP.NET. Sự khác biệt về cơ chế quản lý dữ liệu giữa hai hệ thống yêu cầu một giải pháp mềm dẻo để tích hợp hoàn chỉnh các chức năng này vào cơ sở dữ liệu Greenplum.
+
+DotConnect for PostgreSQL đã được sử dụng như một cầu nối giúp thích ứng các chức năng của ASP.NET Membership vào Greenplum một cách hiệu quả. Quá trình triển khai bắt đầu với việc cài đặt dotConnect for PostgreSQL từ trang web chính thức của Devart\footnote{\url{https://www.devart.com/dotconnect/postgresql/articles/aspproviders.html\#installing}}, tiếp theo là cấu hình file web.config của ứng dụng ASP.NET để sử dụng các provider mới. Công cụ này không chỉ hỗ trợ tạo các bảng cần thiết trong Greenplum mà còn cho phép tùy chỉnh các script SQL để phù hợp với yêu cầu cụ thể của dự án.
+
+
+Sau khi cấu hình và tạo cơ sở dữ liệu đã tiến hành kiểm tra kỹ lưỡng để đảm bảo rằng tất cả các chức năng hoạt động chính xác và hiệu quả. Các bài kiểm tra bao gồm việc tạo mới thành viên, phân quyền, và xác thực đăng nhập, cho thấy hệ thống mới hoạt động mượt mà và chính xác. Việc sử dụng dotConnect for PostgreSQL không chỉ giải quyết được vấn đề không hỗ trợ của ASP.NET Membership trên Greenplum mà còn mang lại hiệu suất cao và tính ổn định, đồng thời đơn giản hóa quá trình quản lý và bảo trì hệ thống.
+
+Nhờ vào khả năng tích hợp mạnh mẽ và dễ dàng của dotConnect, hệ thống mới không chỉ duy trì được các chức năng quản lý thành viên và quyền hạn một cách liền mạch mà còn hoạt động hiệu quả hơn, tận dụng tối đa khả năng của Greenplum trong việc xử lý và quản lý dữ liệu lớn.
+
+\subsubsection{Chuyển dữ liệu}
+
+Quá trình chuyển dữ liệu từ cơ sở dữ liệu tập trung (MSSQL) sang cơ sở dữ liệu phân tán là một bước quan trọng trong việc nâng cao hiệu suất và khả năng mở rộng của hệ thống. Trong luận văn này, quá trình chuyển dữ liệu được thực hiện bằng cách sử dụng PDI, một công cụ mạnh mẽ và linh hoạt cho các tác vụ ETL.
+
+Trước tiên, việc thiết lập kết nối đến các cơ sở dữ liệu nguồn (MSSQL) hình \ref{fig:ConMSSQL} và đích (Greenplum) hình \ref{fig:ConGreenplum}  được thực hiện thông qua giao diện "Database Connections" trong PDI như hình \ref{fig:ComMSGL}. Cần cung cấp thông tin như host name, database name, username và password để thiết lập các kết nối này. Đây là bước đầu tiên và cơ bản nhất trong quy trình ETL, đặt nền móng cho các bước xử lý dữ liệu sau này.
+
+Đầu tiên, việc thiết lập kết nối đến các cơ sở dữ liệu nguồn (MSSQL) và đích (Greenplum) được thực hiện thông qua giao diện "Database Connections" trong PDI. Hình \ref{fig:ConMSSQL} và hình \ref{fig:ConGreenplum} minh họa việc thiết lập các kết nối này. Người dùng cần cung cấp thông tin host name, database name, username và password để thiết lập các kết nối này, như được thể hiện trong hình \ref{fig:ComMSGL}. Đây là bước cơ bản và quan trọng nhất trong quy trình ETL cho các bước xử lý dữ liệu tiếp theo.
+
+Sử dụng Pentaho để tạo các transformations, mỗi transformation đại diện cho một bước trong quá trình ETL như hình \ref{fig:job}. Ví dụ trong transformation Profile sử dụng Table Input để trích xuất dữ liệu từ aspnet\_Profile từ MSSQL từ đó ta sử dụng Execute SQL script để nhận dữ liệu từ aspnet\_Profile nhưng aspnet\_Profile khác kiểu dữ liệu nên ta sử dụng câu lệnh để lấy những thông tin cần thiết để chuyển đồ thông qua câu lệnh
+
+Sử dụng Pentaho để tạo các transformations, mỗi transformation đại diện cho một bước trong quá trình ETL. Hình \ref{fig:job} minh họa quy trình ETL tổng thể. Ví dụ, trong transformation Profile, bước Table Input được sử dụng để trích xuất dữ liệu từ bảng aspnet\_Profile trong MSSQL. Dữ liệu sau đó được chuyển đổi bằng cách sử dụng Execute SQL script để phù hợp với cấu trúc của cơ sở dữ liệu Greenplum.
+
+Do sự khác biệt về kiểu dữ liệu giữa MSSQL và Greenplum, cần thực hiện các phép chuyển đổi dữ liệu. Ví dụ, để chuyển đổi dữ liệu từ bảng aspnet\_Profile sử dụng câu lệnh sau để trích xuất và chuyển đổi dữ liệu cần thiết:
+
+\begin{mdframed}[backgroundcolor=white, linecolor=black, roundcorner=5pt]
+\begin{alltt}
+SELECT
+    userid as userid,
+    CAST(CAST(propertynames AS NVARCHAR(MAX)) AS VARBINARY(MAX)) as propertynames,
+    CAST(CAST(propertyvaluesstring AS NVARCHAR(MAX)) 
+    AS VARBINARY(MAX)) as propertyvaluesstring,
+    propertyvaluesbinary as propertyvaluesbinary,
+    lastupdateddate as lastupdateddate
+FROM
+    aspnet_Profile;
+\end{alltt}
+\end{mdframed}
+
+Trong quá trình chuyển đổi dữ liệu từ MSSQL sang Greenplum, gặp phải một số vấn đề liên quan đến việc xử lý dữ liệu kiểu binary. Cụ thể, PostgreSQL bulk loader không hỗ trợ trực tiếp việc chuyển đổi dữ liệu binary từ MSSQL sang Greenplum. Execute SQL Script gặp nhiều hạn chế về tốc độ và hiệu quả.
+
+Để khắc phục vấn đề này, đã thực hiện việc viết một đoạn script để chuyển đổi dữ liệu binary từ MSSQL sang Greenplum một cách hiệu quả hơn. Đoạn script này được tích hợp vào quy trình chuyển đổi dữ liệu bằng cách sử dụng Shell trong PDI để thực thi. Đoạn mã sau đây minh họa quá trình chuyển đổi dữ liệu:
+
+
+\begin{mdframed}[backgroundcolor=white, linecolor=black, roundcorner=5pt]
+\begin{alltt}
+string mssqlConnectionString = "Data Source=MSSQL;Initial Catalog=aspnetdb;
+                                Integrated Security=True";
+string pgConnectionString = "Server=Greenplum;Port=5432;
+                            Database=postgres;User Id=gpadmin;Password=Password;";
+
+var profiles = new List<Profile>();
+using (SqlConnection mssqlConnection = new SqlConnection(mssqlConnectionString))
+{
+    mssqlConnection.Open();
+    string query = @"SELECT userid as userid,
+                    CAST(CAST(propertynames AS NVARCHAR(MAX)) 
+                    AS VARBINARY(MAX)) as propertynames,
+                    CAST(CAST(propertyvaluesstring AS NVARCHAR(MAX)) 
+                    AS VARBINARY(MAX)) as propertyvaluesstring,
+                    propertyvaluesbinary as propertyvaluesbinary,
+                    lastupdateddate as lastupdateddate
+                    FROM aspnet_Profile;";
+    using (SqlCommand cmd = new SqlCommand(query, mssqlConnection))
+    using (SqlDataReader reader = cmd.ExecuteReader())
+    {
+        while (reader.Read())
+        {
+            profiles.Add(new Profile
+            {
+                UserId = reader.GetGuid(0),
+                PropertyNames = (byte[])reader["propertynames"],
+                PropertyValuesString = (byte[])reader["propertyvaluesstring"],
+                PropertyValuesBinary = (byte[])reader["propertyvaluesbinary"],
+                LastUpdatedDate = reader.IsDBNull(4) ? (DateTime?)null : 
+                
+                reader.GetDateTime(4)
+            });
+        }
+    }
+}
+
+using (NpgsqlConnection pgConnection = new NpgsqlConnection(pgConnectionString))
+{
+    pgConnection.Open();
+
+    using (var writer = pgConnection.BeginBinaryImport(@"COPY aspnet_profiles " +
+        "(userid, propertynames, propertyvaluesstring, propertyvaluesbinary, 
+        
+        lastupdateddate)" +
+        " FROM STDIN BINARY"))
+    {
+        foreach (var profile in profiles)
+        {
+            writer.StartRow();
+            writer.Write(profile.UserId);
+            writer.Write(profile.PropertyNames);
+            writer.Write(profile.PropertyValuesString);
+            writer.Write(profile.PropertyValuesBinary);
+            writer.Write(profile.LastUpdatedDate);
+        }
+
+        writer.Complete();
+    }
+}
+
+Console.WriteLine("Bulk data transfer complete.");
+\end{alltt}
+\end{mdframed}
+
+Đoạn script này được sử dụng để chuyển đổi dữ liệu từ MSSQL sang Greenplum, giải quyết vấn đề về hiệu suất khi xử lý dữ liệu binary mà PostgreSQL bulk loader không hỗ trợ trực tiếp. Đầu tiên, dữ liệu từ bảng aspnet\_Profile trong MSSQL được truy xuất và các trường chứa dữ liệu binary được chuyển đổi từ kiểu NVARCHAR sang VARBINARY để đảm bảo tính tương thích khi chuyển sang Greenplum. Dữ liệu này sau đó được lưu trữ trong danh sách các đối tượng Profile. Tiếp theo, script kết nối tới Greenplum và sử dụng lệnh COPY với định dạng binary để nhập dữ liệu vào bảng tương ứng trong Greenplum. Phương pháp này giúp tối ưu hóa quá trình chuyển dữ liệu, đặc biệt là với các trường dữ liệu binary, đồng thời cải thiện đáng kể hiệu suất so với việc sử dụng các script SQL thông thường.
+
+Sử dụng Shell trong PDI được sử dụng để chạy một lệnh cụ thể từ dòng lệnh của hệ điều hành như hình \ref{fig:aspnetProfile}. Trong trường hợp này, lệnh được cấu hình để thực thi một ứng dụng .NET (aspnet\_Profile.dll) đã được xây dựng trước đó. Ứng dụng này chứa đoạn script C\# đã được giải thích ở phần trên, thực hiện quá trình chuyển đổi dữ liệu binary từ MSSQL sang Greenplum một cách hiệu quả.
+
+
+Pentaho cung cấp một môi trường mạnh mẽ để quản lý và giám sát quy trình ETL, đảm bảo rằng dữ liệu được chuyển đổi và nạp vào cơ sở dữ liệu phân tán một cách an toàn và nhất quán. Sau khi hoàn thành các công việc của transformations, quy trình được thực hiện một cách tuần tự và tự động hóa, đảm bảo tính chính xác và hiệu quả của quá trình ETL .
+
+
+Sau khi thiết lập và hoàn thành các transformations, 
+ tạo ra một job ETL trong Pentaho để thực hiện toàn bộ quy trình chuyển dữ liệu một cách tự động. Job này quản lý các transformation và thực hiện chúng theo thứ tự, đảm bảo rằng mỗi bước được thực hiện một cách chính xác và không gặp sự cố. Hình \ref{fig:job} minh họa job ETL hoàn chỉnh trong Pentaho, giúp đảm bảo tính liên tục và hiệu quả của quy trình chuyển đổi dữ liệu.
+
+
+
+
+\subsection{Kết luận}
+
+Việc cài đặt giải pháp chuyển đổi hệ thống quản lý cơ sở dữ liệu từ MSSQL sang Greenplum, nhằm cải thiện hiệu suất và khả năng mở rộng của hệ thống quản lý thành viên ASP.NET Membership. Các bước triển khai đã được mô tả một cách rõ ràng, từ thiết lập môi trường triển khai, lựa chọn và cấu hình công cụ, đến việc xử lý các thách thức cụ thể và kiểm thử hệ thống.
+
+Quá trình triển khai bao gồm việc thiết lập môi trường phần cứng và phần mềm, sử dụng các công cụ như Greenplum, pgAdmin, Apache JMeter, và PDI để quản lý và tối ưu hóa dữ liệu. Việc tích hợp dotConnect for PostgreSQL để khắc phục vấn đề tương thích dữ liệu và tích hợp các providers cho ASP.NET Membership đã được thực hiện thành công, đảm bảo tính nhất quán và hiệu suất của hệ thống mới.
+
+Các thách thức lớn như sự khác biệt về kiểu dữ liệu, cấu trúc schema đã được giải quyết bằng cách sử dụng các công cụ và kỹ thuật phù hợp bằng cách thực hiện các biện pháp chuyển đổi và tối ưu hóa dữ liệu để đảm bảo tính toàn vẹn và hiệu suất của hệ thống mới.
+
+Kết luận từ chương này là việc chuyển đổi và triển khai hệ thống cơ sở dữ liệu phân tán Greenplum đã mang lại những cải tiến đáng kể về hiệu suất và khả năng mở rộng, đáp ứng tốt các yêu cầu kỹ thuật và nghiệp vụ của dự án. Những kinh nghiệm rút ra từ quá trình này sẽ là nền tảng vững chắc cho các nghiên cứu và triển khai tiếp theo trong lĩnh vực quản lý và xử lý dữ liệu lớn.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{profile.png}
+    \caption{Cấu hình Shell trong PDI để thực thi ứng dụng .NET cho chuyển đổi dữ liệu từ MSSQL sang Greenplum}
+    \label{fig:aspnetProfile}
+\end{figure}

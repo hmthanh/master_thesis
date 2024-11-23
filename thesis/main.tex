@@ -1,272 +1,163 @@
-%\documentclass[oneside,a4paper,14pt]{extreport}
-%\usepackage[T5]{fontenc}
-%\usepackage[utf8]{inputenc}
-%\usepackage{amsmath}
-%\usepackage{amssymb}
-%\DeclareTextSymbolDefault{\DH}{T1}
-%
-%% Tài liệu tham khảo
-%\usepackage[
-%	sorting=nty,
-%	backend=bibtex,
-%  style=numeric]{biblatex}
-%
-%\usepackage[unicode]{hyperref} % Bookmark tiếng Việt
-%
-%\usepackage{etoolbox}
-%\apptocmd{\bibsetup}{\sloppy}{}{}
-%\usepackage{breakcites}
-%\usepackage{microtype}
-%
-%\addbibresource{References/references.bib}
-%
-%\makeatletter
-%\def\blx@maxline{77}
-%\makeatother
-%
-%% Chèn hình, các hình trong luận văn được để trong thư mục Images/
-%\usepackage{graphicx}
-\documentclass[oneside,a4paper,14pt]{extreport}
-
-% Font tiếng Việt
-\usepackage[T5]{fontenc}
+\documentclass[12pt,a4paper]{extreport}
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{mathptmx}
-\usepackage{amssymb}
-\DeclareTextSymbolDefault{\DH}{T1}
-
-% Tài liệu tham khảo
-
-\usepackage[
-sorting=nty,
-backend=bibtex,
-defernumbers=true]{biblatex}
-
-\usepackage[unicode]{hyperref} % Bookmark tiếng Việt
-\addbibresource{References/references.bib}
-
-\makeatletter
-\def\blx@maxline{77}
-\makeatother
-
-% Chèn hình, các hình trong luận văn được để trong thư mục Images/
-\usepackage{graphicx}
-\graphicspath{ {Images/} }
-
-% Chèn và định dạng mã nguồn
+%\usepackage[T5]{fontenc}
+\usepackage[utf8]{vietnam}
+\usepackage{times}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{multicol}
 \usepackage{listings}
-\usepackage{color}
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-\lstdefinestyle{mystyle}{
-	backgroundcolor=\color{backcolour},   
-	commentstyle=\color{codegreen},
-	keywordstyle=\color{magenta},
-	numberstyle=\tiny\color{codegray},
-	stringstyle=\color{codepurple},
-	basicstyle=\footnotesize,
-	breakatwhitespace=false,         
-	breaklines=true,                 
-	captionpos=b,                    
-	keepspaces=true,                 
-	numbers=left,                    
-	numbersep=5pt,                  
-	showspaces=false,                
-	showstringspaces=false,
-	showtabs=false,                  
-	tabsize=2
-}
-\lstset{style=mystyle}
-
-% Chèn và định dạng mã giả
-\usepackage{amsmath}
-\usepackage{algorithm}
-\usepackage[noend]{algpseudocode}
-\makeatletter
-\def\BState{\State\hskip-\ALG@thistlm}
-\makeatother
-
-% Bảng biểu
-\usepackage{multirow}
-\usepackage{array}
-\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-
-% Đổi tên mặc định
-% \renewcommand{\chaptername}{Chương}
-% \renewcommand{\figurename}{Hình}
-% %\renewcommand{\tablename}{Bảng}
-% %\renewcommand{\contentsname}{Mục lục}
-% %\renewcommand{\listfigurename}{Danh sách hình}
-% %\renewcommand{\listtablename}{Danh sách bảng}
-% %\renewcommand{\appendixname}{Phụ lục}
-
-% Định nghĩa
-%\newtheorem{definition}{Định nghĩa}
-% Vẽ cây
-\usepackage{tikz}
-\usetikzlibrary{calc}
-\usetikzlibrary{trees}
-
-% Dãn dòng 1.5
-\usepackage{setspace}
-\onehalfspacing
-
-% Thụt vào đầu dòng
-\usepackage{indentfirst}
-
-% Canh lề
-\usepackage[
-top=30mm,
-bottom=25mm,
-left=30mm,
-right=20mm,
-includefoot]{geometry}
-
-% Trang bìa
-\usepackage{tikz}
-\usetikzlibrary{calc}
-\newcommand\HRule{\rule{\textwidth}{1pt}}
-% ========================================================================================= %
-% PACKAGE CUSTOMIZE
-% pdf
-\usepackage{pdfpages}
-
-\usepackage[strings]{underscore}
+\usepackage[a4paper, top=3.5cm,bottom=3cm,left=3.5cm,right=2cm]{geometry}
+\usepackage{verbatim}
+\usepackage{graphicx}
 \usepackage{url}
+\usepackage{fancyhdr}
+\usepackage{fancybox,framed}
+\linespread{1.3}
+\usepackage{lastpage}
+\usepackage{floatrow}
+\usepackage{floatrow}
+\usepackage{array}
+\usepackage{longtable}
+
+\pagenumbering{arabic}
+%\pagestyle{fancy}
+\newfloatcommand{capbtabbox}{table}[][\FBwidth]
+\usepackage{caption}
+%\captionsetup[figure]{font=normalsize}
+\usepackage{blindtext}
+\usepackage{titlesec}
+\usepackage[nottoc]{tocbibind}
+\usepackage{bookmark}
+%\usepackage[backend=bibtex,style=numeric,defernumbers=true,sorting=none]{biblatex}
+% \usepackage[backend=biber]{biblatex}
+%\bibliographystyle{plain}
+%\bibliography{References/references.bib}
+
+% ******************************************************************************
+%\setlength{\topmargin}{-0.5cm} % Lề trên
+%\setlength{\oddsidemargin}{-0.5cm} % Lề trái
+%\setlength{\evensidemargin}{-0.5cm} % Lề phải
+\setlength{\textwidth}{15.5cm} % Chiều rộng văn bản
+\setlength{\textheight}{24cm} % Chiều cao văn bản
+\setlength{\footskip}{1cm} % Khoảng cách giữa nội dung và số trang
+
+% For line spacing 1.5
+%\usepackage{setspace}
+%\renewcommand{\baselinestretch}{1.5}
+
+% ******************************************************************************
+\usepackage{hyperref}
+% Cấu hình cho \paragraph để nó xuống hàng sau tiêu đề
+\titleformat{\paragraph}[block]
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\usepackage{array} % Gói cần thiết cho kiểu cột m{}
+
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\Large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+
+
+\usepackage{mdframed}
+
+\usepackage{alltt}
+\usepackage{color}
+\usepackage{tocloft}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\fancyfoot[C]{\thepage}
 
 % Math
 \usepackage{amsfonts}
 
-\usepackage{stmaryrd}
-
-% Vẽ cây
-\usetikzlibrary{trees}
-
-% caption
-\usepackage[justification=centering,font=small,labelfont=bf]{caption}
-\captionsetup[figure]{font=small}
-% % subfigure
-\usepackage[font=small,labelfont=bf]{subcaption}
-% \usepackage[justification=centering,font=normalsize]{caption}
-
-\renewcommand{\figureautorefname}{Hình}
-% \renewcommand{\thesection}{\arabic{section}}
-% \renewcommand\thesubsection{\alph{subsection}.}
-\renewcommand{\thefigure}{\arabic{figure}}
-\renewcommand{\theequation}{\arabic{equation}} % Change equation numbering style to consecutive numbers
-\renewcommand{\equationautorefname}{Phương trình} % Change "Equation" to "Formula"
-\usepackage{tocloft}
-\usepackage{tabularx}
-\usepackage{booktabs}
+\usepackage[numbers]{natbib}
 
 
+% ******************************************************************************
+% Cấu trúc chương và mục
+\renewcommand{\thechapter}{\arabic{chapter}} % Số chương bằng số tự nhiên
+\renewcommand{\thesection}{\thechapter.\arabic{section}} % Số mục bằng số tự nhiên
+%\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}} % Số tiểu mục
+%\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}} % Số tiểu tiểu mục
 
-% Bảng thuật ngữ
-\usepackage[acronym,nomain]{glossaries}
+% Đánh số hình, bảng, phương trình theo chương
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}} % Đánh số hình
+\renewcommand{\thetable}{\thechapter.\arabic{table}} % Đánh số bảng
+\renewcommand{\theequation}{\thechapter.\arabic{equation}} % Đánh số phương trình
 
-% Customize 
-\usepackage[export]{adjustbox}
-\usepackage{forest}
+% Tạo danh mục viết tắt
+\newcommand{\acronym}[2]{\textbf{#1} (\textit{#2})}
 
-%\input{Preamble/preamble.tex}
+% Tùy chỉnh tiêu đề và khoảng cách trong danh mục hình ảnh
+\renewcommand{\cftfigpresnum}{Hình~} % Tiền tố trước số hình ảnh
+\renewcommand{\cftfigaftersnum}{:} % Ký tự sau số hình ảnh
+\addtolength{\cftfignumwidth}{3em} % Tăng khoảng cách giữa số và tiêu đề hình ảnh
+
+% Cấu hình để thêm từ "Bảng" trước mỗi mục trong danh mục bảng số liệu
+\renewcommand{\cfttabpresnum}{Bảng~}
+\renewcommand{\cfttabaftersnum}{:}
+\addtolength{\cfttabnumwidth}{3em} % Tăng khoảng cách giữa số và tiêu đề bảng
+
+
+
+%\newcommand{\tenSV}{Hoàng~Minh~Thanh} % Dấu ~ là khoảng trắng không được tách (các chữ nối với nhau bằng dấu ~ sẽ nằm cùng 1 dòng
+%\newcommand{\mssv}{21C11029}
+%\newcommand{\tenKL}{OPENHUMAN: HỆ THỐNG} % Chú ý dấu ~ trong tên khóa luận
+%\newcommand{\tenGVHD}{PSG. TS. Lý Quốc Ngọc}
+%\newcommand{\tenBM}{BM. Khoa~Học~Máy~Tính}
+\input{Preamble/meta.tex}
+\input{Preamble/packages.tex}
 \input{Preamble/commands.tex}
+\input{Preamble/config.tex}
 
-% ========================================================================================= %
-% CHÚ Ý: Thông tin chung về KLTN - sinh viên điền vào đây để tự động update các trang khác  %
-% ========================================================================================= %
-\newcommand{\tenSV}{Hoàng~Minh~Thanh} % Dấu ~ là khoảng trắng không được tách (các chữ nối với nhau bằng dấu ~ sẽ nằm cùng 1 dòng
-\newcommand{\mssv}{21C11029}
-\newcommand{\tenKL}{XÂY DỰNG HỆ THỐNG SINH CỬ CHỈ TỪ ÂM THANH CHO TRỢ LÝ ẢO} % Chú ý dấu ~ trong tên khóa luận
-\newcommand{\tenGVHD}{PSG. TS. Lý Quốc Ngọc}
-\newcommand{\tenBM}{BM. Khoa~Học~Máy~Tính}
-
-%\includeonly{
-%	Chapter2/chapter2,
-%	Chapter2/diffusionbase}
-
+\graphicspath{ {images/} }
 
 \begin{document}
 
-%\input{Title/title.tex}
-\include{Title/title.tex}
-% Sasu trang Title, các bạn chèn nhận xét gủa GVHD và GVPB. Nhận xét sẽ được giáo vụ phát sau buổi bảo vệ để các bạn đóng quyển.
+\input{Sections/title.tex}
 
-\pagenumbering{roman} % Đánh số i, ii, iii, ...
+\input{Sections/reassurances.tex}
 
-\addcontentsline{toc}{chapter}{Lời cam đoan}
-\include{Appendix/reassurances}
-%
-\addcontentsline{toc}{chapter}{Lời cảm ơn}
-\include{Appendix/thanks}
-%
-%\addcontentsline{toc}{chapter}{Đề cương chi tiết}
-%\include{Appendix/decuong}
+\input{Sections/thanks.tex}
 
-% Mục lục, danh sách hình, danh sách bảng
-\addcontentsline{toc}{chapter}{Mục lục}
-\tableofcontents
-\listoffigures
-\listoftables
-%
-\addcontentsline{toc}{chapter}{Tóm tắt}
-\include{Appendix/tomtat}
-%
-%\clearpage
-%
-\pagenumbering{arabic} % Đánh số 1, 2, 3, ...
+\input{Sections/tableofcontent.tex}
 
-% Các chương nội dung
-% Giới thiệu
-\include{Chapter1/chapter1}
+\input{Sections/listoffigures.tex}
+\input{Sections/listofnumbers.tex}
+\input{Sections/listofsymbols.tex}
+\input{Sections/listofglossary.tex}
+\input{Sections/inforthesis.tex}
+\input{Sections/inforthesis_en.tex}
 
-% Các công trình liên quan
-\include{Chapter2/chapter2}
-\include{Chapter2/diffusionbase}
+\pagenumbering{arabic}
 
-% Phương pháp đề xuất
-\include{Chapter3/chapter3}
-% GAT
-\input{Chapter3/ohgesture}
+\input{1_Introduction/Introduction.tex}
 
+\input{2_RelatedWork/RelatedWork.tex}
+\input{2_RelatedWork/DiffusionBase.tex}
 
-% Kết quả thí nghiệm
-\include{Chapter4/chapter4}
+\input{3_ProposedMethod/ProposedMethod.tex}
+\input{3_ProposedMethod/OHGesture.tex}
 
-% Kêt luận
-\include{Chapter5/chapter5}
+\input{4_Experiment/Experiment.tex}
 
-% Công trình của tác giả (nếu không có thì comment 02 dòng dưới)
-% \addcontentsline{toc}{chapter}{Danh mục công trình của tác giả}
- \include{Appendix/publish}
+\input{5_Evaluation/Evaluation.tex}
 
-% In tài liệu tham khảo
-%\addcontentsline{toc}{chapter}{Tài liệu tham khảo}
-%\printbibheading[title={Tài liệu tham khảo}]
+\input{6_Conclusion/Conclusion.tex}
 
-% \printbibliography[heading=subbibliography, title={Tiếng Việt}, keyword=Viet, resetnumbers=true]
+\input{References/References.tex}
+\input{References/Publish}
 
-% \DeclareNameAlias{sortname}{last-first}
-% \DeclareNameAlias{default}{last-first}
-
-{\tiny
-\setlength{\bibhang}{0pt}
-\setlength{\bibitemsep}{\baselineskip}
-\raggedright
-\printbibliography[heading=subbibliography, title={Reference}, resetnumbers=1] 
-}
-% ===================================================================== %
-% CHÚ Ý: phải gán lại resetnumbers=số tài liệu tham khảo tiếng Việt + 1 %
-% ===================================================================== %
-
-% Phần phụ lục
- \include{Appendix/appendix1}
- \include{Appendix/appendix2}
-% \include{Appendix/appendix3}
+\input{Appendix/Appendix1}
+\input{Appendix/Appendix2}
+\input{Appendix/Appendix3}
 
 \end{document}
-

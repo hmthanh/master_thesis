@@ -1,0 +1,101 @@
+% Redefine \tiny
+\renewcommand{\tiny}{\fontsize{6.01}{7.21}\selectfont}    % MS Word 6pt ≈ LaTeX 6.01pt
+
+% Redefine \scriptsize
+\renewcommand{\scriptsize}{\fontsize{7.01}{8.41}\selectfont}  % MS Word 7pt ≈ LaTeX 7.01pt
+
+% Redefine \footnotesize
+\renewcommand{\footnotesize}{\fontsize{8.03}{9.63}\selectfont} % MS Word 8pt ≈ LaTeX 8.03pt
+
+% Redefine \small
+\renewcommand{\small}{\fontsize{12.03}{14.43}\selectfont}  % MS Word 12pt ≈ LaTeX 12.03pt
+
+% Redefine \normalsize
+\renewcommand{\normalsize}{\fontsize{13.04}{15.65}\selectfont} % MS Word 13pt ≈ LaTeX 13.04pt
+
+% Redefine \large
+\renewcommand{\large}{\fontsize{14.08}{16.90}\selectfont}  % MS Word 14pt ≈ LaTeX 14.08pt
+
+% Redefine \Large
+\renewcommand{\Large}{\fontsize{16.16}{19.26}\selectfont}  % MS Word 16pt ≈ LaTeX 16.16pt
+
+% Redefine \LARGE
+\renewcommand{\LARGE}{\fontsize{18.19}{21.83}\selectfont}  % MS Word 18pt ≈ LaTeX 18.19pt
+
+% Redefine \huge
+\renewcommand{\huge}{\fontsize{20.22}{24.26}\selectfont}   % MS Word 20pt ≈ LaTeX 20.22pt
+
+% Redefine \Huge
+\renewcommand{\Huge}{\fontsize{24.27}{29.12}\selectfont}   % MS Word 24pt ≈ LaTeX 24.27pt
+
+
+
+
+% \titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection}{1em}{}
+
+% \titleformat{\chapter}[display]
+%   {\normalfont\LARGE\bfseries}   % Font size and weight for chapter title
+%   {\thechapter}                  % Chapter number formatting
+%   {1em}                          % Space between number and title
+%   {}
+
+% \makeatletter
+% \def\@makechapterhead#1{
+%   \vspace*{50pt}  % Vertical space before the chapter title
+%   {\normalfont\Huge\bfseries\MakeUppercase{#1}}  % Font size and uppercase
+%   \par\nobreak
+%   \vskip 40pt
+% }
+% \makeatother
+
+
+% \makeatletter
+% \def\@makechapterhead#1{
+%   \vspace*{50pt}  % Vertical space before the chapter title
+%   {\normalfont\Huge\bfseries \MakeUppercase{Chương \thechapter: #1}}  % "Chapter" text and uppercase title
+%   \par\nobreak
+%   \vskip 40pt
+% }
+% \makeatother
+
+
+\renewcommand{\chaptername}{Chương}
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
+\renewcommand{\contentsname}{Mục lục}
+\renewcommand{\listfigurename}{Danh sách hình}
+\renewcommand{\listtablename}{Danh sách bảng}
+\renewcommand{\appendixname}{Phụ lục}
+
+
+% \Huge
+% Customize chapter title (equivalent to Word styles)
+\titleformat{\chapter} % Adjust the chapter heading
+  {\LARGE\bfseries}     % Font size: Huge (24.27pt), bold
+  {\chaptername\ \MakeUppercase\thechapter.}       % Chapter number with a period
+  {20pt}               % Space between the number and title
+  {\MakeUppercase}     % Title format
+
+% Customize section title (equivalent to Word styles)
+\titleformat{\section} % Adjust the section heading
+  {\Large\bfseries}    % Font size: LARGE (18.19pt), bold
+  {\thesection}        % Section numbering
+  {15pt}               % Space between the number and title
+  {\LARGE\bfseries}    % Title format
+
+% Customize subsection title
+\titleformat{\subsection} % Adjust the subsection heading
+  {\large\bfseries}      % Font size: Large (16.16pt), bold
+  {\thesubsection}       % Subsection numbering
+  {10pt}                 % Space between the number and title
+  {\Large\bfseries}      % Title format
+
+% Customize subsubsection title
+\titleformat{\subsubsection} % Adjust the subsubsection heading
+{\normalsize\bfseries}      % Font size: Large (16.16pt), bold
+{\thesubsection}       % Subsection numbering
+{10pt}                 % Space between the number and title
+{\normalsize\bfseries}      % Title format
+
+
+
