@@ -52,3 +52,82 @@
 \newcommand{\bmu}{{\boldsymbol{\mu}}}
 \newcommand{\bnu}{{\boldsymbol{\nu}}}
 \newcommand{\bSigma}{{\boldsymbol{\Sigma}}}
+
+
+
+\renewcommand{\chaptername}{Chương}
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
+\renewcommand{\contentsname}{Mục lục}
+\renewcommand{\listfigurename}{Danh sách hình}
+\renewcommand{\listtablename}{Danh sách bảng}
+\renewcommand{\listalgorithmname}{Danh sách thuật toán}
+\renewcommand{\appendixname}{Phụ lục}
+\renewcommand{\algorithmname}{Thuật toán}
+
+% ******************************************************************************
+% Cấu trúc chương và mục
+\renewcommand{\thechapter}{\arabic{chapter}} % Số chương bằng số tự nhiên
+\renewcommand{\thesection}{\thechapter.\arabic{section}} % Số mục bằng số tự nhiên
+%\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}} % Số tiểu mục
+%\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}} % Số tiểu tiểu mục
+
+% Đánh số hình, bảng, phương trình theo chương
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}} % Đánh số hình
+\renewcommand{\thetable}{\thechapter.\arabic{table}} % Đánh số bảng
+\renewcommand{\theequation}{\thechapter.\arabic{equation}} % Đánh số phương trình
+\renewcommand{\thealgorithm}{\thealgorithm.\arabic{algorithm}}
+
+% Tạo danh mục viết tắt
+\newcommand{\acronym}[2]{\textbf{#1} (\textit{#2})}
+
+% Tùy chỉnh tiêu đề và khoảng cách trong danh mục hình ảnh
+\renewcommand{\cftfigpresnum}{Hình~} % Tiền tố trước số hình ảnh
+\renewcommand{\cftfigaftersnum}{:} % Ký tự sau số hình ảnh
+\addtolength{\cftfignumwidth}{3em} % Tăng khoảng cách giữa số và tiêu đề hình ảnh
+
+% Cấu hình để thêm từ "Bảng" trước mỗi mục trong danh mục bảng số liệu
+\renewcommand{\cfttabpresnum}{Bảng~}
+\renewcommand{\cfttabaftersnum}{:}
+\addtolength{\cfttabnumwidth}{3em} % Tăng khoảng cách giữa số và tiêu đề bảng
+
+\makeatletter
+\begingroup
+  \let\newcounter\@gobble
+  \let\setcounter\@gobbletwo
+  \globaldefs\@ne
+  \let\c@loadepth\@ne
+  \newlistof{algorithms}{loa}{\listalgorithmname}
+\endgroup
+\let\l@algorithm\l@algorithms
+\makeatother
+
+\renewcommand\cftalgorithmsaftersnum{:}
+\renewcommand\cftalgorithmspresnum{Thuật toán~}
+\cftsetindents{algorithms}{1.5em}{7em}
+
+
+% \settocstyle{algorithm}{%
+%   \tocstyle{list}[\textbf{Algorithms}]{\thealgorithm}%
+%   \contentsline{algorithm}{\ignorespaces\thealgorithm}{\thealgorithm}%
+% }
+% \tocstyle{algorithm}{\listofalgorithms}
+
+
+% ******************************************************************************
+\renewcommand{\figureautorefname}{Hình}
+\renewcommand{\tableautorefname}{Bảng}
+\renewcommand{\sectionautorefname}{Mục}
+\renewcommand{\subsectionautorefname}{Mục nhỏ}
+\renewcommand{\subsubsectionautorefname}{Mục nhỏ}
+\renewcommand{\equationautorefname}{Công thức}
+\renewcommand{\appendixautorefname}{Phụ lục}
+
+\providecommand{\algorithmautorefname}{Thuật toán}
+\renewcommand{\algorithmautorefname}{Thuật toán}
+
+% \renewcommand{\thesection}{\arabic{section}}
+% \renewcommand\thesubsection{\alph{subsection}.}
+\renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\theequation}{\arabic{equation}}
+\renewcommand{\thealgorithm}{\arabic{algorithm}}

@@ -48,6 +48,8 @@
 
 % ******************************************************************************
 \usepackage{hyperref}
+% \usepackage{hyperref}
+
 % Cấu hình cho \paragraph để nó xuống hàng sau tiêu đề
 \titleformat{\paragraph}[block]
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
@@ -80,33 +82,6 @@
 
 \usepackage[numbers]{natbib}
 
-
-% ******************************************************************************
-% Cấu trúc chương và mục
-\renewcommand{\thechapter}{\arabic{chapter}} % Số chương bằng số tự nhiên
-\renewcommand{\thesection}{\thechapter.\arabic{section}} % Số mục bằng số tự nhiên
-%\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}} % Số tiểu mục
-%\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}} % Số tiểu tiểu mục
-
-% Đánh số hình, bảng, phương trình theo chương
-\renewcommand{\thefigure}{\thechapter.\arabic{figure}} % Đánh số hình
-\renewcommand{\thetable}{\thechapter.\arabic{table}} % Đánh số bảng
-\renewcommand{\theequation}{\thechapter.\arabic{equation}} % Đánh số phương trình
-
-% Tạo danh mục viết tắt
-\newcommand{\acronym}[2]{\textbf{#1} (\textit{#2})}
-
-% Tùy chỉnh tiêu đề và khoảng cách trong danh mục hình ảnh
-\renewcommand{\cftfigpresnum}{Hình~} % Tiền tố trước số hình ảnh
-\renewcommand{\cftfigaftersnum}{:} % Ký tự sau số hình ảnh
-\addtolength{\cftfignumwidth}{3em} % Tăng khoảng cách giữa số và tiêu đề hình ảnh
-
-% Cấu hình để thêm từ "Bảng" trước mỗi mục trong danh mục bảng số liệu
-\renewcommand{\cfttabpresnum}{Bảng~}
-\renewcommand{\cfttabaftersnum}{:}
-\addtolength{\cfttabnumwidth}{3em} % Tăng khoảng cách giữa số và tiêu đề bảng
-
-
 %\newcommand{\tenSV}{Hoàng~Minh~Thanh} % Dấu ~ là khoảng trắng không được tách (các chữ nối với nhau bằng dấu ~ sẽ nằm cùng 1 dòng
 %\newcommand{\mssv}{21C11029}
 %\newcommand{\tenKL}{OPENHUMAN: HỆ THỐNG} % Chú ý dấu ~ trong tên khóa luận
@@ -114,12 +89,32 @@
 %\newcommand{\tenBM}{BM. Khoa~Học~Máy~Tính}
 \input{Preamble/meta.tex}
 \input{Preamble/packages.tex}
-\input{Preamble/commands.tex}
 \input{Preamble/config.tex}
+\input{Preamble/commands.tex}
 
 \graphicspath{ {images/} }
-
 %\includeonly{2\_RelatedWork/DiffusionBase.tex}
+%\hypersetup{
+%	colorlinks=true,
+%	linkcolor=blue,     % color of links
+%	citecolor=green,    % color of citations
+%	urlcolor=red        % color of URLs
+%}
+%\hypersetup{
+%	colorlinks = true,
+%	linkcolor = blue,
+%	filecolor = magenta,      
+%	urlcolor = cyan,
+%	pdfborder = {0 0 1},
+%	linkbordercolor = black,
+%	bookmarks = true,     % Adds bookmarks in PDF
+%	bookmarksopen = true, % Expands bookmarks initially
+%%	pdftitle = {OpenHuman},
+%%	pdfauthor = {John Doe},
+%%	pdfsubject = {Gesture Generation},
+%%	pdfkeywords = {gesture, Hyperlinks, PDF}
+%}
+
 
 \begin{document}
 
@@ -132,7 +127,8 @@
 %\input{Sections/tableofcontent.tex}
 %
 %\input{Sections/listoffigures.tex}
-%\input{Sections/listofnumbers.tex}
+%\input{Sections/listoftables.tex}
+%\input{Sections/listofalgorithm.tex}
 %\input{Sections/listofsymbols.tex}
 %\input{Sections/listofglossary.tex}
 %\input{Sections/inforthesis.tex}
@@ -145,20 +141,20 @@
 \input{2_RelatedWork/RelatedWork.tex}
 \input{2_RelatedWork/DiffusionBase.tex}
 
-%\input{3_ProposedMethod/ProposedMethod.tex}
-%\input{3_ProposedMethod/OHGesture.tex}
-%
-%\input{4_Experiment/Experiment.tex}
-%
-%\input{5_Evaluation/Evaluation.tex}
-%
-%\input{6_Conclusion/Conclusion.tex}
+\input{3_ProposedMethod/ProposedMethod.tex}
+\input{3_ProposedMethod/OHGesture.tex}
+
+\input{4_Experiment/Experiment.tex}
+
+\input{5_Evaluation/Evaluation.tex}
+
+\input{6_Conclusion/Conclusion.tex}
 %
 \input{References/References.tex}
-%\input{References/Publish}
-%
-%\input{Appendix/Appendix1}
-%\input{Appendix/Appendix2}
-%\input{Appendix/Appendix3}
+\input{References/Publish}
+
+\input{Appendix/Appendix1}
+\input{Appendix/Appendix2}
+\input{Appendix/Appendix3}
 
 \end{document}

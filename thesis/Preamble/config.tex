@@ -58,15 +58,7 @@
 % }
 % \makeatother
 
-
-\renewcommand{\chaptername}{Chương}
-\renewcommand{\figurename}{Hình}
-\renewcommand{\tablename}{Bảng}
-\renewcommand{\contentsname}{Mục lục}
-\renewcommand{\listfigurename}{Danh sách hình}
-\renewcommand{\listtablename}{Danh sách bảng}
-\renewcommand{\appendixname}{Phụ lục}
-
+%********************* Custom *********************
 
 % \Huge
 % Customize chapter title (equivalent to Word styles)
@@ -97,5 +89,29 @@
 {10pt}                 % Space between the number and title
 {\normalsize\bfseries}      % Title format
 
+%********************* Custom *********************
+
+\definecolor{customlinkcolor}{HTML}{0064E0}
+\definecolor{customcitecolor}{HTML}{00AF19}
+\definecolor{custompinkcolor}{HTML}{AF00E6}
 
 
+\hypersetup{
+	colorlinks=true,
+	linkcolor=customlinkcolor,
+	citecolor=customcitecolor,
+	filecolor=magenta,
+	urlcolor=custompinkcolor,
+	citebordercolor=red,
+	breaklinks=true,
+	bookmarksopen=true,
+	frenchlinks=true,
+	linkbordercolor={0 0 1},
+	menubordercolor={0 0 1},
+	plainpages=false,
+	urlbordercolor={0 0 1},
+	pdftitle={OpenHuman: Hệ thống tổng hợp cử chỉ hội thoại dựa trên cảm xúc và ngữ nghĩa},
+	pdfauthor={Hoàng Minh Thanh},
+	pdfpagemode=FullScreen,
+	pdfborder={0 0 0}
+}

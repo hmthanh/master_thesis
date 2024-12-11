@@ -1,7 +1,8 @@
 \chapter{Quá trình xử lý dữ liệu BVH}
-\label{Appendix2}
+\label{appendix:BVHData}
 
 \section{Cấu trúc khung xương của một nhân vật}
+\label{appendix:BVHData:skeleton}
 
 Một số tên khung xương nhân vật trong $75$ khung xương chuyển động bao gồm:
 
@@ -46,17 +47,29 @@ Một số tên khung xương nhân vật trong $75$ khung xương chuyển đ�
 \section{Cấu trúc tệp dữ liệu BVH}
 
 
-\includegraphics[width=0.4\linewidth]{BVHFile}
+%\includegraphics[width=0.4\linewidth]{BVHFile}
+
 File BVH (Biovision Hierarchy) là một định dạng file dữ liệu chứa thông tin về cấu trúc xương và dữ liệu về chuyển động của xương trong một hệ thống xương. File BVH bao gồm hai phần chính: phần khai báo cấu trúc xương và phần dữ liệu chuyển động của xương. 
 %Mỗi phần được phân cách bởi từ khóa \texttt{MOTION}.
 
-\setcounter{figure}{15}
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=\linewidth]{BVH}
-	\caption{Quá trình xử lý tệp tin BVH}
-	\label{fig:BVH}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{BVH1}
+		\caption{HIERARCHY trong tệp BVH}
+		\label{fig:BVH1}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{BVH2}
+		\caption{MOTION trong tệp BVH}
+		\label{fig:BVH2}
+	\end{subfigure}
 \end{figure}
+
+
 
 
 %	\begin{figure}

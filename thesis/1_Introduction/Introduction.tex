@@ -56,9 +56,45 @@ Vào năm 2011, một nhóm tác giả \cite{bergmann2011relation} đã chứng 
 Với sự thành công của các mô hình ngôn ngữ tự nhiên trong xử lý văn bản và độ chính xác siêu thật trong việc mô phỏng gương mặt con người, ngành đồ họa máy tính đã đạt được những tiến bộ vượt bậc. Cùng với đó là sự dễ dàng và chính xác trong việc tổng hợp giọng nói con người.
 Việc ứng dụng trí tuệ nhân tạo để sinh cử chỉ con người là một trong những điểm nghẽn chính trong phát triển trợ lý ảo giao tiếp và tương tác với con người.
 
-\section{Phát biểu bài toán}
+\section{Dữ liệu bài toán}
 
-Mục tiêu của việc sinh cử chỉ (gesture generation) bằng phương pháp học máy là tạo ra các cử chỉ tự nhiên, giống con người (human-likeness) và phù hợp với ngữ cảnh.
+
+
+\subsection{Kiến trúc khung xương của cử chỉ}
+
+Cử chỉ (gesture) trong luận văn là sự chuyển động của toàn bộ cơ thể của một nhân vật theo từng khung hình. Để có thể biểu diễn các chuyển động của một nhân vật trong đồ hoạ máy tính, các chuyển động sẽ được biểu diễn thành chuyển động của các xương (bone) riêng lẻ. Bao gồm cánh tay (hand), chân (leg), đầu (head), xương sống (spine),... Kiến trúc đầy đủ của một nhân vật được trình bày ở phụ lục \autoref{appendix:BVHData:skeleton}.
+
+Dữ liệu một nhân vật theo thời gian trong thực tế sẽ được thu nhận bằng các hệ thống chụp chuyển động (motion capture) với các hệ thống camera và cảm biến chuyên biệt. Kết quả của quá trình motion capture là các tệp được định nghĩa dưới dạng tệp BVH (Biovision Hierarchy).
+
+Các tệp BVH bao gồm hai thành phần chính: {HIERARCHY} và {MOTION}. Mỗi tệp BVH sẽ có thông tin về số khung hình trên giây ($\text{fps}$) và tổng sống khung hình.
+
+\begin{itemize}
+	\item \textbf{HIERARCHY}:
+	
+	\begin{itemize}
+		\item Định nghĩa thành phần hay tên các khung xương, vị trí khởi tạo khởi tạo của các khung xương ở vị trí T-pose (Hay tay diễn viên motion capture sẽ được duỗi thẳng thành hình chữ T).
+		\item Định nghĩa quan hệ cha-con từ nút gốc đến các nút lá của một khung xương. Với nút gốc thường là cột sống (Spine).
+		\item sdfdf
+	\end{itemize}
+	
+	\item \textbf{MOTION}: Là chuỗi chuyển động theo từng frame, với mỗi frame là dữ liệu về chuyển động theo thông tin về góc quay hoặc vị trí đã định nghĩa ở HIERARCHY.
+\end{itemize}
+
+
+\subsection{Kiến trúc chuyển động của cử chỉ}
+
+Dữ liệu chuyển động của cử chỉ là một tập khung xương (skeleton) bao gồm $75$ xương (bone) như hình \autoref{fig:Skeleton}, $\{ \textbf{b}_{1}, \textbf{b}_{2}, \cdots , \textbf{b}_{75} \}$, mỗi xương thể hiện vị trí (position) $\{ p_{x}, p_{y}, p_{z} \}$ và góc quay (rotation) $\{ r_{x}, r_{y}, r_{z} \}$ chuyển động của một nhân vật theo thời gian.
+
+Kết quả của việc sinh cử chỉ (gesture generation) là sinh ra chuỗi chuyển động góc quay của nhân vật theo từng khung hình (frame). Kết quả chuỗi $M$ frame, với mỗi frame sẽ có toạ độ góc quay của nhân vật. Mục tiêu của việc sinh cử chỉ (gesture generation) được đánh giá bằng việc tạo ra các cử chỉ tự nhiên, giống con người (human-likeness) và phù hợp với ngữ cảnh.
+
+Trong luận văn, các dữ liệu về vị trí và góc quay của khung xương nhân vật được tiền xử lý để chuyển thành một vector đặc trưng $\mathbf{g} \in \mathbb{R}^{1141}$.
+
+\section{Phát biểu bài toán}
+\label{sec:ProblemStatement}
+
+
+\subsection{Bài toán sinh cử chỉ trong luận văn}
+
 Sinh cử chỉ là bài toán hồi quy (regression), với đầu vào là một chuỗi cử chỉ cho trước và đầu ra là chuỗi cử chỉ tiếp theo.
 
 \begin{figure}[htbp]
@@ -131,7 +167,7 @@ Dữ liệu giọng nói $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length 
 \end{figure}
 
 
-Quá trình xử lý dữ liệu được trình bày đầy đủ ở phụ lục \ref{Appendix2}.
+Quá trình xử lý dữ liệu được trình bày đầy đủ ở \autoref{appendix:BVHData}.
 
 
 %Quá trình chuyển từ không gian Eule sang không gian Quaternion được minh hoạ ở phụ lục \ref{}
@@ -165,7 +201,7 @@ Cuối cùng, \textit{các bước xử lý cần được thực hiện tuần 
 %	\item Tích hợp đặc trưng văn bản vào mô hình DiffuseStyleGesture:** Chúng tôi cải tiến DiffuseStyleGesture bằng cách đưa thông tin văn bản vào quá trình khử nhiễu có điều kiện, giúp hệ thống sinh ra các cử chỉ chi tiết và phù hợp hơn với nội dung hội thoại.
 
 \begin{itemize}
-	\item Dựa trên tập dữ liệu có sẵn, luận văn chuyển giọng nói của dữ liệu thành văn bản, và dùng văn bản đó để làm dữ liệu huấn luyện mới.
+	\item Dựa trên tập dữ liệu có sẵn, luận văn chuyển giọng nói trong tập dữ liệu thành văn bản, và dùng văn bản đó để làm dữ liệu huấn luyện mới như là một dữ liệu ngữ nghĩa bổ sung trong quá trình học.
 	
 	\item Dựa trên mô hình cơ bản DiffuseStyleGesture, luận văn mở rộng thêm đặc trưng văn bản trong quá trình khử nhiễu có điều kiện.
 	

@@ -1,9 +1,9 @@
 \chapter{TỔNG QUAN}
 \label{Chapter2}
 
-Bài toán sinh cử chỉ cũng tương tự như các bài toán khác đều đã nghiên cứu và phát triển song hành với các phương pháp học máy truyền thống và hiện đại. Gồm các nhóm phương pháp dựa trên luật và các phương pháp dựa trên dữ liệu.  Đầu tiên luận văn chứng minh mối quan hệ giữa cử chỉ và giọng nói \ref{sec:relationspeechandgesture}, từ đó là tiền đề thể hiện sự đồng bộ về dữ liệu giữa cử chỉ và giọng nói và việc học mối quan hệ giữa cử chỉ và giọng nói có ý nghĩa. Trong mục \ref{sec:commonstage} Luận văn sẽ trình bày về các công đoạn chung trong các phương pháp sinh cử chỉ.
-Ở phần \ref{sec:relatedwork} luận văn trình bày về các phương pháp đã được sử dụng trong quá trình sinh cử chỉ. Luận văn sẽ so sánh các phương pháp, từ đó nêu lý do luận văn sử dụng mô hình diffusion để áp dụng cho bài toán sinh cử chỉ.
-Trong phần \ref{sec:diffusionbase}, luận văn sẽ trình bày về cách các mô hình diffusion được áp dụng cho bài toán sinh cử chỉ gần đây.
+Bài toán sinh cử chỉ cũng tương tự như các bài toán khác đều đã nghiên cứu và phát triển song hành với các phương pháp học máy truyền thống và hiện đại. Gồm các nhóm phương pháp dựa trên luật và các phương pháp dựa trên dữ liệu.  Đầu tiên luận văn chứng minh mối quan hệ giữa cử chỉ và giọng nói \autoref{sec:relationspeechandgesture}, từ đó là tiền đề thể hiện sự đồng bộ về dữ liệu giữa cử chỉ và giọng nói và việc học mối quan hệ giữa cử chỉ và giọng nói có ý nghĩa. Trong mục \autoref{sec:commonstage} Luận văn sẽ trình bày về các công đoạn chung trong các phương pháp sinh cử chỉ.
+Ở phần \autoref{sec:relatedwork} luận văn trình bày về các phương pháp đã được sử dụng trong quá trình sinh cử chỉ. Luận văn sẽ so sánh các phương pháp, từ đó nêu lý do luận văn sử dụng mô hình diffusion để áp dụng cho bài toán sinh cử chỉ.
+Trong phần \autoref{sec:diffusionbase}, luận văn sẽ trình bày về cách các mô hình diffusion được áp dụng cho bài toán sinh cử chỉ gần đây.
 
 \section{Mối quan hệ giữa cử chỉ và giọng nói}
 \label{sec:relationspeechandgesture}
@@ -18,12 +18,32 @@ Như các nghiên cứu ngôn ngữ học chỉ ra \cite{kipp2005gesture}, \cite
 \section{Các công đoạn chung trong bài toán sinh cử chỉ}
 \label{sec:commonstage}
 
+Cách tiếp cận với bài toán sinh cử chỉ (gesture generation) được thực hiện với nhiều phương pháp khác nhau. Tuy nhiên luận văn tổng quát hoá lại thành các công đoạn chính như \autoref{fig:CommonStage} sau:
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{CommonStage}
 	\caption{Các công đoạn trong mô hình sinh cử chỉ cử chỉ.}
 	\label{fig:CommonStage}
 \end{figure}
+
+Như đã trình bày ở \autoref{sec:ProblemStatement}, cử chỉ bao gồm chuỗi chuyển động của toạ độ điểm 3D bao gồm 
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item \textbf{Tiền xử lý dữ liệu}: 
+	
+	\item \textbf{Xử lý đặc trưng}: 
+	
+	\item \textbf{Trích xuất đặc trưng}
+	
+	\item \textbf{Mã hoá đặc trưng}
+	
+	\item \textbf{Kết hợp đặc trưng}
+	
+	\item \textbf{Giải mã đặc trưng}
+	
+	\item \textbf{Kết xuất}
+\end{enumerate}
 
 \section{Tổng quan các phương pháp cho bài toán sinh cử chỉ}
 \label{sec:relatedwork}

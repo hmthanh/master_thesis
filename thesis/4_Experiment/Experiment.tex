@@ -28,7 +28,7 @@ Bone trong dữ liệu BVH bao gồm vị trí $\mathbf{position}_{\operatorname
 
 Mô hình của luận văn chuyển dữ liệu từ góc quay Euler sang góc quay Quaternion, với góc quay Quaternion là một véc-tơ gồm 4 phần tử.
 
-Quá trình này được trình bày ở phụ lục \ref{Appendix2}
+Quá trình này được trình bày ở phụ lục \autoref{Appendix2}
 
 \section{Quá trình huấn luyện}
 
@@ -37,13 +37,16 @@ $\gamma = 0.1$.
 
 $\beta$ bắt đầu từ $0.5 \rightarrow 0.999$
 
-Quá trình huấn luyện được triển khai trên mã nguồn chương trình có sẵn tại: \hyperlink{https://github.com/hmthanh/OHGesture}{hmthanh/OHGesture} .
+Quá trình huấn luyện được triển khai trên mã nguồn chương trình có sẵn tại: \hyperlink{https://github.com/hmthanh/OHGesture}{Github/OHGesture} \footnote{\url{https://github.com/hmthanh/OHGesture}}.
+
+
 
 
 \section{Quá trình sử dụng Unity để kết xuất}
 
 Để trực quan hóa quá trình sinh cử chỉ từ dữ liệu đầu ra của mô hình, luận văn sử dụng Unity, kết thừa mã nguồn từ mô hình DeepPhase \cite{starke2022deepphase}  . Dữ liệu sau khi sinh là file BVH (BioVision Motion Capture), trong Unity luận văn bổ sung mã nguồn CSharp để kết xuất theo vị trí toạ độ và nhãn tương ứng, với vị trí và góc quay của các xương được biểu diễn dưới dạng quaternion.
 
-Chi tiết phần render cử chỉ được sinh ra, tôi trình bày ở phụ lục \ref{Appendix3}.
+Chi tiết phần render cử chỉ được sinh ra, tôi trình bày ở \autoref{Appendix3}.
 
-Mã nguồn chương trình Unity được luận văn công khai ở \hyperlink{https://github.com/DeepGesture/deepgesture-unity}{DeepGesture/DeepGesture-Unity}
+Mã nguồn chương trình Unity được luận văn công khai ở \hyperlink{https://github.com/DeepGesture/deepgesture-unity}{Github/DeepGesture-Unity}
+\footnote{\url{https://github.com/DeepGesture/deepgesture-unity}}.
