@@ -1,24 +1,34 @@
 \chapter{TỔNG QUAN}
 \label{Chapter2}
 
-Bài toán sinh cử chỉ cũng tương tự như các bài toán khác đều đã nghiên cứu và phát triển song hành với các phương pháp học máy truyền thống và hiện đại. Gồm các nhóm phương pháp dựa trên luật và các phương pháp dựa trên dữ liệu.  Đầu tiên luận văn chứng minh mối quan hệ giữa cử chỉ và giọng nói \ref{sec:relationspeechandgesture}, từ đó là tiền đề thể hiện sự đồng bộ về dữ liệu giữa cử chỉ và giọng nói và việc học mối quan hệ giữa cử chỉ và giọng nói có ý nghĩa. Ở phần \ref{sec:relatedwork} luận văn trình bày về các phương pháp đã được sử dụng trong quá trình sinh cử chỉ.
-%Trong phần \ref{sec:relatedwork}, trước tiên luận văn về các phương pháp hiện nay, sau đó luận văn sẽ trình bày về các 
+Bài toán sinh cử chỉ cũng tương tự như các bài toán khác đều đã nghiên cứu và phát triển song hành với các phương pháp học máy truyền thống và hiện đại. Gồm các nhóm phương pháp dựa trên luật và các phương pháp dựa trên dữ liệu.  Đầu tiên luận văn chứng minh mối quan hệ giữa cử chỉ và giọng nói \ref{sec:relationspeechandgesture}, từ đó là tiền đề thể hiện sự đồng bộ về dữ liệu giữa cử chỉ và giọng nói và việc học mối quan hệ giữa cử chỉ và giọng nói có ý nghĩa. Trong mục \ref{sec:commonstage} Luận văn sẽ trình bày về các công đoạn chung trong các phương pháp sinh cử chỉ.
+Ở phần \ref{sec:relatedwork} luận văn trình bày về các phương pháp đã được sử dụng trong quá trình sinh cử chỉ. Luận văn sẽ so sánh các phương pháp, từ đó nêu lý do luận văn sử dụng mô hình diffusion để áp dụng cho bài toán sinh cử chỉ.
+Trong phần \ref{sec:diffusionbase}, luận văn sẽ trình bày về cách các mô hình diffusion được áp dụng cho bài toán sinh cử chỉ gần đây.
 
 \section{Mối quan hệ giữa cử chỉ và giọng nói}
 \label{sec:relationspeechandgesture}
 
-Cử chỉ được chia thành 6 nhóm chính theo ngôn ngữ học \cite{ekman1969repertoire}, \cite{sebeok2011advances} cử chỉ thích nghi (adaptors), cử chỉ biểu tượng (emblems), cử chỉ chỉ định (deictics), cử chỉ biểu trưng (iconics), cử chỉ ẩn dụ (metaphorics) và cử chỉ nhấn mạnh (beat).
+Theo ngôn ngữ học, cử chỉ có thể được phân thành 6 nhóm chính: cử chỉ thích nghi (adaptors), cử chỉ biểu tượng (emblems), cử chỉ chỉ định (deictics), cử chỉ biểu trưng (iconics), cử chỉ ẩn dụ (metaphorics), và cử chỉ nhấn mạnh (beat) \cite{ekman1969repertoire}, \cite{sebeok2011advances}. Trong số đó, cử chỉ nhấn mạnh không mang ý nghĩa ngữ nghĩa trực tiếp nhưng đóng vai trò quan trọng trong việc đồng bộ nhịp điệu giữa giọng nói và cử chỉ \cite{kipp2005gesture}, \cite{sebeok2011advances}. Tuy nhiên, nhịp điệu giữa giọng nói và cử chỉ nhấn mạnh không hoàn toàn đồng bộ, khiến việc học mối quan hệ thời gian giữa chúng trở nên phức tạp \cite{mcclave1994gestural}, \cite{bhattacharya2021speech2affectivegestures}, \cite{kucherenko2020gesticulator}, \cite{yoon2020speech}.
 
- Trong đó, cử chỉ nhấn mạnh không liên quan trực tiếp đến ngữ nghĩa giọng nói \cite{kipp2005gesture} nhưng rất quan trọng để tạo sự hài hòa về nhịp điệu giữa giọng nói và cử chỉ  \cite{sebeok2011advances} . Tuy nhiên, giọng nói và cử chỉ nhấn mạnh không đồng bộ hoàn toàn về mặt nhịp điệu \cite{mcclave1994gestural}, nên việc học mối liên hệ thời gian giữa chúng gặp khó khăn \cite{bhattacharya2021speech2affectivegestures}, \cite{kucherenko2020gesticulator}, \cite{yoon2020speech}.
+Cử chỉ tương tác với các cấp độ thông tin khác nhau trong giọng nói \cite{sebeok2011advances}. Chẳng hạn, cử chỉ biểu tượng, như hành động giơ ngón cái, thường liên quan đến thông tin ngữ nghĩa cấp cao (ví dụ: "tốt" hoặc "tuyệt vời"), trong khi cử chỉ nhấn mạnh thường đi kèm với thông tin cấp thấp như nhấn mạnh trong âm thanh. Các nghiên cứu trước đây thường chỉ sử dụng đặc trưng từ lớp cuối cùng của bộ mã hóa giọng nói để tổng hợp cử chỉ \cite{alexanderson2020style}, \cite{bhattacharya2021speech2affectivegestures}, \cite{kucherenko2021large}, \cite{qian2021speech}, \cite{yoon2022genea}. Tuy nhiên, cách tiếp cận này có thể làm trộn lẫn thông tin từ nhiều cấp độ, dẫn đến khó khăn trong việc phân tách rõ ràng nhịp điệu và ngữ nghĩa.
 
-Cử chỉ liên quan đến các cấp độ khác nhau của thông tin giọng nói \cite{sebeok2011advances}. Ví dụ, cử chỉ biểu tượng như cầm ngược ngón cái thường đi kèm với ngữ nghĩa cấp cao như tốt hay tuyệt vời, trong khi cử chỉ nhấn mạnh thường xuất hiện cùng với sự nhấn mạnh giọng nói cấp thấp. Nhiều nghiên cứu trước đây chỉ sử dụng các đặc trưng được trích xuất từ lớp cuối cùng của bộ mã hóa giọng nói để tổng hợp cử chỉ \cite{alexanderson2020style},  \cite{bhattacharya2021speech2affectivegestures}, \cite{kucherenko2021large}, \cite{qian2021speech},  \cite{yoon2022genea}. Tuy nhiên, cách thiết lập này có thể khuyến khích bộ mã hóa trộn lẫn thông tin giọng nói ở nhiều cấp độ khác nhau vào cùng một đặc trưng.
-%, gây ra sự mơ hồ và tăng độ khó khăn trong việc khai thác các dấu hiệu nhịp điệu và ngữ nghĩa rõ ràng.
+Như các nghiên cứu ngôn ngữ học chỉ ra \cite{kipp2005gesture}, \cite{neff2008gesture}, \cite{webb1997linguistic}, cử chỉ trong giao tiếp hàng ngày có thể được chia thành một số lượng giới hạn các đơn vị ngữ nghĩa với các biến thể chuyển động khác nhau. Dựa trên giả định này, được phân tách đặc trưng giọng nói thành hai loại: đặc trưng cấp cao đại diện cho các đơn vị ngữ nghĩa, và đặc trưng cấp thấp xác định các biến thể chuyển động. Từ đó, mối liên hệ giữa chúng được học thông qua các lớp khác nhau của bộ mã hóa giọng nói. Các thử nghiệm chứng minh rằng cơ chế này có khả năng tách biệt rõ ràng các đặc trưng ở nhiều cấp độ, đồng thời tổng hợp được cử chỉ phù hợp về ngữ nghĩa và phong cách.
 
-Như được chỉ ra trong các tài liệu ngôn ngữ học \cite{kipp2005gesture} \cite{neff2008gesture} \cite{webb1997linguistic},
-cử chỉ được sử dụng trong cuộc hội thoại hàng ngày có thể được chia thành một số lượng hạn chế các đơn vị ngữ nghĩa với các biến thể chuyển động khác nhau. Luận văn giả định rằng các đơn vị ngữ nghĩa này, thường được gọi là từ ngữ, liên quan đến các đặc trưng cấp cao của giọng nói giọng nói, trong khi các biến thể chuyển động được xác định bởi các đặc trưng giọng nói cấp thấp. Do đó, luận văn tách rời các đặc trưng cấp cao và cấp thấp từ các lớp khác nhau của bộ mã hóa giọng nói và học các ánh xạ giữa chúng và các từ ngữ cử chỉ và các biến thể chuyển động, tương ứng. Các thử nghiệm chứng minh cơ chế này thành công trong việc tách rời các đặc trưng ở nhiều cấp độ của cả giọng nói và chuyển động và tổng hợp các cử chỉ phù hợp về mặt ngữ nghĩa và có phong cách.
+
+\section{Các công đoạn chung trong bài toán sinh cử chỉ}
+\label{sec:commonstage}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{CommonStage}
+	\caption{Các công đoạn trong mô hình sinh cử chỉ cử chỉ.}
+	\label{fig:CommonStage}
+\end{figure}
 
 \section{Tổng quan các phương pháp cho bài toán sinh cử chỉ}
 \label{sec:relatedwork}
+
+
 
 \subsection{Phương pháp dựa trên luật}
 
