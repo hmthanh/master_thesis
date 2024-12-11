@@ -25,7 +25,7 @@
 %\end{figure}
 
 Bản chất của các phương pháp dựa trên neuron network là ước lượng xác xuất của dữ liệu (probability density) nên cần chuẩn hoá (normalization), trong khi mô hình Diffusion sẽ học để có thể ước lượng đạo hàm của phân phối dữ liệu (estimating gradients of data distribution) và không phải chuẩn hoá trên toàn bộ dữ liệu \cite{song2021score}, nên có kết quả tốt hơn so với các phương pháp neuron network không sử dụng diffusion.
-Mô hình diffusion có khả năng mô phỏng phân phối dữ liệu trong các trường hợp mật độ phân phối của dữ liệu thấp và có thể sinh được kết quả với độ chi tiết cao nên phù hợp với bài toán sinh cử chỉ. Mô hình của chúng tôi dựa trên mô hình DiffuseStyleGesture \cite{yang2022DiffuseStyleGestureplus} với cải tiến để có thể học theo cảm xúc của nhân vật. Trước tiên chúng tôi trình bày về mô hình diffusion \ref{sec:summary_diffusion}, và phần \ref{sec:ohgesture} sẽ trình bày về mô hình đề xuất OHGesture. 
+Mô hình diffusion có khả năng mô phỏng phân phối dữ liệu trong các trường hợp mật độ phân phối của dữ liệu thấp và có thể sinh được kết quả với độ chi tiết cao nên phù hợp với bài toán sinh cử chỉ. Mô hình của luận văn dựa trên mô hình DiffuseStyleGesture \cite{yang2022DiffuseStyleGestureplus} với cải tiến để có thể học theo cảm xúc của nhân vật. Trước tiên luận văn trình bày về mô hình diffusion \ref{sec:summary_diffusion}, và phần \ref{sec:ohgesture} sẽ trình bày về mô hình đề xuất OHGesture. 
 
 %Diffusion \cite{ho2020denoising} là mô hình được lấy cảm hứng từ mô hình khuếch tán các chất trong hóa học.
 

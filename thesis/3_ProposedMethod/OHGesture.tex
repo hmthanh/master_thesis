@@ -32,8 +32,8 @@
 	\label{fig:TrainingAndSampling}
 \end{figure}
 
-Mô hình đề xuất \textbf{OHGesture} của chúng tôi được dựa trên mô hình \textbf{DiffuseStyleGesture} \cite{yang2023diffusestylegesture} áp dụng mô hình Diffusion \cite{ho2020denoising} có điều kiện \cite{ho2022classifier} (Classifier-Free Diffusion Guidance) để điều khiển các đặc trưng trong quá trình khử nhiễu. 
-Không giống như trong mô hình DiffuseStyleGesture, chúng tôi sử dụng thêm điều kiện văn bản được nhúng bằng mô hình Pretrain FastText  \cite{bojanowski2017enriching}.
+Mô hình đề xuất \textbf{OHGesture} của luận văn được dựa trên mô hình \textbf{DiffuseStyleGesture} \cite{yang2023diffusestylegesture} áp dụng mô hình Diffusion \cite{ho2020denoising} có điều kiện \cite{ho2022classifier} (Classifier-Free Diffusion Guidance) để điều khiển các đặc trưng trong quá trình khử nhiễu. 
+Không giống như trong mô hình DiffuseStyleGesture, luận văn sử dụng thêm điều kiện văn bản được nhúng bằng mô hình Pretrain FastText  \cite{bojanowski2017enriching}.
 
 Những điểm giống và khác của việc áp dụng mô hình Diffusion cho bài toán sinh cử chỉ so với mô hình Diffusion trong bài toán sinh ảnh:
 
@@ -41,7 +41,7 @@ Những điểm giống và khác của việc áp dụng mô hình Diffusion ch
 
 \textbf{Điểm giống}
 \begin{itemize}
-	\item Chúng tôi sử dụng mô hình Diffusion \cite{yang2023diffusestylegesture} trên cử chỉ $\bx^{1:M \times D}$,  với $M$ frame theo thời gian, $D=1141$ là các điểm toạ độ chuyển động của mỗi khung hình (tương tự width và height trong ảnh).
+	\item Luận văn sử dụng mô hình Diffusion \cite{yang2023diffusestylegesture} trên cử chỉ $\bx^{1:M \times D}$,  với $M$ frame theo thời gian, $D=1141$ là các điểm toạ độ chuyển động của mỗi khung hình (tương tự width và height trong ảnh).
 	\item Classifier-Free Diffusion Guidance với $\bx_0$ objective.
 	\item Latent vector có số chiều là $256$.
 \end{itemize}
@@ -69,9 +69,9 @@ Tương tự mô hình diffusion cơ bản bao gồm hai quá trình: quá trìn
 
 \subsection{Quá trình trích xuất đặc trưng}
 
-Dữ liệu để học của chúng tôi được lấy từ tập dữ liệu ZeroEGGS \cite{ghorbani2022zeroeggszeroshotexamplebasedgesture}. Bao gồm giọng nói, cử chỉ khởi tạo, cảm xúc và văn bản.
-%Tương tự mô hình DiffuseStyleGesture \cite{yang2022DiffuseStyleGestureplus} chúng tôi cũng sử dụng đầu vào bao gồm giọng nói, cử chỉ và cảm xúc
-%ngoài ra chúng tôi sử dụng thêm dữ liệu văn bản.
+Dữ liệu để học của luận văn được lấy từ tập dữ liệu ZeroEGGS \cite{ghorbani2022zeroeggszeroshotexamplebasedgesture}. Bao gồm giọng nói, cử chỉ khởi tạo, cảm xúc và văn bản.
+%Tương tự mô hình DiffuseStyleGesture \cite{yang2022DiffuseStyleGestureplus} luận văn cũng sử dụng đầu vào bao gồm giọng nói, cử chỉ và cảm xúc
+%ngoài ra luận văn sử dụng thêm dữ liệu văn bản.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{OHGesture}
@@ -84,14 +84,14 @@ Dữ liệu để học của chúng tôi được lấy từ tập dữ liệu 
 	\item \textbf{Bước thời gian $\mathbf{T} \in \mathbb{R}^{256}$ }: Bước thời gian ở mỗi quá trình $t \in [0, T]$, mục tiêu của mô hình là để với bước thời gian $t$ bất kỳ, mô hình có thể tổng quát hoá quá trình khử nhiễu, và có thể học được việc với từng bước $t$ thì giá trị sẽ thay đổi thế nào đối với kết quả dự đoán $\bx_0$. Giá trị timestep $t$ được khởi tạo bằng việc mã hoá nhúng vị trí (Position Embedding) bằng hàm sinusoidal $\text{PE}(t) = \left[ \sin{\left(\frac{t}{10000^{2i / d}}\right)}, \cos{\left(\frac{t}{10000^{2i / d}}\right)} \right]$, sau đó được đưa vào một MLP (Multilayer perceptron) để biến đổi thành vector $\mathbf{T}  \in \mathbb{R}^{256}$.
 	
 	\item \textbf{Cử chỉ khởi tạo $\mathbf{S} \in \mathbb{R}^{192}$}: Cử chỉ khởi tạo (seed gesture) $\mathbf{s} \in \mathbb{R}^{1:N \times D}$ có được từ cử chỉ ground truth $
-	\mathbf{g} \in \mathbb{R}^{(N+M) \times D}$, với mỗi frame là dữ liệu bao gồm $75$ khớp xương, được xử lý theo công thức \ref{eq:gesturevector} để được vector $1141$ chiều, trình bày ở công thức \ref{eq:gesturevector}. Chúng tôi cắt $N = 8$ frame đầu để làm cử chỉ khởi tạo $\mathbf{s}$ và $M = 80$ (4 giây với $20fps$) frame tiếp theo là nhãn để thực hiện quá trình khử nhiễu $\mathbf{x}^{1:M}$. Vector $\mathbf{s}$ đi qua một lớp tuyến tính để được vector $\mathbf{S} \in \mathbb{R}^{192}$, vector $\mathbf{S}$ sau đó được Random Mask trong quá trình huấn luyện để bỏ trong trường hợp nếu một trong $N$ bị thiếu thì sẽ ảnh hưởng như thế nào đến cử chỉ dự đoán.
+	\mathbf{g} \in \mathbb{R}^{(N+M) \times D}$, với mỗi frame là dữ liệu bao gồm $75$ khớp xương, được xử lý theo công thức \ref{eq:gesturevector} để được vector $1141$ chiều, trình bày ở công thức \ref{eq:gesturevector}. Mô hình của luận văn cắt $N = 8$ frame đầu để làm cử chỉ khởi tạo $\mathbf{s}$ và $M = 80$ (4 giây với $20fps$) frame tiếp theo là nhãn để thực hiện quá trình khử nhiễu $\mathbf{x}^{1:M}$. Vector $\mathbf{s}$ đi qua một lớp tuyến tính để được vector $\mathbf{S} \in \mathbb{R}^{192}$, vector $\mathbf{S}$ sau đó được Random Mask trong quá trình huấn luyện để bỏ trong trường hợp nếu một trong $N$ bị thiếu thì sẽ ảnh hưởng như thế nào đến cử chỉ dự đoán.
 %	Quá trình này được minh hoạ ở hình \ref{fig:GestureSeries}.
 	
 %	\item\textbf{Âm thanh}: Âm thanh sẽ được dùng làm đặc trưng để sinh cử chỉ, Chúng tôi sử dụng các mô hình Pretrain có sẵn như WavLM \cite{chen2022wavlm} để trích xuất đặc trưng giọng nói. 
-%	Chúng tôi kết hợp thêm các đặc trưng về MFCC, Mel-Spectrum, Pitch, Enery và Onsets \cite{bello2005tutorial}
-  \item \textbf{Âm thanh $\mathbf{A} \in \mathbb{R}^{1:M \times 64}$}: Tất cả dữ liệu giọng nói được giảm số sample rate (down sampled) xuống $16 \mathrm{kHz}$, và giọng nói sẽ được lấy tương ứng với cử chỉ là 4s để được vector $\mathbf{a} \in \mathbb{R}^{64000}$, chúng tôi sử dụng mô hình pre-train của WavLM Large \cite{Chen_2022} nhúng waveform thô vào  để được vector tiềm ẩn. Sau đó sử dụng nội suy tuyến tính (interpolation) để căn chỉnh đặc trưng của vector tiềm ẩn trong WavLM theo chiều thời gian thành $20fps$, sau đó sử dụng một lớp tuyến tính để giảm kích thước của đặc trưng xuống còn vector đặc trưng với $64$ để tạo thành ma trận cuối cùng $\mathbf{A} \in \mathbb{R}^{M \times 64}$.
+%	Luận văn kết hợp thêm các đặc trưng về MFCC, Mel-Spectrum, Pitch, Enery và Onsets \cite{bello2005tutorial}
+  \item \textbf{Giọng nói $\mathbf{A} \in \mathbb{R}^{1:M \times 64}$}: Tất cả dữ liệu giọng nói được giảm số sample rate (down sampled) xuống $16 \mathrm{kHz}$, và giọng nói sẽ được lấy tương ứng với cử chỉ là 4s để được vector $\mathbf{a} \in \mathbb{R}^{64000}$, luận văn sử dụng mô hình pre-train của WavLM Large \cite{Chen_2022} nhúng waveform thô vào  để được vector tiềm ẩn. Sau đó sử dụng nội suy tuyến tính (interpolation) để căn chỉnh đặc trưng của vector tiềm ẩn trong WavLM theo chiều thời gian thành $20fps$, sau đó sử dụng một lớp tuyến tính để giảm kích thước của đặc trưng xuống còn vector đặc trưng với $64$ để tạo thành ma trận cuối cùng $\mathbf{A} \in \mathbb{R}^{M \times 64}$.
 		
-	\item \textbf{Cảm xúc $\mathbf{E} \in \mathbb{R}^{64}$}: Cảm xúc (emotion) $\mathbf{e} \in \mathbb{R}^{6}$ bao gồm 6 cảm xúc khác nhau được biểu diễn thành một vector theo phương pháp one-hot encoding, sau đó chúng tôi đưa qua một vector tuyến tính để được vector đặc trưng $\mathbf{E} \in \mathbb{R}^{64}$. Mục tiêu là để có thể concat được với vector khởi tạo $\mathbf{S} \in \mathbb{R}^{192} $ để tạo thành vector tiềm ẩn $256$ chiều.
+	\item \textbf{Cảm xúc $\mathbf{E} \in \mathbb{R}^{64}$}: Cảm xúc (emotion) $\mathbf{e} \in \mathbb{R}^{6}$ bao gồm 6 cảm xúc khác nhau được biểu diễn thành một vector theo phương pháp one-hot encoding, sau đó luận văn đưa qua một vector tuyến tính để được vector đặc trưng $\mathbf{E} \in \mathbb{R}^{64}$. Mục tiêu là để có thể concat được với vector khởi tạo $\mathbf{S} \in \mathbb{R}^{192} $ để tạo thành vector tiềm ẩn $256$ chiều.
 	
 	
 %	\item \textbf{Cử chỉ nhiễu $\mathbf{x}_{T} \in \mathbb{R}^{M \times D}$} (Noisy gesture): khi huấn luyện, $\mathbf{x}_{t}$ là cử chỉ nhiễu có cùng kích thước như cử chỉ gốc $\mathbf{x}_{0}$ sẽ được sinh ngẫu nhiên từ phân phối chuẩn $\mathcal{N}(0, \mathbf{I})$. Khi sinh ngẫu nhiên, cử chỉ nhiễu ban đầu $\mathbf{x}_{T}$ được lấy mẫu từ phân phối chuẩn chuẩn và các $\mathbf{x}_{t}, t<T$ khác là kết quả của bước làm nhiễu trước đó. Sau đó, kích thước được điều chỉnh thành 256  bằng lớp biến đổi tuyến tính (linear layer).
@@ -110,24 +110,24 @@ Dữ liệu để học của chúng tôi được lấy từ tập dữ liệu 
 
 %\subsection{Cơ chế Attention trong hàm khử nhiễu}
 
-Mục tiêu của việc áp dụng cơ chế attention trong mô hình của chúng tôi là mô hình có thể hiểu được mối liên hệ của từng khung hình với nhau, vì vậy phương pháp của chúng tôi là biểu diễn các đặc trưng của từng khung hình bằng các vector đặc trưng riêng lẻ, và với từng đặc trưng của khung hình riêng lẻ, chúng tôi mong muốn tìm được sự tương quan và mối quan hệ giữa các đặc trưng với nhau.
-Như hình minh hoạ \ref{fig:OHGesture}, sau quá trình trích xuất đặc trưng. Để tính được sự tương quan của các đặc trưng xa, chúng tôi sẽ học để biểu diễn được các ngữ cảnh cực bộ (local context) theo \cite{rae2020transformers}.
+Mục tiêu của việc áp dụng cơ chế attention trong mô hình của luận văn là mô hình có thể hiểu được mối liên hệ của từng khung hình với nhau, vì vậy phương pháp của luận văn là biểu diễn các đặc trưng của từng khung hình bằng các vector đặc trưng riêng lẻ, và với từng đặc trưng của khung hình riêng lẻ, luận văn mong muốn tìm được sự tương quan và mối quan hệ giữa các đặc trưng với nhau.
+Như hình minh hoạ \ref{fig:OHGesture}, sau quá trình trích xuất đặc trưng. Để tính được sự tương quan của các đặc trưng xa, luận văn sẽ học để biểu diễn được các ngữ cảnh cực bộ (local context) theo \cite{rae2020transformers}.
 
 
-% mà chúng tôi chọn trong mô hình diffusion
-Đầu tiên cử chỉ khởi tạo $\mathbf{S}$ và vector cảm xúc $\mathbf{E}$ được ghép lại với nhau để tạo thành một vectơ có kích thước $256$, bởi vì kích thước $256$ là kích thước vector tiềm ẩn. Sau đó được cộng thêm vector timestep $\mathbf{T}$ để tạo thành vector $\mathbf{Z}$. Vector $\mathbf{Z}$ thể hiện thông tin chúng tôi thực sự muốn điều khiển bằng diffusion có điều kiện.
+% mà luận văn chọn trong mô hình diffusion
+Đầu tiên cử chỉ khởi tạo $\mathbf{S}$ và vector cảm xúc $\mathbf{E}$ được ghép lại với nhau để tạo thành một vectơ có kích thước $256$, bởi vì kích thước $256$ là kích thước vector tiềm ẩn. Sau đó được cộng thêm vector timestep $\mathbf{T}$ để tạo thành vector $\mathbf{Z}$. Vector $\mathbf{Z}$ thể hiện thông tin luận văn thực sự muốn điều khiển bằng diffusion có điều kiện.
 
-Để có thể căn chỉnh văn bản, giọng nói tương đồng với từng khung hình cử chỉ, chúng tôi sẽ concat các đặc trưng giọng nói, văn bản và cử chỉ đồng thời với nhau. Sau đó để căn chỉnh theo miền thời gian các đặc trưng về cảm xúc và cử chỉ khởi tạo chúng tôi sẽ copy vector $\mathbf{Z}$ để các bản sao của nó được ghép thành một chuỗi vector đặc trưng tương đồng với $M$ khung hình. Sau đó đưa vào lớp local attention (chú ý cục bộ). Tương tự ý tưởng từ phương pháp Routing Transformer \cite{roy2021efficient}, local attention cho thấy rằng sự quan trọng trong việc xây dựng biểu diễn các vector đặc trưng trung gian. Các vector đặc trưng sẽ được cộng thêm một vector sinusoids hay mã hoá vị trí tương đối (Relative position encoding \cite{vaswani2017attention}) để thể hiện được đặc trưng thời gian trước khi đi qua lớp Cross-Local Attention
+Để có thể căn chỉnh văn bản, giọng nói tương đồng với từng khung hình cử chỉ, luận văn sẽ concat các đặc trưng giọng nói, văn bản và cử chỉ đồng thời với nhau. Sau đó để căn chỉnh theo miền thời gian các đặc trưng về cảm xúc và cử chỉ khởi tạo luận văn sẽ copy vector $\mathbf{Z}$ để các bản sao của nó được ghép thành một chuỗi vector đặc trưng tương đồng với $M$ khung hình. Sau đó đưa vào lớp local attention (chú ý cục bộ). Tương tự ý tưởng từ phương pháp Routing Transformer \cite{roy2021efficient}, local attention cho thấy rằng sự quan trọng trong việc xây dựng biểu diễn các vector đặc trưng trung gian. Các vector đặc trưng sẽ được cộng thêm một vector sinusoids hay mã hoá vị trí tương đối (Relative position encoding \cite{vaswani2017attention}) để thể hiện được đặc trưng thời gian trước khi đi qua lớp Cross-Local Attention
 %mà cho thấy rằng 
 
 %Sau đó, vectơ $\mathbf{Z}$ và các bản sao của nó được ghép thành một chuỗi vector đặc trưng để khớp với dòng thời gian của giọng nói và đặc trưng cử chỉ, sau đó ghép với giọng nói $\mathbf{A}$ và cử chỉ $\mathbf{G}$ để làm đầu vào cho 
-%Phương pháp sinh cử chỉ song hành với giọng nói của chúng tôi sử dụng lớp Local Attention được lấy ý tưởng từ 
+%Phương pháp sinh cử chỉ song hành với giọng nói của luận văn sử dụng lớp Local Attention được lấy ý tưởng từ 
 
 \begin{equation} \label{eq:attention}
 	\operatorname{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}, \mathbf{M})=\operatorname{softmax}\left(\frac{\mathbf{Q} \mathbf{K}^{T}+\mathbf{M}}{\sqrt{C}}\right) \mathbf{V}
 \end{equation}
 
-Công thức Attention trên có $\mathbf{Q}$, $\mathbf{K}$ ,$\mathbf{V}$ là các ma trận sau khi đi qua các ma trận biến đối tuyến tính $\mathbf{Q} = \mathbf{X} \mathbf{W}_Q$, $\mathbf{K} = \mathbf{X} \mathbf{W}_K$, $\mathbf{V} = \mathbf{X} \mathbf{W}_V$. Với đầu vào là ma trận biểu thị chuỗi $M$ khung hình, với mỗi khung hình là một vector được concat từ các vector đặc trưng bao gồm cả cử chỉ khởi tạo, văn bản, giọng nói, cảm xúc và cử chỉ $\bx_t$ mà chúng tôi muốn thực hiện khử nhiễu. Quá trình Local-Cross Attention được điều khiển chỉ để tính các đặc trưng cục bộ của chuyển động của các cử chỉ và đặc trưng trong các khung hình lân cận.
+Công thức Attention trên có $\mathbf{Q}$, $\mathbf{K}$ ,$\mathbf{V}$ là các ma trận sau khi đi qua các ma trận biến đối tuyến tính $\mathbf{Q} = \mathbf{X} \mathbf{W}_Q$, $\mathbf{K} = \mathbf{X} \mathbf{W}_K$, $\mathbf{V} = \mathbf{X} \mathbf{W}_V$. Với đầu vào là ma trận biểu thị chuỗi $M$ khung hình, với mỗi khung hình là một vector được concat từ các vector đặc trưng bao gồm cả cử chỉ khởi tạo, văn bản, giọng nói, cảm xúc và cử chỉ $\bx_t$ mà luận văn muốn thực hiện khử nhiễu. Quá trình Local-Cross Attention được điều khiển chỉ để tính các đặc trưng cục bộ của chuyển động của các cử chỉ và đặc trưng trong các khung hình lân cận.
 
 Hàm Attention hoạt động như một bộ từ điển, với các thông tin cuối cùng tra được là ma trận $\mathbf{V}$ (value), còn $\mathbf{Q}$ (query) là từ khoá muốn tìm kiếm, $\mathbf{K}$ (key) là danh mục các từ khoá trong bộ từ điển tra cứu. Quá trình Attention sẽ tính toán mức độ tương đồng giữa \( \mathbf{Q} \) và \( \mathbf{K} \) để xác định trọng số cho các giá trị trong \( \mathbf{V} \). Kết quả cuối cùng là tổ hợp các giá trị trong \( \mathbf{V} \), trong đó các giá trị tương ứng với các khoá giống truy vấn nhất sẽ có trọng số cao hơn. $\mathbf{M}$ là mặt nạ (mask) để thực hiện quá trình chú ý cục bộ.
 
@@ -140,10 +140,10 @@ Hàm Attention hoạt động như một bộ từ điển, với các thông ti
 
 
 Sau quá trình Cross-Local Attention, mô hình tiếp tục được đưa qua lớp tuyến tính để căn chỉnh tương ứng với $M$ khung hình, bao gồm $\mathbf{h}^{1:M}$.
-Sau đó quá trình tương tự như xử lý các vector đặc trưng của mô hình BERT \cite{devlin2019bertpretrainingdeepbidirectional} văn bản. Chúng tôi sử dụng $z$ là $\mathbf{Z} \in \mathbb{R}^{256}$ token đầu tiên biểu thị đặc trưng biểu thị cho toàn bộ chuỗi $M$ khung hình. 
+Sau đó quá trình tương tự như xử lý các vector đặc trưng của mô hình BERT \cite{devlin2019bertpretrainingdeepbidirectional} văn bản. Luận văn sử dụng $z$ là $\mathbf{Z} \in \mathbb{R}^{256}$ token đầu tiên biểu thị đặc trưng biểu thị cho toàn bộ chuỗi $M$ khung hình. 
 Các vector $\mathbf{h}$ biểu thị cho chuỗi $M$ khung hình, tương tự như phương pháp Reformer \cite{kitaev2020reformer}, trước khi đi vào lớp Self-Attention trong Transformer Encoder, mô hình sẽ sử dụng lớp mã hoá vị trí tương đối (Relative Position Encoding - RPE) để thay thế mã hoá vị trí tuyệt đối, giúp mô hình hiệu quả hơn trong việc xử lý chuỗi dài.
 Khi vào lớp Transformer Encoder \cite{vaswani2017attention} giúp tính toán được mối liên hệ giữa các chuỗi dữ liệu. Trong lớp Transformer Encoder mô hình sẽ áp dụng cơ chế tự chú ý tương tự như trên nhưng không sử dụng mặt nạ. 
-%Để yếu tố thời gian không ảnh hưởng nhiều đến kết quả sinh cử chỉ, chúng tôi sử dụng cơ chế mã hóa vị trí tương đối 
+%Để yếu tố thời gian không ảnh hưởng nhiều đến kết quả sinh cử chỉ, luận văn sử dụng cơ chế mã hóa vị trí tương đối 
 Cuối cùng, đầu ra của Self-Attention được ánh xạ lại cùng kích thước như $\bx_{0}$ sau một lớp biến đổi tuyến tính. Mục tiêu của toàn bộ mô hình $G_\theta ( \mathbf{x}_t, t, c )$ là để học được trọng số $\theta$, với quá trình denoise sẽ giảm dần từ $t = T$ đến khi $t = 1$ ta thu được $\bx_0$.
 %Các cơ chế attention khác nhau có thể được tạo ra bằng cách điều chỉnh lớp mask tương ứng $\mathbf{M}$.
 
@@ -160,7 +160,7 @@ Cuối cùng, đầu ra của Self-Attention được ánh xạ lại cùng kíc
 
 
 
-%tương tự như phương pháp Longformer \cite{beltagy2020longformer} chúng tôi cũng thử nghiệm cơ chế \textit{sliding window attention}.
+%tương tự như phương pháp Longformer \cite{beltagy2020longformer} luận văn cũng thử nghiệm cơ chế \textit{sliding window attention}.
 
 %\subsection{Phương pháp sample cử chỉ}
 
@@ -169,13 +169,13 @@ Cuối cùng, đầu ra của Self-Attention được ánh xạ lại cùng kíc
 %\autoref{fig:architecturediffusion}.
 
 
-% chúng tôi , trong mỗi bước làm nhiễu $t$, chúng tôi dự đoán cử chỉ sạch  $=$  $\left(x_{t}, t, c\right)$, và thêm nhiễu vào bước làm nhiễu $x_{t-1}$ sử dụng Phương trình (1) với quá trình trải đều. Quá trình này được lặp lại từ $t=T$ cho đến khi đạt được $x_{0}$ (Hình 2 dưới cùng).
+% luận văn , trong mỗi bước làm nhiễu $t$, luận văn dự đoán cử chỉ sạch  $=$  $\left(x_{t}, t, c\right)$, và thêm nhiễu vào bước làm nhiễu $x_{t-1}$ sử dụng Phương trình (1) với quá trình trải đều. Quá trình này được lặp lại từ $t=T$ cho đến khi đạt được $x_{0}$ (Hình 2 dưới cùng).
 
 \subsection{Điều khiển cảm xúc trong bài toán sinh cử chỉ}
 
 Ở các bước trên mô hình đã có thể học được cách sinh cử chỉ, nhưng để mô hình có thể học được các cảm xúc ở các tình huống khác nhau sẽ được giải quyết bằng cách tham số hóa và lần lượt thay đổi từng cảm xúc để sao cho khi thay đổi cảm xúc thì kết quả dự đoán phải có cảm xúc tương ứng.
 
-Tương tự như các phương pháp sử dụng mô hình khử nhiễu có điều kiện \cite{ho2022classifier}, \cite{tevet2022human}, chúng tôi sử dụng điều kiện $c = [ \mathbf{s}, \mathbf{e}, \mathbf{a}, \mathbf{v} ]$,  bao gồm cử chỉ khởi tạo $\mathbf{s}$, cảm xúc $\mathbf{e}$, giọng nói tương ứng $\mathbf{a}$ và văn bản $\mathbf{v}$. Mô hình diffusion có điều kiện $c$ ở đây sẽ là tổng cả trường hợp ở từng bước $t$ trong mô hình khử nhiễu $\text{G}_\theta \left( \bx_{t}, t, c \right)$, với  $c_{\varnothing}=[\varnothing, \varnothing, \mathbf{a}, \mathbf{v}]$ không điều kiện và $c = [\mathbf{s}, \mathbf{e}, \mathbf{a}, \mathbf{v}]$ có điều kiện. Quá trình này có thể dễ dàng điều khiển bằng một lớp mặt nạ ngẫu nhiên (random mask) trên các vector đặc trưng của cử chỉ khởi tạo $\mathbf{s}$ và cảm xúc $\mathbf{e}$. Khi đó, mô hình chỉ việc thay đổi nhãn tương ứng với lớp mask đã lấy ngẫu nhiên để mô hình có thể tối ưu theo các điều kiện khác nhau. 
+Tương tự như các phương pháp sử dụng mô hình khử nhiễu có điều kiện \cite{ho2022classifier}, \cite{tevet2022human}, luận văn sử dụng điều kiện $c = [ \mathbf{s}, \mathbf{e}, \mathbf{a}, \mathbf{v} ]$,  bao gồm cử chỉ khởi tạo $\mathbf{s}$, cảm xúc $\mathbf{e}$, giọng nói tương ứng $\mathbf{a}$ và văn bản $\mathbf{v}$. Mô hình diffusion có điều kiện $c$ ở đây sẽ là tổng cả trường hợp ở từng bước $t$ trong mô hình khử nhiễu $\text{G}_\theta \left( \bx_{t}, t, c \right)$, với  $c_{\varnothing}=[\varnothing, \varnothing, \mathbf{a}, \mathbf{v}]$ không điều kiện và $c = [\mathbf{s}, \mathbf{e}, \mathbf{a}, \mathbf{v}]$ có điều kiện. Quá trình này có thể dễ dàng điều khiển bằng một lớp mặt nạ ngẫu nhiên (random mask) trên các vector đặc trưng của cử chỉ khởi tạo $\mathbf{s}$ và cảm xúc $\mathbf{e}$. Khi đó, mô hình chỉ việc thay đổi nhãn tương ứng với lớp mask đã lấy ngẫu nhiên để mô hình có thể tối ưu theo các điều kiện khác nhau. 
 
 %Khi đó hàm khử nhiễu $\text{G}_\theta \left( \bx_{t}, t, c_{1}\right), c_{1}=[\mathbf{s}, \mathbf{e}, \mathbf{a}, \mathbf{v}]$ và hàm khử nhiễu mà không có điều kiện $\text{G}_\theta \left( \bx_{t}, t, c_{2}\right), c_{2}=[\varnothing, \varnothing, \mathbf{a}, \mathbf{v}]$ sẽ được tối ưu trong quá trình huấn luyện, theo công thức
 
@@ -247,7 +247,7 @@ Thuật toán huấn luyện mô hình OHGesture bắt đầu bằng việc tín
 
 \subsection{Quá trình lấy mẫu}
 
-Để có thể sinh cử chỉ với chiều dài tùy ý, chúng tôi cắt chuỗi ban đầu thành các đoạn ngắn có chiều dài $M$. Trong quá trình huấn luyện, cử chỉ khởi tạo đầu tiên có thể được tạo ra bằng cách lấy ngẫu nhiên cử chỉ từ tập dữ liệu hoặc từ lấy trung bình từ đoạn cắt được. Cụ thể ở đây, sẽ lấy góc quay trung bình trong các đoạn đã cắt được. Tiếp theo chúng ta chỉ việc lấy lần lượt các frame đã sinh ra và chọn $N = 8$ frame cuối cùng làm cử chỉ khởi tạo ở lượt tiếp theo. Đối với mỗi đoạn đã cắt ra, cử chỉ $\bx_{t}$ lần lượt sẽ được áp dụng hàm khử nhiều $\hat{\bx}_{0} = G_{\theta'} \left( \bx_{t}, t, c\right)$, sau khi có $\hat{\bx}_{0}$ ta sẽ Diffuse (thêm nhiễu) cho đến khi được  $\bx_{t-1}$, và $\bx_{t-1}$ sẽ tiếp tục được làm khử nhiễu cho đến bước khử nhiễu $t=1$ sẽ đạt được $\bx_{0}$ 
+Để có thể sinh cử chỉ với chiều dài tùy ý, luận văn cắt chuỗi ban đầu thành các đoạn ngắn có chiều dài $M$. Trong quá trình huấn luyện, cử chỉ khởi tạo đầu tiên có thể được tạo ra bằng cách lấy ngẫu nhiên cử chỉ từ tập dữ liệu hoặc từ lấy trung bình từ đoạn cắt được. Cụ thể ở đây, sẽ lấy góc quay trung bình trong các đoạn đã cắt được. Tiếp theo chúng ta chỉ việc lấy lần lượt các frame đã sinh ra và chọn $N = 8$ frame cuối cùng làm cử chỉ khởi tạo ở lượt tiếp theo. Đối với mỗi đoạn đã cắt ra, cử chỉ $\bx_{t}$ lần lượt sẽ được áp dụng hàm khử nhiều $\hat{\bx}_{0} = G_{\theta'} \left( \bx_{t}, t, c\right)$, sau khi có $\hat{\bx}_{0}$ ta sẽ Diffuse (thêm nhiễu) cho đến khi được  $\bx_{t-1}$, và $\bx_{t-1}$ sẽ tiếp tục được làm khử nhiễu cho đến bước khử nhiễu $t=1$ sẽ đạt được $\bx_{0}$ 
 
 \begin{algorithm}
 	\caption{Thuật toán lấy mẫu (sampling)}
@@ -288,9 +288,9 @@ Thuật toán \ref{alg:sampling} lấy mẫu bắt đầu bằng việc khởi t
 % Lượng tử hóa là việc học để biểu diễn dữ liệu trong không gian rời rạc (discrete latent space representation). Ta sẽ biểu diễn dữ liệu lên không gian tiềm ần (latent space).
 % Mục tiêu của việc lượng tử hóa là biểu diễn dữ liệu dưới số chiều thấp hơn hay chấm điểm/đánh giá dựa trên các đặc trưng của dữ liệu, từ đó dùng các điểm đã đánh giá để so sánh với nhau. Sau khi so sánh đánh giá, ta chọn được một ứng viên tốt nhất, từ ứng viên tốt nhất ta sẽ học để giải mã (decode) ngược trở lại dữ liệu ban đầu.
 
-% Dữ liệu đầu vào được lượng tử hóa bao gồm giọng nói, cử chỉ và văn bản. Trong bài toán sinh cử chỉ, chúng tôi chỉ tập trung vào việc xử lý dữ liệu dựa trên cử chỉ nên đôi với dữ liệu văn bản và giọng nói, ta chỉ sử dụng lại các mô hình pre-train có sẵn. Với giọng nói chúng tôi sử dụng mô hình VQ-Wave2Vec \cite{baevski2019vq} để biểu diễn các dữ liệu giọng nói thành các latent vector. Hàm lượng tử hóa giọng nói là hàm $f_{quant\_audio} : \mathbf{A} \mapsto \mathbf{Z_{audio}}$ trong đó $\textbf{A}$ là các chuỗi các giọng nói sẽ được mã hóa lên vector lantent $\textbf{Z}$. Với $\textbf{Z_{audio}} \in \mathcal{Z}_a$.
+% Dữ liệu đầu vào được lượng tử hóa bao gồm giọng nói, cử chỉ và văn bản. Trong bài toán sinh cử chỉ, luận văn chỉ tập trung vào việc xử lý dữ liệu dựa trên cử chỉ nên đôi với dữ liệu văn bản và giọng nói, ta chỉ sử dụng lại các mô hình pre-train có sẵn. Với giọng nói luận văn sử dụng mô hình VQ-Wave2Vec \cite{baevski2019vq} để biểu diễn các dữ liệu giọng nói thành các latent vector. Hàm lượng tử hóa giọng nói là hàm $f_{quant\_audio} : \mathbf{A} \mapsto \mathbf{Z_{audio}}$ trong đó $\textbf{A}$ là các chuỗi các giọng nói sẽ được mã hóa lên vector lantent $\textbf{Z}$. Với $\textbf{Z_{audio}} \in \mathcal{Z}_a$.
 
-% Đối với văn bản, chúng tôi sử dụng mô hình Sentene BERT \cite{reimers2019sentence} để biểu diễn các dữ liệu văn bản thành các vector tiềm ẩn. Hàm để nhúng các dữ liệu văn bản thành các vector là hàm $f_{embedding\_text} : \mathbf{T} \mapsto \mathbf{Z_{text}}$.
+% Đối với văn bản, luận văn sử dụng mô hình Sentene BERT \cite{reimers2019sentence} để biểu diễn các dữ liệu văn bản thành các vector tiềm ẩn. Hàm để nhúng các dữ liệu văn bản thành các vector là hàm $f_{embedding\_text} : \mathbf{T} \mapsto \mathbf{Z_{text}}$.
 
 % Với cử chỉ, mô hình dựa trên kiến trúc của mô hình VQ-VAE. Hàm lượng tử hóa cử chỉ là hàm $f_{quant\_gesture} : \mathbf{G} \mapsto \mathbf{Z_{gesture}}$ với $\textbf{G}$ là các vector trong codebook $\mathcal{Z_g}$
 
