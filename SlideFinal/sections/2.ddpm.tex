@@ -1,0 +1,122 @@
+
+\begin{frame}{Gây nhiễu và khử nhiễu không huấn luyện}
+    %\begin{columns}
+    %	\begin{column}[T]{0.5\textwidth}
+    %	
+    %	\end{column}
+    %	
+    %	\hspace*{-1em}
+    %	
+    %	\begin{column}[T]{0.5\textwidth}
+    %		
+    %	\end{column}
+    %\end{columns}
+    
+    \textbf{Diffuse} (Thêm nhiễu): $\sqrt{\alpha_t}$ giảm dần, $\sqrt{1 - \alpha_t}$ tăng dần.
+    
+    Nhiễu:  $\boldsymbol{\epsilon}_{0}, \boldsymbol{\epsilon}_{1}, \dots \boldsymbol{\epsilon}_{T} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ , nhiễu $\epsilon_t$ cố định.
+%    $\boldsymbol{\epsilon}_t \neq \boldsymbol{\epsilon}_j \ (\forall i, j \in T) $
+%    \vspace{-25pt}
+    
+    \begin{equation}
+        \mathbf{x}_t=\sqrt{\alpha_t} \cdot \mathbf{x}_{t-1}+\sqrt{1 - \alpha_t} \cdot \epsilon
+    \end{equation}
+    \vspace{-15pt}
+    
+    %	\[
+    %	q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1 - \beta_t} \, x_{t-1}, \beta_t \, I)
+    %	\]
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{DiffuseAndDenoise}
+    \end{figure}
+    %\begin{equation}
+    %	\mathbf{x}_{t-1}=\frac{1}{\sqrt{\alpha_t}}\left(\bx_t-\sqrt{1 - \alpha_t} \cdot \epsilon (\mathbf{x}_t, t )\right)
+    %\end{equation}
+    
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+        	\vspace{-10pt}
+            \textbf{Denoise} (Khử nhiễu)
+            \begin{equation}
+                \mathbf{x}_{t-1} = \frac{1}{\sqrt{\alpha_{t}}} (\mathbf{x}_t - \sqrt{1- \alpha_t} \cdot \epsilon)
+            \end{equation}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+        \begin{figure}
+            \centering
+%            \includegraphics[width=0.4\textwidth]{SquareAlpha.png}
+			\includegraphics[width=0.8\textwidth]{AlphaCumprod}
+        \end{figure}
+        \end{column}
+    \end{columns}
+    
+    \end{frame}
+%\cite{ho2020denoisingdiffusionprobabilisticmodels}
+\begin{frame}{Quá trình học Offline (Training $\text{DDPM}$ )}
+	\textbf{Hàm loss}: $\mathcal{L} = \sum_{t=1}^{T} \mathcal{L}_t$. $\mathcal{L}_{t}= \mathbb{E}_{\mathbf{x}_{0}, \epsilon_t \sim \mathcal{N}(0, I), t} \left[ \| \epsilon_t - \epsilon_\theta(\mathbf{x}_t, t) \|^2 \right]$
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=\linewidth]{DDPMTraining}
+	\end{figure}
+\end{frame}
+
+%\begin{frame}{Các bước huấn luyện với DDPM}
+%	
+%	\begin{enumerate}
+%		\item Tính sẵn các giá trị $\sqrt{\alpha_t}$ $\sqrt{1 - \alpha_t}$ và $\sqrt{\bar{\alpha}_t}$ ở mọi bước $t: 1 \rightarrow T$.
+%		$\{\alpha_t \in (0, 1)\}_{t=1}^T$, $\alpha_1 < \alpha_2 < \dots < \alpha_T$
+%		\item Lấy nhãn $\bx_0$ từ phân bố của dữ liệu đã chuẩn hoá
+%		\item Random nhiễu $\bepsilon_t$ ở mọi bước $t: 1 \rightarrow T$, với  $\forall t:  \bepsilon_t \sim\mathcal{N}(\bzero,\bI)$
+%		\item Gây nhiễu (forward) $\bx_0$ để thu được $\bx_t$ ở mọi bước $t: 1 \rightarrow T$
+%		$$
+%		\mathbf{x}_t = \sqrt{\bar{\alpha}_t}\mathbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\boldsymbol{\epsilon}_t
+%		$$
+%		\item $\text{for all}$ $t$, lẫy $t$ \textbf{ngẫu nhiên} $t \sim [1, T]$
+%		\item Cho $\bx_t$ và $t$ vào mô hình để dự đoán nhiễu $\hat{\bepsilon} = \bepsilon_\theta(\mathbf{x}_t, t)$
+%		\item Đạo hàm để cập nhật trọng số $\qquad \grad_{\theta_t} \left\| \bepsilon_t - \bepsilon_\theta(\mathbf{x}_t, t) \right\|^2$
+%		$$
+%			\mathcal{L}_t = \mathbb{E}_{t \sim [1, T], \mathbf{x}_0, \boldsymbol{\epsilon}_t} \Big[\|\boldsymbol{\epsilon}_t - \boldsymbol{\epsilon}_\theta(\sqrt{\bar{\alpha}_t}\mathbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\boldsymbol{\epsilon}_t, t)\|^2 \Big]
+%		$$
+%		\item Quay lại bước 6 cho đến khi hội tụ để thu được $\theta'$
+%	\end{enumerate}
+%\end{frame}
+
+\begin{frame}{Quá trình học Online (Inference DDPM)}
+	\textbf{Hàm sampling}:
+	\begin{itemize}
+		\item $\bx_T \in \mathcal{N}(0, \mathbf{I})$
+	\end{itemize}
+	
+	\begin{equation*}
+		\bx_{t-1} = \frac{1}{\sqrt{\alpha_t}} \left( \bx_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \hat{\epsilon}_{\theta'}(\bx_t, t) \right) + \sigma_t \mathbf{z}
+	\end{equation*}
+	
+%	\begin{itemize}
+%		\item Diffusion: $\mathcal{L}_{\text{loss}}= \mathbb{E}_{\mathbf{x}_{0}, \epsilon_t \sim \mathcal{N}(0, I), t} \left[ \| \epsilon_t - \epsilon_\theta(\mathbf{x}_t, t) \|^2 \right]$
+%	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\linewidth]{DDPMSampling}
+	\end{figure}
+\end{frame}
+
+%\begin{frame}{Các bước lấy mẫu với DDPM}
+%	
+%	\begin{enumerate}
+%		\item Bắt đầu với nhiễu: $\bx_T \sim \mathcal{N}(0, \mathbf{I})$
+%		\item Các giá trị $\sqrt{\alpha_t}$ $\sqrt{1 - \alpha_t}$ và $\sqrt{\bar{\alpha}_t}$ có được từ bước huấn luyện
+%		\item Tính hệ số điều chỉnh nhiễu $\sigma_t$ từ $\alpha_t$ ở mọi bước $t: 1 \rightarrow T$
+%		$\sigma_t = \sqrt{\frac{1 - \bar{\alpha}_{t-1}}{1 - \bar{\alpha}_t} (1 - \alpha_t)}$
+%		
+%		\item $\text{for all}$ $t$, lấy $t$ \textbf{tuần tự} $t \sim [T, \dots 1]$
+%		\item Random nhiễu $\bz \sim \mathcal{N}(0, \mathbf{I})$
+%		\item Đưa $\bx_t$ vào để suy luận nhiễu $\bepsilon_{\theta'} = \bepsilon_{\theta'}(\bx_t, t)$
+%		\item Dùng nhiễu dự đoán để trừ đi $\bx_t$ ở bước $t$
+%			$$\mu =  \frac{1}{\sqrt{\alpha_t}}\left( \bx_t - \frac{1-\alpha_t}{\sqrt{1-\bar\alpha_t}} \bepsilon_{\theta'}(\bx_t, t) \right)$$
+%%			\hat{\bx}_{t-1} =
+%		\item Cộng thêm một lượng nhiễu $\hat{\bx}_{t-1} = \mu + \sigma_t \bz$
+%		\item Khi $t=1$ ta thu được $\hat{\bx}_0$ từ quá trình khử nhiễu
+%	\end{enumerate}
+%\end{frame}

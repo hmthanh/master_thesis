@@ -1,0 +1,102 @@
+\documentclass[10pt,mathserif]{beamer}
+\usepackage[T5]{fontenc}
+\usepackage{fontspec}
+\setsansfont{Segoe UI}
+%\setmainfont{Segoe UI}
+\usepackage[utf8]{inputenc}
+% Style
+\usepackage{graphicx,amsmath,amssymb,tikz,psfrag,amsthm,enumerate}
+\usepackage[backend=biber,style=numeric,citestyle=ieee]{biblatex}
+%\usepackage[backend=biber,style=authoryear,citestyle=ieee]{biblatex}
+
+\usetikzlibrary{shapes.geometric, arrows}
+
+
+% ~~~~~~~~~~~
+% References
+\addbibresource{references.bib}
+
+
+%********************* Custom  *********************  
+\input{preamble/preamble.tex}
+\input{preamble/commands.tex}
+% \logo{\includegraphics[height=0.6cm]{hcmus}}
+% ~~~~~~~~~~~~ Custom ~~~~~~~~~~~~
+
+%% formatting
+\mode<presentation>
+{
+\usetheme{default}
+%\usetheme{Berlin}
+%\usetheme{Stanford}
+\useinnertheme{circles}
+}
+\setbeamertemplate{navigation symbols}{}
+\usecolortheme[rgb={0.13,0.28,0.59}]{structure}
+%\setbeamertemplate{itemize subitem}{--}
+\setbeamertemplate{frametitle} {
+	\begin{center}
+	  {\large\bf \insertframetitle}
+	\end{center}
+}
+
+\newcommand\footlineon{
+  \setbeamertemplate{footline} {
+    \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,leftskip=.8cm,rightskip=.6cm]{structure}
+      \footnotesize \insertsection
+      \hfill
+      {\insertframenumber}
+    \end{beamercolorbox}
+    \vskip 0.45cm	
+  }
+}
+\footlineon
+
+\AtBeginSection[] 
+{ 
+	\begin{frame}<beamer> 
+		\frametitle{Outline} 
+		\tableofcontents[currentsection,currentsubsection] 
+	\end{frame} 
+} 
+
+\title{\large \bfseries OPENHUMAN: HỆ THỐNG TỔNG HỢP CỬ CHỈ HỘI THOẠI DỰA TRÊN CẢM XÚC VÀ NGỮ NGHĨA}
+\subtitle{OpenHuman: A conversational gesture synthesis system based on emotions and semantics}
+
+\include{preamble/meta.tex}
+
+%\includeonly{sections/2.relatedwork.tex}
+%\includeonly{sections/1.introduction.tex}
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{document}
+
+\begin{frame}[plain]
+	\titlepage
+\end{frame}
+
+
+\include{sections/0.demo.tex}
+
+\include{sections/1.introduction.tex}
+
+\include{sections/2.relatedwork.tex}
+\input{sections/2.ddpm.tex}
+\input{sections/2.xzero.tex}
+\input{sections/2.condition.tex}
+
+\include{sections/3.main.tex}
+\include{sections/3.ohgesture.tex}
+%%
+%%
+\include{sections/4.experiment.tex}
+%%
+\include{sections/5.evaluation.tex}
+
+\include{sections/6.conclusion.tex}
+
+%
+\include{sections/7.references.tex}
+
+\end{document}
+
