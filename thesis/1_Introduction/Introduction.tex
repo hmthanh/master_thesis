@@ -57,47 +57,10 @@ Với sự thành công của các mô hình ngôn ngữ tự nhiên trong xử 
 Việc ứng dụng trí tuệ nhân tạo để sinh cử chỉ con người là một trong những điểm nghẽn chính trong phát triển trợ lý ảo giao tiếp và tương tác với con người.
 
 \section{Dữ liệu bài toán}
+\label{sec:Data}
 
 
-
-\subsection{Kiến trúc khung xương của cử chỉ}
-
-Cử chỉ (gesture) trong luận văn là sự chuyển động của toàn bộ cơ thể của một nhân vật theo từng khung hình. Để có thể biểu diễn các chuyển động của một nhân vật trong đồ hoạ máy tính, các chuyển động sẽ được biểu diễn thành chuyển động của các xương (bone) riêng lẻ. Bao gồm cánh tay (hand), chân (leg), đầu (head), xương sống (spine),... Kiến trúc đầy đủ của một nhân vật được trình bày ở phụ lục \autoref{appendix:BVHData:skeleton}.
-
-Dữ liệu một nhân vật theo thời gian trong thực tế sẽ được thu nhận bằng các hệ thống chụp chuyển động (motion capture) với các hệ thống camera và cảm biến chuyên biệt. Kết quả của quá trình motion capture là các tệp được định nghĩa dưới dạng tệp BVH (Biovision Hierarchy).
-
-Các tệp BVH bao gồm hai thành phần chính: {HIERARCHY} và {MOTION}. Mỗi tệp BVH sẽ có thông tin về số khung hình trên giây ($\text{fps}$) và tổng sống khung hình.
-
-\begin{itemize}
-	\item \textbf{HIERARCHY}:
-	
-	\begin{itemize}
-		\item Định nghĩa thành phần hay tên các khung xương, vị trí khởi tạo khởi tạo của các khung xương ở vị trí T-pose (Hay tay diễn viên motion capture sẽ được duỗi thẳng thành hình chữ T).
-		\item Định nghĩa quan hệ cha-con từ nút gốc đến các nút lá của một khung xương. Với nút gốc thường là cột sống (Spine).
-		\item sdfdf
-	\end{itemize}
-	
-	\item \textbf{MOTION}: Là chuỗi chuyển động theo từng frame, với mỗi frame là dữ liệu về chuyển động theo thông tin về góc quay hoặc vị trí đã định nghĩa ở HIERARCHY.
-\end{itemize}
-
-
-\subsection{Kiến trúc chuyển động của cử chỉ}
-
-Dữ liệu chuyển động của cử chỉ là một tập khung xương (skeleton) bao gồm $75$ xương (bone) như hình \autoref{fig:Skeleton}, $\{ \textbf{b}_{1}, \textbf{b}_{2}, \cdots , \textbf{b}_{75} \}$, mỗi xương thể hiện vị trí (position) $\{ p_{x}, p_{y}, p_{z} \}$ và góc quay (rotation) $\{ r_{x}, r_{y}, r_{z} \}$ chuyển động của một nhân vật theo thời gian.
-
-Kết quả của việc sinh cử chỉ (gesture generation) là sinh ra chuỗi chuyển động góc quay của nhân vật theo từng khung hình (frame). Kết quả chuỗi $M$ frame, với mỗi frame sẽ có toạ độ góc quay của nhân vật. Mục tiêu của việc sinh cử chỉ (gesture generation) được đánh giá bằng việc tạo ra các cử chỉ tự nhiên, giống con người (human-likeness) và phù hợp với ngữ cảnh.
-
-Trong luận văn, các dữ liệu về vị trí và góc quay của khung xương nhân vật được tiền xử lý để chuyển thành một vector đặc trưng $\mathbf{g} \in \mathbb{R}^{1141}$.
-
-\section{Phát biểu bài toán}
-\label{sec:ProblemStatement}
-
-
-\subsection{Bài toán sinh cử chỉ trong luận văn}
-
-Sinh cử chỉ là bài toán hồi quy (regression), với đầu vào là một chuỗi cử chỉ cho trước và đầu ra là chuỗi cử chỉ tiếp theo.
-
-\begin{figure}[htbp]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
 		\centering
@@ -114,51 +77,30 @@ Sinh cử chỉ là bài toán hồi quy (regression), với đầu vào là m�
 	\end{subfigure}
 \end{figure}
 
-Mỗi khung hình chuyển động của một nhân vật hay khung xương (skeleton) bao gồm dữ liệu về toạ độ vị trí và vận tốc theo thời gian.
-Ở đây dữ liệu của luận văn của một khung xương với mỗi khung hình (frame) bao gồm:
+\subsection{Kiến trúc khung xương của cử chỉ}
 
-\begin{equation} \label{eq:gesturevector}
-\mathbf{g} = \Big[ \mathbf{p}_{\text{root}},  \mathbf{r}_{\text{root}},
-\mathbf{ p }'_{\text{root}},  \mathbf{r}'_{\text{root}},
-\mathbf{p}_{\text{joins}},  \mathbf{r}_{\text{joins}},
-\mathbf{p}'_{\text{joins}},  \mathbf{r}'_{\text{joins}},
-\mathbf{d}_{\text{gaze}}
-\Big]
-\end{equation}
+Cử chỉ (gesture) trong luận văn là sự chuyển động của toàn bộ cơ thể của một nhân vật như hình \autoref{fig:Skeleton} theo từng khung hình. Để có thể biểu diễn các chuyển động của một nhân vật trong đồ hoạ máy tính, các chuyển động sẽ được biểu diễn thành chuyển động của các xương (bone) riêng lẻ. Bao gồm cánh tay (hand), chân (leg), đầu (head), xương sống (spine),... Kiến trúc đầy đủ của một nhân vật được trình bày ở phụ lục \autoref{appendix:BVHData:skeleton}.
+
+Dữ liệu một nhân vật theo thời gian trong thực tế sẽ được thu nhận bằng các hệ thống chụp chuyển động (motion capture) với các hệ thống camera và cảm biến chuyên biệt. Kết quả của quá trình motion capture là các tệp được định nghĩa dưới dạng tệp BVH (Biovision Hierarchy).
+
+Các tệp BVH bao gồm hai thành phần chính: {HIERARCHY} và {MOTION}. HIERARCHY được thể hiện dưới dạng một cây bao gồm các thông tin về tên và vị trí khởi tạo các khung xương, MOTION là dữ liệu về chuyển động của toàn bộ khung xương theo từng khung hình (frame).  Mỗi tệp BVH sẽ có thông tin về số khung hình trên giây ($\text{fps}$) và tổng sống khung hình. Thông tin mỗi tệp BVH được trình bày ở phụ lục \autoref{appendix:BVHData:BVHStructure}. 
 
 
+\subsection{Kiến trúc chuyển động của cử chỉ}
 
-Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
-{
-\begin{itemize}
-	\item $\mathbf{p}_{\text{root}} \in \mathbb{R}^3$: Toạ độ của điểm gốc
-	\item $\mathbf{r}_{\text{root}} \in \mathbb{R}^4$: Góc quay của điểm gốc
-	\item $\mathbf{p}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của toạ độ gốc
-	\item $\mathbf{r}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của góc quay gốc
-	
-	\item $\mathbf{p}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: Toạ độ của các khung xương
-	\item $\mathbf{r}_{\text{joins}} \in \mathbb{R}^{6 n_{\text{join} }}$: Góc quay của các khung xương theo mặc phẳng X và Y
-	\item $\mathbf{p}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của toạ độ các khung xương
-	\item $\mathbf{r}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của góc quay các khung xương
-	\item $\mathbf{d}_{\text{gaze}} \in \mathbb{R}^3$: Là hướng nhìn
-\end{itemize}}
+Dữ liệu chuyển động của cử chỉ như \autoref{fig:MotionPastAndFuture} hay phần MOTION của tệp BVH sẽ chứa thông tin về toạ độ và góc quay của một nhân vật theo từng khung hình. Dữ liệu mỗi khung hình là tập khung xương (skeleton) bao gồm $75$ xương (bone), $\{ \textbf{b}_{1}, \textbf{b}_{2}, \cdots , \textbf{b}_{75} \}$, mỗi xương thể hiện vị trí (position) $\{ p_{x}, p_{y}, p_{z} \}$ và góc quay (rotation) $\{ r_{x}, r_{y}, r_{z} \}$ chuyển động của một nhân vật theo thời gian.
 
+Kết quả của việc sinh cử chỉ (gesture generation) là sinh ra chuỗi chuyển động góc quay của nhân vật theo từng khung hình (frame). Việc sinh cử chỉ (gesture generation) được đánh giá bằng việc tạo ra các cử chỉ tự nhiên, giống con người (human-likeness) và phù hợp với ngữ cảnh.
 
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=0.8\linewidth]{images/skeleton_sample.png}
-%	\caption{Minh họa một cử chỉ và mô hình nhân vật}
-%	\label{fig:software}
-%\end{figure}
+Trong luận văn, các dữ liệu về vị trí và góc quay của khung xương nhân vật được tiền xử lý để chuyển thành một vector đặc trưng $\mathbf{g} \in \mathbb{R}^{D}$ với $D=1141$. Dữ liệu cần học khi đó sẽ là $\bx \in \mathbb{R}^{M \times D}$.
 
+Quá trình xử lý dữ liệu được trình bày đầy đủ ở \autoref{appendix:BVHData}.
 
-Tổng cộng có $75$ khớp (joins) hay $n_{\text{join}} = 75$, với mỗi khung hình (frame) ta sẽ có một vector gồm 1141 chiều.
-Tập dữ liệu là tập nhiều chuỗi cử chỉ với độ dài tuỳ ý, từ mỗi cử chỉ độ dài tuỳ tý ta sẽ cắt thành các đoạn $N + M$ khung hình, $g \in \mathbb{R}^{(N + M) \times 1141}$ , trong đó cử chỉ $\mathbf{s} \in \mathbb{R}^{N \times 1141}$ đầu tiên là cử chỉ khởi tạo (seed gesture), $\bx \in \mathbb{R}^{M \times 1141}$ cử chỉ tiếp theo cho việc dự đoán.
+\section{Phát biểu bài toán}
+\label{sec:ProblemStatement}
 
+Với kết quả cuối cùng là chuỗi cử chỉ thể hiện sự chuyển động của các khung xương theo từng khung hình, thì có rất nhiều phương pháp khác nhau. Trong luận văn này, sinh cử chỉ là  được cho bài toán hồi quy (regression), với đầu vào là một chuỗi cử chỉ cho trước và đầu ra là chuỗi cử chỉ tiếp theo cần dự đoán.
 
-Dữ liệu giọng nói $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length } }$ là chuỗi giọng nói thô được đọc ở sample rate 16000, sau đó được cắt thành $\mathbf{a} \in \mathbb{R}^{64000}$ tương ứng với 4 giây.
-% để  là một chuỗi waveform có độ dài tương ứng với cử chỉ được đọc với sample rate là 16000. 
-%\setcounter{figure}{2}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{GestureSeries.jpg}
@@ -166,8 +108,44 @@ Dữ liệu giọng nói $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length 
 	\label{fig:GestureSeries}
 \end{figure}
 
+Với một chuỗi cử chỉ có độ dài khung hình bất kỳ, cảm xúc sẽ được gán cho toàn bộ chuỗi cử chỉ. Một phần cải tiến của luận văn là tương ứng với chuỗi cử chỉ là dữ liệu giọng nói và đoạn văn bản được dịch từ dữ liệu giọng nói tương ứng.
+Mục tiêu của luận văn là xây dựng mô hình để dự đoán từng đoạn nhỏ, với thông tin dữ liệu đầu vào bao gồm chuỗi $N$ frame cử chỉ cho trước $\mathbf{s} \in \mathbb{R}^{[1:N] \times D}$ (seed gesture), chuỗi giọng nói $\mathbf{a}$ (speech), văn bản $\mathbf{v}$ (text),  cảm xúc $\mathbf{e}$ (emotion) tương ứng.
 
-Quá trình xử lý dữ liệu được trình bày đầy đủ ở \autoref{appendix:BVHData}.
+Kết quả dự đoán của mô hình là $\hat{\mathbf{x}} \in \mathbb{R}^{[1:M] \times D}$ bao gồm từ frame 1 đến frame $M$ chuỗi cử chỉ tiếp theo . Với dữ liệu gốc là chuỗi cử chỉ đã có $\mathbf{x}  \in \mathbb{R}^{[1:M] \times D}$.
+
+\begin{multicols}{2}
+	
+\textbf{Đầu vào}
+
+\begin{itemize}
+	\item Chuỗi cử chỉ khởi tạo: $\mathbf{s} \in \mathbb{R}^{[1:N] \times D}$
+	\item Chuỗi giọng nói: $\mathbf{a}$
+	\item Văn bản: $\mathbf{v}$ 
+	%				\in \mathbb{R}^{16000 M}
+	%			trích xuất đặc trưng MFCC: $\mathbf{a} \in \mathbb{R}^{M \times C_{\text{mfcc}}}$
+	\item Cảm xúc: $\mathbf{e}$ 
+	
+	{\small
+		(\texttt{Happy},  \texttt{Sad},  \texttt{Neutral}, \texttt{Angry}, \texttt{Old}, \texttt{Funny})
+	}
+\end{itemize}
+
+\columnbreak
+
+\textbf{Dữ liệu dự đoán}
+\vspace{-10pt}
+\begin{itemize}
+	\item Chuỗi cử chỉ dự đoán: $\hat{\mathbf{x}} \in \mathbb{R}^{[1:M] \times D}$
+\end{itemize}
+
+\textbf{Dữ liệu gốc}
+\vspace{-10pt}
+\begin{itemize}
+	\item Chuỗi cử chỉ gốc: $ \mathbf{x}  \in \mathbb{R}^{[1:M] \times D}$
+\end{itemize}
+
+\end{multicols}
+
 
 
 %Quá trình chuyển từ không gian Eule sang không gian Quaternion được minh hoạ ở phụ lục \ref{}

@@ -45,12 +45,24 @@ Một số tên khung xương nhân vật trong $75$ khung xương chuyển đ�
 \end{figure}
 
 \section{Cấu trúc tệp dữ liệu BVH}
-
+\label{appendix:BVHData:BVHStructure}
 
 %\includegraphics[width=0.4\linewidth]{BVHFile}
 
 File BVH (Biovision Hierarchy) là một định dạng file dữ liệu chứa thông tin về cấu trúc xương và dữ liệu về chuyển động của xương trong một hệ thống xương. File BVH bao gồm hai phần chính: phần khai báo cấu trúc xương và phần dữ liệu chuyển động của xương. 
 %Mỗi phần được phân cách bởi từ khóa \texttt{MOTION}.
+
+\begin{itemize}
+	\item \textbf{HIERARCHY}:
+	
+	\begin{itemize}
+		\item Định nghĩa thành phần và tên các khung xương, vị trí khởi tạo của các khung xương ở vị trí T-pose (Tay diễn viên motion capture sẽ được duỗi thẳng thành hình chữ T).
+		\item Định nghĩa quan hệ cha-con từ nút gốc đến các nút lá của một khung xương. Với nút gốc thường là cột sống ($\texttt{Spine}$).
+		\item Định nghĩa các dữ liệu sẽ được ghi nhận như vị trí hoặc góc quay theo chiều $X, Y, Z$ của mỗi khung xương theo thời gian.
+	\end{itemize}
+	
+	\item \textbf{MOTION}: Là chuỗi chuyển động theo từng frame, với mỗi frame là dữ liệu của từng xương về chuyển động theo thông tin về góc quay hoặc vị trí đã định nghĩa ở HIERARCHY.
+\end{itemize}
 
 \begin{figure}[htbp]
 	\centering
@@ -126,6 +138,7 @@ R_X(\gamma) =
 
 
 \section{Quá trình chuyển góc quay Euler sang Quaternion}
+\label{appendix:BVHData:QuaternionConvert}
 
 %Quaternion là một cách biểu diễn góc quay trong không gian ba chiều. Quaternion có dạng $q = a + bi + cj + dk$, trong đó $ư, b, c, d$ là các số thực. Quaternion có thể được biểu diễn dưới dạng ma trận $4 \times 4$ như sau:
 

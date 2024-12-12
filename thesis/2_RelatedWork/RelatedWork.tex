@@ -15,35 +15,6 @@ Cử chỉ tương tác với các cấp độ thông tin khác nhau trong giọ
 Như các nghiên cứu ngôn ngữ học chỉ ra \cite{kipp2005gesture}, \cite{neff2008gesture}, \cite{webb1997linguistic}, cử chỉ trong giao tiếp hàng ngày có thể được chia thành một số lượng giới hạn các đơn vị ngữ nghĩa với các biến thể chuyển động khác nhau. Dựa trên giả định này, được phân tách đặc trưng giọng nói thành hai loại: đặc trưng cấp cao đại diện cho các đơn vị ngữ nghĩa, và đặc trưng cấp thấp xác định các biến thể chuyển động. Từ đó, mối liên hệ giữa chúng được học thông qua các lớp khác nhau của bộ mã hóa giọng nói. Các thử nghiệm chứng minh rằng cơ chế này có khả năng tách biệt rõ ràng các đặc trưng ở nhiều cấp độ, đồng thời tổng hợp được cử chỉ phù hợp về ngữ nghĩa và phong cách.
 
 
-\section{Các công đoạn chung trong bài toán sinh cử chỉ}
-\label{sec:commonstage}
-
-Cách tiếp cận với bài toán sinh cử chỉ (gesture generation) được thực hiện với nhiều phương pháp khác nhau. Tuy nhiên luận văn tổng quát hoá lại thành các công đoạn chính như \autoref{fig:CommonStage} sau:
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{CommonStage}
-	\caption{Các công đoạn trong mô hình sinh cử chỉ cử chỉ.}
-	\label{fig:CommonStage}
-\end{figure}
-
-Như đã trình bày ở \autoref{sec:ProblemStatement}, cử chỉ bao gồm chuỗi chuyển động của toạ độ điểm 3D bao gồm 
-
-\begin{enumerate}[label=\textbf{\arabic*.}]
-	\item \textbf{Tiền xử lý dữ liệu}: 
-	
-	\item \textbf{Xử lý đặc trưng}: 
-	
-	\item \textbf{Trích xuất đặc trưng}
-	
-	\item \textbf{Mã hoá đặc trưng}
-	
-	\item \textbf{Kết hợp đặc trưng}
-	
-	\item \textbf{Giải mã đặc trưng}
-	
-	\item \textbf{Kết xuất}
-\end{enumerate}
 
 \section{Tổng quan các phương pháp cho bài toán sinh cử chỉ}
 \label{sec:relatedwork}
@@ -52,19 +23,34 @@ Như đã trình bày ở \autoref{sec:ProblemStatement}, cử chỉ bao gồm c
 
 \subsection{Phương pháp dựa trên luật}
 
-Các phương pháp dựa trên luật thường ánh xạ (mappings) từng giọng nói với từng đơn vị cử chỉ \cite{huang2012robot}. Và luật được tạo thủ công. Phương pháp dựa trên luật thì chúng ta có thể dễ dàng điều khiển kết quả của mô hình và có khả năng giải thích tốt kết quả dự đoán của mô hình.
+\subsubsection{Nguyên lý chung}
+
+Dựa trên việc xây dựng các quy tắc hoặc luật rõ ràng, các quy tắc được định nghĩa thủ công, xác định cách hệ thống xử lý đầu vào để tạo ra đầu ra.
+
+\subsubsection{Phương pháp}
+
+Tiêu biểu cho phương pháp dựa trên luật là \textit{Robot behavior toolkit} \cite{huang2012robot} và  \textit{Animated conversation} \cite{cassell1994animated}.
+Phương pháp dựa trên luật thường ánh xạ (mappings) từng giọng nói với từng đơn vị cử chỉ, với các luật được tạo thủ công. Phương pháp dựa trên luật thì chúng ta có thể dễ dàng điều khiển kết quả của mô hình và có khả năng giải thích tốt kết quả dự đoán của mô hình.
 Tuy nhiên chi phí để tạo thủ công là không khả thi để xây dựng cho các ứng dụng phức tạp đòi hỏi phải xử lý một lượng dữ liệu rất lớn.
 
 \subsection{Phương pháp dựa trên thống kê}
 
-Tương tự như phương pháp dựa trên luật, phương pháp dựa trên dữ liệu cũng ánh xạ các đặc trưng của giọng nói tương ứng với cử chỉ nhưng thay vì làm thủ công thì được sử dụng học một cách tự động dựa trên dữ liệu.
-Trong đó có hai phương pháp chính là phương pháp thống kê và phương pháp dựa trên dữ liệu.
+\subsubsection{Nguyên lý chung}
 
-%\subsubsection{Phương pháp thống kê}
+Dựa vào phân tích dữ liệu, học từ các mẫu trong tập dữ liệu và sử dụng các mô hình xác suất hoặc hàm toán học để đưa ra dự đoán. Phương pháp này dựa trên việc tối ưu hóa các tham số của mô hình để phù hợp với dữ liệu.
 
-Phương pháp thống kê sử dụng phân phối xác suất để tìm sự tương đồng giữa các đặc trưng giọng nói và cử chỉ \cite{levine2010gesture}. Tác giả \cite{neff2008gesture} xây dựng mô hình để học từng phong cách của từng người nói.
+\subsubsection{Phương pháp}
+
+Tương tự như phương pháp dựa trên luật, phương pháp dựa trên dữ liệu cũng ánh xạ các đặc trưng của giọng nói tương ứng với cử chỉ nhưng thay vì làm thủ công thì được sử dụng học một cách tự động dựa trên các phân tích thông kê của dữ liệu.
+
+Tiêu biểu của phương pháp thống kê là \textit{Gesture controllers} \cite{levine2010gesture}, \textit{Statistics-based} \cite{yang2020statistics}, \textit{Gesture modeling}  \cite{neff2008gesture}
+Phương pháp thống kê sử dụng phân phối xác suất để tìm sự tương đồng giữa các đặc trưng giọng nói và cử chỉ. \textit{Gesture modeling} xây dựng mô hình để học từng phong cách của từng người nói.
 
 \subsection{Phương pháp học sâu}
+
+\textbf{Nguyên lý chung của phương pháp học sâu}
+
+Sử dụng mạng nơ-ron nhân tạo nhiều tầng (deep neural networks) để tự động trích xuất đặc trưng từ dữ liệu thô và học các biểu diễn phức tạp của dữ liệu. Mô hình học thông qua tối ưu hóa các tham số.
 
 \setcounter{figure}{3}
 \begin{figure}[H]
@@ -74,54 +60,35 @@ Phương pháp thống kê sử dụng phân phối xác suất để tìm sự 
 	\label{fig:GeneralOverview}
 \end{figure}
 
-Phương pháp sinh cử chỉ được chia thành hai nhóm chính. Bao gồm các mô hình ước lượng log likelihood (likelihood-based model)  và phương pháp dựa vào các mô hình sinh ngầm định (implicit generative models) \cite{song2021score}. 
+Phương pháp sinh cử chỉ bằng học sâu minh hoạ ở \autoref{fig:GeneralOverview} được chia thành hai nhóm chính: học dựa trên ước lượng log likelihood (likelihood-based model)  và phương pháp dựa vào các mô hình sinh ngầm định (implicit generative models) \cite{song2021score}.
 
-\subsubsection{Likelihood-based Model}
+\subsubsection{Mô hình học dựa trên Log Likelihood}
+
+\textbf{Nguyên lý chung của mô hình dựa trên Log Likelihood}
 
 Phương pháp học ước lượng log likelihood là phương pháp học trực tiếp từ hàm mật độ xác xuất (probability density) thông qua maximum likelihood. Các phương pháp điển hình là autoregressive models, normalizing flow models, energy-based models (EBMs)
 , và variational auto-encoders (VAEs).
 
 %Phương pháp học sâu sử dụng mạng nơ-ron (neural) thông qua nhiều lớp ẩn để học một cách tự động các phối xác xuất giữa cử chỉ và giọng nói.
 
+\textbf{Phương pháp}
+
 Mô hình được kết hợp với văn bản đầu vào được gắn thẻ với chủ đề, trọng tâm câu và thành ngữ để tạo ra các kịch bản cử chỉ, sau đó được ánh xạ sang một chuỗi các cử chỉ được chọn từ một từ điển hoạt họa. \cite{chiu2015predicting} huấn luyện một model classifier neural network để chọn một đơn vị cử chỉ phù hợp dựa trên đầu vào là giọng nói. 
 %Nghiên cứu gần đây đã bắt đầu tận dụng học sâu và huấn luyện các mô hình kết thúc đến cuối sử dụng dữ liệu cử chỉ thô trực tiếp, giải phóng các nỗ lực thủ công trong thiết kế từ điển cử chỉ và các quy tắc ánh xạ.
 
 Cử chỉ có thể được tổng hợp bằng các mô hình xác định như perceptron đa tầng (MLP) \cite{kucherenko2020gesticulator}, recurrent neural networks \cite{bhattacharya2021speech2affectivegestures}, \cite{liu2022learning}, \cite{hasegawa2018evaluation}, \cite{yoon2020speech}, convolutional networks \cite{habibie2021learning} và transformer \cite{bhattacharya2021text2gestures} 
 
-\subsubsection{Implicit Generative Models}
+\subsubsection{Mô hình sinh ngầm định}
+%Implicit Generative Models
 
-Trong các phương pháp dựa vào mô hình sinh ngầm định, phân phối của dữ liệu được học một cách ngầm định thông qua việc quá trình lấy mẫu (sampling). Ví dụ tiêu biểu nhất là mô hình generative adversarial networks (GANs). Khi dữ liệu được tổng hợp bằng cách chuyển phân phối dữ liệu ban đầu ở dạng phân phối chuẩn về phân phối của dữ liệu.
+\textbf{Nguyên lý}
 
-%
-%\begin{table}[h!]
-%	\small
-%	\centering
-%	\renewcommand{\arraystretch}{1.5} % Tăng khoảng cách giữa các hàng
-%	\begin{tabular}{|p{0.2\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|}
-%		\hline
-%		\textbf{Loại phương pháp} & \textbf{Ưu điểm} & \textbf{Nhược điểm} \\ \hline
-%		Rule-Based  & 
-%		- Dễ hiểu và dễ triển khai. \newline 
-%		- Dễ giải thích và có thể kiểm soát được \newline
-%		- Hiệu quả trong các trường hợp đơn giản hoặc dữ liệu nhỏ. & 
-%		- Không tổng quát hoá tốt với dữ liệu phức tạp. \newline 
-%		- Đòi hỏi nhiều công sức trong việc xây dựng quy tắc thủ công. \\ \hline
-%		Likelihood-Based Models & 
-%		- Khả năng ước lượng mật độ xác suất của dữ liệu \newline 
-%		- Có khả năng mở rộng và học từ dữ liệu lớn & 
-%		- Dễ bị ảnh hưởng bởi nhiễu \newline 
-%		- Kết quả thấp ở vùng dữ liệu hiếm \newline
-%		- Khả năng sinh không đa dạng \\ \hline
-%		Implicit Generative Models & 
-%		- Tạo ra dữ liệu chất lượng cao. \newline 
-%		- Linh hoạt và đa dạng \newline
-%		- Phủ được vùng có mật độ dữ liệu thấp & 
-%		- Cần cấu hình phức tạp để đạt hiệu năng tốt. \newline 
-%		- Khó đánh giá do mỗi lần nhiễu là khác nhau. \newline 
-%		- Quá trình lấy mẫu chậm \\ \hline
-%	\end{tabular}
-%	\caption{Bảng so sánh ưu và nhược điểm của các phương pháp}
-%\end{table}
+Mô hình sinh ngầm định học phân phối dữ liệu mà không cần biểu diễn tường minh hàm mật độ xác suất. Thay vì trực tiếp tính xác suất, các mô hình này học thông qua so khớp phân phối giữa dữ liệu thật và dữ liệu sinh ra. Ví dụ tiêu biểu nhất là mô hình generative adversarial networks (GANs). Khi dữ liệu được tổng hợp bằng cách chuyển phân phối dữ liệu ban đầu ở dạng phân phối chuẩn về phân phối của dữ liệu.
+
+
+%Trong các phương pháp dựa vào mô hình sinh ngầm định, phân phối của dữ liệu được học một cách ngầm định thông qua việc quá trình lấy mẫu (sampling). 
+
+\subsection{So sánh các phương pháp sinh cử chỉ}
 
 \begin{table}[h!]
 	\small

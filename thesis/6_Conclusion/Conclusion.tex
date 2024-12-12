@@ -107,6 +107,7 @@ Trong luận văn này, luận văn đã phát triển hệ thống sinh cử ch
 	\item Xây dựng công cụ trực quan hoá bằng Unity: Các hệ thống trực quan hoá cử chỉ hiện nay đề dự trên Blender, và không đạt kết quả hiển thị tốt khi sinh cử chỉ, bằng việc kết thừa mã nguồn từ mô hình DeepPhase \cite{starke2022deepphase} để xây dựng hệ thống kết xuất bằng Unity \hyperlink{https://github.com/DeepGesture/deepgesture-unity}{Github/DeepGesture-Unity}
 	\footnote{Hệ thống render quá trình sinh cử chỉ bằng Unity \url{https://github.com/DeepGesture/deepgesture-unity}}.
 	
+	\item Xây dựng hệ thống đánh giá cử chỉ bằng FGD (Fréchet Gesture Distance): Dựa trên mã nguồn FGD \cite{yoon2020speech}, luận văn xây dựng GestureScore và huấn luyện một mô hình mới để đánh giá sự khác nhau về phân bố dữ liệu về góc quay giữa dữ liệu dự đoán và dữ liệu thật. Mã nguồn của  \hyperlink{https://github.com/GestureScore/GestureScore}{GestureScore} \footnote{Github/GestureScore: \url{https://github.com/GestureScore/GestureScore}} và mô hình pretrain của mô hình đánh giá được công khai ở  \hyperlink{https://huggingface.co/GestureScore}{Huggingface} \footnote{Huggingface/GestureScore: \url{https://huggingface.co/GestureScore/GestureScore}}
 	\item Xây dựng hướng phát triển trong tương lai: Dựa trên nền tảng của mô hình diffusion và hiểu rõ bản chất của quá trình sinh cử chỉ, luận văn có thể kết hợp các mô hình sinh cử chỉ dựa trên pha với các thuật toán xử lý và trích xuất thông tin, nhằm tối ưu hóa chất lượng và tính phù hợp của các cử chỉ được sinh ra. Hướng phát triển này mở ra triển vọng cho các cải tiến sâu rộng trong việc tương tác giữa cử chỉ và các yếu tố ngữ cảnh phức tạp như biểu cảm khuôn mặt, ngữ điệu và động lực cảm xúc, tạo nền tảng cho những bước tiến trong các ứng dụng giao tiếp người - máy và các lĩnh vực liên quan khác.
 \end{itemize}
 
@@ -114,7 +115,7 @@ Trong luận văn này, luận văn đã phát triển hệ thống sinh cử ch
 
 
 
-
+\newpage
 
 
 \section{Lời kết}

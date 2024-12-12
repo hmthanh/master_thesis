@@ -28,7 +28,57 @@ Bone trong dữ liệu BVH bao gồm vị trí $\mathbf{position}_{\operatorname
 
 Mô hình của luận văn chuyển dữ liệu từ góc quay Euler sang góc quay Quaternion, với góc quay Quaternion là một véc-tơ gồm 4 phần tử.
 
-Quá trình này được trình bày ở phụ lục \autoref{Appendix2}
+
+\subsection{Tiền xử lý dữ liệu}
+
+
+Mỗi khung hình chuyển động của một nhân vật hay khung xương (skeleton) bao gồm dữ liệu về toạ độ vị trí và vận tốc theo thời gian.
+Ở đây dữ liệu của luận văn của một khung xương với mỗi khung hình (frame) bao gồm:
+
+\begin{equation} \label{eq:gesturevector}
+	\mathbf{g} = \Big[ \mathbf{p}_{\text{root}},  \mathbf{r}_{\text{root}},
+	\mathbf{ p }'_{\text{root}},  \mathbf{r}'_{\text{root}},
+	\mathbf{p}_{\text{joins}},  \mathbf{r}_{\text{joins}},
+	\mathbf{p}'_{\text{joins}},  \mathbf{r}'_{\text{joins}},
+	\mathbf{d}_{\text{gaze}}
+	\Big]
+\end{equation}
+
+Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
+{
+	\begin{itemize}
+		\item $\mathbf{p}_{\text{root}} \in \mathbb{R}^3$: Toạ độ của điểm gốc
+		\item $\mathbf{r}_{\text{root}} \in \mathbb{R}^4$: Góc quay của điểm gốc
+		\item $\mathbf{p}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của toạ độ gốc
+		\item $\mathbf{r}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của góc quay gốc
+		
+		\item $\mathbf{p}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: Toạ độ của các khung xương
+		\item $\mathbf{r}_{\text{joins}} \in \mathbb{R}^{6 n_{\text{join} }}$: Góc quay của các khung xương theo mặc phẳng X và Y
+		\item $\mathbf{p}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của toạ độ các khung xương
+		\item $\mathbf{r}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của góc quay các khung xương
+		\item $\mathbf{d}_{\text{gaze}} \in \mathbb{R}^3$: Là hướng nhìn
+\end{itemize}}
+
+
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=0.8\linewidth]{images/skeleton_sample.png}
+%	\caption{Minh họa một cử chỉ và mô hình nhân vật}
+%	\label{fig:software}
+%\end{figure}
+
+
+Tổng cộng có $75$ khớp (joins) hay $n_{\text{join}} = 75$, với mỗi khung hình (frame) ta sẽ có một vector gồm 1141 chiều.
+Tập dữ liệu là tập nhiều chuỗi cử chỉ với độ dài tuỳ ý, từ mỗi cử chỉ độ dài tuỳ tý ta sẽ cắt thành các đoạn $N + M$ khung hình, $g \in \mathbb{R}^{(N + M) \times 1141}$ , trong đó cử chỉ $\mathbf{s} \in \mathbb{R}^{N \times 1141}$ đầu tiên là cử chỉ khởi tạo (seed gesture), $\bx \in \mathbb{R}^{M \times 1141}$ cử chỉ tiếp theo cho việc dự đoán.
+
+
+Dữ liệu giọng nói $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length } }$ là chuỗi giọng nói thô được đọc ở sample rate 16000, sau đó được cắt thành $\mathbf{a} \in \mathbb{R}^{64000}$ tương ứng với 4 giây.
+% để  là một chuỗi waveform có độ dài tương ứng với cử chỉ được đọc với sample rate là 16000. 
+%\setcounter{figure}{2}
+
+Quá trình này được trình bày ở \autoref{appendix:BVHData:QuaternionConvert}
+
+
 
 \section{Quá trình huấn luyện}
 
