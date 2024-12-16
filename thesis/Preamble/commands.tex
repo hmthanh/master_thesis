@@ -76,7 +76,12 @@
 \renewcommand{\thefigure}{\thechapter.\arabic{figure}} % Đánh số hình
 \renewcommand{\thetable}{\thechapter.\arabic{table}} % Đánh số bảng
 \renewcommand{\theequation}{\thechapter.\arabic{equation}} % Đánh số phương trình
-\renewcommand{\thealgorithm}{\thealgorithm.\arabic{algorithm}}
+% \renewcommand{\thealgorithm}{\thealgorithm.\arabic{algorithm}}
+
+% \renewcommand{\thefigure}{\arabic{figure}}
+% \renewcommand{\theequation}{\arabic{equation}}
+\renewcommand{\thealgorithm}{\arabic{algorithm}}
+% \thealgorithm.
 
 % Tạo danh mục viết tắt
 \newcommand{\acronym}[2]{\textbf{#1} (\textit{#2})}
@@ -118,6 +123,7 @@
 \renewcommand{\figureautorefname}{Hình}
 \renewcommand{\tableautorefname}{Bảng}
 \renewcommand{\sectionautorefname}{Mục}
+\renewcommand{\chapterautorefname}{Chương}
 \renewcommand{\subsectionautorefname}{Mục nhỏ}
 \renewcommand{\subsubsectionautorefname}{Mục nhỏ}
 \renewcommand{\equationautorefname}{Công thức}
@@ -128,6 +134,3 @@
 
 % \renewcommand{\thesection}{\arabic{section}}
 % \renewcommand\thesubsection{\alph{subsection}.}
-\renewcommand{\thefigure}{\arabic{figure}}
-\renewcommand{\theequation}{\arabic{equation}}
-\renewcommand{\thealgorithm}{\arabic{algorithm}}

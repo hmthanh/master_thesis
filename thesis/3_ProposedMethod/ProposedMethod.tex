@@ -15,7 +15,7 @@
 
 %\chapter{PHƯƠNG PHÁP ĐỀ XUẤT}
 \chapter{PHƯƠNG PHÁP NGHIÊN CỨU}
-\label{Chapter3}
+\label{chap:Chapter3}
 
 %\begin{figure}
 %    \centering
@@ -24,42 +24,56 @@
 %    \label{fig:architecture}
 %\end{figure}
 
-Bản chất của các phương pháp dựa trên neuron network là ước lượng xác xuất của dữ liệu (probability density) nên cần chuẩn hoá (normalization), trong khi mô hình Diffusion sẽ học để có thể ước lượng đạo hàm của phân phối dữ liệu (estimating gradients of data distribution) và không phải chuẩn hoá trên toàn bộ dữ liệu \cite{song2021score}, nên có kết quả tốt hơn so với các phương pháp neuron network không sử dụng diffusion.
-Mô hình diffusion có khả năng mô phỏng phân phối dữ liệu trong các trường hợp mật độ phân phối của dữ liệu thấp và có thể sinh được kết quả với độ chi tiết cao nên phù hợp với bài toán sinh cử chỉ. Mô hình của luận văn dựa trên mô hình DiffuseStyleGesture \cite{yang2022DiffuseStyleGestureplus} với cải tiến để có thể học theo cảm xúc của nhân vật. Trước tiên luận văn trình bày về mô hình diffusion \autoref{sec:summary_diffusion}, và phần \autoref{sec:ohgesture} sẽ trình bày về mô hình đề xuất OHGesture. 
+Bản chất của các phương pháp dựa trên neuron network là ước lượng xác xuất của dữ liệu (probability density) nên cần chuẩn hoá (normalization), trong khi mô hình Diffusion sẽ học để có thể ước lượng đạo hàm của phân phối dữ liệu \cite{song2021score} (estimating gradients of data distribution) và không phải chuẩn hoá trên toàn bộ dữ liệu, nên có kết quả tốt hơn so với các phương pháp neuron network không sử dụng diffusion. Mô hình diffusion có khả năng mô phỏng phân phối dữ liệu trong các trường hợp mật độ phân phối của dữ liệu thấp và có thể sinh được kết quả với độ chi tiết cao.
+%nên phù hợp với bài toán sinh cử chỉ như đã trình bày ở \autoref{subsec:reason}.
+
+Mô hình của luận văn dựa trên mô hình DiffuseStyleGesture \cite{yang2022DiffuseStyleGestureplus} với cải tiến chính là dựa trên dữ liệu giọng nói, luận văn chuyển giọng nói thành văn bản và nhúng văn bản để được các vector đặc trưng văn bản, và sử dụng như là một vector đặc trưng về ngữ nghĩa trong quá trình diffusion có điều kiện. Quá trình này được trình bày \autoref{subsec:feature_extraction}. Ngoài ra ở công đoạn \textit{7. Kết xuất}  (\autoref{fig:CommonStage}), luận văn sử dụng Unity để kết xuất văn bản. Các đóng góp chính của luận văn được trình bày đầy đủ ở \autoref{sec:contribution}.
+
+Trước tiên luận văn trình bày về mô hình diffusion \autoref{sec:summary_diffusion}, và phần \autoref{sec:ohgesture} sẽ trình bày về mô hình đề xuất OHGesture. 
 
 %Diffusion \cite{ho2020denoising} là mô hình được lấy cảm hứng từ mô hình khuếch tán các chất trong hóa học.
 
-\section{Mô hình diffusion và cải tiến}
+\section{Mô hình diffusion cơ bản và các cải tiến}
 \label{sec:summary_diffusion}
 
-\setcounter{figure}{4}
+%\subsection{Quá trình gây nhiễu và khử nhiễu không huấn luyện}
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{DiffuseAndDenoise}
-	\caption{Minh hoạ quá trình gây nhiễu (Diffuse) và khử nhiễu (Denoise) cử chỉ chưa qua quá trình huấn luyện}
+	\caption{Quá trình gây nhiễu (Diffuse) và khử nhiễu (Denoise) \textbf{không} huấn luyện}
 	\label{fig:DiffuseAndDenoise}
 \end{figure}
 
-Với các phương pháp sử dụng neural network như ResNet, GAN,... mục tiêu là tìm được trọng số $\theta$ của hàm $f_{\theta}(x)$, Hàm mà đầu vào là $x$, chúng ta sẽ cực tiểu hoá hàm lỗi $\mathcal{L}_\text{loss}$ giữa nhãn $y$ và kết quả dự đoán là $\hat{y}$. Sau khi kết thúc quá trình huấn luyện và học được trọng số $\theta'$ ta dự đoán một mẫu dữ liệu mới $x'$ bằng cách forward qua hàm $f_{\theta'}$ để ra được kết quả dự đoán $y'$.
+%
+%Cho một mẫu dữ liệu từ cử chỉ gốc $\bx_0$ trong đó $\bx_0 \in \mathbb{R}^{1:M \times D}$, ta lần lượt thêm một lượng nhiễu $\epsilon_t \in \mathcal{N}(0, \mathbf{I})$ (trung bình bằng $0$ và phương sai bằng $1$) lần lượt $t$ bước, với  $t: 1 \rightarrow T$ để được $\bx_T$ là nhiễu hoàn toàn như \autoref{fig:DiffuseAndDenoise} theo công thức sau:
+%
+%\begin{equation}
+%	\label{eq:diffuse}
+%	\mathbf{x}_t = \sqrt{1 - \beta_t}\mathbf{x}_{t-1} + \sqrt{\beta_t} \boldsymbol{\epsilon}_{t-1}
+%\end{equation}
+%
+%Ở đây $\sqrt{1 - \beta_t}$ và $\sqrt{\beta_t}$ là hai hệ số điều khiển trong quá trình thêm nhiễu. Trong đó $\sqrt{1 - \beta_t}$ giảm dần 
+% Từ nhiễu hoàn toàn $\bx_{T}$ ta lại .
+% 
+% Hàm mà đầu vào là $\bx$, 
+Với các phương pháp sử dụng neural network như ResNet, InceptionNet,... kết quả là tìm được trọng số $\theta$ của hàm $f_{\theta}(x)$, mục tiêu là cực tiểu hoá hàm lỗi $\mathcal{L}_\text{loss}$ giữa nhãn $y$ và kết quả dự đoán là $\hat{y}$. Sau khi kết thúc quá trình huấn luyện và học được trọng số $\theta'$ ta dự đoán một mẫu dữ liệu mới $x'$ bằng cách forward qua hàm $f_{\theta'}$ để ra được kết quả dự đoán $y'$.
 
 %\begin{figure*}[bp]
 
 
-Tương tự phương pháp VAE, mã hoá (encode) ma trận đầu vào thành vector tiềm ẩn $z$ và giải mã (decode) vector tiềm ẩn $z$ ngược trở lại ma trận kích thước ban đầu, tuy nhiên mô hình diffusion chia quá trình học thành từng $T$ bước, ở bước thứ $t$ quá trình gây nhiễu (forward diffusion process) $q(\mathbf{x})$ từ $1 \to T$ được thực hiện bằng cách thêm nhiễu $\epsilon \sim \mathcal{N} (\mathbf{0}, \mathbf{I})$ phân phối chuẩn Gaussian vào dữ liệu, với giá trị trung bình  (mean) bằng $\mathbb{E}[\epsilon]=0$ và độ lệch chuẩn $\operatorname{Var}(\epsilon)=1$, $\mathbf{I}$ là phần tử đơn vị của phân phối chuẩn Gaussian. Trong \autoref{fig:DiffuseAndDenoise} quá trình giảm nhiễu từ trái qua phải, còn quá trình khử nhiễu từ phải qua trái $p_\theta(x)$. Trong quá trình khử nhiễu (denoising process) từ $T \to 1$, mục tiêu là học được trọng số $\theta$ của hàm dữ đoán nhiễu $f_{\theta}$ hay còn được ký hiệu là hàm dự đoán lượng nhiễu ($\epsilon_\theta$) đã được thêm vào. Sau khi kết thúc quá trình học và ta có trọng số $\theta'$ của hàm dự đoán nhiễu $\hat{\epsilon}$ , ta sẽ dùng hàm $f_{\theta'}$ để dự đoán nhiễu. Sau khi có nhiễu dự đoán $\hat{\epsilon}$, chúng ta trừ đi ảnh bị nhiễu $\mathbf{x}_{t}$ để có được ảnh khử nhiễu $\mathbf{x}_{t-1}$, và cộng với nhiễu $ \mathbf{z} \in \mathcal{N}(0, \mathbf{I})$ để tạo ra sự đa dạng cử chỉ. Thực hiện lần lượt từ $T \to 1$ để có được ảnh dự đoán $\hat{\bx_0}$. Như \autoref{fig:basic_diffusion} là kiến trúc đầy đủ của mô hình diffusion tiêu chuẩn (Denoising Diffusion Probabilistic Models - DDPM).
+Tương tự phương pháp VAE, mã hoá (encode) ma trận đầu vào thành vector tiềm ẩn $z$ và giải mã (decode) vector tiềm ẩn $z$ ngược trở lại ma trận kích thước ban đầu, tuy nhiên mô hình diffusion chia quá trình học thành từng $T$ bước, ở bước thứ $t$ quá trình gây nhiễu (forward diffusion process) $q(\mathbf{x})$ từ $1 \to T$ được thực hiện bằng cách thêm nhiễu $\epsilon_{t} \sim \mathcal{N} (\mathbf{0}, \mathbf{I})$ phân phối chuẩn Gaussian vào dữ liệu, với $\mathbf{I}$ là phần tử đơn vị của phân phối chuẩn Gaussian có giá trị trung bình  (mean) bằng $\mathbb{E}[\epsilon]=0$ và phương sai $\operatorname{Var}(\epsilon)=1$.
+
+
+Quá trình thêm nhiễu từ trái qua phải gọi là hàm $q(\bx)$, còn quá trình khử nhiễu từ phải qua trái $p(\bx)$. Lưu ý rằng, $\epsilon_t$ là được lấy ngẫu nhiên ở mọi bước $t$, và nhiễu $\epsilon_t$ là cố định. Như trong \autoref{fig:DiffuseAndDenoise}, nếu ở bước thêm nhiễu (difuse) ta \textbf{cộng} một lượng nhiễu $\epsilon_t$ và bước khử nhiễu (denoise) ta cũng \textbf{trừ} một lượng đúng chính xác $\epsilon_t$ thì kết quả cuối cùng của bước khử nhiễu $\bx_0$ là \textbf{hoàn toàn giống} bức ảnh gốc ban đầu.
+
+Tuy nhiên, ở bước khử nhiễu, thay vì \textit{trừ} đi nhiễu thật ở bước gây nhiễu $\epsilon_t$, ta sẽ dùng một hàm $f_{\theta}$ để dự đoán \textbf{nhiễu đã được thêm vào} ở quá trình difuse, từ đó lần lượt lấy ảnh nhiễu $\bx_T$ trừ đi nhiễu dự đoán để được ảnh dự đoán $\hat{\bx}_{T-1}$, thực hiện lần lượt cho đến khi đạt được $\hat{\bx}_0$.
+
+Trong mô hình Diffusion cơ bản hay Denoising Diffusion Probabilistic Models (DDPM \cite{ho2020denoising}), quá trình khử nhiễu (denoising process) từ $T \to 1$, mục tiêu là học được trọng số $\theta$ của hàm dữ đoán nhiễu $f_{\theta}$ hay còn được ký hiệu là hàm dự đoán lượng nhiễu ($\epsilon_\theta$) đã được thêm vào. Sau khi kết thúc quá trình học và ta có trọng số $\theta'$ của hàm dự đoán nhiễu $\hat{\epsilon}$ , ta sẽ dùng hàm $f_{\theta'}$ để dự đoán nhiễu. Sau khi có nhiễu dự đoán $\hat{\epsilon}$, chúng ta trừ đi ảnh bị nhiễu $\mathbf{x}_{t}$ để có được ảnh khử nhiễu $\mathbf{x}_{t-1}$, và cộng với nhiễu $ \mathbf{z} \in \mathcal{N}(0, \mathbf{I})$ để tạo ra sự đa dạng cử chỉ. Thực hiện lần lượt từ $T \to 1$ để có được ảnh dự đoán $\hat{\bx_0}$.
 
 \subsection{Quá trình gây nhiễu (forward diffusion process)}
 
 Cho dữ liệu $\mathbf{x}_{0}$ là được lấy từ dữ liệu thật $\mathbf{x}_{0} \sim q(x)$, với mỗi bước ta sẽ thêm nhiễu vào đầu vào $\bx_{0}$ với tỷ lệ nhiễu và ảnh gốc được kiểm soát bằng hệ số $\beta$:
-\vspace{-20pt}
-\setcounter{figure}{5}
-\begin{figure*}[H]
-	\centering
-	\includegraphics[height=180pt]{AlgorithmForwardDiffusion}
-	\vspace{-5pt}
-	\caption{Minh hoạ quá trình huấn luyện và làm nhiễu (Diffuse)}
-	\label{fig:AlgorithmForwardDiffusion}
-	\vspace{-10pt}
-\end{figure*}
 
 
 \begin{equation}
@@ -67,7 +81,10 @@ Cho dữ liệu $\mathbf{x}_{0}$ là được lấy từ dữ liệu thật $\ma
 	\mathbf{x}_t = \sqrt{1 - \beta_t}\mathbf{x}_{t-1} + \sqrt{\beta_t} \boldsymbol{\epsilon}_{t-1}
 \end{equation}
 
-Trong đó, quá trình gây nhiễu từ $1 \to T$, với mỗi bước $t$ quá trình thêm nhiễu $\epsilon$ được điều khiển bằng $\beta_t$ theo phương sai $\{\beta_t \in (0, 1)\}_{t=1}^T$:
+
+Trong đó, quá trình gây nhiễu từ $1 \to T$, với mỗi bước $t$ quá trình thêm nhiễu $\epsilon$ được điều khiển bằng $\beta_t$ theo phương sai $\{\beta_t \in (0, 1)\}_{t=1}^T$.
+
+Bởi vì một hàm $f(x)$ có dạng $f(x) = a x + b\epsilon$ với $\epsilon \in \mathcal{N}(0, \mathbf{1})$ sẽ tương đương $f(x) \sim \mathcal{N}(a x, b^2)$ (với $a x$ là kỳ vọng hay trung bình, $b^2$ là phương sai), từ đó quá trình gây nhiễu có thể được viết gọn là ở từng bước nhiễu $t$, khi biết trước $\bx_{t-1}$ là:
 
 \begin{equation}
 	\label{eq:forward_diffusion_process}
@@ -77,8 +94,14 @@ Trong đó, quá trình gây nhiễu từ $1 \to T$, với mỗi bước $t$ qu�
 	\end{aligned}
 \end{equation}
 
-Mục tiêu ở bước $t$ của hệ số $\sqrt{1 - \beta_t}$ và $\beta_t$ là để lần lượt giảm tỷ lệ của ảnh gốc $x_t$ và tăng dần nhiễu  $\boldsymbol{\epsilon}_{t-1}$, vì vậy $\beta_1 < \beta_2 < \dots < \beta_T$. Khi $T \to \infty$ thì $x_{T}$ sẽ hoàn toàn nhiễu \cite{weng2021diffusion} (Isotropic Gaussian Distribution) $q(T) = \mathcal{N} (0, \mathbf{I})$.
+Mục tiêu ở bước $t$ của hệ số $\sqrt{1 - \beta_t}$ và $\beta_t$ là để lần lượt giảm tỷ lệ của ảnh gốc $x_t$ và tăng dần nhiễu  $\boldsymbol{\epsilon}_{t-1}$, vì vậy $\beta_1 < \beta_2 < \dots < \beta_T$. Khi $T \to \infty$ thì $x_{T}$ sẽ hoàn toàn nhiễu \cite{weng2021diffusion} (Isotropic Gaussian Distribution) $q(x_{T}) = \mathcal{N} (0, \mathbf{I})$.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=160pt]{AlgorithmForwardDiffusion}
+	\caption{Thêm nhiễu trong quá trình huấn luyện}
+	\label{fig:AlgorithmForwardDiffusion}
+\end{figure}
 
 Vì nhiễu $\boldsymbol{\epsilon}_{t-1}, \boldsymbol{\epsilon}_{t-2}, \dots \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ luôn luôn là phân phối chuẩn Gaussian, và cho trước trong mọi bước $t$, nên ta có thể dễ dàng truy ngược được $\bx_t$ từ $\bx_0$. Bằng cách đặt $\alpha_t = 1 - \beta_t$ và $\bar{\alpha}_t = \prod_{i=1}^t \alpha_i$, từ \autoref{eq:addgaussian}, ta có hàm forward diffusion viết lại theo $\alpha$ như sau:
 
@@ -108,23 +131,22 @@ Vì nhiễu $\boldsymbol{\epsilon}_{t-1}, \boldsymbol{\epsilon}_{t-2}, \dots \si
 \label{eq:tracexzero}
 \end{equation}
 
-Sự thay đổi của $\sqrt{\alpha}$ và  $\sqrt{1- \alpha}$ trong quá trình gây nhiễu được thể hiện ở phụ lục \autoref{Appendix2}
+Sự thay đổi của $\sqrt{\alpha}$ và  $\sqrt{1- \alpha}$ trong quá trình gây nhiễu được thể hiện ở phụ lục \autoref{appendix:Appendix1}
 
 \subsection{Quá trình khử nhiễu (denoising process)}
 \label{subsection:denoising_process}
 
-\setcounter{figure}{6}
 \begin{figure}[H]
 	\centering
 	\includegraphics[height=280pt]{AlgorithmSamplingDiffusion}
-	\caption{Minh hoạ quá trình khử nhiễu (Denoise)}
+	\caption{Khử nhiễu trong quá trình suy luận}
 	\label{fig:AlgorithmSamplingDiffusion}
 	\vspace{-5pt}
 \end{figure}
 
-Quá trình khử nhiễu $p_\theta(\mathbf{x}_{t-1} \vert \mathbf{x}_t)$  ở bước thứ $t$ từ $T \to 1$ được bắt đầu từ $\bx_T$ là hoàn toàn nhiễu $\mathcal{N} (\mathbf{0}, \mathbf{I})$. Ta sẽ dùng một neural network $f_{\theta} (x_t, t)$ để dự đoán nhiễu $\hat{\epsilon} = f_{\theta}(\bx_t, t)$ đã được thêm vào để được $\bx_{t-1}$ từ $\bx_t$.
+Quá trình khử nhiễu $p_\theta(\mathbf{x}_{t-1} \vert \mathbf{x}_t)$  ở bước thứ $t$ từ $T \to 1$ được bắt đầu từ $\bx_T$ là hoàn toàn nhiễu $\mathcal{N} (\mathbf{0}, \mathbf{I})$. Ta sẽ dùng một neural network $f_{\theta} (\bx_t, t)$ để dự đoán nhiễu $\hat{\epsilon}_t = f_{\theta}(\bx_t, t)$ đã được thêm vào để được $\bx_{t-1}$ từ $\bx_t$.
 
-Quá trình khử nhiễu có trung bình $\boldsymbol{\mu}_\theta(\mathbf{x}_t, t) = {\frac{1}{\sqrt{\alpha_t}} \Big( \mathbf{x}_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}}  f_\theta(\mathbf{x}_t, t) \Big)}$ và độ lệch chuẩn $\boldsymbol{\Sigma}_\theta(\mathbf{x}_t, t)$ như sau:
+Quá trình khử nhiễu có trung bình $\boldsymbol{\mu}_\theta(\mathbf{x}_t, t) = {\frac{1}{\sqrt{\alpha_t}} \Big( \mathbf{x}_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}}  f_\theta(\mathbf{x}_t, t) \Big)}$ và phương sai $\boldsymbol{\Sigma}_\theta(\mathbf{x}_t, t)$ như sau:
 
 
 %\begin{equation} \mathrm{d}\mathbf{x} = [\mathbf{f}(\mathbf{x}, t) - g^2(t) \nabla_\mathbf{x} \log p_t(\mathbf{x})]\mathrm{d}t + g(t) \mathrm{d} \mathbf{w}.\label{rsde} \end{equation}
@@ -179,13 +201,15 @@ Qúa trình khử nhiễu là quá trình bắt đầu từ nhiễu hoàn toàn,
 			&= \mathbb{E}_{t \sim [1, T], \mathbf{x}_0, \boldsymbol{\epsilon}_t} \Big[\|\boldsymbol{\epsilon}_t - \boldsymbol{\epsilon}_\theta(\sqrt{\bar{\alpha}_t}\mathbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\boldsymbol{\epsilon}_t, t)\|^2 \Big]
 		\end{aligned}
 	\end{equation}
-	
-	
+
+
+Trong đó, hàm mất mát $\mathcal{L}$ tổng sẽ là  $\mathcal{L} = \sum_{t=1}^{T} \mathcal{L}_t$.
+
 Với $f_{\theta}(x_{t-1}, t)$ hay $\epsilon_\theta$ là một mô hình Unet dùng để mã hoá và giải mã dữ liệu để dự đoán nhiễu đã thêm vào dữ liệu. Quá trình tính toán hàm lỗi được trình bày minh hoạ trong \autoref{fig:basic_diffusion}.
 
 
 \begin{algorithm}[H]
-	\caption{Thuật toán training trong DDPM}
+	
 	\setlength{\baselineskip}{10pt}
 	\begin{enumerate}
 		\vspace{5pt}
@@ -215,6 +239,8 @@ Với $f_{\theta}(x_{t-1}, t)$ hay $\epsilon_\theta$ là một mô hình Unet d�
 		
 		\item Quay lại bước 6 cho đến khi hội tụ để thu được trọng số tối ưu $\theta'$.
 	\end{enumerate}
+	\caption{Thuật toán training trong DDPM}
+	\label{alg:TrainingDDPM}
 \end{algorithm}
 
 %	Lưu ý 
@@ -224,7 +250,7 @@ Với $f_{\theta}(x_{t-1}, t)$ hay $\epsilon_\theta$ là một mô hình Unet d�
 	
 		\begin{figure*}
 		\centering
-		\includegraphics[width=\linewidth]{GaussianDrift.jpg}
+		\includegraphics[width=\linewidth]{TrainingAndSamplingStandard}
 		\caption{Quá trình Training và Sampling trong mô hình Diffusion tiêu chuẩn}
 		\label{fig:GaussianDrift}
 	\end{figure*}
@@ -244,7 +270,7 @@ Lưu ý rằng $\epsilon_t$ là nhiễu cố định và lấy ngẫu nhiên tr�
 
 Tiếp theo quá trình huấn luyện, thuật toán lấy mẫu (sampling) trong DDPM bắt đầu từ bước tạo nhiễu hoàn toàn, tức là $\mathbf{x}_T \sim \mathcal{N}(0, \mathbf{I})$, nơi dữ liệu ban đầu hoàn toàn là nhiễu. Các giá trị $\sqrt{\alpha_t}$, $\sqrt{1 - \alpha_t}$ và $\sqrt{\bar{\alpha}_t}$, được tính từ quá trình huấn luyện, sẽ được sử dụng trong quá trình lấy mẫu để dự đoán lại dữ liệu gốc $\mathbf{x}_0$. Bước tiếp theo là tính toán hệ số điều chỉnh nhiễu $\sigma_t$, dựa vào lịch trình nhiễu $\alpha_t$ đã xác định trong quá trình huấn luyện. Các giá trị này sẽ ảnh hưởng đến độ nhiễu được thêm vào trong quá trình lấy mẫu ngược.
 
-Thuật toán lấy mẫu sẽ được thực hiện từ bước $T$ trở về $1$, và trong mỗi bước, một nhiễu ngẫu nhiên $\mathbf{z} \sim \mathcal{N}(0, \mathbf{I})$ được tạo ra để cộng thêm vào kết quả dự đoán. Tại mỗi bước $t$, mô hình sẽ dự đoán nhiễu $\boldsymbol{\epsilon}_{\theta'}$ dựa trên dữ liệu nhiễu $\mathbf{x}_t$ và bước thời gian $t$, sau đó sử dụng dự đoán này để tính toán giá trị $\mu$, là ước lượng của $\mathbf{x}_0$. Cuối cùng, một lượng nhiễu $\sigma_t \mathbf{z}$ được cộng thêm vào $\mu$ để thu được $\hat{\mathbf{x}}{t-1}$, dữ liệu nhiễu tại bước $t-1$. Quá trình này tiếp tục cho đến khi $t = 1$, và khi đó, chúng ta có được $\hat{\mathbf{x}}_0$ — dự đoán cuối cùng của dữ liệu gốc từ quá trình khử nhiễu.
+Quá trình lấy mẫu (sampling) như \autoref{alg:samplingddpm} sẽ được thực hiện từ bước $T$ trở về $1$, và trong mỗi bước, một nhiễu ngẫu nhiên $\mathbf{z} \sim \mathcal{N}(0, \mathbf{I})$ được tạo ra để cộng thêm vào kết quả dự đoán. Tại mỗi bước $t$, mô hình sẽ dự đoán nhiễu $\boldsymbol{\epsilon}_{\theta'}$ dựa trên dữ liệu nhiễu $\mathbf{x}_t$ và bước thời gian $t$, sau đó sử dụng dự đoán này để tính toán giá trị $\mu$, là ước lượng của $\mathbf{x}_0$. Cuối cùng, một lượng nhiễu $\sigma_t \mathbf{z}$ được cộng thêm vào $\mu$ để thu được $\hat{\mathbf{x}}_{t-1}$, dữ liệu nhiễu tại bước $t-1$. Quá trình này tiếp tục cho đến khi $t = 1$, và khi đó, chúng ta có được $\hat{\mathbf{x}}_0$ — dự đoán cuối cùng của dữ liệu gốc từ quá trình khử nhiễu.
 
 %Mục tiêu của quá trình lấy mẫu này là phục hồi lại dữ liệu ban đầu $\mathbf{x}_0$ từ nhiễu hoàn toàn, đồng thời đảm bảo tính ổn định và sự đa dạng trong quá trình sinh mẫu thông qua việc sử dụng nhiễu ngẫu nhiên $\mathbf{z}$.
 
@@ -281,4 +307,49 @@ Thuật toán lấy mẫu sẽ được thực hiện từ bước $T$ trở v�
 
 \end{algorithm}
 
-Điều quan trọng nhất trong quá trình lấy mẫu (denoising sampling) đó chính là phải cộng thêm một độ nhiễu $\mathbf{z} \in \mathcal{N}(0, \mathbf{I})$, với $\mathbf{z}$  sẽ được lần lượt thêm ở từng bước $t$ bằng hệ số điều khiển $\sigma_t$. Mục tiêu của nhiễu $\epsilon$ là để  làm gờ phân phối (marginal noise distribution) cho mô hình $f_\theta$ (hay $\epsilon_{\theta}$) có thể học được nhiễu, còn với  $\mathbf{z}$ là để tăng tính đa dạng trong quá trình sinh và sự ổn định trong quá trình lấy mẫu. Thuật toán lấy mẫu được trình bày ở \autoref{alg:samplingddpm}.
+Điều quan trọng nhất trong quá trình lấy mẫu (denoising sampling) đó chính là phải cộng thêm một độ nhiễu $\mathbf{z} \in \mathcal{N}(0, \mathbf{I})$, với $\mathbf{z}$  sẽ được lần lượt thêm ở từng bước $t$ bằng hệ số điều khiển $\sigma_t$. Mục tiêu của nhiễu $\epsilon$ là để  làm gờ phân phối (marginal noise distribution) cho mô hình $f_\theta$ (hay $\epsilon_{\theta}$) có thể học được nhiễu, còn với  $\mathbf{z}$ là để tăng tính đa dạng trong quá trình sinh và sự ổn định trong quá trình lấy mẫu. Quá trình giảm $\sigma_t$ được trình bày ở phụ lục \autoref{appendix:Appendix1:NoiseScale}
+
+
+\subsection{Cải tiến mô hình diffusion với dự đoán $\bx_0$ thay vì $\epsilon_t$}
+\label{subsec:X0Objective}
+
+Dựa vào \autoref{eq:tracexzero}, có thể thấy nếu có $\bx_{t}$ thì sẽ suy ra được $\bx_0$. Và nếu có $\bx_0$ thì cũng sẽ có thể suy ra được $\bx_{t}$ \textbf{một cách tường minh} với $t$ bất kỳ bằng cách thêm nhiễu $\epsilon_t$ đã có từ quá trình thêm nhiễu thuận (forward diffuse).
+
+Từ quan sát này, nhóm tác giả \cite{nichol2021improved} đề xuất cải tiến DDPM, thay vì dùng hàm neural network $f_{\theta}(\bx_t, t)$ để dự đoán $\epsilon_t$ như \autoref{fig:basic_diffusion} thì $f_{\theta}(\bx_t, t)$ sẽ được dùng để dự đoán trực tiếp $\bx_0$, và khi có $\bx_0$ sẽ thêm nhiễu bằng  \autoref{eq:tracexzero}
+
+
+\begin{figure}[H]
+	\captionsetup{skip=2pt}
+	\includegraphics[width=\linewidth]{X0Objective}
+	\caption{So sánh $\epsilon$ objective (bên trên) và  $\bx_0$ objective (bên dưới)}
+	\label{fig:X0Objective}
+\end{figure}
+
+Như hình \autoref{fig:X0Objective}, ta bắt đầu bằng việc thêm nhiễu thuận (forward diffusion), từ $t: 1 \rightarrow T$ để được $\bx_T \sim \mathcal{N} (0, \mathbf{I})$. Sau khi có nhiễu $\bx_{T}$ ta sẽ đưa vào hàm $f_{\theta}$ để dự đoán $\hat{\bx}_0$, từ $\hat{\bx}_0$ sẽ thêm nhiễu để được $\hat{\bx}_{t-1}$. Thực hiện lần lượt đến khi $t = 1$, ta sẽ thu được $\hat{\bx}_0$. Ta có thể so sánh hai phương pháp như sau:
+
+\begin{itemize}
+	\item \textbf{$\epsilon$  objective} :  mô hình sẽ dự đoán lỗi. Bắt đầu từ việc forward quá trình gây nhiễu để lấy được $\bx_T$, khi có được $\bx_T$ ta sẽ sử dụng $\bx_T \in \mathcal{N}(0, \mathbf{I})$ để đưa vào quá trình denoise. Trong quá trình denoise, mô hình sẽ dự đoán nhiễu $\hat{\epsilon}_t$ đã được thêm vào từ quá trình forward, là nhiễu $\epsilon_t$ và tối ưu lỗi giữa nhiễu dự đoán và nhiễu thực tế từ quá trình forward.
+	\item \textbf{$\bx_0$ objective} : tương tự mô hình sẽ forward quá trình gây nhiễu để lấy được $\bx_T$, khi có được $\bx_T$ ta sẽ sử dụng $\bx_T \in \mathcal{N}(0, \mathbf{I})$ để đưa vào quá trình denoise. Mô hình sẽ dự đoán trực tiếp $\bx_0$, sau khi có $\bx_0$ mô hình sẽ tiếp tục gây nhiễu (Diffuse ) đến bước thứ $\bx_{t-1}$, và tiếp tục sử dụng $\bx_{t-1}$ để đưa vào mô hình dự đoán $\bx_0$
+\end{itemize}
+
+\subsection{Mô hình diffusion có điều kiện}
+\label{subsec:DiffusionCondition}
+
+Để có thể điều khiển quá trình sinh với các điều kiện khác nhau, thì cần phải sinh với điều kiện $c$, hay nói cách khác ta cần tìm xác xuất $p(\bx | c)$ khi biết trước $c$. Nhóm tác giả \cite{dhariwal2021diffusion} đề xuất sử dụng một hàm $f_{\phi}$ riêng để huấn luyện cho điều kiện. Tuy nhiên phương pháp này gây khó khăn khi các điều kiện sinh thay đổi và việc kết hợp và cập nhật trọng số ở một mô hình riêng sẽ gây khó khăn khi mở rộng.
+
+\begin{figure}[H]
+	\captionsetup{skip=20pt}
+	\includegraphics[width=0.9\linewidth]{AdversarialGradient}
+	\caption{Diffusion có điều kiện bằng vector điều hướng}
+	\label{fig:AdversarialGradient}
+\end{figure}
+
+Như hình \autoref{fig:GaussianDrift}, để quá trình suy luận có thể sinh ra các kết quả $\bx_0$ khác nhau và có thể điều khiển được dựa trên điều kiện $c$. Ở mỗi bước $t$, cần thêm một lượng điều hướng với một điều kiện cụ thể. Nhóm tác giả đề xuất  Classifier-Free Diffusion Guidance \cite{ho2022classifier} với việc kết quả $\bx_0$ được cập nhật bằng cách cộng kết quả có điều kiện và không có điều kiện.
+\begin{equation}
+\hat{\mathbf{x}}_{0\ {\gamma, c, c_{\varnothing}}} = \gamma \cdot f_{\theta} \left(\mathbf{x}_{t}, t, c \right) + (1 - \gamma) \cdot f_{\theta} \left(\mathbf{x}_{t}, t, c_{\varnothing} \right)
+\end{equation}
+
+Trong đó, $c$ là điều kiện, $c_{\varnothing}$ là điều kiện rỗng,  kết quả sinh điều kiện được điều khiển bằng tham số $\gamma$, nếu $\gamma$ càng lớn thì kết quả sinh ra càng sát với điều kiện $c$, ngược lại thì kết quả sẽ nghiêng về kết quả sinh không có điều kiện.
+
+
+Như \autoref{fig:AdversarialGradient}, hàm $f_{ \theta}$ trên cùng là không có điều kiện, $f_{ \theta}$ giữa là diffusion có điều kiện, $f_{ \theta}$ (dưới cùng) là diffusion với điều kiện rỗng.

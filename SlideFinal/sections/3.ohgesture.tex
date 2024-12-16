@@ -48,25 +48,26 @@
 \begin{frame}{Các bước huấn luyện với OHGesture}
 %	\small
 	\begin{enumerate}
-		\item Lấy nhãn $\bx_0$ từ phân bố của dữ liệu đã chuẩn hoá
-		\item Tính sẵn các giá trị, và các siêu tham số: $\gamma$, $\sqrt{\alpha_t}$ $\sqrt{1 - \alpha_t}$, $\sqrt{\bar{\alpha}_t}$, Random nhiễu $\bepsilon_t$ ở mọi bước $t: 1 \rightarrow T$.
+		\item<1-2>  Lấy nhãn $\bx_0$ từ phân bố của dữ liệu đã chuẩn hoá
+		\item<2-3> Tính sẵn các giá trị, và các siêu tham số: $\gamma$, $\sqrt{\alpha_t}$ $\sqrt{1 - \alpha_t}$, $\sqrt{\bar{\alpha}_t}$, Random nhiễu $\bepsilon_t$ ở mọi bước $t: 1 \rightarrow T$.
 		$\{\alpha_t \in (0, 1)\}_{t=1}^T$
-		\item Random Masks  $c_{1} = \big[ \mathbf{s} , \mathbf{e_1}, \mathbf{a}, \mathbf{v} \big]$, $c_{2} = \big[ \mathbf{s} , \mathbf{e_2}, \mathbf{a}, \mathbf{v}\big]$ hoặc $c_{2} = \big[ \varnothing , \varnothing, \mathbf{a},  \mathbf{v} \big]$
-		\item Forward $\bx_0$ để có cử chỉ nhiễu $\mathbf{x}_t$ :  $\mathbf{x}_t = \sqrt{\bar{\alpha}_t}\mathbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\boldsymbol{\epsilon}_t$
-		\item $\text{for all}$ $t$, lẫy $t$ \textbf{ngẫu nhiên} $t \sim [1, T]$
-		\item Cho $\bx_t$ và $t$, $c$, $c_{\varnothing}$ để dự đoán chuỗi cử chỉ
+		\item<2> Random Masks  $c_{1} = \big[ \mathbf{s} , \mathbf{e_1}, \mathbf{a}, \mathbf{v} \big]$, $c_{2} = \big[ \mathbf{s} , \mathbf{e_2}, \mathbf{a}, \mathbf{v}\big]$ hoặc $c_{2} = \big[ \varnothing , \varnothing, \mathbf{a},  \mathbf{v} \big]$
+		\item<3> Forward $\bx_0$ để có cử chỉ nhiễu $\mathbf{x}_t$ :  $\mathbf{x}_t = \sqrt{\bar{\alpha}_t}\mathbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\boldsymbol{\epsilon}_t$
+		\item<4> $\text{for all}$ $t$, lẫy $t$ \textbf{ngẫu nhiên} $t \sim [1, T]$
+		\item<5> Cho $\bx_t$ và $t$, $c$, $c_{\varnothing}$ để dự đoán chuỗi cử chỉ
 		\begin{equation}
 			\hat{\mathbf{x}}_{0 \gamma, c_{1}, c_{2}}=\gamma \cdot f_{\theta}  \left(\mathbf{x}_{t}, t, c_{1}\right)+(1-\gamma) \cdot f_{\theta} \left(\mathbf{x}_{t}, t, c_{2}\right)
 		\end{equation}
 %		 $\hat{\mathbf{x}}_0 =G_{\theta} (\mathbf{x}_t, t, c)$, $\hat{\mathbf{x}}_0^{\varnothing} =G_{\theta} (\mathbf{x}_t, t, c_{\varnothing})$
-		\item Tính loss và đạo hàm để cập nhật trọng số $\theta$
+
+		\item<6-> Tính loss và đạo hàm để cập nhật trọng số $\theta$
 		\begin{equation}
 			\mathcal{L}_t = \mathbb{E}_{t \sim [1, T], \mathbf{x}_0, \boldsymbol{\epsilon}_t} \Big[ \operatorname{HuberLoss}(\mathbf{x}_0, \hat{\mathbf{x}}_0 ) \Big]
 		\end{equation}
 	
 %	Trong đó $\mathbf{x}_t = \sqrt{\bar{\alpha}_t}\mathbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\boldsymbol{\epsilon}_t$
 	
-		\item Quay lại bước 6 cho đến khi hội tụ để thu được $\theta'$
+		\item<6-> Quay lại bước 6 cho đến khi hội tụ để thu được $\theta'$
 	\end{enumerate}
 \end{frame}
 

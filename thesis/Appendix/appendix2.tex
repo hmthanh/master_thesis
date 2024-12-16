@@ -130,7 +130,7 @@ R_X(\gamma) =
 \end{bmatrix}
 \]
 
-Để tính toạ độ chuyển động của một nhân vật, ta thực hiện phép toán sau:
+Để tính toạ độ chuyển động của một nhân vật, thực hiện phép toán sau:
 
 \begin{equation}
 	\mathbf{position}_{\text{global}} = R \cdot \mathbf{position}_{\text{local}} + \mathbf{t}
@@ -143,13 +143,13 @@ R_X(\gamma) =
 %Quaternion là một cách biểu diễn góc quay trong không gian ba chiều. Quaternion có dạng $q = a + bi + cj + dk$, trong đó $ư, b, c, d$ là các số thực. Quaternion có thể được biểu diễn dưới dạng ma trận $4 \times 4$ như sau:
 
 
-Để tránh Gimbal lock, ta phải chuyển dữ liệu ở dạng góc quay Euler sang dạng góc quay Quaternion. Trong đó góc quay từng Bone dạng Euler ZYX sang dạng Quaternion, mỗi Bone biểu diễn bằng 4 phần tử $q = (q_w, q_x, q_y, q_z)$, với các giá trị được tính như sau:
+Để tránh Gimbal lock, dữ liệu ở dạng góc quay Euler phải được chuyển sang dạng góc quay Quaternion. Trong đó góc quay từng Bone dạng Euler ZYX sang dạng Quaternion, mỗi Bone biểu diễn bằng 4 phần tử $q = (q_w, q_x, q_y, q_z)$, với các giá trị được tính như sau:
 %	Mỗi Bone được biểu diễn thành: 
 %	$$q = w + xi + yj + zk$$
 %	c
 %	$$i^2 = j^2 = k^2 = ijk = -1$$
 
-Đầu tiên, chúng ta tính các giá trị $\cos$ và $\sin$ của một nửa góc quay cho mỗi trục:
+Đầu tiên, tính các giá trị $\cos$ và $\sin$ của một nửa góc quay cho mỗi trục:
 
 
 \begin{itemize}

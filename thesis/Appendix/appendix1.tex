@@ -1,11 +1,10 @@
 \appendix
 \renewcommand{\chaptername}{Phụ lục}
 \chapter{Các tham số trong Diffusion}
- \label{Appendix1}
+ \label{appendix:Appendix1}
 
 \section{Sự thay đổi của $\sqrt{\alpha}$ và $\sqrt{1 - \alpha}$}
 
-\setcounter{figure}{13}
 \begin{figure}[H]
 	\includegraphics[width=0.5\linewidth]{SquareAlpha}
 	\label{fig:wrapfig}
@@ -36,20 +35,19 @@ $\bar{\alpha}_t = \prod_{i=1}^t \alpha_i$.  $\sqrt{1 - \bar{\alpha}_t} = \sqrt{1
 	\caption{Quá trình thay đổi của $\sqrt{\bar{\alpha}}$ và $\sqrt{1 - \bar{\alpha}}$}
 \end{figure}
 
-\section{So sánh $\epsilon$ objective và  $\bx_0$ }
+%\section{So sánh $\epsilon$ objective và  $\bx_0$ }
 
+
+\section{Sự thay đổi của $\sigma_t$}
+ \label{appendix:Appendix1:NoiseScale}
+\vspace{-10pt}
 \begin{figure}[H]
-	\includegraphics[width=\linewidth]{X0Objective}
-	\label{fig:X0Objective}
-	\caption{\textbf{So sánh $\epsilon$ objective (bên trên) và  $\bx_0$ (bên dưới)}. }
+	\includegraphics[width=\linewidth]{NoiseScale}
+	\label{fig:NoiseScale}
+	\caption{Sự thay đổi của hệ số $\sigma_t$ trong quá trình lấy mẫu }
 \end{figure}
-
-\begin{itemize}
-	\item \textbf{$\epsilon$  objective} :  mô hình sẽ dự đoán lỗi. Bắt đầu từ việc forward quá trình gây nhiễu để lấy được $\bx_T$, khi có được $\bx_T$ ta sẽ sử dụng $\bx_T \in \mathcal{N}(0, \mathbf{I})$ để đưa vào quá trình denoise. Trong quá trình denoise, mô hình sẽ dự đoán nhiễu $\hat{\epsilon}_t$ đã được thêm vào từ quá trình forward, là nhiễu $\epsilon_t$ và tối ưu lỗi giữa nhiễu dự đoán và nhiễu thực tế từ quá trình forward.
-	\item \textbf{$\bx_0$ objective} : tương tự mô hình sẽ forward quá trình gây nhiễu để lấy được $\bx_T$, khi có được $\bx_T$ ta sẽ sử dụng $\bx_T \in \mathcal{N}(0, \mathbf{I})$ để đưa vào quá trình denoise. Mô hình sẽ dự đoán trực tiếp $\bx_0$, sau khi có $\bx_0$ mô hình sẽ tiếp tục gây nhiễu (Diffuse ) đến bước thứ $\bx_{t-1}$, và tiếp tục sử dụng $\bx_{t-1}$ để đưa vào mô hình dự đoán $\bx_0$
-	\end{itemize}
-
-
+\vspace{-10pt}
+Trong quá trình lấy mẫu, mục tiêu của việc giảm dần $\sigma_t$, mô hình có thể điều hướng về các vùng có mật độ dữ liệu cao ở từng bước $t$.
 
 %Praesent in sapien. Lorem ipsum dolor sit amet, consectetuer 
 %adipiscing elit. Duis fringilla tristique neque. Sed interdum

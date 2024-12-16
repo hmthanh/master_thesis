@@ -24,6 +24,7 @@ FID đo sự tương đồng về phân phối giữa cử chỉ sinh ra $\mathb
 
 \begin{equation}
 	\text{FID} = \left\| \mu_r - \mu_g \right\|^2 + \operatorname{Tr}\left( \Sigma_r + \Sigma_g - 2 \sqrt{\Sigma_r \Sigma_g} \right)
+	\label{eq:fidscore}
 \end{equation}
 
 
@@ -63,9 +64,10 @@ FID thấp cho thấy phân phối của cử chỉ sinh ra gần giống với 
 
 %Chúng tôi so sánh mô hình đề xuất của luận văn với StyleGestures \cite{alexanderson2020style}, Audio2Gestures \cite{li2021audio2gestures}, ExampleGestures \cite{ghorbani2022zeroeggszeroshotexamplebasedgesture}.
 
-\section{So sánh với các phương pháp hiện tại}
+\section{Kết quả đánh giá}
 \label{sec:result}
 
+\subsection{Kết quả đánh giá bằng MOS}
 
 Ở đây luận văn sử dụng lại kết quả đánh giá của mô hình baseline \textbf{DiffuseStyleGesture} \cite{yang2023diffusestylegesture} trong độ đo về  cảm nhận đánh giá của con người do lĩnh vực sinh cử chỉ vẫn còn rất mới, chi phí để ước lượng các mô hình còn lớn nên luận văn không thể đánh giá được mô hình OHGesture. Vì vậy các kết quả này chưa bao gồm thông tin kết qủa về mô hình \textbf{OHGesture} mà luận văn đề xuất.
 
@@ -93,30 +95,58 @@ FID thấp cho thấy phân phối của cử chỉ sinh ra gần giống với 
 
 Để hiểu hiệu suất thị giác thực tế của phương pháp của luận văn, luận văn tiến hành một nghiên cứu người dùng so sánh các cử chỉ được tạo ra từ phương pháp của luận văn và dữ liệu chụp chuyển động thực tế. Độ dài của các đoạn clip đánh giá dao động từ 11 đến 51 giây, với độ dài trung bình là 31.6 giây, dài hơn so với các đoạn trong đánh giá GENEA \cite{yoon2022genea} (8-10 giây), vì thời gian dài hơn có thể tạo ra kết quả rõ ràng và thuyết phục hơn \cite{yang2022reprgesture}. Người tham gia đánh giá trên thang điểm từ 5 đến 1, với các nhãn từ $\texttt{excellent}$,  $\texttt{good}$, $\texttt{fair}$, $\texttt{poor}$, đến $\texttt{bad}$. 
 
-
-\begin{table}[!t]
+\begin{table}[H]
 	\centering
-		\begin{tabular}{lcc}
-			\hline
-			\multicolumn{1}{c}{Name} &
-			\begin{tabular}[c]{@{}c@{}}Human\\ likeness \end{tabular}$\uparrow$ &
-			\begin{tabular}[c]{@{}c@{}}Gesture-speech\\ appropriateness\end{tabular}$\uparrow$ \\ \hline
-			Ground Truth          & 4.15 $\pm$ 0.11          & 4.25 $\pm$ 0.09          \\
-			Ours                  & \textbf{4.11 $\pm$ 0.08} & \textbf{4.11 $\pm$ 0.10} \\
-			\quad$-$ WavLM             & 4.05 $\pm$ 0.10          & 3.91 $\pm$ 0.11          \\
-			\quad$-$ Cross-local attention   & 3.76 $\pm$ 0.09          & 3.51 $\pm$ 0.15          \\
-			\quad$-$ Self-attention    & 3.55 $\pm$ 0.13          & 3.08 $\pm$ 0.10          \\
-			% \begin{tabular}[c]{@{}c@{}}$-$ attention (GRU based) \\ (GRU based)\end{tabular} &
-			\quad$-$ Attention + GRU&
-			3.10 $\pm$ 0.11 &
-			2.98 $\pm$ 0.14 \\
-			\quad$+$ Forward attention & 3.75 $\pm$ 0.15          & 3.23 $\pm$ 0.24          \\
-			\hline
-		\end{tabular}
-	\caption{Kết quả của các nghiên cứu loại bỏ (Ablation studies). "$-$" chỉ các mô-đun không được sử dụng và "$+$" chỉ các mô-đun bổ sung. Chữ in đậm chỉ ra chỉ số tốt nhất.}
-	\label{Ab}
+	\begin{tabular}{lcc}
+		\hline
+		\multicolumn{1}{c}{Name} &
+		\begin{tabular}[c]{@{}c@{}}Human\\ likeness \end{tabular}$\uparrow$ &
+		\begin{tabular}[c]{@{}c@{}}Gesture-speech\\ appropriateness\end{tabular}$\uparrow$ \\ \hline
+		Ground Truth          & 4.15 $\pm$ 0.11          & 4.25 $\pm$ 0.09          \\
+		Ours                  & \textbf{4.11 $\pm$ 0.08} & \textbf{4.11 $\pm$ 0.10} \\
+		\quad$-$ WavLM             & 4.05 $\pm$ 0.10          & 3.91 $\pm$ 0.11          \\
+		\quad$-$ Cross-local attention   & 3.76 $\pm$ 0.09          & 3.51 $\pm$ 0.15          \\
+		\quad$-$ Self-attention    & 3.55 $\pm$ 0.13          & 3.08 $\pm$ 0.10          \\
+		\quad$-$ Attention + GRU&
+		3.10 $\pm$ 0.11 &
+		2.98 $\pm$ 0.14 \\
+		\quad$+$ Forward attention & 3.75 $\pm$ 0.15          & 3.23 $\pm$ 0.24          \\
+		\hline
+	\end{tabular}
+	\caption{Kết quả đánh giá bằng MOS trên Genea (năm 2022)}
+	\label{table:MOSScore}
+\end{table}
+%Kết quả của các nghiên cứu loại bỏ (Ablation studies). "$-$" chỉ các mô-đun không được sử dụng và "$+$" chỉ các mô-đun bổ sung. Chữ in đậm chỉ ra chỉ số tốt nhất
+
+\subsection{Kết quả đánh giá bằng FGD}
+
+Luận văn đề xuất Fréchet Gesture Distance (FGD), hệ số FID dựa trên cử chỉ (gesture), và xây dựng mã nguồn \hyperlink{https://github.com/GestureScore/GestureScore}{GestureScore} \footnote{Github/GestureScore: \url{https://github.com/GestureScore/GestureScore}} . Trong GestureScore, luận văn xây dựng một Inception V3 model, để mã hoá chuỗi khung hình $\bx^{1:M \times D}$ thành vector tiềm ẩn kích thước $32 \times 32$. Sử dụng vector này làm đầu vào cho \autoref{eq:fidscore}. Sau đây là \autoref{table:EvalFGD} đánh giá kết quả của mô hình OHGesture bằng GestureScore
+
+%$\uparrow$
+\begin{table}[H]
+	\centering
+	\begin{tabular}{lcc}
+		\hline
+		\multicolumn{1}{c}{Name} & FGD trên vector đặc trưng & \begin{tabular}[c]{@{}c@{}} FGD dữ liệu gốc \end{tabular} \\ \hline
+		Ground Truth             & -       & -          \\
+		Ours                     &       & \\
+		\quad OHGesture (Feature D=1141) & 2.058      & 9465.546 \\
+		\quad OHGesture (Rotations) & 3.513       & 9519.129 \\
+		\hline
+		
+	\end{tabular}
+	\caption{Kết quả đánh giá Fréchet Gesture Distance (FGD) trên $\bx^{1:M \times D}$ (từ frame 1 đến frame M, mỗi frame có D đặc trưng từng khung hình )}
+	%	\caption{Kết quả của các nghiên cứu loại bỏ (Ablation studies). "$-$" chỉ các mô-đun không được sử dụng và "$+$" chỉ các mô-đun bổ sung. Chữ in đậm chỉ ra chỉ số tốt nhất.}
+		\label{table:EvalFGD}
 \end{table}
 
+\begin{itemize}[]
+		\item \textbf{Vector đặc trưng}
+	Sử dụng tệp BVH để chuyển toàn bộ skeleton của mỗi khung hình thành vector đặc trưng $D = 1141 $ như công thức  \autoref{eq:gesturevector}
+	
+	\item  \textbf{Rotations}: Từ tệp BVH kết quả, luận văn trích xuất sự thay đổi của các góc quay (rotations), $D = 225$ ($225 = 75 \times 3$) của chuỗi cử chỉ với chiều dài mỗi đoạn là $M$ frame để đánh giá ở dòng OHGesture bên dưới. 
+	
+\end{itemize}
 
 \section{Xây dựng và tiêu chuẩn hoá hệ thống đánh giá kết quả sinh cử chỉ}
 

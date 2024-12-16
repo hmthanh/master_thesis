@@ -10,14 +10,16 @@
 		\item Gesture-style Appropriateness
 	\end{itemize}
 	
-	\textbf{FID (Fréchet Inception Distance)}: Sự tương đồng về phân phối của cử chỉ tạo sinh $\mathbf{g} \in \mathbb{R}^{1:M \times D}$ (generated) và $\mathbf{r} \in \mathbb{R}^{1:M \times D}$ (real)
+	\textbf{FGD (Fréchet Gesture Distance)}: 
+	Đề xuất GestureScore.
+	Sự tương đồng về phân phối của cử chỉ tạo sinh $\mathbf{g} \in \mathbb{R}^{1:M \times D}$ (generated) và $\mathbf{r} \in \mathbb{R}^{1:M \times D}$ (real)
 %	\vspace{-5mm}
 %	\begin{equation*}
 %		\operatorname{FID} = \left\| \mu_{\operatorname{real}} - \mu_{\operatorname{predict}} \right\|^2 + \operatorname{Tr} \left( \Sigma_{\operatorname{real}} + \Sigma_{\operatorname{predict}} - 2 \left( \Sigma_{\operatorname{real}} \Sigma_{\operatorname{predict}} \right)^{\frac{1}{2}} \right)
 %	\end{equation*}
 	
 	\begin{equation}
-	FID = \left\| \mu_r - \mu_g \right\|^2 + \operatorname{Tr}\left( \Sigma_r + \Sigma_g - 2\sqrt{\Sigma_r \Sigma_g} \right)
+	FGD = \left\| \mu_r - \mu_g \right\|^2 + \operatorname{Tr}\left( \Sigma_r + \Sigma_g - 2\sqrt{\Sigma_r \Sigma_g} \right)
 	\end{equation}
 	
 %\begin{itemize}
@@ -27,12 +29,12 @@
 %	\item $\text{Tr}\left( \Sigma_r + \Sigma_g - 2\sqrt{\Sigma_r \Sigma_g} \right)$ là trace của ma trận hiệp phương sai kết hợp, đo lường sự khác biệt giữa hai phân phối Gaussian.
 %\end{itemize}
 	
-	Trong đó
-	\begin{itemize}
-		\item $\mu$: Trung bình các đặc trưng của cử chỉ
-		\item $\Sigma$: Ma trận hiệp phương sai, $\operatorname{Tr}$ là tổng đường chéo chính.
-		\item $\sqrt{\Sigma_r \Sigma_g}$: Sự tương đồng giữa các phân phối.
-	\end{itemize}
+%	Trong đó
+%	\begin{itemize}
+%		\item $\mu$: Trung bình các đặc trưng của cử chỉ
+%		\item $\Sigma$: Ma trận hiệp phương sai, $\operatorname{Tr}$ là tổng đường chéo chính.
+%		\item $\sqrt{\Sigma_r \Sigma_g}$: Sự tương đồng giữa các phân phối.
+%	\end{itemize}
 	
 %	\begin{itemize}
 %		\item \textbf{FID thấp}: Cho thấy phân phối của cử chỉ sinh ra rất gần với phân phối của cử chỉ thực tế, tức là cử chỉ tổng hợp trông tự nhiên hơn.
@@ -41,19 +43,19 @@
 %	
 \end{frame}
 \begin{frame}{Kết quả}
-	\begin{columns}
-	\begin{column}{0.33\textwidth}
-		\includegraphics[width=\linewidth]{BoxHumanLikeness.pdf}
-	\end{column}
-	
-	\begin{column}{0.33\textwidth}
-		\includegraphics[width=\linewidth]{BoxSpeechAppropriateness.pdf}
-	\end{column}
-	
-	\begin{column}{0.33\textwidth}
-		\includegraphics[width=\linewidth]{BoxStyleAppropriateness.pdf}
-	\end{column}
-\end{columns}
+%	\begin{columns}
+%	\begin{column}{0.33\textwidth}
+%		\includegraphics[width=\linewidth]{BoxHumanLikeness.pdf}
+%	\end{column}
+%	
+%	\begin{column}{0.33\textwidth}
+%		\includegraphics[width=\linewidth]{BoxSpeechAppropriateness.pdf}
+%	\end{column}
+%	
+%	\begin{column}{0.33\textwidth}
+%		\includegraphics[width=\linewidth]{BoxStyleAppropriateness.pdf}
+%	\end{column}
+%\end{columns}
 
 %Thử nghiệm với các thành phần cấu trúc trong mô hình:	
 %

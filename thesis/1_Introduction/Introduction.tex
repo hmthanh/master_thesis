@@ -90,7 +90,7 @@ Các tệp BVH bao gồm hai thành phần chính: {HIERARCHY} và {MOTION}. HIE
 
 Dữ liệu chuyển động của cử chỉ như \autoref{fig:MotionPastAndFuture} hay phần MOTION của tệp BVH sẽ chứa thông tin về toạ độ và góc quay của một nhân vật theo từng khung hình. Dữ liệu mỗi khung hình là tập khung xương (skeleton) bao gồm $75$ xương (bone), $\{ \textbf{b}_{1}, \textbf{b}_{2}, \cdots , \textbf{b}_{75} \}$, mỗi xương thể hiện vị trí (position) $\{ p_{x}, p_{y}, p_{z} \}$ và góc quay (rotation) $\{ r_{x}, r_{y}, r_{z} \}$ chuyển động của một nhân vật theo thời gian.
 
-Kết quả của việc sinh cử chỉ (gesture generation) là sinh ra chuỗi chuyển động góc quay của nhân vật theo từng khung hình (frame). Việc sinh cử chỉ (gesture generation) được đánh giá bằng việc tạo ra các cử chỉ tự nhiên, giống con người (human-likeness) và phù hợp với ngữ cảnh.
+Kết quả của việc sinh cử chỉ (gesture generation) là sinh ra chuỗi chuyển động góc quay các xương của nhân vật theo từng khung hình (frame). Việc sinh cử chỉ (gesture generation) được đánh giá bằng việc tạo ra các cử chỉ tự nhiên, giống con người (human-likeness) và phù hợp với ngữ cảnh.
 
 Trong luận văn, các dữ liệu về vị trí và góc quay của khung xương nhân vật được tiền xử lý để chuyển thành một vector đặc trưng $\mathbf{g} \in \mathbb{R}^{D}$ với $D=1141$. Dữ liệu cần học khi đó sẽ là $\bx \in \mathbb{R}^{M \times D}$.
 
@@ -99,12 +99,12 @@ Quá trình xử lý dữ liệu được trình bày đầy đủ ở \autoref{
 \section{Phát biểu bài toán}
 \label{sec:ProblemStatement}
 
-Với kết quả cuối cùng là chuỗi cử chỉ thể hiện sự chuyển động của các khung xương theo từng khung hình, thì có rất nhiều phương pháp khác nhau. Trong luận văn này, sinh cử chỉ là  được cho bài toán hồi quy (regression), với đầu vào là một chuỗi cử chỉ cho trước và đầu ra là chuỗi cử chỉ tiếp theo cần dự đoán.
-
+Với kết quả cuối cùng là chuỗi cử chỉ thể hiện sự chuyển động của các khung xương theo từng khung hình, thì có rất nhiều phương pháp khác nhau như phương pháp học phân loại (classification), gom nhóm (clustering), hồi quy (regression), .. . Trong luận văn này, sinh cử chỉ là  được cho bài toán hồi quy (regression), tạo ra dữ liệu mới dựa trên mô hình sinh, với đầu vào là một chuỗi cử chỉ cho trước và đầu ra là chuỗi cử chỉ tiếp theo cần dự đoán.
+	
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{GestureSeries.jpg}
-	\caption{Minh hoạ một chuỗi cử chỉ, ta lấy $N$ frame đầu làm cử chỉ khởi tạo $\mathbf{s}$ (seed gesture) và $M$ khung hình còn lại làm cử chỉ để học}
+	\href{https://www.youtube.com/watch?v=B6nv1kQmi-Q}{\includegraphics[width=\linewidth]{FeatureProcessing}}
+	\caption{Minh hoạ một chuỗi cử chỉ, $N$ frame đầu được lấy làm cử chỉ khởi tạo $\mathbf{s}$ (seed gesture) và $M$ khung hình còn lại làm cử chỉ để học}
 	\label{fig:GestureSeries}
 \end{figure}
 
@@ -160,6 +160,7 @@ Kết quả dự đoán của mô hình là $\hat{\mathbf{x}} \in \mathbb{R}^{[1
 % \end{figure}
 
 \section{Các khó khăn cần giải quyết}
+\label{sec:difficult}
 
 Có rất nhiều khó khăn trong việc xây dựng một mô hình có thể học được các đặc trưng cử chỉ hội thoại như con người.
 

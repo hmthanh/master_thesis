@@ -44,123 +44,117 @@
 	\end{columns}
 \end{frame}
 
-
-
-\begin{frame}{Phát biểu bài toán}
-	%\frametitle{Group lasso \\[-0.3em] 
-		%{\footnotesize \textmd{(\eg, Yuan \& Lin; Meier, van de Geer, B\"uhlmann; Jacob, Obozinski, Vert)}}}
-	
-	
-	\begin{figure}[h]
-		\centering
-		\includegraphics[height=4.5cm]{GestureSeries}
-	\end{figure}
-	
-	\vspace{-10pt}
-	
+\begin{frame}
 	\begin{columns}
-		
 		\begin{column}{0.6\textwidth}
+			\centering
+			{\Large
+			$\{ \mathbf{b}_1, \cdots \mathbf{b}_{75} \}$}
+			\vspace{10pt}
 			
-			\textbf{Input}
-			\begin{itemize}
-				\item Chuỗi cử chỉ khởi tạo: $\mathbf{s} \in \mathbb{R}^{[1:N] \times D}$
-				\item Chuỗi âm thanh: $\mathbf{a}$
-				\item Văn bản: $\mathbf{v}$ 
-%				\in \mathbb{R}^{16000 M}
-				%			trích xuất đặc trưng MFCC: $\mathbf{a} \in \mathbb{R}^{M \times C_{\text{mfcc}}}$
-				\item Cảm xúc: $\mathbf{e}$ 
-				
-				{\small
-					(\texttt{Happy},  \texttt{Sad},  \texttt{Neutral}, \texttt{Angry}, \texttt{Old}, \texttt{Funny})
-				}
-				
-				
-%				 $\text{"Love what you do"}$
-			\end{itemize}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=.5\textwidth]{Bone}
+			\end{figure}
 			
+			\vspace{10pt}
+			{\Large
+				$\mathbf{b}_{i} = \{p_x, p_y, p_z, r_x, r_y, r_z\}$}
 		\end{column}
+		
 		\begin{column}{0.4\textwidth}
-			\textbf{Output}
-			\begin{itemize}
-				\item Chuỗi cử chỉ dự đoán: $\hat{\mathbf{x}} \in \mathbb{R}^{[1:M] \times D}$
-			\end{itemize}
-			
-			\textbf{Grouth Truth}
-			\begin{itemize}
-				\item Chuỗi cử chỉ gốc: $ \mathbf{x}  \in \mathbb{R}^{[1:M] \times D}$
-			\end{itemize}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=\textwidth]{Skeleton}
+			\end{figure}
 		\end{column}
+		
 	\end{columns}
 	
 \end{frame}
 
 %Dữ liệu cử chỉ cần học
 \begin{frame}
+		\begin{figure}[h]
+		\centering
+		\includegraphics[width=\textwidth]{GestureFrame}
+	\end{figure}
+	
+%{\large 
+\begin{equation*}
+\mathbf{g}^{[1:\operatorname{length}] \times 75 \times 6} \xrightarrow{ \text{Xử lý} }  \mathbf{g}^{[1: \operatorname{length}] \times D} \xrightarrow{ \text{Cắt} } \mathbf{g}^{[N + M] \times D}
+\end{equation*}
+
+%\textbf{Dữ liệu}
+%{\Large
+%	\begin{equation*}
+%		\mathbf{x}^{[1:M] \times D}
+%	\end{equation*}
+%}
+
+%\begin{itemize}
+%	\item $[1:M]$: từ frame $1$ đến frame thứ $M$
+%	\item Mỗi frame chứa đặc trưng $D$
+%	%				$D = 1141$
+%\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Phát biểu bài toán}
+%	\begin{figure}[h]
+%		\centering
+%		\includegraphics[height=4.5cm]{GestureSeries}
+%	\end{figure}
+ \vspace{-25pt}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.95\textwidth]{FeatureProcessing}
+	\end{figure}
+		\vspace{20pt}
 	\begin{columns}
-		\begin{column}{0.6\textwidth}
-			\textbf{Dữ liệu}
-			{\Large
-			\begin{equation*}
-				\mathbf{x}^{[1:M] \times D}
-			\end{equation*}
-		}
 		
-			\begin{itemize}
-				\item $[1:M]$: từ frame $1$ đến frame thứ $M$
-				\item Mỗi frame chứa đặc trưng $D$
-%				$D = 1141$
-			\end{itemize}
-			
-			
-			\textbf{Kiến trúc khung xương trong tệp BVH}
-			
-			\begin{itemize}
-				\item \textbf{Kiến trúc khung xương}:
-				\begin{itemize}
-					\item Khung xương $n_{\text{joins}} = 75$ : $\{ \mathbf{b}_1, \cdots \mathbf{b}_{75} \}$
-					\item Mỗi xương $\mathbf{b}_{i} = \{p_x, p_y, p_z, r_x, r_y, r_z\}$
-					
-%					\mathbf{B} =
-%					\small{(\texttt{Head}, \texttt{Spine}, \texttt{Hips}, \texttt{LeftArm},\texttt{RightArm}... )} \\
-%					Dữ liệu BVH: $\mathbf{b}_{i} = \{r_x, r_y, r_z\}$
-				\end{itemize}
-				\item \textbf{Chuyển động}:
-				\begin{itemize}
-					\item Chuyển động toàn bộ khung xương theo chuỗi frame có độ dài bất kỳ.
-				\end{itemize}
-%				\begin{figure}[h]
-%					\centering
-%					\includegraphics[width=0.9\textwidth]{BoneRotationSeries}
-%				\end{figure}
-			\end{itemize}
-			
-%			\textbf{Quá trình xử lý dữ liệu}
-			
-%			\textbf{Loại bài toán}: Hồi quy (regression)
-%			\begin{itemize}
-%				\item Cho trước $N$ khung hình (frame) cử chỉ, dự đoán $M$ khung hình tiếp theo tương ứng với âm thanh $\mathbf{a}$.
-%			\end{itemize}
+	\begin{column}{0.6\textwidth}
 		
-		\end{column}
+		\textbf{Input}
+		\begin{itemize}
+			\item Chuỗi cử chỉ khởi tạo: $\mathbf{s} \in \mathbb{R}^{[1:N] \times D}$
+			\item Chuỗi âm thanh: $\mathbf{a}$
+			\item Văn bản: $\mathbf{v}$ 
+%				\in \mathbb{R}^{16000 M}
+			%			trích xuất đặc trưng MFCC: $\mathbf{a} \in \mathbb{R}^{M \times C_{\text{mfcc}}}$
+			\item Cảm xúc: $\mathbf{e}$ 
+			
+			{\small
+				(\texttt{Happy},  \texttt{Sad},  \texttt{Neutral}, \texttt{Angry}, \texttt{Old}, \texttt{Funny})
+			}
+%				 $\text{"Love what you do"}$
+		\end{itemize}
 		
-			\begin{column}{0.4\textwidth}
-				\begin{figure}[h]
-					\centering
-					\includegraphics[width=\textwidth]{Skeleton}
-				\end{figure}
-		\end{column}
+	\end{column}
+
+	\begin{column}{0.4\textwidth}
+		\textbf{Output}
+		\begin{itemize}
+			\item Chuỗi cử chỉ dự đoán: $\hat{\mathbf{x}} \in \mathbb{R}^{[1:M] \times D}$
+		\end{itemize}
 		
-	\end{columns}
+		\textbf{Grouth Truth}
+		\begin{itemize}
+			\item Chuỗi cử chỉ gốc: $ \mathbf{x}  \in \mathbb{R}^{[1:M] \times D}$
+		\end{itemize}
+	\end{column}
+\end{columns}
 	
 \end{frame}
+
 
 
 
 \begin{frame}{Các công đoạn}
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=0.8\textwidth]{TotalStage2}
+		\includegraphics[width=\textwidth]{TotalStage}
 	\end{figure}
 \end{frame}
 
@@ -176,15 +170,17 @@
 	
 \end{frame}
 
+
+
 \begin{frame}{Đặc trưng dữ liệu của $1$ frame}
 	\begin{figure}
 		\centering
 		\includegraphics[width=\textwidth, height=60pt]{MotionXYZ.png}
-%		\caption{Minh hoạ chuyển động của góc quay một xương trong toạ độ}
+		%		\caption{Minh hoạ chuyển động của góc quay một xương trong toạ độ}
 	\end{figure}
 	\begin{equation}
-		\mathbf{g}^{[1]} = \Big[ \mathbf{p},  \mathbf{r},
-		\mathbf{ p }',  \mathbf{r}',
+		\mathbf{g}^{[1]} = \Big[ \mathbf{p}_{\text{root}},  \mathbf{r}_{\text{root}},
+		\mathbf{ p }'_{\text{root}},  \mathbf{r}'_{\text{root}},
 		\mathbf{p}_{\text{joins}},  \mathbf{r}_{\text{joins}},
 		\mathbf{p}'_{\text{joins}},  \mathbf{r}'_{\text{joins}},
 		\mathbf{d}_{\text{gaze}}
@@ -194,7 +190,7 @@
 	
 	{\small
 		\begin{itemize}
-			\item $\mathbf{p} \in \mathbb{R}^3$, $\mathbf{r} \in \mathbb{R}^4$: Toạ độ và góc quay của điểm gốc
+			\item $\mathbf{p}_{\text{root}} \in \mathbb{R}^3$, $\mathbf{r}_{\text{root}} \in \mathbb{R}^4$: Toạ độ và góc quay của điểm gốc
 			\item $\mathbf{p}'_{\text{root}} \in \mathbb{R}^3$, $\mathbf{r}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của toạ độ và góc quay gốc
 			%		\item : quay
 			%		Vận tốc thay đổi của góc quay gốc
@@ -230,40 +226,7 @@
 	
 \end{frame}
 
-\begin{frame}{Công đoạn 2: Xử lý đặc trưng}
-	%	Sử dụng mô hình Diffusion Classifier-Free Guidance (có điều kiện) với cử chỉ $\bx^{1:M \times D}$ làm $\bx_0$ và điều kiện $c = [{\mathbf{s}, \mathbf{a}, \mathbf{e}}, \mathbf{v}]$. $N = 8$, $M = 80 \sim \text{4 giây}$
-	%	\vspace{-15pt}
-	%	$N=8$ khung hình đầu làm khởi tạo và $M=80$ khung hình để dự đoán
 
-	
-%\textbf{Âm thanh}
-
-%Cử chỉ được chuẩn hoá $\mu( \mathbf{g}) = 0$ và $\sigma = 1$. $\bx_{i} = \frac{\bx_{i} - \mu}{\sigma}$.
-\begin{itemize}
-	\item \textbf{Cử chỉ}: Chuẩn hoá dữ liệu. $\mathbf{g}^{\operatorname{length}} \xrightarrow{ \text{Cắt thành đoạn} }$ $\mathbf{g}^{[N + M] \times D}$
-	\begin{itemize}
-		\item Cử chỉ khởi tạo: $\mathbf{s} \in \mathbb{R}^{[1:N] \times D}$
-		\item Cử chỉ ground truth: $\mathbf{x} \in \mathbb{R}^{[1:M] \times D}$
-	\end{itemize}
-		 
-	\item \textbf{Âm thanh}:  $\mathbf{a}^{\operatorname{length}} \xrightarrow{ \text{Cắt thành đoạn} } \mathbf{a}^{64000} \xrightarrow{\text{WavLM} } $ $\mathbf{a} \in \mathbb{R}^{[1:M] \times 1024}$
-		
-%	16000
-	\item \textbf{Cảm xúc}:   Nhãn $\texttt{"Happy"} \rightarrow$ $\mathbf{e} \in \mathbb{R}^{6}$
-		
-	\item \textbf{Văn bản}:  $\mathbf{v}^{\operatorname{length}} \xrightarrow{ \text{Cắt theo TextGrid} } \mathbf{v}^{[1:M]} \xrightarrow{ \text{FastText} } $ $\mathbf{v} \in \mathbb{R}^{[1:M] \times 300}$
-\end{itemize}
-
-	\begin{figure}
-	\centering
-	\includegraphics[width=0.95\textwidth]{FeatureProcessing}
-\end{figure}
-
-%\begin{itemize}
-%	\item $\mathbf{x}' = f_{\theta'}$
-%\end{itemize}
-	
-\end{frame}
 
 
 \begin{frame}{Thách thức của bài toán}
@@ -325,18 +288,17 @@
 		%	\end{columns}
 	\textbf{Quan hệ giữa dữ liệu cử chỉ và âm thanh}:
 	\begin{itemize}
-		\item Một đoạn cử có thể bao gồm nhiều âm thanh.
-		\item Mỗi âm thanh có thể tương ứng với nhiều đoạn cử chỉ khác nhau.
+		\item Quan hệ n:n của âm thanh, cử chỉ, cảm xúc.
 	\end{itemize}
 	%		Baseline: \textbf{MDM}  (Human Motion Diffusion Model)
 	\textbf{Khó khăn}
-	\begin{itemize}
+	\begin{enumerate}
 		\item Dữ liệu không đủ nhiều và chất lượng, chi phí cao
 		\item Không cân xứng về dữ liệu giữa các loại đăng trưng cần học (âm thanh, cử chỉ)
 		\item Thiếu đồng nhất của về ngữ cảnh của các loại dữ liệu
 		%				\item Quá trình sinh có thể dể điều khiển 
 		%			hơn GAN.
-	\end{itemize}
+	\end{enumerate}
 	%	$\rightarrow$  \textbf{DiffuseStyleGesture}: Diffusion cho bài toán sinh cử chỉ
 \end{frame}
 

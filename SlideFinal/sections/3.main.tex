@@ -12,6 +12,7 @@
 		\item Classifier-Free Diffusion với $\bx_0$ objective. Latent vector $256$.
 		\end{itemize}
 		
+		\pause
 		\textbf{Điểm khác}
 		
 		\begin{itemize}
@@ -24,6 +25,36 @@
 			\item Concat âm thanh và văn bản (Giống ControlNet)
 %			\item Học mối liên hệ giữa điều kiện và các frame bằng Local-Cross Attention
 		\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Công đoạn 2: Xử lý đặc trưng}
+	%	Sử dụng mô hình Diffusion Classifier-Free Guidance (có điều kiện) với cử chỉ $\bx^{1:M \times D}$ làm $\bx_0$ và điều kiện $c = [{\mathbf{s}, \mathbf{a}, \mathbf{e}}, \mathbf{v}]$. $N = 8$, $M = 80 \sim \text{4 giây}$
+	%	\vspace{-15pt}
+	%	$N=8$ khung hình đầu làm khởi tạo và $M=80$ khung hình để dự đoán
+	
+	\begin{figure}
+		\includegraphics[width=\textwidth]{TotalStage}
+	\end{figure}
+	%\textbf{Âm thanh}
+	
+	%Cử chỉ được chuẩn hoá $\mu( \mathbf{g}) = 0$ và $\sigma = 1$. $\bx_{i} = \frac{\bx_{i} - \mu}{\sigma}$.
+	\begin{itemize}
+		\item \textbf{Cử chỉ}: Chuẩn hoá dữ liệu. $\mathbf{g}^{\operatorname{length}} \xrightarrow{ \text{Cắt thành đoạn} }$ $\mathbf{g}^{[N + M] \times D}$
+		\begin{itemize}
+			\item Cử chỉ khởi tạo: $\mathbf{s} \in \mathbb{R}^{[1:N] \times D}$
+			\item Cử chỉ ground truth: $\mathbf{x} \in \mathbb{R}^{[1:M] \times D}$
+		\end{itemize} \pause
+		
+		\item \textbf{Âm thanh}:  $\mathbf{a}^{\operatorname{length}} \xrightarrow{ \text{Cắt thành đoạn} } \mathbf{a}^{64000} \xrightarrow{\text{WavLM} } $ $\mathbf{a} \in \mathbb{R}^{[1:M] \times 1024}$ \pause
+		
+		%	16000
+		\item \textbf{Cảm xúc}:   Nhãn $\texttt{"Happy"} \rightarrow$ $\mathbf{e} \in \mathbb{R}^{6}$ \pause
+		
+		\item \textbf{Văn bản}:  $\mathbf{v}^{\operatorname{length}} \xrightarrow{ \text{Cắt theo TextGrid} } \mathbf{v}^{[1:M]} \xrightarrow{ \text{FastText} } $ $\mathbf{v} \in \mathbb{R}^{[1:M] \times 300}$
+	\end{itemize}
+	
 \end{frame}
 
 \begin{frame}{Công đoạn 3. Trích xuất các đặc trưng}

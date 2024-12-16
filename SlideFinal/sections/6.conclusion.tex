@@ -2,11 +2,13 @@
 \section{Kết luận}
 
 \begin{frame}{Giải quyết các thách thức}
-		\begin{itemize}
-			\item Bằng việc dùng Cross-Local Attention và Self-Attention, chúng tôi giải quyết được quan hệ $1:n$ của cử chỉ và các điều kiện âm thanh, cảm xúc.
-			\item Mô hình Diffusion giúp mô hình có thể học được các đặc trưng có phân bố dữ liệu thật thấp.
-			\item Đảm bảo khả năng mở rộng (scalable) của hệ thống sinh cử chỉ để có thể ứng dụng trong thực tế.
-		\end{itemize}
+		\begin{enumerate}
+			\item Quan hệ $n:n$ cử chỉ, âm thanh $\rightarrow$ Cross-Local Attention và Self-Attention
+%			, chúng tôi giải quyết được quan hệ $1:n$ của cử chỉ và các điều kiện âm thanh, cảm xúc.
+			\item Không cân xứng các đặc trưng $\rightarrow$ Mô hình Diffusion giúp mô hình có thể học được các đặc trưng có phân bố dữ liệu thật thấp.
+%			\item Đảm bảo khả năng mở rộng (scalable) của hệ thống sinh cử chỉ để có thể ứng dụng trong thực tế.
+			\item Thiếu đồng nhất dữ liệu $\rightarrow$ sử dụng Huber Loss
+		\end{enumerate}
 \end{frame}
 
 \begin{frame}{Đóng góp chính}
@@ -17,15 +19,15 @@
 	\end{figure}
 	
 	\begin{itemize}
-		\item Transcribe âm thanh để có được văn bản (\textit{Công đoạn tiền xử lý}, \textit{xử lý đặc trưng} và \textit{kết hợp đặc trưng}), làm dữ liệu bổ sung trong Diffusion có điều kiện.
+		\item<1-> \textbf{Sử dụng đặc trưng văn bản}: Transcribe âm thanh để có được văn bản (\textit{Công đoạn tiền xử lý}, \textit{xử lý đặc trưng} và \textit{kết hợp đặc trưng}), làm dữ liệu bổ sung trong Diffusion có điều kiện. 
 		
-		\item Mở rộng mã nguồn chương trình: \hyperlink{https://github.com/hmthanh/OHGesture}{\textbf{github.com/OHGesture}}, Mô hình pretrain: \hyperlink{https://huggingface.co/openhuman/openhuman}{\textbf{Huggingface.co/openhuman}}
+		\item<2-> \textbf{Mở rộng mã nguồn}: \hyperlink{https://github.com/hmthanh/OHGesture}{github.com/OHGesture}, Mô hình pretrain: \hyperlink{https://huggingface.co/openhuman/openhuman}{Huggingface.co/openhuman}
 		
-		\item Giai đoạn Hệ thống trực quan hoá bằng Unity (\textit{Công đoạn Kết xuất}): \hyperlink{https://github.com/DeepGesture/deepgesture-unity}{\textbf{github.com/DeepGesture-Unity}}.
+		\item<3-> \textbf{Hệ thống trực quan hoá bằng Unity}: \hyperlink{https://github.com/DeepGesture/deepgesture-unity}{github.com/DeepGesture-Unity}.
 		
-		\item Genea Leaderboard: Paper xây dựng hệ thống chuẩn hoá
+		\item<4-> \textbf{Genea Leaderboard}: Paper xây dựng hệ thống chuẩn hoá
 		
-		\item Đánh giá cử chỉ bằng FID: \hyperlink{https://github.com/GestureScore/GestureScore}{\textbf{github.com/GestureScore}}.
+		\item<5-> \textbf{Đề xuất GestureScore} (Đánh giá cử chỉ bằng FGD): \hyperlink{https://github.com/GestureScore/GestureScore}{github.com/GestureScore}.
 	\end{itemize}
 \end{frame}
 

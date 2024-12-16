@@ -1,11 +1,19 @@
 \chapter{TỔNG QUAN}
 \label{Chapter2}
 
-Bài toán sinh cử chỉ cũng tương tự như các bài toán khác đều đã nghiên cứu và phát triển song hành với các phương pháp học máy truyền thống và hiện đại. Gồm các nhóm phương pháp dựa trên luật và các phương pháp dựa trên dữ liệu.  Đầu tiên luận văn chứng minh mối quan hệ giữa cử chỉ và giọng nói \autoref{sec:relationspeechandgesture}, từ đó là tiền đề thể hiện sự đồng bộ về dữ liệu giữa cử chỉ và giọng nói và việc học mối quan hệ giữa cử chỉ và giọng nói có ý nghĩa. Trong mục \autoref{sec:commonstage} Luận văn sẽ trình bày về các công đoạn chung trong các phương pháp sinh cử chỉ.
+Bài toán sinh cử chỉ cũng tương tự như các bài toán khác đều đã nghiên cứu và phát triển song hành với các phương pháp học máy truyền thống và hiện đại. Gồm các nhóm phương pháp dựa trên luật và các phương pháp dựa trên dữ liệu.  Đầu tiên luận văn 
+%chứng minh mối quan hệ giữa cử chỉ và giọng nói
+trình bày về các đặc điểm của cử chỉ
+ \autoref{sec:relationspeechandgesture}, từ đó là tiền đề 
+%thể hiện sự đồng bộ về dữ liệu giữa cử chỉ và giọng nói và 
+cho việc học mối quan hệ giữa cử chỉ, văn bản và giọng nói 
+%có ý nghĩa. 
+. Trong mục \autoref{sec:commonstage} Luận văn sẽ trình bày về các công đoạn chung trong các phương pháp sinh cử chỉ.
 Ở phần \autoref{sec:relatedwork} luận văn trình bày về các phương pháp đã được sử dụng trong quá trình sinh cử chỉ. Luận văn sẽ so sánh các phương pháp, từ đó nêu lý do luận văn sử dụng mô hình diffusion để áp dụng cho bài toán sinh cử chỉ.
 Trong phần \autoref{sec:diffusionbase}, luận văn sẽ trình bày về cách các mô hình diffusion được áp dụng cho bài toán sinh cử chỉ gần đây.
 
-\section{Mối quan hệ giữa cử chỉ và giọng nói}
+%Mối quan hệ giữa cử chỉ và giọng nói
+\section{Đặc điểm của cử chỉ}
 \label{sec:relationspeechandgesture}
 
 Theo ngôn ngữ học, cử chỉ có thể được phân thành 6 nhóm chính: cử chỉ thích nghi (adaptors), cử chỉ biểu tượng (emblems), cử chỉ chỉ định (deictics), cử chỉ biểu trưng (iconics), cử chỉ ẩn dụ (metaphorics), và cử chỉ nhấn mạnh (beat) \cite{ekman1969repertoire}, \cite{sebeok2011advances}. Trong số đó, cử chỉ nhấn mạnh không mang ý nghĩa ngữ nghĩa trực tiếp nhưng đóng vai trò quan trọng trong việc đồng bộ nhịp điệu giữa giọng nói và cử chỉ \cite{kipp2005gesture}, \cite{sebeok2011advances}. Tuy nhiên, nhịp điệu giữa giọng nói và cử chỉ nhấn mạnh không hoàn toàn đồng bộ, khiến việc học mối quan hệ thời gian giữa chúng trở nên phức tạp \cite{mcclave1994gestural}, \cite{bhattacharya2021speech2affectivegestures}, \cite{kucherenko2020gesticulator}, \cite{yoon2020speech}.
@@ -30,7 +38,7 @@ Dựa trên việc xây dựng các quy tắc hoặc luật rõ ràng, các quy 
 \subsubsection{Phương pháp}
 
 Tiêu biểu cho phương pháp dựa trên luật là \textit{Robot behavior toolkit} \cite{huang2012robot} và  \textit{Animated conversation} \cite{cassell1994animated}.
-Phương pháp dựa trên luật thường ánh xạ (mappings) từng giọng nói với từng đơn vị cử chỉ, với các luật được tạo thủ công. Phương pháp dựa trên luật thì chúng ta có thể dễ dàng điều khiển kết quả của mô hình và có khả năng giải thích tốt kết quả dự đoán của mô hình.
+Phương pháp dựa trên luật thường ánh xạ (mappings) từng giọng nói với từng đơn vị cử chỉ, với các luật được tạo thủ công. Phương pháp dựa trên luật thì dễ dàng điều khiển kết quả của mô hình và có khả năng giải thích tốt kết quả dự đoán của mô hình.
 Tuy nhiên chi phí để tạo thủ công là không khả thi để xây dựng cho các ứng dụng phức tạp đòi hỏi phải xử lý một lượng dữ liệu rất lớn.
 
 \subsection{Phương pháp dựa trên thống kê}
@@ -43,8 +51,7 @@ Dựa vào phân tích dữ liệu, học từ các mẫu trong tập dữ liệ
 
 Tương tự như phương pháp dựa trên luật, phương pháp dựa trên dữ liệu cũng ánh xạ các đặc trưng của giọng nói tương ứng với cử chỉ nhưng thay vì làm thủ công thì được sử dụng học một cách tự động dựa trên các phân tích thông kê của dữ liệu.
 
-Tiêu biểu của phương pháp thống kê là \textit{Gesture controllers} \cite{levine2010gesture}, \textit{Statistics-based} \cite{yang2020statistics}, \textit{Gesture modeling}  \cite{neff2008gesture}
-Phương pháp thống kê sử dụng phân phối xác suất để tìm sự tương đồng giữa các đặc trưng giọng nói và cử chỉ. \textit{Gesture modeling} xây dựng mô hình để học từng phong cách của từng người nói.
+Tiêu biểu của phương pháp thống kê là \textit{Gesture controllers} \cite{levine2010gesture}, \textit{Statistics-based} \cite{yang2020statistics}, các phương pháp này sử dụng phân phối xác suất để tìm sự tương đồng giữa các đặc trưng giọng nói và cử chỉ. \textit{Gesture modeling}  \cite{neff2008gesture} xây dựng mô hình xác xuất để học từng phong cách của từng người nói.
 
 \subsection{Phương pháp học sâu}
 
@@ -52,7 +59,6 @@ Phương pháp thống kê sử dụng phân phối xác suất để tìm sự 
 
 Sử dụng mạng nơ-ron nhân tạo nhiều tầng (deep neural networks) để tự động trích xuất đặc trưng từ dữ liệu thô và học các biểu diễn phức tạp của dữ liệu. Mô hình học thông qua tối ưu hóa các tham số.
 
-\setcounter{figure}{3}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{GeneralOverview}
@@ -62,35 +68,87 @@ Sử dụng mạng nơ-ron nhân tạo nhiều tầng (deep neural networks) đ�
 
 Phương pháp sinh cử chỉ bằng học sâu minh hoạ ở \autoref{fig:GeneralOverview} được chia thành hai nhóm chính: học dựa trên ước lượng log likelihood (likelihood-based model)  và phương pháp dựa vào các mô hình sinh ngầm định (implicit generative models) \cite{song2021score}.
 
-\subsubsection{Mô hình học dựa trên Log Likelihood}
+\subsubsection{Mô hình dựa trên likelihood}
 
-\textbf{Nguyên lý chung của mô hình dựa trên Log Likelihood}
+\textbf{Nguyên lý chung của mô hình dựa trên likelihood}
 
-Phương pháp học ước lượng log likelihood là phương pháp học trực tiếp từ hàm mật độ xác xuất (probability density) thông qua maximum likelihood. Các phương pháp điển hình là autoregressive models, normalizing flow models, energy-based models (EBMs)
-, và variational auto-encoders (VAEs).
+Mô hình dựa trên Log Likelihood hoạt động bằng cách tối đa hóa xác suất hợp lý của dữ liệu quan sát được, dựa trên các tham số $\theta$ của mô hình. Mục tiêu là tìm được tham số tối ưu $\theta'$ dựa trên xác xuất $p(\mathbf{x})$ của dữ liệu, trong đó $\mathbf{x}$ là dữ liệu chuỗi cử chỉ.
+%$\mathcal{L} = \sum_{i=1}^N \log P(\mathbf{x}^{[1:M]} \mid \theta)$
 
-%Phương pháp học sâu sử dụng mạng nơ-ron (neural) thông qua nhiều lớp ẩn để học một cách tự động các phối xác xuất giữa cử chỉ và giọng nói.
+%Phương pháp học ước lượng log likelihood là phương pháp học trực tiếp từ hàm mật độ xác xuất (probability density) thông qua maximum likelihood. Các phương pháp điển hình là autoregressive models, normalizing flow models, energy-based models (EBMs)
+%, và variational auto-encoders (VAEs).
+
 
 \textbf{Phương pháp}
 
-Mô hình được kết hợp với văn bản đầu vào được gắn thẻ với chủ đề, trọng tâm câu và thành ngữ để tạo ra các kịch bản cử chỉ, sau đó được ánh xạ sang một chuỗi các cử chỉ được chọn từ một từ điển hoạt họa. \cite{chiu2015predicting} huấn luyện một model classifier neural network để chọn một đơn vị cử chỉ phù hợp dựa trên đầu vào là giọng nói. 
-%Nghiên cứu gần đây đã bắt đầu tận dụng học sâu và huấn luyện các mô hình kết thúc đến cuối sử dụng dữ liệu cử chỉ thô trực tiếp, giải phóng các nỗ lực thủ công trong thiết kế từ điển cử chỉ và các quy tắc ánh xạ.
+Quá trình áp dụng các phương pháp học sâu vào bài toán sinh cử chỉ cũng tương đồng với sự phát triển của các phương pháp học sâu, từ RNN, LSTM và Transformer .v.v.. Các phương pháp tiêu biểu trong nhóm phương pháp dựa trên likelihood:
 
-Cử chỉ có thể được tổng hợp bằng các mô hình xác định như perceptron đa tầng (MLP) \cite{kucherenko2020gesticulator}, recurrent neural networks \cite{bhattacharya2021speech2affectivegestures}, \cite{liu2022learning}, \cite{hasegawa2018evaluation}, \cite{yoon2020speech}, convolutional networks \cite{habibie2021learning} và transformer \cite{bhattacharya2021text2gestures} 
+\begin{itemize}[]
+	\item Phương pháp \textit{Gesticulator} \cite{kucherenko2020gesticulator} sử dụng kiến trúc Multilayer Perceptron (MLP) để mã hóa đặc trưng văn bản và âm thanh, sử dụng vector văn bản từ BERT làm vector đặc trưng cho văn bản. 
+	
+	\item Trong \textit{HA2G} \cite{liu2022learning} dựa trên kiến trúc Transformer xây dựng một mô hình phân cấp (hierarchical) để học các tương quan ở nhiều cấp độ giữa lời nói và cử chỉ, từ các đặc trưng cục bộ (local) đến toàn cục (global). 
+	
+	\item \textit{Gesture Generation from Trimodal Context} \cite{yoon2020speech} dựa trên kiến trúc RNN, coi việc sinh cử chỉ là bài toán dịch trong xử lý ngôn ngữ. 
+	
+	\item \textit{DNN} \cite{chiu2015predicting} sử dụng LSTM kết hợp GRU để xây dựng mô hình phân loại (classifier neural network) từng đơn vị cử chỉ để chọn một đơn vị cử chỉ phù hợp dựa trên đầu vào là giọng nói. 
+	
+	\item \textit{Cascaded Motion Network (CaMN)} \cite{liu2022beat} đề xuất tập dữ liệu BEAT đồng thời đề xuất mô hình giống như thác nước, các thông tin về người nói, nhãn cảm xúc, văn bản, giọng nói và cử chỉ được đi qua các lớp để trích xuất đặc trưng để được các vector tiềm ẩn. Trong giai đoạn kết hợp các đặc trưng, mô hình CaMN kết hợp các đặc trưng theo hình thác nước, lần lượt kết hợp các đặc trưng người nói và cảm xúc, và tiếp tục kết hợp với các vector tiềm ẩn của văn bản, giọng nói và cử chỉ.
+	
+	\item \textbf{Motion Graph} : Trong phương pháp \textit{Gesturemaster} \cite{zhou2022gesturemaster}, mô hình xây dựng đồ thị ngữ nghĩa, từ trong câu được kết nối trong một đồ thị, nơi các liên kết biểu thị quan hệ ngữ nghĩa giữa chúng. Dựa trên thông tin đồ thị, mô hình chọn các đỉnh (node) và cạnh (edges) có sự tương đồng nhất để biểu diễn cử chỉ. 
+	
+\end{itemize}
+
+
+
+
+%Phương pháp \textit{Speech-driven 3D Conversational Gestures from Video} \cite{habibie2021learning}, tác giả sử dụng một mạng GAN để học chuyển động của cử chỉ tương ứng với giọng nói.
+%Nghiên cứu gần đây đã bắt đầu tận dụng học sâu và huấn luyện các mô hình kết thúc đến cuối sử dụng dữ liệu cử chỉ thô trực tiếp, giải phóng các nỗ lực thủ công trong thiết kế từ điển cử chỉ và các quy tắc ánh xạ.
+%Graph Neural Networks for Multimodal Speech-to-Gesture Synthesis
+
+%Cử chỉ có thể được tổng hợp bằng các mô hình xác định như perceptron đa tầng (MLP) \cite{kucherenko2020gesticulator}, 
+
+%recurrent neural networks \cite{bhattacharya2021speech2affectivegestures}, , \cite{hasegawa2018evaluation}, \cite{yoon2020speech}, convolutional networks \cite{habibie2021learning} và transformer \cite{bhattacharya2021text2gestures} 
 
 \subsubsection{Mô hình sinh ngầm định}
+\label{sec:ImplicitGenerativeModels}
 %Implicit Generative Models
 
 \textbf{Nguyên lý}
 
-Mô hình sinh ngầm định học phân phối dữ liệu mà không cần biểu diễn tường minh hàm mật độ xác suất. Thay vì trực tiếp tính xác suất, các mô hình này học thông qua so khớp phân phối giữa dữ liệu thật và dữ liệu sinh ra. Ví dụ tiêu biểu nhất là mô hình generative adversarial networks (GANs). Khi dữ liệu được tổng hợp bằng cách chuyển phân phối dữ liệu ban đầu ở dạng phân phối chuẩn về phân phối của dữ liệu.
+
+
+
+Mô hình sinh ngầm định học phân phối dữ liệu mà không cần biểu diễn tường minh hàm mật độ xác suất $p(\bx)$. Thay vì trực tiếp tính xác suất $p(\bx)$, mô hình sẽ học một ánh xạ $G_{\theta}: \mathcal{Z} \to \mathcal{X}$ thông qua so khớp phân phối giữa dữ liệu thật và dữ liệu sinh ra $\mathbf{x} = G_\theta(\mathbf{z}), \quad \mathbf{z} \sim p_z(\mathbf{z})$.  Trong đó $\mathcal{Z}$ là không gian nhiễu đầu vào, thường có phân phối đơn giản \(p_{z}\) (ví dụ: Gaussian, Uniform). \(\mathcal{X}\) là không gian dữ liệu thực, là chuỗi cử chỉ \(\mathbf{x}\). 
+
+Trong bài toán sinh cử chỉ, để kết hợp thêm các điều kiện về giọng nói, nhãn văn bản, các mô hình sinh ngầm định thường kết hợp thêm điều kiện $\mathbf{c}$, với điều kiện là ngữ cảnh của bài toán để có được kết quả sinh: $\mathbf{x} = G_\theta(\mathbf{z}, \mathbf{c})$. Ngữ cảnh của bài toán có thể bao gồm giọng nói, văn bản, mã định danh người nói, phong cách, cảm xúc hay cử chỉ khởi tạo.
+
+%
+Ví dụ tiêu biểu nhất là mô hình generative adversarial networks (GANs) và Diffusion. Khi dữ liệu được tổng hợp bằng cách chuyển phân phối dữ liệu ban đầu ở dạng phân phối chuẩn về phân phối của dữ liệu.
+
+\textbf{Phương pháp} 
+
+Các phương pháp tiêu biểu cho mô hình sinh ngầm định là 
+
+\begin{itemize}
+	\item \textit{MoGlow} \cite{henter2020moglow} sử dụng Normalizing Flows được sử dụng để duy trì tính nhất quán và tính tương thích của chuyển động, đồng thời cung cấp khả năng điều khiển thông qua các thông số đầu vào. Điều này cho phép người dùng tạo ra các chuyển động mới hoặc thay đổi các chuyển động hiện có bằng cách thay đổi các thông số điều khiển.
+	
+	\item \textbf{GAN}: \textit{GRU-based WGAN} \cite{wu2021probabilistic} sử dụng Wasserstein GAN để đánh giá và cải thiện chất lượng của việc tổng hợp cử chỉ, mô hình tập trung vào việc tối ưu hóa hàm mất mát Wassserstein, giúp giảm tình trạng chảy đặc (mode collapse) thường gặp trong GAN truyền thống. GRU được sử dụng để xử lý dữ liệu lời nói và biến nó thành các đặc trưng cử chỉ có thể sử dụng được. Sau đó, những đặc trưng này được cung cấp vào mạng WGAN, nơi chúng sẽ được đánh giá và tinh chỉnh để tổng hợp cử chỉ.
+	
+	\item \textbf{VAE}:  \textit{FreeMo} \cite{xu2022freeform} sử dụng VAE để phân rã (decomposing) các cử chỉ thành tư thế cử chỉ (pose modes) và giai điệu chuyển động (rhythmic motions). Tư tế cử chỉ được sinh ra ngẫu nhiên sử dụng quá trình lấy mẫu có điều kiện trong không gian ẩn của VAE. Trong khi các giai điệu chuyển động được sinh ra từ 
+	
+	\item \textbf{VQ-VAE} \textit{Rhythmic Gesticulator} \cite{ao2022rhythmic} tiền xử lý các đoạn giọng nói theo nhịp điệu (beats) để tách giọng nói thành các đoạn nhỏ, và biểu diễn chúng thành các khối theo kích thước chuẩn hoá (normalization). Tương tự phương pháp VQ-VAE, các chuỗi cử chỉ đã chuẩn hoá sẽ được lượng tử hoá (quantization) thành các vùng không gian khác nhau của cử chỉ được gọi là các từ vựng cử chỉ (gesture lexicon). Mô hình học từ vựng cử chỉ (gesture lexicon) từ khối chuẩn hoá trên với điều kiện là cử chỉ trước đó, phong cách cử chỉ và giọng nói. Sau đó mô hình tái tạo lại từ quá trình chuẩn hoá (denormalization) để có được chuỗi cử chỉ ban đầu. Khác với mô hình sinh ngầm định như GANs hay Diffusion, VQ-VAE thường tập trung vào việc nén dữ liệu hơn là sinh dữ liệu trực tiếp.
+	
+	\item \textbf{Diffusion}:  Mô hình Diffusion tập trung vào việc tạo ra dữ liệu mới từ trạng thái nhiễu, phục hồi ngược lại dữ liệu gốc. Các phương pháp dựa trên Diffusion sẽ được trình bày ở mục \autoref{sec:diffusionbase}
+	
+\end{itemize}
+
 
 
 %Trong các phương pháp dựa vào mô hình sinh ngầm định, phân phối của dữ liệu được học một cách ngầm định thông qua việc quá trình lấy mẫu (sampling). 
 
 \subsection{So sánh các phương pháp sinh cử chỉ}
 
-\begin{table}[h!]
+\begin{table}[H]
 	\small
 	\centering
 	\renewcommand{\arraystretch}{1.5} % Tăng khoảng cách giữa các hàng
@@ -104,26 +162,28 @@ Mô hình sinh ngầm định học phân phối dữ liệu mà không cần bi
 			- Hiệu quả trong các trường hợp đơn giản hoặc dữ liệu nhỏ. & 
 			- Không tổng quát hoá tốt với dữ liệu phức tạp. \newline 
 			- Đòi hỏi nhiều công sức trong việc xây dựng quy tắc thủ công. & 
-			Rule-Based  \\ \hline
+			Mô hình dựa trên luật  \\ \hline
 			MLP \cite{kucherenko2020gesticulator}, RNN \cite{bhattacharya2021speech2affectivegestures}, \cite{liu2022learning}, \cite{hasegawa2018evaluation}, \cite{yoon2020speech}, CNN \cite{habibie2021learning}, Transformer \cite{bhattacharya2021text2gestures}  & 
 			- Khả năng ước lượng mật độ xác suất của dữ liệu \newline 
 			- Có khả năng mở rộng và học từ dữ liệu lớn & 
 			- Dễ bị ảnh hưởng bởi nhiễu \newline 
 			- Kết quả thấp ở vùng dữ liệu hiếm \newline
 			- Khả năng sinh không đa dạng & 
-			Likelihood-Based Models \\ \hline
-			\textbf{DiffusionStyle-Gesture} \cite{yang2022DiffuseStyleGestureplus}, MDM \cite{tevet2022human}, Motiondiffuse \cite{zhang2022motiondiffuse} &
+			Mô hình dựa trên Likelihood \\ \hline
+			\textbf{DiffusionStyle-Gesture} \cite{yang2023diffusestylegesture}, MDM \cite{tevet2022human}, Motiondiffuse \cite{zhang2022motiondiffuse} &
 			- Tạo ra dữ liệu chất lượng cao. \newline 
 			- Linh hoạt và đa dạng \newline
 			- Phủ được vùng có mật độ dữ liệu thấp & 
 			- Cần cấu hình phức tạp để đạt hiệu năng tốt. \newline 
-			- Khó đánh giá do mỗi lần nhiễu là khác nhau. \newline 
+			- Mỗi lần lấy nhiễu ngẫu nhiên là khác nhau. \newline 
 			- Quá trình lấy mẫu chậm & 
-			Implicit Generative Models \\ \hline
+			Mô hình sinh ngầm định\\ \hline
 		\end{tabular}
 	}
 	\caption{Bảng so sánh ưu và nhược điểm của các phương pháp}
+	\label{table:CompareMethod}
 \end{table}
+%Rule-Based
 
 %Trong mục tiêu theo luận văn sẽ trình bày các phương pháp sử dụng mô hình Diffusion.
 
