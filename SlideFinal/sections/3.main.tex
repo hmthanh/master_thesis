@@ -45,12 +45,15 @@
 		\begin{itemize}
 			\item Cử chỉ khởi tạo: $\mathbf{s} \in \mathbb{R}^{[1:N] \times D}$
 			\item Cử chỉ ground truth: $\mathbf{x} \in \mathbb{R}^{[1:M] \times D}$
-		\end{itemize} \pause
+		\end{itemize}
+%		 \pause
 		
-		\item \textbf{Âm thanh}:  $\mathbf{a}^{\operatorname{length}} \xrightarrow{ \text{Cắt thành đoạn} } \mathbf{a}^{64000} \xrightarrow{\text{WavLM} } $ $\mathbf{a} \in \mathbb{R}^{[1:M] \times 1024}$ \pause
+		\item \textbf{Âm thanh}:  $\mathbf{a}^{\operatorname{length}} \xrightarrow{ \text{Cắt thành đoạn} } \mathbf{a}^{64000} \xrightarrow{\text{WavLM} } $ $\mathbf{a} \in \mathbb{R}^{[1:M] \times 1024}$ 
+%		\pause
 		
 		%	16000
-		\item \textbf{Cảm xúc}:   Nhãn $\texttt{"Happy"} \rightarrow$ $\mathbf{e} \in \mathbb{R}^{6}$ \pause
+		\item \textbf{Cảm xúc}:   Nhãn $\texttt{"Happy"} \rightarrow$ $\mathbf{e} \in \mathbb{R}^{6}$ 
+%		\pause
 		
 		\item \textbf{Văn bản}:  $\mathbf{v}^{\operatorname{length}} \xrightarrow{ \text{Cắt theo TextGrid} } \mathbf{v}^{[1:M]} \xrightarrow{ \text{FastText} } $ $\mathbf{v} \in \mathbb{R}^{[1:M] \times 300}$
 	\end{itemize}

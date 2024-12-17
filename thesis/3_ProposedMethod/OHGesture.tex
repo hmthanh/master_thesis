@@ -66,7 +66,7 @@ Trong đó $\bx_0$ là chuỗi $M$ khung hình cử chỉ $\mathbf{x} \in \mathb
 %Với đầu vào bao gồm cử chỉ khởi tạo $x_{\text{seed}}$, giọng nói $a$ và văn bản $t$.
 % với biến tiềm ẩn   (diffusion latent variable)
 Mục tiêu của mô hình là học được tham số $\theta$ của hàm $G_{\theta}$ (\textbf{g}enerative) với đầu vào là ma trận cử chỉ $\bx^{1:M \times D}_t$, bước thời gian $t$ và điều kiện $c$.
-Tương tự mô hình diffusion cơ bản bao gồm hai quá trình: quá trình tạo nhiễu (diffusion) $q$ và quá trình khử nhiễu (denoising process) $p_{\theta}$ với trọng số $\theta$. Tổng quan của mô hình đề xuất \textbf{OHGesture} được minh hoạ ở hình \autoref{fig:TrainingAndSampling}.
+Tổng quan của mô hình đề xuất \textbf{OHGesture} được minh hoạ ở hình \autoref{fig:TrainingAndSampling}. Tương tự mô hình diffusion cơ bản bao gồm hai quá trình: quá trình tạo nhiễu (diffusion) $q$ và quá trình khử nhiễu (denoising process) $p_{\theta}$ với trọng số $\theta$. Công đoạn \textit{1. Tiền xử lý} sẽ được trình bày ở \autoref{sec:Preprocessing}.
 
 \subsection{Công đoạn xử lý đặc trưng}
 Trong công đoạn \textit{2. Xử lý đặc trưng} (\autoref{fig:CommonStage}), mục tiêu là chuyển dữ liệu  thành các ma trận hoặc vector trước khi đưa vào mô hình.
@@ -75,7 +75,7 @@ Trong công đoạn \textit{2. Xử lý đặc trưng} (\autoref{fig:CommonStage
 	\item \textbf{Văn bản} (Text):
 		Như đã trình bày trong \autoref{subsec:TypicalMethod}, \textit{MDM} \cite{tevet2022human}, \textit{DiffuseStyleGesture+} \cite{yang2022DiffuseStyleGestureplus} trong công đoạn này sử dụng các đoạn văn bản mô tả cử chỉ như là Prompt của Midjourney làm đầu vào cho mô hình, tuy nhiên văn bản mô tả được dùng để phân cụm từng cử chỉ. Trong khi mục tiêu của luận văn là sử dụng văn bản như là một đặc trưng ngữ nghĩa, để căn chỉnh từng đoạn văn bản tương ứng với  từng đoạn cử chỉ phục vụ cho việc xây dựng người kỹ thuật số.
 		
-		Vì vậy, trong công đoạn này đóng góp của luận văn là dựa trên dữ liệu tiếng nói có sẵn sử dụng Adobe Speech To Text để chuyển giọng nói thành văn bản, sử dụng Montreal Forced Aligner \cite{saxon2020robust} để căn chỉnh được thời gian tương ứng với số frame của cử chỉ để thu được các TextGrid. Trong TextGrid sẽ có thời gian tương ứng với từng từ, dựa trên thông tin này, FastText  \cite{bojanowski2017enriching} được  sử dụng để nhúng (embedding) văn bản thành các vector theo thời gian, với các vùng không có văn bản sẽ được cho là ma trận $\mathbf{0}$, các vùng có từ vựng tương ứng sẽ được gán là giá trị nhúng  theo từng khung hình của cử chỉ để được ma trận văn bản $\mathbf{v}^{1:M \times 300}$.
+		Vì vậy, trong công đoạn này đóng góp của luận văn là dựa trên dữ liệu tiếng nói có sẵn, sau khi tiền xử lý ở \autoref{sec:Preprocessing} để thu được văn bản,  luận văn sử dụng mô hình FastText  \cite{bojanowski2017enriching} để nhúng (embedding) văn bản thành các vector căn chỉnh tương ứng với số frame tương ứng với cử chỉ. Với các vùng không có văn bản sẽ được cho là ma trận $\mathbf{0}$, các vùng có từ vựng tương ứng sẽ được gán là giá trị nhúng  theo từng khung hình của cử chỉ để được ma trận văn bản $\mathbf{v}^{1:M \times 300}$.
 		
 		\item \textbf{Giọng nói} (Speech): Tất cả dữ liệu giọng nói ở dạng wav sẽ được giảm số sample rate (down sampled) xuống $16 \mathrm{kHz}$, và giọng nói sẽ được lấy tương ứng với cử chỉ là 4s để được vector $\mathbf{a} \in \mathbb{R}^{64000}$. Tương tự DiffuseStyleGesture, luận văn sử dụng mô hình pre-train WavLM Large \cite{Chen_2022} nhúng waveform thô vào để được vector thể hiện đặc trưng âm thanh. Sau đó sử dụng nội suy tuyến tính (interpolation) để căn chỉnh đặc trưng của vector tiềm ẩn trong WavLM theo chiều thời gian thành $20 \text{fps}$ để được ma trận giọng nói $\mathbf{a} \in \mathbb{R}^{1:M \times 1024}$
 		
@@ -135,7 +135,9 @@ Trong công đoạn \textit{3. Trích xuất đặc trưng} (\autoref{fig:Common
 
 Trong công đoạn \textit{4. Mã hoá đặc trưng} (\autoref{fig:CommonStage}), mục tiêu là giảm số chiều của dữ liệu xuống kích thước thấp hơn, nhằm giảm việc bùng nổ khối lượng tính toán.
 
-Với dữ liệu chính trong quá trình Diffusion chính là chuỗi cử chỉ $\bx_t \in \mathbb{R}^{1:M \times D}$, mô hình sẽ dùng một lớp tuyến tính (linear layer) để giảm kích thước chuỗi cử chỉ xuống còn $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$. Quá trình này minh hoạ ở  \autoref{fig:OHGesture}.
+Với dữ liệu chính trong quá trình Diffusion chính là chuỗi cử chỉ $\bx_t \in \mathbb{R}^{1:M \times D}$. Như minh hoạ ở \autoref{fig:OHGesture}, chuỗi cử chỉ với kích thước $M \times D$ sẽ đi qua lớp $\operatorname{Linear}_{\theta}$ để được ma trận $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$. Quá trình giảm chiều dữ liệu của $\bx$ sẽ được thực hiện trước khi chuỗi cử chỉ $\bx$ đi qua các lớp Cross-Local Attention và Transformer Encoder để tính sự tương quan giữa nhiều loại dữ liệu khác nhau.
+
+%sau khi kết hợp tất cả các đặc trưng như âm thanh, cử chỉ khởi tạo, cảm xúc và văn bản thành một ma trận biểu thị thông tin của một frame. Luận văn sẽ dùng một lớp tuyến tính ($\operatorname{Linear}_{\theta}$) để giảm kích thước chuỗi cử chỉ xuống còn $\mathbf{h} \in \mathbb{R}^{1:M \times 256}$. Quá trình này minh hoạ ở lớp Cross-Local Attention  
 
 \subsection{Công đoạn kết hợp đặc trưng}
 %Áp dụng cơ chế Attention cho bài toán sinh cử chỉ
@@ -148,24 +150,48 @@ Với dữ liệu chính trong quá trình Diffusion chính là chuỗi cử ch�
 
 Trong công đoạn \textit{5. Kết hợp đặc trưng} (\autoref{fig:CommonStage}), mục tiêu là sử dụng các phép concat, cộng hoặc các lớp attention để tính sự tương quan giữa các đặc trưng.
 
-Trong mô hình của luận văn, mục tiêu của việc áp dụng cơ chế attention là tìm được sự tương quan của từng khung hình với nhau.
-
 %, vì vậy phương pháp của luận văn là biểu diễn các đặc trưng của từng khung hình bằng các vector đặc trưng riêng lẻ, và với từng đặc trưng của khung hình riêng lẻ, luận văn mong muốn tìm được sự tương quan và mối quan hệ giữa các đặc trưng với nhau.
 %Như \autoref{fig:OHGesture}, sau quá trình trích xuất đặc trưng. Để tính được sự tương quan của các đặc trưng xa, luận văn sẽ học để biểu diễn được các ngữ cảnh cực bộ (local context) theo \cite{rae2020transformers}.
 
 
 % mà luận văn chọn trong mô hình diffusion
-Đầu tiên cử chỉ khởi tạo $\mathbf{S}$ và vector cảm xúc $\mathbf{E}$ được ghép lại với nhau để tạo thành một vectơ có kích thước $256$, bởi vì kích thước $256$ là kích thước vector tiềm ẩn. Sau đó được cộng thêm vector timestep $\mathbf{T}$ để tạo thành vector $\mathbf{Z} \in \mathbb{R}^{256}$. Vector $\mathbf{Z}$ thể hiện thông tin luận văn thực sự muốn điều khiển bằng diffusion có điều kiện.
+
+Đầu tiên cử chỉ khởi tạo $\mathbf{S} \in \mathbb{R}^{192}$ và vector cảm xúc $\mathbf{E} \in \mathbb{R}^{64}$ được ghép lại với nhau để tạo thành một vectơ có kích thước $256$, bởi vì kích thước $256$ là kích thước vector tiềm ẩn được chọn để tính tương quan giữa các đặc trưng. Sau đó được cộng thêm vector timestep $\mathbf{T}$ để tạo thành vector $\mathbf{z} \in \mathbb{R}^{256}$.
 
 \begin{equation}
-	\mathbf{Z} = \mathbf{T}+ \operatorname{concat }(\mathbf{E}\ || \  \mathbf{S})
+	\label{eq:ConditionConcat}
+	\mathbf{z} = \operatorname{concat }(\mathbf{E}\ || \  \mathbf{S}) + \mathbf{T}
 \end{equation}
 
-Để có thể căn chỉnh văn bản, giọng nói tương đồng với từng khung hình cử chỉ, luận văn sẽ concat các đặc trưng giọng nói, văn bản và cử chỉ đồng thời với nhau. Sau đó để căn chỉnh theo miền thời gian các đặc trưng về cảm xúc và cử chỉ khởi tạo luận văn sẽ copy vector $\mathbf{Z}$ để các bản sao của nó được ghép thành một chuỗi vector đặc trưng tương đồng với $M$ khung hình. Sau đó đưa vào lớp local attention (chú ý cục bộ). Tương tự ý tưởng từ phương pháp Routing Transformer \cite{roy2021efficient}, local attention cho thấy rằng sự quan trọng trong việc xây dựng biểu diễn các vector đặc trưng trung gian. Các vector đặc trưng sẽ được cộng thêm một vector sinusoids hay mã hoá vị trí tương đối (Relative position encoding \cite{vaswani2017attention}) để thể hiện được đặc trưng thời gian trước khi đi qua lớp Cross-Local Attention
-%mà cho thấy rằng 
+
+
+\subsubsection{Kết hợp đặc trưng theo khung hình}
+
+Sau đó, $\mathbf{z}$  replicate $M$ lần để căn chỉnh kích thước tương đương với kích thước khung hình để được $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$
+
+%\item Concat cảm xúc $\mathbf{E}$ và cử chỉ khởi tạo $\mathbf{S}$ để được vector latent $\mathbf{Z} \in \mathbb{R}^{256}$
+
+%\item Cộng vector $\mathbf{Z}$ với vector timestep $\mathbf{T}$ để được vector $\mathbf{Z}$ và replicate $\mathbf{Z}$ $M$ lần để được $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$
+Ta sẽ cộng ma trận giọng nói và văn bản với nhau để được ma trận kết hợp thông tin của văn bản và giọng nói. Sau đó tiếp tục kết hợp concat với ma trận cử chỉ $\mathbf{X}$. Cuối cùng kết hợp với ma trận $\mathbf{Z}$ để được ma trận $\mathbf{H}$.
+
+\begin{equation}
+	\label{eq:FrameConcat}
+	\mathbf{H} = \operatorname{concat}( \mathbf{Z}\  || \   \operatorname{concat}(\mathbf{X}\ || \  (\mathbf{V} + \mathbf{A}) ) )
+\end{equation}
+
+Sau khi có ma trận $\mathbf{H} \in \mathbb{R}^{1:M \times P}$ theo \autoref{eq:FrameConcat} thể hiện đăng trưng theo khung hình từ frame $1$ đến frame $M$, với mỗi frame có kích thước $P$ là tổng của các đặc trưng đã concat. Với $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$, $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$ và $\mathbf{A}, \mathbf{V} \in \mathbb{R}^{1:M \times 64}$, thì $P$ sẽ có kích thước $256 * 2 + 64$.
+
 
 %Sau đó, vectơ $\mathbf{Z}$ và các bản sao của nó được ghép thành một chuỗi vector đặc trưng để khớp với dòng thời gian của giọng nói và đặc trưng cử chỉ, sau đó ghép với giọng nói $\mathbf{A}$ và cử chỉ $\mathbf{G}$ để làm đầu vào cho 
 %Phương pháp sinh cử chỉ song hành với giọng nói của luận văn sử dụng lớp Local Attention được lấy ý tưởng từ 
+
+
+\subsubsection{Cơ chế attention trong quá trình kết hợp các đặc trưng}
+
+Trong mô hình của luận văn, mục tiêu của việc áp dụng cơ chế attention là tìm được sự tương quan của từng khung hình với nhau.
+
+Lớp attention có công thức như sau:
+
 
 \begin{equation} \label{eq:attention}
 	\operatorname{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}, \mathbf{M})=\operatorname{softmax}\left(\frac{\mathbf{Q} \mathbf{K}^{T}+\mathbf{M}}{\sqrt{C}}\right) \mathbf{V}
@@ -173,7 +199,17 @@ Trong mô hình của luận văn, mục tiêu của việc áp dụng cơ chế
 
 Công thức Attention trên có $\mathbf{Q}$, $\mathbf{K}$ ,$\mathbf{V}$ là các ma trận sau khi đi qua các ma trận biến đối tuyến tính $\mathbf{Q} = \mathbf{X} \mathbf{W}_Q$, $\mathbf{K} = \mathbf{X} \mathbf{W}_K$, $\mathbf{V} = \mathbf{X} \mathbf{W}_V$. Với đầu vào là ma trận biểu thị chuỗi $M$ khung hình, với mỗi khung hình là một vector được concat từ các vector đặc trưng bao gồm cả cử chỉ khởi tạo, văn bản, giọng nói, cảm xúc và cử chỉ $\bx_t$ mà luận văn muốn thực hiện khử nhiễu. Quá trình Local-Cross Attention được điều khiển chỉ để tính các đặc trưng cục bộ của chuyển động của các cử chỉ và đặc trưng trong các khung hình lân cận.
 
-Hàm Attention hoạt động như một bộ từ điển, với các thông tin cuối cùng tra được là ma trận $\mathbf{V}$ (value), còn $\mathbf{Q}$ (query) là từ khoá muốn tìm kiếm, $\mathbf{K}$ (key) là danh mục các từ khoá trong bộ từ điển tra cứu. Quá trình Attention sẽ tính toán mức độ tương đồng giữa \( \mathbf{Q} \) và \( \mathbf{K} \) để xác định trọng số cho các giá trị trong \( \mathbf{V} \). Kết quả cuối cùng là tổ hợp các giá trị trong \( \mathbf{V} \), trong đó các giá trị tương ứng với các khoá giống truy vấn nhất sẽ có trọng số cao hơn. $\mathbf{M}$ là mặt nạ (mask) để thực hiện quá trình chú ý cục bộ.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{CrossLocalAttention}
+	\caption{Cơ chế Self-Attention trong Transformer Encoder và Cross-Local Attention}
+	\label{fig:CrossLocalAttention}
+\end{figure}
+
+
+Hàm Attention hoạt động như một bộ từ điển, với các thông tin cuối cùng tra được là ma trận $\mathbf{V}$ (value), còn $\mathbf{Q}$ (query) là từ khoá muốn tìm kiếm, $\mathbf{K}$ (key) là danh mục các từ khoá trong bộ từ điển tra cứu. Quá trình Attention sẽ tính toán mức độ tương đồng giữa \( \mathbf{Q} \) và \( \mathbf{K} \) để xác định trọng số cho các giá trị trong \( \mathbf{V} \). 
+
+Kết quả cuối cùng là tổ hợp các giá trị trong \( \mathbf{V} \), trong đó các giá trị tương ứng với các khoá giống truy vấn nhất sẽ có trọng số cao hơn. $\mathbf{M}$ là mặt nạ (mask) để thực hiện quá trình chú ý cục bộ. Ma nạ sẽ tính Cross-Local Attention như \autoref{fig:CrossLocalAttention} bên phải. Còn lớp Transformer Encoder sẽ sử dụng Self-Attention lớp bên trái.
 
 %\begin{equation}
 %\begin{aligned}
@@ -181,23 +217,56 @@ Hàm Attention hoạt động như một bộ từ điển, với các thông ti
 %	\text{where head}_i &= \text{Attention}(\mathbf{X}_q\mathbf{W}^q_i, \mathbf{X}_k\mathbf{W}^k_i, \mathbf{X}_v\mathbf{W}^v_i)
 %\end{aligned}
 %\end{equation}
+\subsubsection{Kết hợp đặc trưng cục bộ với Cross-Local Attention}
+
+Ma trận $\mathbf{H}$ sẽ tiếp tục đi qua lớp Cross-Local Attention để tính tương quan giữa các đặc trưng cục bộ: 
+
+\begin{equation}
+	\mathbf{h}^{1:M}_{t}  = \operatorname{Linear}_{\theta}  ( \operatorname{Cross-Local\ Attention}(H) )
+	\label{eq:CrossLocalAttention}
+\end{equation}
+
+%Sau đó để căn chỉnh theo miền thời gian các đặc trưng về cảm xúc và cử chỉ khởi tạo luận văn sẽ copy vector $\mathbf{Z}$ để các bản sao của nó được ghép thành một chuỗi vector đặc trưng tương đồng với $M$ khung hình. Sau đó đưa vào lớp local attention (chú ý cục bộ). 
+
+Tương tự ý tưởng từ phương pháp Routing Transformer \cite{roy2021efficient}, Cross-local Attention cho thấy rằng sự quan trọng trong việc xây dựng biểu diễn các vector đặc trưng trung gian trước khi đi qua lớp Transformer Encoder như \autoref{fig:OHGesture}. Các vector đặc trưng sẽ được cộng thêm một vector sinusoids hay mã hoá vị trí tương đối (Relative position encoding \cite{vaswani2017attention}) để thể hiện được đặc trưng thời gian trước khi đi qua lớp Cross-Local Attention.
 
 
-Sau quá trình Cross-Local Attention, mô hình tiếp tục được đưa qua lớp tuyến tính để căn chỉnh tương ứng với $M$ khung hình, bao gồm $\mathbf{h}^{1:M}$.
-Sau đó quá trình tương tự như xử lý các vector đặc trưng của mô hình BERT \cite{devlin2019bertpretrainingdeepbidirectional} văn bản. Luận văn sử dụng $z$ là $\mathbf{Z} \in \mathbb{R}^{256}$ token đầu tiên biểu thị đặc trưng biểu thị cho toàn bộ chuỗi $M$ khung hình. 
+Sau quá trình Cross-Local Attention, mô hình tiếp tục được đưa qua lớp tuyến tính theo \autoref{eq:CrossLocalAttention} để căn chỉnh tương ứng với $M$ khung hình, bao gồm $\mathbf{h}^{1:M}$.
+
+%Để có thể căn chỉnh văn bản, giọng nói tương đồng với từng khung hình cử chỉ, luận văn sẽ concat các đặc trưng giọng nói, văn bản và cử chỉ đồng thời với nhau. 
+%\begin{itemize}
+%	\item Concat các đặc trưng âm thanh $\mathbf{A}$, văn bản $\mathbf{V}$, cử chỉ $\mathbf{X}$ và $\mathbf{Z}$ để được vector đặc trưng theo từng frame.
+%	\item Thực hiện Cross-Local Attention trên vector đặc trưng từng frame để được đặc trưng $\mathbf{h}^{1:M}$.
+%	\item 
+%\end{itemize}
+
+\subsubsection{Kết hợp đặc trưng toàn cục với Transformer Encoder}
+
+
+%
+%Sử dụng $\mathbf{Z}$ làm $\texttt{CLS}$ token cho $\mathbf{h}^{1:M}$ trước khi đi qua Transformer Encoder.
+
+
+
+%Sau đó quá trình tương tự như xử lý các vector đặc trưng của mô hình BERT 
+
+Kế thừa từ MDM \cite{tevet2022human}, vector $\mathbf{z}$ là token đầu tiên thể hiện thông tin cho toàn bộ chuỗi khung hình, tương tự như  $z_{\text{tk}}$ trong mô hình BERT \cite{devlin2019bertpretrainingdeepbidirectional}, với token $\texttt{CLS}$ đầu tiên thể hiện thông tin của toàn bộ đoạn văn bản.
+Ở đây, luận văn sử dụng $z_{\text{tk}}$ là $\mathbf{z} \in \mathbb{R}^{256}$ (\autoref{eq:ConditionConcat}) token đầu tiên biểu thị đặc trưng biểu thị cho toàn bộ chuỗi $M$ frame.
+
+\begin{equation}
+	\mathbf{x}^{1:M}_{0}  = \operatorname{Transformer\ Encoder}( \operatorname{concat}( \mathbf{z}\ ||\  \mathbf{h}^{1:M}_{t}  )))
+	\label{eq:TransformerEncoder}
+\end{equation}
+
+
 Các vector $\mathbf{h}$ biểu thị cho chuỗi $M$ khung hình, tương tự như phương pháp Reformer \cite{kitaev2020reformer}, trước khi đi vào lớp Self-Attention trong Transformer Encoder, mô hình sẽ sử dụng lớp mã hoá vị trí tương đối (Relative Position Encoding - RPE) để thay thế mã hoá vị trí tuyệt đối, giúp mô hình hiệu quả hơn trong việc xử lý chuỗi dài.
-Khi vào lớp Transformer Encoder \cite{vaswani2017attention} giúp tính toán được mối liên hệ giữa các chuỗi dữ liệu. Trong lớp Transformer Encoder mô hình sẽ áp dụng cơ chế tự chú ý tương tự như trên nhưng không sử dụng mặt nạ. 
+Khi vào lớp Transformer Encoder \cite{vaswani2017attention} giúp tính toán được mối liên hệ giữa các chuỗi dữ liệu. 
+Trong lớp Transformer Encoder mô hình sẽ áp dụng cơ chế tự chú ý tương tự như \autoref{eq:attention} trên nhưng không sử dụng mặt nạ. 
 %Để yếu tố thời gian không ảnh hưởng nhiều đến kết quả sinh cử chỉ, luận văn sử dụng cơ chế mã hóa vị trí tương đối 
-Cuối cùng, đầu ra của Self-Attention được ánh xạ lại cùng kích thước như $\bx_{0}$ sau một lớp biến đổi tuyến tính. Mục tiêu của toàn bộ mô hình $G_\theta ( \mathbf{x}_t, t, c )$ là để học được trọng số $\theta$, với quá trình denoise sẽ giảm dần từ $t = T$ đến khi $t = 1$ ta thu được $\bx_0$.
+%Cuối cùng, đầu ra của Self-Attention được ánh xạ lại cùng kích thước như $\bx_{0}$ sau một lớp biến đổi tuyến tính. Mục tiêu của toàn bộ mô hình $G_\theta ( \mathbf{x}_t, t, c )$ là để học được trọng số $\theta$, với quá trình denoise sẽ giảm dần từ $t = T$ đến khi $t = 1$ ta thu được $\bx_0$.
 %Các cơ chế attention khác nhau có thể được tạo ra bằng cách điều chỉnh lớp mask tương ứng $\mathbf{M}$.
 
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.6\textwidth]{CrossLocalAttention}
-	\caption{Cơ chế Self-Attention trong Transformer Encoder và Cross-Local Attention}
-	\label{fig:CrossLocalAttention}
-\end{figure}
 
 
 % Phần 4.3. Các hàng đại diện cho các đầu ra và các cột đại diện cho đầu vào. Các hình vuông màu sáng tô màu cho các phần tử liên quan đến mỗi dòng đầu ra.
@@ -218,7 +287,7 @@ Cuối cùng, đầu ra của Self-Attention được ánh xạ lại cùng kíc
 
 Trong công đoạn \textit{6. Giải mã đặc trưng} (\autoref{fig:CommonStage}), sau khi tính được sự tương quan giữa các đặc trưng, mục tiêu là tăng kích thước dữ liệu trở về kích thước ban đầu.
 
-Cụ thể, với ma trận tiềm ẩn $\mathbf{h}_t \in \mathbb{R}^{1:M \times 256}$ sau khi đi qua công đoạn kết hợp đặc trưng. Như minh hoạ ở \autoref{fig:OHGesture}, mô hình sẽ dùng một lớp tuyến tính (linear layer) để tăng kích thước chuỗi cử chỉ thành kích thước ban  đầu $\hat{\mathbf{x}}_{0} \in \mathbb{R}^{1:M \times D}$.
+Như minh hoạ ở \autoref{fig:OHGesture}, ma trận tiềm ẩn, sau khi đi qua lớp Transformer Encoder để tính sự tương quan giữa nhiều loại dữ liệu khác nhau. Kết quả sẽ đi qua lớp $\operatorname{Linear}_{\theta}$ để tăng kích thước ma trận tiềm ẩn thành kích thước ban  đầu $\hat{\mathbf{x}}_{0} \in \mathbb{R}^{1:M \times D}$.
 
 Công đoạn cuối cùng, kết xuất sẽ được trình bày ở \autoref{sec:Render}.
 
@@ -234,7 +303,7 @@ Tương tự như các phương pháp sử dụng mô hình khử nhiễu có đ
 \hat{\bx}_{0 c, c_{\varnothing}, \gamma}=\gamma \cdot G \left(\bx_{t}, t, c\right)+(1-\gamma) \cdot G \left(\bx_{t}, t, c_{\varnothing}\right)
 \end{equation}
 
-Điểm đặc biệt là có thể dựa trên việc học có điều kiện và không có điều kiện của classifier-free guidance \cite{ho2022classifier}, có thể nội suy giữa hai cảm xúc $\mathbf{e}_1$ và cảm xúc $\mathbf{e}_2$ khác nhau bằng cách cho điều kiện $c = \left[\mathbf{s}, \mathbf{e}_{1}, \mathbf{a}, \mathbf{v} \right]$ và $c_\varnothing = \left[\mathbf{s}, \mathbf{e}_{2}, \mathbf{a}, \mathbf{v} \right]$. Khi đó ta có thể viết lại $\hat{x}_{0 \gamma, c_{1}, c_{2}}=\gamma G \left(x_{t}, t, c_{1} \right)+(1-\gamma) G \left(x_{t}, t, c_{2}\right)$.
+Điểm đặc biệt là có thể dựa trên việc học có điều kiện và không có điều kiện của classifier-free guidance \cite{ho2022classifier}, có thể nội suy giữa hai cảm xúc $\mathbf{e}_1$ và cảm xúc $\mathbf{e}_2$ khác nhau bằng cách cho điều kiện $c = \left[\mathbf{s}, \mathbf{e}_{1}, \mathbf{a}, \mathbf{v} \right]$ và $c_\varnothing = \left[\mathbf{s}, \mathbf{e}_{2}, \mathbf{a}, \mathbf{v} \right]$. Khi đó ta có thể viết lại $\hat{x}_{0 \gamma, c_{1}, c_{2}}=\gamma  \cdot G \left(x_{t}, t, c_{1} \right)+(1-\gamma) \cdot G \left(x_{t}, t, c_{2}\right)$.
 %Trong thực tế, hàm Denoise học cả phân phối có điều kiện và không có điều kiện bằng cách ngẫu nhiên phần mask $10 \%$ của các mẫu bằng các mask theo phân phối Bernoulli. Sau đó, đối với kiểu $s$ trong điều kiện, chúng ta có thể tạo ra cử chỉ được kiểm soát kiểu khi lấy mẫu bằng cách nội suy hoặc thậm chí là dự đoán hai biến thể bằng cách sử dụng $\gamma$, như $c_{1}=\left[s, e_{1}, a, v \right], c_{2}=\left[s, e_{2}, a, v \right]$
 
 
@@ -261,7 +330,7 @@ Tương tự như các phương pháp sử dụng mô hình khử nhiễu có đ
 		
 		\item Với $\mathbf{x}_t$, $t$ và các điều kiện mặt nạ $c_1$, $c_2$, dự đoán chuỗi cử chỉ:
 		\[
-		\hat{\mathbf{x}}_{0 \gamma, c_{1}, c_{2}} = \gamma G_{\theta} \left(\mathbf{x}_{t}, t, c_{1}\right) + (1 - \gamma) G_{\theta} \left(\mathbf{x}_{t}, t, c_{2}\right)
+		\hat{\mathbf{x}}_{0 \gamma, c_{1}, c_{2}} = \gamma \cdot G_{\theta} \left(\mathbf{x}_{t}, t, c_{1}\right) + (1 - \gamma) \cdot G_{\theta} \left(\mathbf{x}_{t}, t, c_{2}\right)
 		\]
 		
 		\item Tính loss và đạo hàm để cập nhật trọng số $\theta$:

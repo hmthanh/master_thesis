@@ -16,7 +16,9 @@ Luận văn sử dụng tập dữ liệu ZeroEGGS \cite{ghorbani2022zeroeggszer
 
 Trong công đoạn {1. Tiền xử lý dữ liệu} (\autoref{fig:CommonStage}), các dữ liệu về cử chỉ, giọng nói, văn bản được đọc và xử lý để biểu diễn thành các vector hoặc ma trận thể hiện thông tin về dữ liệu thô.
 
-Đối với \textbf{dữ liệu văn bản}: Luận văn sử dụng thư viện $\texttt{nltk}$ và $\texttt{gensim}$ để nhúng vector word2vec.
+Đối với \textbf{dữ liệu văn bản}: Luận văn sử dụng thư viện $\texttt{nltk}$ tách các từ, sử dụng $\texttt{contractions}$ để chuyển các từ viết tắt về dạng chuẩn hoá.
+
+Một trong những đóp góp của luận văn là từ dữ liệu giọng nói có sẵn từ tập ZeroEEGS, luận văn đã sử dụng Adobe Speech To Text để chuyển giọng nói thành văn bản, dùng Montreal Forced Aligner \cite{saxon2020robust} của từ điển âm vị Tiếng Anh để căn chỉnh được thời gian tương ứng với số frame của cử chỉ để thu được các TextGrid. Trong TextGrid sẽ có thời gian tương ứng với từng từ, dựa trên thông tin này, luận văn sử dụng  $\texttt{gensim}$ để nhúng vector word2vec.
  
 
 \textbf{Dữ liệu cử chỉ} bao gồm các tệp BVH (BioVision Motion Capture) được thu nhận từ các cảm biến bằng các hệ thống Motion Capture. Trong các tệp BVH, có chứa hai thành phần gồm Hierachy và Motion. Trong đó:
@@ -79,8 +81,11 @@ Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
 %Tập dữ liệu là tập nhiều chuỗi cử chỉ với độ dài tuỳ ý, từ mỗi cử chỉ độ dài tuỳ tý sẽ cắt thành các đoạn $N + M$ khung hình, $g \in \mathbb{R}^{(N + M) \times 1141}$ , trong đó cử chỉ $\mathbf{s} \in \mathbb{R}^{N \times 1141}$ đầu tiên là cử chỉ khởi tạo (seed gesture), $\bx \in \mathbb{R}^{M \times 1141}$ cử chỉ tiếp theo cho việc dự đoán. 
 Chuỗi cử chỉ ban đầu có dữ liệu là góc quay sẽ được chuyển thành các góc quay radian, từ góc quay radian ở dạng Euler sẽ được chuyển sang góc quay Quaternion, với quá trình cụ thể được trình bày ở \autoref{appendix:BVHData:QuaternionConvert}.
 
-\textbf{Dữ liệu giọng nói}: $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length } }$ là chuỗi giọng nói thô được đọc ở sample rate 16000, sau đó được cắt thành $\mathbf{a} \in \mathbb{R}^{64000}$ tương ứng với 4 giây. Luận văn sử dụng thư viện \texttt{ffmeg-normalize} để chuẩn hoá tiếng nói nhỏ hơn so với âm thanh gốc.
+\textbf{Dữ liệu giọng nói}: $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length } }$ là chuỗi giọng nói thô được đọc ở sample rate 16000, sau đó được cắt thành $\mathbf{a} \in \mathbb{R}^{64000}$ tương ứng với 4 giây. Luận văn sử dụng thư viện \texttt{ffmeg-normalize} để chuẩn hoá tiếng nói nhỏ hơn so với giọng nói gốc.
 
+\textbf{Cảm xúc}: Dữ liệu cảm xúc sẽ được biểu diễn bằng một vector one-hot encoding sẵn. Trong quá trình lấy mẫu, tên tệp sẽ định nghĩa luôn thông tin về cảm xúc mong muốn.
+
+Toàn bộ dữ liệu sẽ được lưu bằng $\texttt{h5}$ chuyển dùng để lưu trữ dữ liệu lớn.
 % để  là một chuỗi waveform có độ dài tương ứng với cử chỉ được đọc với sample rate là 16000. 
 
 

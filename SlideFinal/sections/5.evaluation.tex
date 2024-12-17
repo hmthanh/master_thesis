@@ -94,4 +94,23 @@
 %	\caption{Kết quả của các nghiên cứu loại bỏ (Ablation studies). "$-$" chỉ các mô-đun không được sử dụng và "$+$" chỉ các mô-đun bổ sung. Chữ in đậm chỉ ra chỉ số tốt nhất.}
 %	\label{Ab}
 \end{table}
+
+\begin{table}[H]
+	\small
+	\centering
+	\begin{tabular}{lcc}
+		\hline
+		\multicolumn{1}{c}{Name} & FGD trên vector đặc trưng & \begin{tabular}[c]{@{}c@{}} FGD dữ liệu gốc \end{tabular} \\ \hline
+		Ground Truth             & -       & -          \\
+		Ours                     &       & \\
+		\quad OHGesture (Feature D=1141) & 2.058      & 9465.546 \\
+		\quad OHGesture (Rotations) & 3.513       & 9519.129 \\
+		\hline
+		
+	\end{tabular}
+%	\caption{Kết quả đánh giá Fréchet Gesture Distance (FGD) trên $\bx^{1:M \times D}$ (từ frame 1 đến frame M, mỗi frame có D đặc trưng từng khung hình )}
+	%	\caption{Kết quả của các nghiên cứu loại bỏ (Ablation studies). "$-$" chỉ các mô-đun không được sử dụng và "$+$" chỉ các mô-đun bổ sung. Chữ in đậm chỉ ra chỉ số tốt nhất.}
+	\label{table:EvalFGD}
+\end{table}
+
 \end{frame}
