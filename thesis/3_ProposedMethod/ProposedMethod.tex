@@ -269,7 +269,7 @@ Như hình \autoref{fig:X0Objective}, ta bắt đầu bằng việc thêm nhiễ
 
 Như hình \autoref{fig:GaussianDrift}, để quá trình suy luận có thể sinh ra các kết quả $\bx_0$ khác nhau và có thể điều khiển được dựa trên điều kiện $c$. Ở mỗi bước $t$, cần thêm một lượng điều hướng với một điều kiện cụ thể. Nhóm tác giả đề xuất  Classifier-Free Diffusion Guidance \cite{ho2022classifier} với việc kết quả $\bx_0$ được cập nhật bằng cách cộng kết quả có điều kiện và không có điều kiện.
 \begin{equation}
-{\color{red}{\hat{\mathbf{x}}}}_{0 \gamma, \color{blue}{c}, \color{green}{c_{\varnothing}}}=\gamma \cdot f_{\theta} \left(\mathbf{x}_{t}, t, {\color{blue}{c}} \right)+(1-\gamma) \cdot f_{\theta} \left(\mathbf{x}_{t}, t, {\color{green}{c_{\varnothing}}} \right)
+{\color{red}{\hat{\mathbf{x}}}}_{0 \gamma, \color{green}{c}, \color{blue}{c_{\varnothing}}}=\gamma \cdot f_{\theta} \left(\mathbf{x}_{t}, t, {\color{green}{c}} \right)+(1-\gamma) \cdot f_{\theta} \left(\mathbf{x}_{t}, t, {\color{blue}{c_{\varnothing}}} \right)
 \end{equation}
 
 Trong đó, $c$ là điều kiện, $c_{\varnothing}$ là điều kiện rỗng,  kết quả sinh điều kiện được điều khiển bằng tham số $\gamma$, nếu $\gamma$ càng lớn thì kết quả sinh ra càng sát với điều kiện $c$, ngược lại thì kết quả sẽ nghiêng về kết quả sinh không có điều kiện.
