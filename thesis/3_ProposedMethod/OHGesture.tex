@@ -126,7 +126,7 @@ Ta sẽ cộng ma trận giọng nói và văn bản với nhau để được m
 	\mathbf{M} = \operatorname{concat}( \mathbf{Z}\  || \   \operatorname{concat}(\mathbf{X}\ || \  (\mathbf{V} + \mathbf{A}) ) )
 \end{equation}
 
-Sau khi có ma trận $\mathbf{M} \in \mathbb{R}^{1:M \times P}$ theo \autoref{eq:FrameConcat} thể hiện đăng trưng theo khung hình từ frame $1$ đến frame $M$, với mỗi frame có kích thước $P$ là tổng của các đặc trưng đã concat. Với $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$, $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$ và $\mathbf{A}, \mathbf{V} \in \mathbb{R}^{1:M \times 64}$, thì $P$ sẽ có kích thước $256 * 2 + 64$. Sau đó, ma trận $\mathbf{m}$ sẽ được đi qua quá trình biến đổi tuyến tính: $\mathbf{m}^{[1:M] \times 256} = \operatorname{Linear}_{\theta}(M)$ để được ma trận $\mathbf{m} \in \mathbb{R}^{[1:M] \times 256}$.
+Sau khi có ma trận $\mathbf{M} \in \mathbb{R}^{1:M \times P}$ theo \autoref{eq:FrameConcat} thể hiện đặc trưng theo khung hình từ frame $1$ đến frame $M$, với mỗi frame có kích thước $P$ là tổng của các đặc trưng đã concat. Với $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$, $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$ và $\mathbf{A}, \mathbf{V} \in \mathbb{R}^{1:M \times 64}$, thì $P$ sẽ có kích thước $256 * 2 + 64$. Sau đó, ma trận $\mathbf{m}$ sẽ được đi qua quá trình biến đổi tuyến tính: $\mathbf{m}^{[1:M] \times 256} = \operatorname{Linear}_{\theta}(M)$ để được ma trận $\mathbf{m} \in \mathbb{R}^{[1:M] \times 256}$.
 
 \subsubsection{Cơ chế attention trong quá trình kết hợp các đặc trưng}
 
