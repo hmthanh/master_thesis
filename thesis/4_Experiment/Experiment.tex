@@ -18,7 +18,7 @@ Trong công đoạn {1. Tiền xử lý dữ liệu} (\autoref{fig:CommonStage})
 
 Đối với \textbf{dữ liệu văn bản}: Luận văn sử dụng thư viện $\texttt{nltk}$ tách các từ, sử dụng $\texttt{contractions}$ để chuyển các từ viết tắt về dạng chuẩn hóa.
 
-Một trong những đóp góp của luận văn là từ dữ liệu giọng nói có sẵn từ tập ZeroEEGS, luận văn đã sử dụng Adobe Speech To Text để chuyển giọng nói thành văn bản, dùng Montreal Forced Aligner \cite{saxon2020robust} của từ điển âm vị Tiếng Anh để căn chỉnh được thời gian tương ứng với số frame của cử chỉ để thu được các TextGrid. Trong TextGrid sẽ có thời gian tương ứng với từng từ, dựa trên thông tin này, luận văn sử dụng  $\texttt{gensim}$ để nhúng vector word2vec.
+Một trong những đóng góp của luận văn là từ dữ liệu giọng nói có sẵn từ tập ZeroEEGS, luận văn đã sử dụng Adobe Speech To Text để chuyển giọng nói thành văn bản, dùng Montreal Forced Aligner \cite{saxon2020robust} của từ điển âm vị Tiếng Anh để căn chỉnh được thời gian tương ứng với số frame của cử chỉ để thu được các TextGrid. Trong TextGrid sẽ có thời gian tương ứng với từng từ, dựa trên thông tin này, luận văn sử dụng  $\texttt{gensim}$ để nhúng vector word2vec.
  
 
 \textbf{Dữ liệu cử chỉ} bao gồm các tệp BVH (BioVision Motion Capture) được thu nhận từ các cảm biến bằng các hệ thống Motion Capture. Trong các tệp BVH, có chứa hai thành phần gồm Hierachy và Motion. Trong đó:
@@ -29,20 +29,8 @@ Một trong những đóp góp của luận văn là từ dữ liệu giọng n�
 	\item \texttt{MOTION}: là chuỗi các khung hình. Với mỗi khung hình là dữ liệu chuyển động thể hiện sự thay đổi của toàn bộ $75$ khung xương đã định nghĩa ở \texttt{CHANNELS} trong \texttt{HIERARCHY}.
 \end{itemize}
 
-%, có vị trí ban đầu  $\mathbf{b}_{i} = \{t_x, t_y, t_z\}$
-
-
-
-
-% $\mathbf{position}_{\operatorname{local}}  \in \mathbb{R}^{3}$ và góc quay $\mathbf{rotation}_{\operatorname{local}} \in \mathbb{R}^{3}$.
 
 Mô hình của luận văn chuyển dữ liệu từ góc quay Euler sang góc quay Quaternion, với góc quay Quaternion là một véc-tơ gồm 4 phần tử.
-
-
-%\subsection{Tiền xử lý dữ liệu}
-
-Trong phương pháp của luận văn, mỗi khung hình chuyển động của một nhân vật hay khung xương (skeleton) bao gồm dữ liệu về toạ độ vị trí và vận tốc theo thời gian.
-Ở đây dữ liệu của luận văn của một khung xương với mỗi khung hình (frame) bao gồm:
 
 \begin{equation} \label{eq:gesturevector}
 	\mathbf{g} = \Big[ \mathbf{p}_{\text{root}},  \mathbf{r}_{\text{root}},
@@ -68,28 +56,13 @@ Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
 		\item $\mathbf{d}_{\text{gaze}} \in \mathbb{R}^3$: Là hướng nhìn
 \end{itemize}}
 
-
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=0.8\linewidth]{images/skeleton_sample.png}
-%	\caption{Minh họa một cử chỉ và mô hình nhân vật}
-%	\label{fig:software}
-%\end{figure}
-
-
-%Tổng cộng có $75$ khớp (joins) hay $n_{\text{join}} = 75$, với mỗi khung hình (frame) sẽ có một vector gồm 1141 chiều.
-%Tập dữ liệu là tập nhiều chuỗi cử chỉ với độ dài tuỳ ý, từ mỗi cử chỉ độ dài tuỳ tý sẽ cắt thành các đoạn $N + M$ khung hình, $g \in \mathbb{R}^{(N + M) \times 1141}$ , trong đó cử chỉ $\mathbf{s} \in \mathbb{R}^{N \times 1141}$ đầu tiên là cử chỉ khởi tạo (seed gesture), $\bx \in \mathbb{R}^{M \times 1141}$ cử chỉ tiếp theo cho việc dự đoán. 
 Chuỗi cử chỉ ban đầu có dữ liệu là góc quay sẽ được chuyển thành các góc quay radian, từ góc quay radian ở dạng Euler sẽ được chuyển sang góc quay Quaternion, với quá trình cụ thể được trình bày ở \autoref{appendix:BVHData:QuaternionConvert}.
 
-\textbf{Dữ liệu giọng nói}: $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length } }$ là chuỗi giọng nói thô được đọc ở sample rate 16000, sau đó được cắt thành $\mathbf{a} \in \mathbb{R}^{64000}$ tương ứng với 4 giây. Luận văn sử dụng thư viện \texttt{ffmeg-normalize} để chuẩn hóa tiếng nói nhỏ hơn so với giọng nói gốc.
+\textbf{Dữ liệu giọng nói}: $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length } }$ là chuỗi giọng nói thô được đọc ở sample rate 16000, sau đó được cắt thành $\mathbf{a} \in \mathbb{R}^{64000}$ tương ứng với 4 giây. Luận văn sử dụng thư viện \texttt{ffmpeg-normalize} để chuẩn hóa tiếng nói nhỏ hơn so với giọng nói gốc.
 
 \textbf{Cảm xúc}: Dữ liệu cảm xúc sẽ được biểu diễn bằng một vector one-hot encoding sẵn. Trong quá trình lấy mẫu, tên tệp sẽ định nghĩa luôn thông tin về cảm xúc mong muốn.
 
-Toàn bộ dữ liệu sẽ được lưu bằng $\texttt{h5}$ chuyển dùng để lưu trữ dữ liệu lớn.
-% để  là một chuỗi waveform có độ dài tương ứng với cử chỉ được đọc với sample rate là 16000. 
-
-
-
+Toàn bộ dữ liệu sẽ được lưu bằng $\texttt{h5}$ được dùng để lưu trữ dữ liệu.
 
 \section{Quá trình huấn luyện}
 
@@ -101,12 +74,10 @@ $\beta$ bắt đầu từ $0.5 \rightarrow 0.999$
 Quá trình huấn luyện được triển khai trên mã nguồn công khai tại: \hyperlink{https://github.com/hmthanh/OHGesture}{Github/OHGesture} \footnote{\url{https://github.com/hmthanh/OHGesture}}.
 
 
-
-
 \section{Quá trình sử dụng Unity để kết xuất}
 \label{sec:Render}
 
-Để trực quan hóa quá trình sinh cử chỉ từ dữ liệu đầu ra của mô hình, trong công đoạn \textit{7. Kết xuất} (\autoref{fig:CommonStage}) luận văn sử dụng Unity, kết thừa mã nguồn từ mô hình DeepPhase \cite{starke2022deepphase}  . Dữ liệu sau khi sinh là file BVH (BioVision Motion Capture), trong Unity luận văn bổ sung mã nguồn CSharp để kết xuất theo vị trí toạ độ và nhãn tương ứng, với vị trí và góc quay của các xương được biểu diễn dưới dạng quaternion.
+Để trực quan hóa quá trình sinh cử chỉ từ dữ liệu đầu ra của mô hình, trong công đoạn \textit{7. Kết xuất} (\autoref{fig:CommonStage}) luận văn sử dụng Unity, kết thừa mã nguồn từ mô hình DeepPhase \cite{starke2022deepphase}  . Dữ liệu sau khi sinh là tệp BVH (BioVision Motion Capture). Trong Unity, luận văn bổ sung mã nguồn C-Sharp để kết xuất theo vị trí toạ độ và nhãn tương ứng, với vị trí và góc quay của các xương được biểu diễn dưới dạng quaternion.
 
 Chi tiết phần render cử chỉ được sinh ra, tôi trình bày ở \autoref{Appendix3}.
 

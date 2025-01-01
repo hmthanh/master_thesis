@@ -69,7 +69,7 @@ FID thấp cho thấy phân phối của cử chỉ sinh ra gần giống với 
 
 \subsection{Kết quả đánh giá bằng MSE}
 
-Trong luận văn, chuỗi cử chỉ dữ đoán sẽ được đoạn trên $M$ frame. Luận văn sử dụng Mean Square Error trên chuỗi cử chỉ $\mathbf{x}^{[1:M] \times D}$.
+Trong luận văn, chuỗi cử chỉ dự đoán sẽ được đoạn trên $M$ frame. Luận văn sử dụng Mean Square Error trên chuỗi cử chỉ $\mathbf{x}^{[1:M] \times D}$.
 
 \begin{table}[H]
 	\centering
@@ -142,7 +142,7 @@ Trong luận văn, chuỗi cử chỉ dữ đoán sẽ được đoạn trên $M
 
 \subsection{Kết quả đánh giá bằng FGD}
 
-Luận văn đề xuất Fréchet Gesture Distance (FGD), hệ số FID dựa trên cử chỉ (gesture), và xây dựng mã nguồn \hyperlink{https://github.com/GestureScore/GestureScore}{GestureScore} \footnote{Github/GestureScore: \url{https://github.com/GestureScore/GestureScore}} . Trong GestureScore, luận văn xây dựng một Inception V3 model, để mã hoá chuỗi khung hình $\bx^{1:M \times D}$ thành vector tiềm ẩn kích thước $32 \times 32$. Sử dụng vector này làm đầu vào cho \autoref{eq:fidscore}. Sau đây là \autoref{table:EvalFGD} đánh giá kết quả của mô hình OHGesture bằng GestureScore
+Luận văn đề xuất Fréchet Gesture Distance (FGD), hệ số FID dựa trên cử chỉ (gesture), và xây dựng mã nguồn \hyperlink{https://github.com/GestureScore/GestureScore}{GestureScore} \footnote{Github/GestureScore: \url{https://github.com/GestureScore/GestureScore}} . Trong GestureScore, luận văn xây dựng một Inception V3 model, để mã hóa chuỗi khung hình $\bx^{1:M \times D}$ thành vector tiềm ẩn kích thước $32 \times 32$. Sử dụng vector này làm đầu vào cho \autoref{eq:fidscore}. Sau đây là \autoref{table:EvalFGD} đánh giá kết quả của mô hình OHGesture bằng GestureScore
 
 %$\uparrow$
 \begin{table}[H]
