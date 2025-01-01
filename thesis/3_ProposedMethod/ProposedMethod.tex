@@ -33,9 +33,9 @@ Trước tiên luận văn trình bày về mô hình diffusion \autoref{sec:sum
 	\label{fig:DiffuseAndDenoise}
 \end{figure}
 
-Với các phương pháp sử dụng neural network như ResNet, InceptionNet,... kết quả là tìm được trọng số $\theta$ của hàm $f_{\theta}(x)$, mục tiêu là tối thiểu hóa hàm lỗi $\mathcal{L}_\text{loss}$ giữa nhãn $y$ và kết quả dự đoán là $\hat{y}$. Sau khi kết thúc quá trình huấn luyện và học được trọng số $\theta'$ ta dự đoán một mẫu dữ liệu mới $x'$ bằng cách forward qua hàm $f_{\theta'}$ để ra được kết quả dự đoán $y'$.
+Với các phương pháp sử dụng neural network như ResNet, InceptionNet,... kết quả là tìm được trọng số $\theta$ của hàm $f_{\theta}(x)$, mục tiêu là tối ưu hóa hàm lỗi $\mathcal{L}_\text{loss}$ giữa nhãn $y$ và kết quả dự đoán là $\hat{y}$. Sau khi kết thúc quá trình huấn luyện và học được trọng số $\theta'$ ta dự đoán một mẫu dữ liệu mới $x'$ bằng cách truyền qua hàm $f_{\theta'}$ để ra được kết quả dự đoán $y'$.
 
-Tương tự phương pháp VAE, mã hóa (encode) ma trận đầu vào thành vector tiềm ẩn $z$ và giải mã (decode) vector tiềm ẩn $z$ ngược trở lại ma trận kích thước ban đầu, tuy nhiên mô hình diffusion chia quá trình học thành từng $T$ bước, ở bước thứ $t$ quá trình gây nhiễu (forward diffusion process) $q(\mathbf{x})$ từ $1 \to T$ được thực hiện bằng cách thêm nhiễu $\epsilon_{t} \sim \mathcal{N} (\mathbf{0}, \mathbf{I})$ phân phối chuẩn Gaussian vào dữ liệu, với $\mathbf{I}$ là phần tử đơn vị của phân phối chuẩn Gaussian có giá trị trung bình  (mean) bằng $\mathbb{E}[\epsilon]=0$ và phương sai $\operatorname{Var}(\epsilon)=1$.
+Tương tự phương pháp VAE, mã hóa (encode) ma trận đầu vào thành vector tiềm ẩn $z$ và giải mã (decode) vector tiềm ẩn $z$ trở lại ma trận kích thước ban đầu, tuy nhiên mô hình diffusion chia quá trình học thành từng $T$ bước, ở bước thứ $t$ quá trình gây nhiễu (forward diffusion process) $q(\mathbf{x})$ từ $1 \to T$ được thực hiện bằng cách thêm nhiễu $\epsilon_{t} \sim \mathcal{N} (\mathbf{0}, \mathbf{I})$ phân phối chuẩn Gaussian vào dữ liệu, với $\mathbf{I}$ là là ma trận đơn vị của phân phối chuẩn Gaussian có giá trị trung bình  (mean) bằng $\mathbb{E}[\epsilon]=0$ và phương sai $\operatorname{Var}(\epsilon)=1$.
 
 
 Quá trình thêm nhiễu từ trái qua phải gọi là hàm $q(\bx)$, còn quá trình khử nhiễu từ phải qua trái $p(\bx)$. Lưu ý rằng, $\epsilon_t$ là được lấy ngẫu nhiên ở mọi bước $t$, và nhiễu $\epsilon_t$ được giữ cố định. Như trong \autoref{fig:DiffuseAndDenoise}, nếu ở bước thêm nhiễu (diffuse) ta \textbf{cộng} một lượng nhiễu $\epsilon_t$ và bước khử nhiễu (denoise) ta cũng \textbf{trừ} một lượng đúng chính xác $\epsilon_t$ thì kết quả cuối cùng của bước khử nhiễu $\bx_0$ là \textbf{hoàn toàn giống} bức ảnh gốc ban đầu.
@@ -46,7 +46,7 @@ Trong mô hình Diffusion cơ bản hay Denoising Diffusion Probabilistic Models
 
 \subsection{Quá trình gây nhiễu (forward diffusion process)}
 
-Cho dữ liệu $\mathbf{x}_{0}$ là được lấy từ dữ liệu thật $\mathbf{x}_{0} \sim q(x)$, với mỗi bước ta sẽ thêm nhiễu vào đầu vào $\bx_{0}$ với tỷ lệ nhiễu và ảnh gốc được kiểm soát bằng hệ số $\beta$:
+Cho dữ liệu $\mathbf{x}_{0}$ được lấy từ dữ liệu thật $\mathbf{x}_{0} \sim q(x)$, với mỗi bước ta sẽ thêm nhiễu vào đầu vào $\bx_{0}$ với tỷ lệ giữa nhiễu và ảnh gốc được kiểm soát bằng hệ số $\beta$:
 
 
 \begin{equation}
@@ -57,7 +57,7 @@ Cho dữ liệu $\mathbf{x}_{0}$ là được lấy từ dữ liệu thật $\ma
 
 Trong đó, quá trình gây nhiễu từ $1 \to T$, với mỗi bước $t$ quá trình thêm nhiễu $\epsilon$ được điều khiển bằng $\beta_t$ theo phương sai $\{\beta_t \in (0, 1)\}_{t=1}^T$.
 
-Bởi vì một hàm $f(x)$ có dạng $f(x) = a x + b\epsilon$ với $\epsilon \in \mathcal{N}(0, \mathbf{1})$ sẽ tương đương $f(x) \sim \mathcal{N}(a x, b^2)$ (với $a x$ là kỳ vọng hay trung bình, $b^2$ là phương sai), từ đó quá trình gây nhiễu có thể được viết gọn là ở từng bước nhiễu $t$, khi biết trước $\bx_{t-1}$ là:
+Bởi vì một hàm $f(x)$ có dạng $f(x) = a x + b\epsilon$ với $\epsilon \in \mathcal{N}(0, \mathbf{I})$ sẽ tương đương $f(x) \sim \mathcal{N}(a x, b^2)$ (với $a x$ là kỳ vọng hay trung bình, $b^2$ là phương sai), từ đó quá trình gây nhiễu có thể được viết gọn là ở từng bước nhiễu $t$, khi biết trước $\bx_{t-1}$ là:
 
 \begin{equation}
 	\label{eq:forward_diffusion_process}

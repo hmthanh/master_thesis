@@ -50,7 +50,7 @@ Trong công đoạn \textit{2. Xử lý đặc trưng} (\autoref{fig:CommonStage
 		
 		Vì vậy, trong công đoạn này đóng góp của luận văn là sử dụng dữ liệu tiếng nói có sẵn, sau khi tiền xử lý ở \autoref{sec:Preprocessing} để thu được văn bản,  luận văn sử dụng mô hình FastText  \cite{bojanowski2017enriching} để nhúng (embedding) văn bản thành các vector căn chỉnh tương ứng với số frame tương ứng với cử chỉ. Với các vùng không có văn bản sẽ được cho là ma trận $\mathbf{0}$, các vùng có từ vựng tương ứng sẽ được gán là giá trị nhúng  theo từng khung hình của cử chỉ để được ma trận văn bản $\mathbf{v}^{1:M \times 300}$.
 		
-		\item \textbf{Giọng nói} (Speech): Tất cả dữ liệu giọng nói ở dạng wav sẽ được giảm số sample rate (down sampled) xuống $16 \mathrm{kHz}$, và giọng nói sẽ được lấy tương ứng với cử chỉ là 4s để được vector $\mathbf{a} \in \mathbb{R}^{64000}$. Tương tự DiffuseStyleGesture, luận văn sử dụng mô hình pre-train WavLM Large \cite{Chen_2022} nhúng waveform thô vào để được vector thể hiện đặc trưng âm thanh. Sau đó sử dụng nội suy tuyến tính (interpolation) để căn chỉnh đặc trưng của vector tiềm ẩn trong WavLM theo chiều thời gian thành $20 \text{fps}$ để được ma trận giọng nói $\mathbf{a} \in \mathbb{R}^{1:M \times 1024}$
+		\item \textbf{Giọng nói} (Speech): Tất cả dữ liệu giọng nói ở dạng wav sẽ được giảm số sample rate (downsampled) xuống $16 \mathrm{kHz}$, và giọng nói sẽ được lấy tương ứng với cử chỉ là 4s để được vector $\mathbf{a} \in \mathbb{R}^{64000}$. Tương tự DiffuseStyleGesture, luận văn sử dụng mô hình pre-train WavLM Large \cite{Chen_2022} nhúng waveform thô vào để được vector thể hiện đặc trưng âm thanh. Sau đó sử dụng nội suy tuyến tính (interpolation) để căn chỉnh đặc trưng của vector tiềm ẩn trong WavLM theo chiều thời gian thành $20 \text{fps}$ để được ma trận giọng nói $\mathbf{a} \in \mathbb{R}^{1:M \times 1024}$
 		
 		\item \textbf{Cảm xúc} (Emotion): Cảm xúc là nhãn được chọn 1 trong 6 cảm xúc bao gồm: $\texttt{Happy}$, $\texttt{Sad}$, $\texttt{Neutral}$, $\texttt{Old}$, $\texttt{Relaxed}$ và $\texttt{Angry}$. 
 		
@@ -71,7 +71,7 @@ Trong công đoạn \textit{2. Xử lý đặc trưng} (\autoref{fig:CommonStage
 \subsection{Công đoạn trích xuất đặc trưng}
 \label{subsec:feature_extraction}
 
-Trong công đoạn \textit{3. Trích xuất đặc trưng} (\autoref{fig:CommonStage}), mục tiêu là chuyển ma trận thành các vector tiềm ẩn (latent vector) biễu diễn thông tin của dữ liệu bằng cách cho các đặc trưng cần học đi qua các lớp biến đổi tuyến tính (linear) hoặc MLP (Multilayer Perceptron).
+Trong công đoạn \textit{3. Trích xuất đặc trưng} (\autoref{fig:CommonStage}), mục tiêu là chuyển ma trận thành các vector tiềm ẩn (latent vector) biểu diễn thông tin của dữ liệu bằng cách cho các đặc trưng cần học đi qua các lớp biến đổi tuyến tính (linear) hoặc MLP (Multilayer Perceptron).
 
 \begin{figure}[H]
 	\centering
@@ -88,7 +88,7 @@ Trong công đoạn \textit{3. Trích xuất đặc trưng} (\autoref{fig:Common
 	  
 	  \item \textbf{Văn bản $\mathbf{V} \in \mathbb{R}^{1:M \times 64}$}: Văn bản $\mathbf{v}^{1:M \times 300}$ sẽ được đi qua lớp tuyến tính (linear layer) để căn chỉnh tương ứng với vector âm thanh.
 	
-	\item \textbf{Cử chỉ khởi tạo $\mathbf{S} \in \mathbb{R}^{192}$}: Từ $\mathbf{s} \in \mathbb{R}^{1:N \times D}$ sẽ được đi qua một lớp tuyến tính (linear layer) để được vector $\mathbf{S} \in \mathbb{R}^{192}$, vector $\mathbf{S}$ sau đó được Random Mask trong quá trình huấn luyện để bỏ trong trường hợp nếu một trong $N$ frame bị thiếu thì sẽ ảnh hưởng như thế nào đến cử chỉ dự đoán.
+	\item \textbf{Cử chỉ khởi tạo $\mathbf{S} \in \mathbb{R}^{192}$}: Từ $\mathbf{s} \in \mathbb{R}^{1:N \times D}$ sẽ được đi qua một lớp tuyến tính (linear layer) để được vector $\mathbf{S} \in \mathbb{R}^{192}$, vector $\mathbf{S}$ sau đó được đi qua một lớp mặt nạ ngẫu nhiên (random mask) trong quá trình huấn luyện để bỏ trong trường hợp nếu một trong $N$ frame bị thiếu thì sẽ ảnh hưởng như thế nào đến cử chỉ dự đoán.
 
   \item \textbf{Cảm xúc $\mathbf{E} \in \mathbb{R}^{64}$}: Từ vector cảm xúc $\mathbf{e} \in \mathbb{R}^{6}$ sẽ được đưa qua lớp tuyến tính (linear layer) để được vector đặc trưng $\mathbf{E} \in \mathbb{R}^{64}$. Mục tiêu là để có thể concat được với vector khởi tạo $\mathbf{S} \in \mathbb{R}^{192} $ để tạo thành vector tiềm ẩn $256$ chiều.
   
@@ -149,7 +149,7 @@ Công thức Attention trên có $\mathbf{Q}$, $\mathbf{K}$ ,$\mathbf{V}$ là c�
 
 Hàm Attention hoạt động như một bộ từ điển, với các thông tin cuối cùng tra được là ma trận $\mathbf{V}$ (value), còn $\mathbf{Q}$ (query) là từ khóa muốn tìm kiếm, $\mathbf{K}$ (key) là danh mục các từ khóa trong bộ từ điển tra cứu. Quá trình Attention sẽ tính toán mức độ tương đồng giữa \( \mathbf{Q} \) và \( \mathbf{K} \) để xác định trọng số cho các giá trị trong \( \mathbf{V} \). 
 
-Kết quả cuối cùng là tổ hợp các giá trị trong \( \mathbf{V} \), trong đó các giá trị tương ứng với các khóa giống truy vấn nhất sẽ có trọng số cao hơn. $\mathbf{M}$ là mặt nạ (mask) để thực hiện quá trình chú ý cục bộ. Ma nạ sẽ tính Cross-Local Attention như \autoref{fig:CrossLocalAttention} bên phải. Còn lớp Transformer Encoder sẽ sử dụng Self-Attention lớp bên trái.
+Kết quả cuối cùng là tổ hợp các giá trị trong \( \mathbf{V} \), trong đó các giá trị tương ứng với các khóa giống truy vấn nhất sẽ có trọng số cao hơn. $\mathbf{M}$ là mặt nạ (mask) để thực hiện quá trình chú ý cục bộ. Cross-Local Attention sẽ được minh họa như \autoref{fig:CrossLocalAttention} bên phải. Còn lớp Transformer Encoder sẽ sử dụng Self-Attention lớp bên trái.
 
 \subsubsection{Kết hợp đặc trưng cục bộ với Cross-Local Attention}
 
@@ -238,7 +238,7 @@ Tương tự như các phương pháp sử dụng mô hình khử nhiễu có đ
 		
 		\item Lấy nhãn ban đầu $\mathbf{x}_0$ từ phân phối dữ liệu đã chuẩn hóa.
 		
-		\item Random các mặt nạ Bernoulli $c_{1} = \big[ \mathbf{s}, \mathbf{e_1}, \mathbf{a}, \mathbf{v} \big]$, $c_{2} = \big[ \mathbf{s}, \mathbf{e_2}, \mathbf{a}, \mathbf{v} \big]$, hoặc $c_{2} = \big[ \varnothing, \varnothing, \mathbf{a}, \mathbf{v} \big]$.
+		\item Tạo ngẫu nhiên các mặt nạ Bernoulli $c_{1} = \big[ \mathbf{s}, \mathbf{e_1}, \mathbf{a}, \mathbf{v} \big]$, $c_{2} = \big[ \mathbf{s}, \mathbf{e_2}, \mathbf{a}, \mathbf{v} \big]$, hoặc $c_{2} = \big[ \varnothing, \varnothing, \mathbf{a}, \mathbf{v} \big]$.
 		
 		\item Thêm nhiễu để có cử chỉ nhiễu $\mathbf{x}_t$:
 		\[
