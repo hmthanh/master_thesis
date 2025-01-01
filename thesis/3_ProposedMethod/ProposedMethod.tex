@@ -17,18 +17,14 @@
 \chapter{PHƯƠNG PHÁP NGHIÊN CỨU}
 \label{chap:Chapter3}
 
-Bản chất của các phương pháp dựa trên neural network là ước lượng xác xuất của dữ liệu (probability density) nên cần chuẩn hoá (normalization), trong khi mô hình Diffusion sẽ học để có thể ước lượng đạo hàm của phân phối dữ liệu \cite{song2021score} (estimating gradients of data distribution) và không phải chuẩn hoá trên toàn bộ dữ liệu, nên có kết quả tốt hơn so với các phương pháp neuron network không sử dụng diffusion. Mô hình diffusion có khả năng mô phỏng phân phối dữ liệu trong các trường hợp mật độ phân phối của dữ liệu thấp và có thể sinh được kết quả với độ chi tiết cao.
+Bản chất của các phương pháp dựa trên neural network là ước lượng xác suất của dữ liệu (probability density) nên cần chuẩn hóa (normalization), trong khi mô hình Diffusion sẽ học để có thể ước lượng đạo hàm của phân phối dữ liệu \cite{song2021score} (estimating gradients of data distribution) và không phải chuẩn hóa trên toàn bộ dữ liệu, nên có kết quả tốt hơn so với các phương pháp neural network không sử dụng diffusion. Mô hình diffusion có khả năng mô phỏng phân phối dữ liệu trong các trường hợp mật độ phân phối của dữ liệu thấp và có thể sinh được kết quả với độ chi tiết cao.
 
 Mô hình của luận văn dựa trên mô hình DiffuseStyleGesture \cite{yang2022DiffuseStyleGestureplus} với cải tiến chính là dựa trên dữ liệu giọng nói, luận văn chuyển giọng nói thành văn bản và nhúng văn bản để được các vector đặc trưng văn bản, và sử dụng như là một vector đặc trưng về ngữ nghĩa trong quá trình diffusion có điều kiện. Quá trình này được trình bày \autoref{subsec:feature_extraction}. Ngoài ra ở công đoạn \textit{7. Kết xuất}  (\autoref{fig:CommonStage}), luận văn sử dụng Unity để kết xuất văn bản. Các đóng góp chính của luận văn được trình bày đầy đủ ở \autoref{sec:contribution}.
 
-Trước tiên luận văn trình bày về mô hình diffusion \autoref{sec:summary_diffusion}, và phần \autoref{sec:ohgesture} sẽ trình bày về mô hình đề xuất OHGesture. 
-
-%Diffusion \cite{ho2020denoising} là mô hình được lấy cảm hứng từ mô hình khuếch tán các chất trong hóa học.
+Trước tiên luận văn trình bày về mô hình diffusion \autoref{sec:summary_diffusion}, và phần \autoref{sec:ohgesture} sẽ trình bày về mô hình đề xuất OHGesture.
 
 \section{Mô hình diffusion cơ bản và các cải tiến}
 \label{sec:summary_diffusion}
-
-%\subsection{Quá trình gây nhiễu và khử nhiễu không huấn luyện}
 
 \begin{figure}[H]
 	\centering
@@ -139,7 +135,7 @@ Quá trình khử nhiễu có trung bình $\boldsymbol{\mu}_\theta(\mathbf{x}_t,
 	\end{aligned}
 \end{equation}
 
-Qúa trình khử nhiễu là quá trình bắt đầu từ nhiễu hoàn toàn, dùng một neuron network $f_\theta$ để học được quá trình khử nhiễu.
+Qúa trình khử nhiễu là quá trình bắt đầu từ nhiễu hoàn toàn, dùng một neural network $f_\theta$ để học được quá trình khử nhiễu.
 
 %Ta viết lại hàm denoising từ công thức \ref{eq:denoising_process}  theo $\alpha$ như sau:
 %$$
@@ -192,7 +188,7 @@ Với $f_{\theta}(x_{t-1}, t)$ hay $\epsilon_\theta$ là một mô hình Unet d�
 		\vspace{5pt}
 		\item Tính sẵn các giá trị $\sqrt{\alpha_t}$, $\sqrt{1 - \alpha_t}$ và $\sqrt{\bar{\alpha}_t}$ cho mỗi bước $t: 1 \rightarrow T$. Xác định lịch trình nhiễu $\{\alpha_t \in (0, 1)\}_{t=1}^T$, với $\alpha_1 < \alpha_2 < \dots < \alpha_T$.
 		
-		\item Lấy nhãn $\mathbf{x}_0$ từ phân phối của dữ liệu đã chuẩn hoá.
+		\item Lấy nhãn $\mathbf{x}_0$ từ phân phối của dữ liệu đã chuẩn hóa.
 		
 		\item Tạo nhiễu ngẫu nhiên $\boldsymbol{\epsilon}_t$ cho mỗi bước $t: 1 \rightarrow T$, với $\forall t: \boldsymbol{\epsilon}_t \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$.
 		
@@ -221,7 +217,7 @@ Với $f_{\theta}(x_{t-1}, t)$ hay $\epsilon_\theta$ là một mô hình Unet d�
 \end{algorithm}
 
 %	Lưu ý 
-%	Thay vì dùng neuron network để dự đoán phân bố của dữ liệu theo như hình \ref{fig:basic_diffusion}, mô hình diffusion sẽ dự đoán độ lỗi được thêm vào trong ảnh ở bước thứ $t$, với mỗi $t$ bước ta sẽ cần tối ưu hàm mất mát $\mathcal{L}_t$, hàm mất mát của mỗi bước sẽ tối ưu độ lỗi giữa nhiễu dự đoán $\hat{\epsilon_t}$ và nhiễu nhãn $\epsilon_t$ được thêm vào.
+%	Thay vì dùng neural network để dự đoán phân bố của dữ liệu theo như hình \ref{fig:basic_diffusion}, mô hình diffusion sẽ dự đoán độ lỗi được thêm vào trong ảnh ở bước thứ $t$, với mỗi $t$ bước ta sẽ cần tối ưu hàm mất mát $\mathcal{L}_t$, hàm mất mát của mỗi bước sẽ tối ưu độ lỗi giữa nhiễu dự đoán $\hat{\epsilon_t}$ và nhiễu nhãn $\epsilon_t$ được thêm vào.
 	
 \subsection{Quá trình lấy mẫu trong diffusion cơ bản}
 	
@@ -312,7 +308,7 @@ Như hình \autoref{fig:X0Objective}, ta bắt đầu bằng việc thêm nhiễ
 \subsection{Mô hình diffusion có điều kiện}
 \label{subsec:DiffusionCondition}
 
-Để có thể điều khiển quá trình sinh với các điều kiện khác nhau, thì cần phải sinh với điều kiện $c$, hay nói cách khác ta cần tìm xác xuất $p(\bx | c)$ khi biết trước $c$. Nhóm tác giả \cite{dhariwal2021diffusion} đề xuất sử dụng một hàm $f_{\phi}$ riêng để huấn luyện cho điều kiện. Tuy nhiên phương pháp này gây khó khăn khi các điều kiện sinh thay đổi và việc kết hợp và cập nhật trọng số ở một mô hình riêng sẽ gây khó khăn khi mở rộng.
+Để có thể điều khiển quá trình sinh với các điều kiện khác nhau, thì cần phải sinh với điều kiện $c$, hay nói cách khác ta cần tìm xác suất $p(\bx | c)$ khi biết trước $c$. Nhóm tác giả \cite{dhariwal2021diffusion} đề xuất sử dụng một hàm $f_{\phi}$ riêng để huấn luyện cho điều kiện. Tuy nhiên phương pháp này gây khó khăn khi các điều kiện sinh thay đổi và việc kết hợp và cập nhật trọng số ở một mô hình riêng sẽ gây khó khăn khi mở rộng.
 
 \begin{figure}[H]
 	\captionsetup{skip=20pt}

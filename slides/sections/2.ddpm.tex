@@ -129,7 +129,7 @@
 	%	 $\mathcal{N}(0, \sigma_i^2 I), i=1,2,\cdots,L$. $\mathbf{s}_\theta(\mathbf{x}, i) \approx \nabla_\mathbf{x} \log p_{\sigma_i}(\mathbf{x})$ $i= 1, 2, \cdots, L$.
 	
 %	Ta dễ dàng sinh mẫu (sampling) từ ${\sigma_i}(\mathbf{x})$ bằng cách lấy mẫu $\mathbf{x} \sim p(\mathbf{x})$  và tính $\mathbf{x} + \sigma_i \mathbf{z}$ với $\mathbf{z} \sim \mathcal{N}(0, I)$
-Trong quá trình Denoise ($T \rightarrow 0$)  $\sigma_T > \cdots  >  \sigma_2 > \sigma_1$, ta sẽ giảm $\sigma_t$ để giảm dần nhiễu, để mô hình có thể hội tụ ở những vùng có mật độ xác xuất cao.
+Trong quá trình Denoise ($T \rightarrow 0$)  $\sigma_T > \cdots  >  \sigma_2 > \sigma_1$, ta sẽ giảm $\sigma_t$ để giảm dần nhiễu, để mô hình có thể hội tụ ở những vùng có mật độ xác suất cao.
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.8\linewidth]{NoiseScale.jpg}
@@ -150,7 +150,7 @@ Trong quá trình Denoise ($T \rightarrow 0$)  $\sigma_T > \cdots  >  \sigma_2 >
 	\begin{enumerate}
 		\item Tính sẵn các giá trị $\sqrt{\alpha_t}$ $\sqrt{1 - \alpha_t}$ và $\sqrt{\bar{\alpha}_t}$ ở mọi bước $t: 1 \rightarrow T$.
 		$\{\alpha_t \in (0, 1)\}_{t=1}^T$, $\alpha_1 < \alpha_2 < \dots < \alpha_T$
-		\item Lấy nhãn $\bx_0$ từ phân bố của dữ liệu đã chuẩn hoá
+		\item Lấy nhãn $\bx_0$ từ phân bố của dữ liệu đã chuẩn hóa
 		\item Random nhiễu $\bepsilon_t$ ở mọi bước $t: 1 \rightarrow T$, với  $\forall t:  \bepsilon_t \sim\mathcal{N}(\bzero,\bI)$
 		\item Gây nhiễu (forward) $\bx_0$ để thu được $\bx_t$ ở mọi bước $t: 1 \rightarrow T$
 		$$

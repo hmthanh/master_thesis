@@ -74,7 +74,7 @@
 		\textbf{Phương pháp tiêu biểu} & \textbf{Loại} & \textbf{Nguyên lý} \\ \hline
 		Robot behavior toolkit & Rule-Based & Tạo một tập hợp các đơn vị cử chỉ và thiết kế các Rule cụ thể để ánh xạ lời nói thành một chuỗi các đơn vị cử chỉ. \\ \hline
 		Gesture Controller & Statistical Models & Sử dụng mô hình xác suất như Hidden Markov Models (HMM) để mô hình hóa phân phối cử chỉ bằng cách phân tích các thống kê. \\ \hline
-		Gesticulator(\textbf{MLP}), HA2G (\textbf{RNN}), Text2Gestures (\textbf{Transformers}) & Likelihood-Based & Sử dụng neuron network  (MLP, RNN, Transformers) để học end-to-end quan hệ của cử chỉ và âm thanh. Coi việc sinh cử chỉ như là một quá trình tái tạo (reconstruction) dữ liệu cử chỉ ban đầu. \\ \hline
+		Gesticulator(\textbf{MLP}), HA2G (\textbf{RNN}), Text2Gestures (\textbf{Transformers}) & Likelihood-Based & Sử dụng neural network  (MLP, RNN, Transformers) để học end-to-end quan hệ của cử chỉ và âm thanh. Coi việc sinh cử chỉ như là một quá trình tái tạo (reconstruction) dữ liệu cử chỉ ban đầu. \\ \hline
 		\textbf{Diffusion}: MDM, Listen, Denoise, Action
 		DiffuseStyleGesture & Implicit Generative & Học cách chuyển từ phân phối chuẩn về phân phối của dữ liệu để ngầm định việc học phân phối của dữ liệu, tạo ra sự đa dạng trong việc sinh cử chỉ. \\ \hline
 	\end{tabular}
@@ -128,7 +128,7 @@
 \end{frame}
 
 %\begin{frame}{Tư tưởng cơ bản của Diffusion}
-%	%	Dataset $\mathcal{G} = \{ x_{i}^{M \times D} \}_{1}^{n}$, ta chuẩn hoá dữ liệu $\bx_{i}^{M \times D} = \frac{\bx_{i}^{M \times D} - \mu}{\sigma}$
+%	%	Dataset $\mathcal{G} = \{ x_{i}^{M \times D} \}_{1}^{n}$, ta chuẩn hóa dữ liệu $\bx_{i}^{M \times D} = \frac{\bx_{i}^{M \times D} - \mu}{\sigma}$
 %	\begin{figure}
 %		\includegraphics[width=\textwidth]{ScoreMatching}
 %	\end{figure}
@@ -158,7 +158,7 @@
 	
 	%	Ta dễ dàng sinh mẫu (sampling) từ ${\sigma_i}(\mathbf{x})$ bằng cách lấy mẫu $\mathbf{x} \sim p(\mathbf{x})$  và tính $\mathbf{x} + \sigma_i \mathbf{z}$ với $\mathbf{z} \sim \mathcal{N}(0, I)$
 
-	%, hội tụ ở vùng có mật độ xác xuất cao.
+	%, hội tụ ở vùng có mật độ xác suất cao.
 	
 	$T \rightarrow 1$ :  $\sigma_T > \cdots  >  \sigma_2 > \sigma_1$, $\sigma_t$ sẽ giảm dần nhiễu
 		

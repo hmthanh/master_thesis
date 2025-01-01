@@ -10,7 +10,7 @@
 %
 %Tuy nhiên, do hạn chế tài nguyên, các đánh giá hiện tại vẫn chủ yếu dựa trên các kết quả chủ quan và kết quả từ mô hình cơ sở, chưa hoàn toàn phản ánh chất lượng thực tế của hệ thống đề xuất.
 
-Luận văn đã phát triển và thử nghiệm thành công mô hình sinh cử chỉ OHGesture, một hệ thống có khả năng tạo ra cử chỉ rất tự nhiên, mang lại cảm giác giống người. Điểm nổi bật của mô hình là khả năng đồng bộ chính xác giữa cử chỉ và cảm xúc, nội dung của giọng nói đầu vào, đồng thời có khả năng suy luận vượt ra khỏi các dữ liệu được huấn luyện ban đầu. Điều này có nghĩa là mô hình dựa trên Diffusion không chỉ phụ thuộc vào các mẫu dữ liệu cử chỉ đã được học mà còn có thể có tính khái quát hoá cao, và có thể sinh cử chỉ cho các giọng nói và ngữ cảnh có xác xuất dữ liệu thấp.
+Luận văn đã phát triển và thử nghiệm thành công mô hình sinh cử chỉ OHGesture, một hệ thống có khả năng tạo ra cử chỉ rất tự nhiên, mang lại cảm giác giống người. Điểm nổi bật của mô hình là khả năng đồng bộ chính xác giữa cử chỉ và cảm xúc, nội dung của giọng nói đầu vào, đồng thời có khả năng suy luận vượt ra khỏi các dữ liệu được huấn luyện ban đầu. Điều này có nghĩa là mô hình dựa trên Diffusion không chỉ phụ thuộc vào các mẫu dữ liệu cử chỉ đã được học mà còn có thể có tính khái quát hoá cao, và có thể sinh cử chỉ cho các giọng nói và ngữ cảnh có xác suất dữ liệu thấp.
 
 %Để hỗ trợ cộng đồng nghiên cứu và mở rộng ứng dụng, luận văn đã cung cấp phiên bản pretrained của mô hình OHGesture trên nền tảng Huggingface, có thể truy cập tại địa chỉ \hyperlink{https://huggingface.co/openhuman/openhuman}{huggingface.co/openhuman/openhuman}. Bên cạnh đó, toàn bộ mã nguồn của mô hình cùng các cải tiến trong quá trình xử lý dữ liệu và sinh cử chỉ đã được công khai trên GitHub tại kho lưu trữ \hyperlink{https://github.com/hmthanh/OHGesture}{hmthanh/OHGesture}, cho phép các nhà nghiên cứu và nhà phát triển dễ dàng tải xuống, tùy chỉnh và thử nghiệm. Để hỗ trợ việc đánh giá và so sánh kết quả, luận văn cũng đã tải lên toàn bộ các video render của mô hình trên YouTube, giúp trực quan hóa và đối chiếu giữa kết quả cử chỉ sinh ra bởi OHGesture và cử chỉ từ dữ liệu thực tế (GroundTruth).
 
@@ -32,7 +32,7 @@ Mô hình sinh cử chỉ OHGesture có nhiều ưu điểm đáng kể, góp ph
 \begin{itemize}
 	\item Độ chân thực cao: Dựa vào kết quả sinh cử chỉ, có thể thấy mô hình OHGesture đã đạt được kết quả sinh cử chỉ có độ giống người cao. Các cử chỉ sinh ra phản ánh được sắc thái và nhịp điệu của giọng nói, giúp hệ thống có khả năng phản hồi đồng bộ với thông tin cảm xúc và nội dung của giọng nói.
 	
-	\item Khả năng tổng quát tốt: Nhờ mô hình khử nhiễu có thể phủ được các điểm dữ liệu có các xác xuất thấp, mô hình có thể suy luận cử chỉ cho các tình huống và trạng thái cảm xúc chưa từng xuất hiện trong tập huấn luyện, cho thấy tiềm năng ứng dụng trong nhiều bối cảnh thực tế.
+	\item Khả năng tổng quát tốt: Nhờ mô hình khử nhiễu có thể phủ được các điểm dữ liệu có các xác suất thấp, mô hình có thể suy luận cử chỉ cho các tình huống và trạng thái cảm xúc chưa từng xuất hiện trong tập huấn luyện, cho thấy tiềm năng ứng dụng trong nhiều bối cảnh thực tế.
 	
 	\item Có khả năng kiểm soát được nhiều đặc trưng khác nhau: Mô hình diffusion có khả năng điều khiển được các cảm xúc khác nhau, có khả năng nội suy trạng thái giữa các cảm xúc khác nhau.
 	
@@ -121,7 +121,7 @@ Trong luận văn này, luận văn đã phát triển hệ thống sinh cử ch
 
 \section{Lời kết}
 %\ref{fig:SampleAnimation}
-%Qua kết quả sinh cử chỉ thực tế sau khi render, có thể thấy mô hình của luận văn kế thừa từ mô hình DiffuseStyleGesture đạt kết quả tốt khi kết xuất, không chỉ có thể sinh ra cử chỉ chân thật từ dữ liệu GroundTruth mà còn có thể suy luận ra những cử chỉ không hề có trong tập dữ liệu huấn luyện như giọng nói của Steven Jobs nói. Điều này cũng chứng tỏ rằng mô hình Diffusion là mô hình có thể đạt kết quả tốt để có thể phủ được các kết quả sinh mà ở đó xác xuất dữ liệu thấp. Ngoài đóng góp về việc tích hợp thêm văn bản vào quá trình sinh cử chỉ, mã nguồn chỉnh sửa được công khai trên Github, luận văn cũng đóng góp về quá trình kết xuất và quá trình xử lý dữ liệu trên Unity. Đây là nền tảng để tiếp tục nghiên cứu và cải thiện mô hình OHGesture hiện tại.
+%Qua kết quả sinh cử chỉ thực tế sau khi render, có thể thấy mô hình của luận văn kế thừa từ mô hình DiffuseStyleGesture đạt kết quả tốt khi kết xuất, không chỉ có thể sinh ra cử chỉ chân thật từ dữ liệu GroundTruth mà còn có thể suy luận ra những cử chỉ không hề có trong tập dữ liệu huấn luyện như giọng nói của Steven Jobs nói. Điều này cũng chứng tỏ rằng mô hình Diffusion là mô hình có thể đạt kết quả tốt để có thể phủ được các kết quả sinh mà ở đó xác suất dữ liệu thấp. Ngoài đóng góp về việc tích hợp thêm văn bản vào quá trình sinh cử chỉ, mã nguồn chỉnh sửa được công khai trên Github, luận văn cũng đóng góp về quá trình kết xuất và quá trình xử lý dữ liệu trên Unity. Đây là nền tảng để tiếp tục nghiên cứu và cải thiện mô hình OHGesture hiện tại.
 
 %Việc học cử chỉ tương ứng với giọng nói (speech-drive gesture generation) không chỉ đạt kết quả tốt với dữ liệu gốc mà cử chỉ còn có thể sinh ra cử chỉ đạt kết quả tốt ở những giọng nói không có trong dữ liệu như 
 

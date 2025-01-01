@@ -78,13 +78,13 @@
 %			\begin{column}{0.5\textwidth}
 %				\begin{figure}
 %					\includegraphics[width=\textwidth]{ProbabilityDensityFunctions.png}
-%					\caption{\scriptsize Phải chuẩn hoá (diện tích dưới đường cong phải tích phân thành một)}
+%					\caption{\scriptsize Phải chuẩn hóa (diện tích dưới đường cong phải tích phân thành một)}
 %				\end{figure}
 %			\end{column}
 %			\begin{column}{0.5\textwidth}
 %				\begin{figure}
 %					\includegraphics[width=\textwidth]{ScoreFunction.png}
-%					\caption{\scriptsize Không cần chuẩn hoá.}
+%					\caption{\scriptsize Không cần chuẩn hóa.}
 %				\end{figure}
 %			\end{column}
 %		\end{columns}
@@ -122,7 +122,7 @@
 
 
 \begin{frame}{Tư tưởng cơ bản của Diffusion}
-	Dataset $\mathcal{G} = \{ x_{i}^{M \times D} \}_{1}^{n}$, ta chuẩn hoá dữ liệu $\bx_{i}^{M \times D} = \frac{\bx_{i}^{M \times D} - \mu}{\sigma}$
+	Dataset $\mathcal{G} = \{ x_{i}^{M \times D} \}_{1}^{n}$, ta chuẩn hóa dữ liệu $\bx_{i}^{M \times D} = \frac{\bx_{i}^{M \times D} - \mu}{\sigma}$
 \begin{figure}
 	\includegraphics[width=0.8\textwidth]{ScoreMatching}
 \end{figure}
@@ -155,13 +155,13 @@
 		\item Phương sai: $\sigma^2 = \textcolor{blue} {b^2} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2$
 		
 	\end{itemize}
-	\textbf{Xác xuất có điều kiện}
+	\textbf{xác suất có điều kiện}
 	\vspace{-5pt}
 	{\Large $$p(\textcolor{green}{x}| \textcolor{orange}{y})$$}
 	\vspace{-15pt}
 	
 	\begin{itemize}
-		\item $p(\textcolor{green}{x}| \textcolor{orange}{y})$ là xác xuất có điều kiện.
+		\item $p(\textcolor{green}{x}| \textcolor{orange}{y})$ là xác suất có điều kiện.
 		\item $\textcolor{orange}{y}$: xảy ra trước (bên phải)
 		\item $\textcolor{green}{x}$: sảy ra sau y (bên trái)
 	\end{itemize}
@@ -199,13 +199,13 @@
 				\begin{column}{0.5\textwidth}
 					\begin{figure}
 						\includegraphics[width=\textwidth]{ProbabilityDensityFunctions.png}
-						\caption{\scriptsize Phải chuẩn hoá (diện tích dưới đường cong phải tích phân thành một)}
+						\caption{\scriptsize Phải chuẩn hóa (diện tích dưới đường cong phải tích phân thành một)}
 					\end{figure}
 				\end{column}
 				\begin{column}{0.5\textwidth}
 					\begin{figure}
 						\includegraphics[width=\textwidth]{ScoreFunction.png}
-						\caption{\scriptsize Không cần chuẩn hoá.}
+						\caption{\scriptsize Không cần chuẩn hóa.}
 					\end{figure}
 				\end{column}
 			\end{columns}
