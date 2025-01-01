@@ -40,7 +40,7 @@ Cho dữ liệu $\mathbf{x}_{0}$ được lấy từ dữ liệu thật $\mathbf
 \end{equation}
 
 
-Trong đó, quá trình gây nhiễu từ $1 \to T$, với mỗi bước $t$ quá trình thêm nhiễu $\epsilon$ được điều khiển bằng $\beta_t$ theo phương sai $\{\beta_t \in (0, 1)\}_{t=1}^T$.
+Trong đó, quá trình gây nhiễu từ $1 \to T$, với mỗi bước $t$, quá trình thêm nhiễu $\epsilon$ được điều khiển bởi $\beta_t$ thuộc tập hợp $\{\beta_t \in (0, 1)\}_{t=1}^T$.
 
 Bởi vì một hàm $f(x)$ có dạng $f(x) = a x + b\epsilon$ với $\epsilon \in \mathcal{N}(0, \mathbf{I})$ sẽ tương đương $f(x) \sim \mathcal{N}(a x, b^2)$ (với $a x$ là kỳ vọng hay trung bình, $b^2$ là phương sai), từ đó quá trình gây nhiễu có thể được viết gọn là ở từng bước nhiễu $t$, khi biết trước $\bx_{t-1}$ là:
 
@@ -61,7 +61,7 @@ Mục tiêu ở bước $t$ của hệ số $\sqrt{1 - \beta_t}$ và $\beta_t$ l
 	\label{fig:AlgorithmForwardDiffusion}
 \end{figure}
 
-Vì nhiễu $\boldsymbol{\epsilon}_{t-1}, \boldsymbol{\epsilon}_{t-2}, \dots \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ luôn luôn là phân phối chuẩn Gaussian, và cho trước trong mọi bước $t$, nên ta có thể dễ dàng truy ngược được $\bx_t$ từ $\bx_0$. Bằng cách đặt $\alpha_t = 1 - \beta_t$ và $\bar{\alpha}_t = \prod_{i=1}^t \alpha_i$, từ \autoref{eq:addgaussian}, ta có hàm forward diffusion viết lại theo $\alpha$ như sau:
+Vì nhiễu $\boldsymbol{\epsilon}_{t-1}, \boldsymbol{\epsilon}_{t-2}, \dots \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ luôn là các biến ngẫu nhiên tuân theo phân phối chuẩn Gaussian, và được xác định trước ở mỗi bước $t$, nên ta có thể dễ dàng tính $\bx_t$ từ $\bx_0$. Bằng cách đặt $\alpha_t = 1 - \beta_t$ và $\bar{\alpha}_t = \prod_{i=1}^t \alpha_i$, từ \autoref{eq:addgaussian}, ta có hàm forward diffusion viết lại theo $\alpha$ như sau:
 
 \begin{equation}
 \begin{aligned}
@@ -123,14 +123,14 @@ Quá trình khử nhiễu là quá trình bắt đầu từ nhiễu hoàn toàn,
 	\begin{equation}
 		\label{eq:diffusion_loss}
 		\begin{aligned}
-			\mathcal{L}_t
+			\mathcal{L}^t
 			&= \mathbb{E}_{t \sim [1, T], \mathbf{x}_0, \boldsymbol{\epsilon}_t} \Big[\|\boldsymbol{\epsilon}_t - \boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t)\|^2 \Big] \\
 			&= \mathbb{E}_{t \sim [1, T], \mathbf{x}_0, \boldsymbol{\epsilon}_t} \Big[\|\boldsymbol{\epsilon}_t - \boldsymbol{\epsilon}_\theta(\sqrt{\bar{\alpha}_t}\mathbf{x}_0 + \sqrt{1 - \bar{\alpha}_t}\boldsymbol{\epsilon}_t, t)\|^2 \Big]
 		\end{aligned}
 	\end{equation}
 
 
-Trong đó, hàm mất mát $\mathcal{L}$ tổng sẽ là  $\mathcal{L} = \sum_{t=1}^{T} \mathcal{L}_t$.
+Trong đó, hàm mất mát $\mathcal{L}$ tổng sẽ là  $\mathcal{L} = \sum_{t=1}^{T} \mathcal{L}^t$.
 
 Với $f_{\theta}(x_{t-1}, t)$ hay $\epsilon_\theta$ là một mô hình Unet dùng để mã hóa và giải mã dữ liệu để dự đoán nhiễu đã thêm vào dữ liệu. Quá trình tính toán hàm lỗi được trình bày minh họa trong \autoref{fig:basic_diffusion}.
 
@@ -161,7 +161,7 @@ Với $f_{\theta}(x_{t-1}, t)$ hay $\epsilon_\theta$ là một mô hình Unet d�
 		$$
 		Tính loss:
 		$$
-		\mathcal{L}_t = \mathbb{E}_{t \sim [1, T], \mathbf{x}_0, \boldsymbol{\epsilon}_t} \left[ \|\boldsymbol{\epsilon}_t - \boldsymbol{\epsilon}_\theta(\sqrt{\bar{\alpha}_t} \mathbf{x}_0 + \sqrt{1 - \bar{\alpha}_t} \boldsymbol{\epsilon}_t, t)\|^2 \right]
+		\mathcal{L}^t = \mathbb{E}_{t \sim [1, T], \mathbf{x}_0, \boldsymbol{\epsilon}_t} \left[ \|\boldsymbol{\epsilon}_t - \boldsymbol{\epsilon}_\theta(\sqrt{\bar{\alpha}_t} \mathbf{x}_0 + \sqrt{1 - \bar{\alpha}_t} \boldsymbol{\epsilon}_t, t)\|^2 \right]
 		$$
 		
 		\item Quay lại bước 6 cho đến khi hội tụ để thu được trọng số tối ưu $\theta'$.
