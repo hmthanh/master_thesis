@@ -18,13 +18,13 @@ Trong công đoạn {1. Tiền xử lý dữ liệu} (\autoref{fig:CommonStage})
 
 Đối với \textbf{dữ liệu văn bản}: Luận văn sử dụng thư viện $\texttt{nltk}$ tách các từ, sử dụng $\texttt{contractions}$ để chuyển các từ viết tắt về dạng chuẩn hóa.
 
-Một trong những đóng góp của luận văn là từ dữ liệu giọng nói có sẵn từ tập ZeroEEGS, luận văn đã sử dụng Adobe Speech To Text để chuyển giọng nói thành văn bản, dùng Montreal Forced Aligner \cite{saxon2020robust} của từ điển âm vị Tiếng Anh để căn chỉnh được thời gian tương ứng với số frame của cử chỉ để thu được các TextGrid. Trong TextGrid sẽ có thời gian tương ứng với từng từ, dựa trên thông tin này, luận văn sử dụng  $\texttt{gensim}$ để nhúng vector word2vec.
+Một trong những đóng góp của luận văn là từ dữ liệu giọng nói có sẵn từ tập ZeroEGGS, luận văn đã sử dụng Adobe Speech To Text để chuyển giọng nói thành văn bản, dùng Montreal Forced Aligner \cite{saxon2020robust} của từ điển âm vị Tiếng Anh để căn chỉnh được thời gian tương ứng với số frame của cử chỉ để thu được các TextGrid. Trong TextGrid sẽ có thời gian tương ứng với từng từ, dựa trên thông tin này, luận văn sử dụng  $\texttt{gensim}$ để nhúng vector word2vec.
  
 
 \textbf{Dữ liệu cử chỉ} bao gồm các tệp BVH (BioVision Motion Capture) được thu nhận từ các cảm biến bằng các hệ thống Motion Capture. Trong các tệp BVH, có chứa hai thành phần gồm Hierachy và Motion. Trong đó:
 
 \begin{itemize}
-	\item \texttt{HIERARCHY}: là một cây định nghĩa thông tin khung xương bao gồm 75 bone $\{ \mathbf{b}_1, \mathbf{b}_2 \cdots \mathbf{b}_{75} \} $, mỗi bone bao gồm thông tin về vị trí ban đầu (\texttt{OFFSET}), và các loại tham số \texttt{CHANNELS} thể hiện thông tin về loại, thứ tự của góc quay (\texttt{Zrotation}, \texttt{Yrotation} \texttt{Xrotation}) và vị trí (\texttt{Xposition}, \texttt{Yposition}, \texttt{Zposition}) sẽ định nghĩa trong phần \texttt{MOTION}. Bone (thường là \texttt{Hips}) đầu tiên sẽ là bone gốc $\mathbf{b}_{\text{root}}$, là vị trí sau đó sẽ được forward kinematic (động học thuận) để được T-Shape là ví trí ban đầu của toàn bộ khung xương trước khi áp dụng chuyển động.
+	\item \texttt{HIERARCHY}: là một cây định nghĩa thông tin khung xương bao gồm 75 xương $\{ \mathbf{b}_1, \mathbf{b}_2 \cdots \mathbf{b}_{75} \} $, mỗi bone bao gồm thông tin về vị trí ban đầu (\texttt{OFFSET}), và các loại tham số \texttt{CHANNELS} thể hiện thông tin về loại, thứ tự của góc quay (\texttt{Zrotation}, \texttt{Yrotation} \texttt{Xrotation}) và vị trí (\texttt{Xposition}, \texttt{Yposition}, \texttt{Zposition}) sẽ định nghĩa trong phần \texttt{MOTION}. Bone (thường là \texttt{Hips}) đầu tiên sẽ là bone gốc $\mathbf{b}_{\text{root}}$, là vị trí sau đó sẽ được forward kinematic (động học thuận) để được T-Shape là ví trí ban đầu của toàn bộ khung xương trước khi áp dụng chuyển động.
 	
 	\item \texttt{MOTION}: là chuỗi các khung hình. Mỗi khung hình là dữ liệu chuyển động thể hiện sự thay đổi của toàn bộ $75$ khung xương đã định nghĩa trong \texttt{CHANNELS} của \texttt{HIERARCHY}.
 \end{itemize}

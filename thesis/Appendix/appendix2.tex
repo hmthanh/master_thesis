@@ -47,10 +47,7 @@ Một số tên khung xương nhân vật trong $75$ khung xương chuyển đ�
 \section{Cấu trúc tệp dữ liệu BVH}
 \label{appendix:BVHData:BVHStructure}
 
-%\includegraphics[width=0.4\linewidth]{BVHFile}
-
 File BVH (Biovision Hierarchy) là một định dạng file dữ liệu chứa thông tin về cấu trúc xương và dữ liệu về chuyển động của xương trong một hệ thống xương. File BVH bao gồm hai phần chính: phần khai báo cấu trúc xương và phần dữ liệu chuyển động của xương. 
-%Mỗi phần được phân cách bởi từ khóa \texttt{MOTION}.
 
 \begin{itemize}
 	\item \textbf{HIERARCHY}:
@@ -89,7 +86,7 @@ File BVH (Biovision Hierarchy) là một định dạng file dữ liệu chứa 
 	%		\includegraphics[width=0.25\textwidth]{BVHFile}
 	%	\end{figure}
 	
-$\mathbf{rotation}_i^{\operatorname{local}} = \{ \alpha ,\beta , \gamma \}$ lần lượt là góc quay quanh các trục $Z$ ,$Y$ , và $X$, góc quay tổng hợp ba trục trong không gian Eule là 
+$\mathbf{rotation}_i^{\operatorname{local}} = \{ \alpha ,\beta , \gamma \}$ lần lượt là góc quay quanh các trục $Z$ ,$Y$ , và $X$, góc quay tổng hợp ba trục trong không gian Euler là 
 
 \begin{equation}
 R = R_Z(\alpha) R_Y(\beta) R_X(\gamma)
@@ -140,14 +137,9 @@ R_X(\gamma) =
 \section{Quá trình chuyển góc quay Euler sang Quaternion}
 \label{appendix:BVHData:QuaternionConvert}
 
-%Quaternion là một cách biểu diễn góc quay trong không gian ba chiều. Quaternion có dạng $q = a + bi + cj + dk$, trong đó $ư, b, c, d$ là các số thực. Quaternion có thể được biểu diễn dưới dạng ma trận $4 \times 4$ như sau:
-
 
 Để tránh Gimbal lock, dữ liệu ở dạng góc quay Euler phải được chuyển sang dạng góc quay Quaternion. Trong đó góc quay từng Bone dạng Euler ZYX sang dạng Quaternion, mỗi Bone biểu diễn bằng 4 phần tử $q = (q_w, q_x, q_y, q_z)$, với các giá trị được tính như sau:
 %	Mỗi Bone được biểu diễn thành: 
-%	$$q = w + xi + yj + zk$$
-%	c
-%	$$i^2 = j^2 = k^2 = ijk = -1$$
 
 Đầu tiên, tính các giá trị $\cos$ và $\sin$ của một nửa góc quay cho mỗi trục:
 
@@ -175,6 +167,3 @@ Với quaternion $q$ đã tính, vị trí toàn cục của bone $\mathbf{p}_{\
 \end{equation}
 
 với $\mathbf{t}$ là vị trí gốc của bone trong không gian toàn cục.
-
-
-
