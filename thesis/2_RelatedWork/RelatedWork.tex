@@ -47,7 +47,7 @@ Tiêu biểu của phương pháp thống kê là \textit{Gesture controllers} \
 
 \textbf{Nguyên lý chung của phương pháp học sâu}
 
-Sử dụng mạng nơ-ron nhân tạo nhiều tầng (deep neural networks) để tự động trích xuất đặc trưng từ dữ liệu thô và học các biểu diễn phức tạp của dữ liệu. Mô hình học thông qua tối ưu hóa các tham số.
+Sử dụng mạng neural network nhiều tầng (deep neural networks) để tự động trích xuất đặc trưng từ dữ liệu thô và học các biểu diễn phức tạp của dữ liệu. Mô hình học thông qua tối ưu hóa các tham số.
 
 \begin{figure}[H]
 	\centering
@@ -56,17 +56,17 @@ Sử dụng mạng nơ-ron nhân tạo nhiều tầng (deep neural networks) đ�
 	\label{fig:GeneralOverview}
 \end{figure}
 
-Phương pháp sinh cử chỉ bằng học sâu minh họa ở \autoref{fig:GeneralOverview} được chia thành hai nhóm chính: học dựa trên ước lượng log likelihood (likelihood-based model)  và phương pháp dựa vào các mô hình sinh ngầm định (implicit generative models) \cite{song2021score}.
+Phương pháp sinh cử chỉ bằng học sâu minh họa ở \autoref{fig:GeneralOverview} được chia thành hai nhóm chính: học dựa trên ước lượng likelihood (likelihood-based model)  và phương pháp dựa vào các mô hình sinh ngầm định (implicit generative models) \cite{song2021score}.
 
 \subsubsection{Mô hình dựa trên likelihood}
 
 \textbf{Nguyên lý chung của mô hình dựa trên likelihood}
 
-Mô hình dựa trên Log Likelihood hoạt động bằng cách tối đa hóa xác suất hợp lý của dữ liệu quan sát được, dựa trên các tham số $\theta$ của mô hình. Mục tiêu là tìm được tham số tối ưu $\theta'$ dựa trên xác suất $p(\mathbf{x})$ của dữ liệu, trong đó $\mathbf{x}$ là dữ liệu chuỗi cử chỉ.
+Mô hình dựa trên Likelihood hoạt động bằng cách tối đa hóa xác suất hợp lý của dữ liệu quan sát được, dựa trên các tham số $\theta$ của mô hình. Mục tiêu là tìm được tham số tối ưu $\theta'$ dựa trên xác suất $p(\mathbf{x})$ của dữ liệu, trong đó $\mathbf{x}$ là dữ liệu chuỗi cử chỉ.
 
 \textbf{Phương pháp}
 
-Quá trình áp dụng các phương pháp học sâu vào bài toán sinh cử chỉ cũng tương đồng với sự phát triển của các phương pháp học sâu, từ RNN, LSTM và Transformer .v.v.. Các phương pháp tiêu biểu trong nhóm phương pháp dựa trên likelihood:
+Quá trình áp dụng các phương pháp học sâu vào bài toán sinh cử chỉ cũng tương đồng với sự phát triển của các phương pháp học sâu, từ RNN, LSTM và Transformer .v.v. Các phương pháp tiêu biểu trong nhóm phương pháp dựa trên likelihood:
 
 \begin{itemize}[]
 	\item Phương pháp \textit{Gesticulator} \cite{kucherenko2020gesticulator} sử dụng kiến trúc Multilayer Perceptron (MLP) để mã hóa đặc trưng văn bản và âm thanh, sử dụng vector văn bản từ BERT làm vector đặc trưng cho văn bản. 
@@ -102,7 +102,7 @@ Các phương pháp tiêu biểu cho mô hình sinh ngầm định là
 \begin{itemize}
 	\item \textit{MoGlow} \cite{henter2020moglow} sử dụng Normalizing Flows được sử dụng để duy trì tính nhất quán và tính tương thích của chuyển động, đồng thời cung cấp khả năng điều khiển thông qua các thông số đầu vào. Điều này cho phép người dùng tạo ra các chuyển động mới hoặc thay đổi các chuyển động hiện có bằng cách thay đổi các thông số điều khiển.
 	
-	\item \textbf{GAN}: \textit{GRU-based WGAN} \cite{wu2021probabilistic} sử dụng Wasserstein GAN để đánh giá và cải thiện chất lượng của việc sinh cử chỉ, mô hình tập trung vào việc tối ưu hóa hàm mất mát Wassserstein, giúp giảm tình trạng chảy đặc (mode collapse) thường gặp trong GAN truyền thống. GRU được sử dụng để xử lý dữ liệu lời nói và biến nó thành các đặc trưng cử chỉ có thể sử dụng được. Sau đó, những đặc trưng này được cung cấp vào mạng WGAN, nơi chúng sẽ được đánh giá và tinh chỉnh để sinh cử chỉ.
+	\item \textbf{GAN}: \textit{GRU-based WGAN} \cite{wu2021probabilistic} sử dụng Wasserstein GAN để đánh giá và cải thiện chất lượng của việc sinh cử chỉ, mô hình tập trung vào việc tối ưu hóa hàm mất mát Wasserstein, giúp giảm tình trạng chảy đặc (mode collapse) thường gặp trong GAN truyền thống. GRU được sử dụng để xử lý dữ liệu lời nói và biến nó thành các đặc trưng cử chỉ có thể sử dụng được. Sau đó, những đặc trưng này được cung cấp vào mạng WGAN, nơi chúng sẽ được đánh giá và tinh chỉnh để sinh cử chỉ.
 	
 	\item \textbf{VAE}:  \textit{FreeMo} \cite{xu2022freeform} sử dụng VAE để phân rã (decomposing) các cử chỉ thành tư thế cử chỉ (pose modes) và giai điệu chuyển động (rhythmic motions). Tư thế cử chỉ được sinh ra ngẫu nhiên sử dụng quá trình lấy mẫu có điều kiện trong không gian ẩn của VAE. Trong khi các giai điệu chuyển động được sinh ra từ 
 	
