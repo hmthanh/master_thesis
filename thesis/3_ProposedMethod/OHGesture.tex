@@ -31,7 +31,7 @@ Những điểm giống và khác của việc áp dụng mô hình diffusion ch
 		\item Điều kiện cảm xúc: $c = \big[ \mathbf{s}, \mathbf{e}, \mathbf{a}, \mathbf{v} \big]$ và $c_{\varnothing} = \big[ \varnothing, \varnothing, \mathbf{a}, \mathbf{v}\big]$.
 		\item Nội suy trạng thái giữa hai cảm xúc $\mathbf{e}_1, \mathbf{e}_2$, sử dụng điều kiện: $c = \big[ \mathbf{s}, \mathbf{e}_1, \mathbf{a}, \mathbf{v} \big]$ và $c_{\varnothing} = \big[ \mathbf{s}, \mathbf{e}_2, \mathbf{a}, \mathbf{v} \big]$.
 	\end{itemize}
-	\item Ở công đoạn \textit{5. Kết hợp đặc trưng} \autoref{fig:CommonStage}, mô hình sử dụng Self-Attention: Mối liên hệ giữa các cảm xúc, cử chỉ khởi tạo và từng khung hình (tương tự DALL-E 2 tính mối liên hệ giữa văn bản và ảnh).
+	\item Ở công đoạn \textit{5. Kết hợp đặc trưng} \autoref{fig:CommonStage}, mô hình sử dụng Self-Attention: Mối liên hệ giữa các cảm xúc, cử chỉ khởi tạo và từng khung hình (tương tự Dall-E 2 tính mối liên hệ giữa văn bản và ảnh).
 	\item Ở công đoạn \textit{5. Kết hợp đặc trưng} \autoref{fig:CommonStage}, mô hình concat giọng nói và văn bản (Tương tự như ControlNet sử dụng Pixel-wise Condition)
 	%			\item Học mối liên hệ giữa điều kiện và các khung hình bằng Local-Cross Attention
 \end{itemize}
@@ -252,7 +252,7 @@ Tương tự như các phương pháp sử dụng mô hình khử nhiễu có đ
 		
 		\item Tính loss và đạo hàm để cập nhật trọng số $\theta$:
 		\[
-		\mathcal{L}_t = \mathbb{E}_{t \sim [1, T], \mathbf{x}_0, \boldsymbol{\epsilon}_t} \left[ \operatorname{HuberLoss}(\mathbf{x}_0, \hat{\mathbf{x}}_0 ) \right]
+		\mathcal{L}^t = \mathbb{E}_{t \sim [1, T], \mathbf{x}_0, \boldsymbol{\epsilon}_t} \left[ \operatorname{HuberLoss}(\mathbf{x}_0, \hat{\mathbf{x}}_0 ) \right]
 		\]
 		
 		\item Lặp lại từ bước 6 cho đến khi hội tụ, thu được các tham số tối ưu $\theta'$.
