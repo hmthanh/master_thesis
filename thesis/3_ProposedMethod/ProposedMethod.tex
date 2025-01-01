@@ -17,15 +17,7 @@
 \chapter{PHƯƠNG PHÁP NGHIÊN CỨU}
 \label{chap:Chapter3}
 
-%\begin{figure}
-%    \centering
-%    \includegraphics[width=\linewidth]{images/architecture.jpg}
-%    \caption{Kiến trúc mồ hình sinh cử chỉ OHGesture}
-%    \label{fig:architecture}
-%\end{figure}
-
-Bản chất của các phương pháp dựa trên neuron network là ước lượng xác xuất của dữ liệu (probability density) nên cần chuẩn hoá (normalization), trong khi mô hình Diffusion sẽ học để có thể ước lượng đạo hàm của phân phối dữ liệu \cite{song2021score} (estimating gradients of data distribution) và không phải chuẩn hoá trên toàn bộ dữ liệu, nên có kết quả tốt hơn so với các phương pháp neuron network không sử dụng diffusion. Mô hình diffusion có khả năng mô phỏng phân phối dữ liệu trong các trường hợp mật độ phân phối của dữ liệu thấp và có thể sinh được kết quả với độ chi tiết cao.
-%nên phù hợp với bài toán sinh cử chỉ như đã trình bày ở \autoref{subsec:reason}.
+Bản chất của các phương pháp dựa trên neural network là ước lượng xác xuất của dữ liệu (probability density) nên cần chuẩn hoá (normalization), trong khi mô hình Diffusion sẽ học để có thể ước lượng đạo hàm của phân phối dữ liệu \cite{song2021score} (estimating gradients of data distribution) và không phải chuẩn hoá trên toàn bộ dữ liệu, nên có kết quả tốt hơn so với các phương pháp neuron network không sử dụng diffusion. Mô hình diffusion có khả năng mô phỏng phân phối dữ liệu trong các trường hợp mật độ phân phối của dữ liệu thấp và có thể sinh được kết quả với độ chi tiết cao.
 
 Mô hình của luận văn dựa trên mô hình DiffuseStyleGesture \cite{yang2022DiffuseStyleGestureplus} với cải tiến chính là dựa trên dữ liệu giọng nói, luận văn chuyển giọng nói thành văn bản và nhúng văn bản để được các vector đặc trưng văn bản, và sử dụng như là một vector đặc trưng về ngữ nghĩa trong quá trình diffusion có điều kiện. Quá trình này được trình bày \autoref{subsec:feature_extraction}. Ngoài ra ở công đoạn \textit{7. Kết xuất}  (\autoref{fig:CommonStage}), luận văn sử dụng Unity để kết xuất văn bản. Các đóng góp chính của luận văn được trình bày đầy đủ ở \autoref{sec:contribution}.
 
@@ -45,22 +37,7 @@ Trước tiên luận văn trình bày về mô hình diffusion \autoref{sec:sum
 	\label{fig:DiffuseAndDenoise}
 \end{figure}
 
-%
-%Cho một mẫu dữ liệu từ cử chỉ gốc $\bx_0$ trong đó $\bx_0 \in \mathbb{R}^{1:M \times D}$, ta lần lượt thêm một lượng nhiễu $\epsilon_t \in \mathcal{N}(0, \mathbf{I})$ (trung bình bằng $0$ và phương sai bằng $1$) lần lượt $t$ bước, với  $t: 1 \rightarrow T$ để được $\bx_T$ là nhiễu hoàn toàn như \autoref{fig:DiffuseAndDenoise} theo công thức sau:
-%
-%\begin{equation}
-%	\label{eq:diffuse}
-%	\mathbf{x}_t = \sqrt{1 - \beta_t}\mathbf{x}_{t-1} + \sqrt{\beta_t} \boldsymbol{\epsilon}_{t-1}
-%\end{equation}
-%
-%Ở đây $\sqrt{1 - \beta_t}$ và $\sqrt{\beta_t}$ là hai hệ số điều khiển trong quá trình thêm nhiễu. Trong đó $\sqrt{1 - \beta_t}$ giảm dần 
-% Từ nhiễu hoàn toàn $\bx_{T}$ ta lại .
-% 
-% Hàm mà đầu vào là $\bx$, 
 Với các phương pháp sử dụng neural network như ResNet, InceptionNet,... kết quả là tìm được trọng số $\theta$ của hàm $f_{\theta}(x)$, mục tiêu là cực tiểu hoá hàm lỗi $\mathcal{L}_\text{loss}$ giữa nhãn $y$ và kết quả dự đoán là $\hat{y}$. Sau khi kết thúc quá trình huấn luyện và học được trọng số $\theta'$ ta dự đoán một mẫu dữ liệu mới $x'$ bằng cách forward qua hàm $f_{\theta'}$ để ra được kết quả dự đoán $y'$.
-
-%\begin{figure*}[bp]
-
 
 Tương tự phương pháp VAE, mã hoá (encode) ma trận đầu vào thành vector tiềm ẩn $z$ và giải mã (decode) vector tiềm ẩn $z$ ngược trở lại ma trận kích thước ban đầu, tuy nhiên mô hình diffusion chia quá trình học thành từng $T$ bước, ở bước thứ $t$ quá trình gây nhiễu (forward diffusion process) $q(\mathbf{x})$ từ $1 \to T$ được thực hiện bằng cách thêm nhiễu $\epsilon_{t} \sim \mathcal{N} (\mathbf{0}, \mathbf{I})$ phân phối chuẩn Gaussian vào dữ liệu, với $\mathbf{I}$ là phần tử đơn vị của phân phối chuẩn Gaussian có giá trị trung bình  (mean) bằng $\mathbb{E}[\epsilon]=0$ và phương sai $\operatorname{Var}(\epsilon)=1$.
 
@@ -346,7 +323,7 @@ Như hình \autoref{fig:X0Objective}, ta bắt đầu bằng việc thêm nhiễ
 
 Như hình \autoref{fig:GaussianDrift}, để quá trình suy luận có thể sinh ra các kết quả $\bx_0$ khác nhau và có thể điều khiển được dựa trên điều kiện $c$. Ở mỗi bước $t$, cần thêm một lượng điều hướng với một điều kiện cụ thể. Nhóm tác giả đề xuất  Classifier-Free Diffusion Guidance \cite{ho2022classifier} với việc kết quả $\bx_0$ được cập nhật bằng cách cộng kết quả có điều kiện và không có điều kiện.
 \begin{equation}
-\hat{\mathbf{x}}_{0\ {\gamma, c, c_{\varnothing}}} = \gamma \cdot f_{\theta} \left(\mathbf{x}_{t}, t, c \right) + (1 - \gamma) \cdot f_{\theta} \left(\mathbf{x}_{t}, t, c_{\varnothing} \right)
+{\color{red}{\hat{\mathbf{x}}}}_{0 \gamma, \color{blue}{c}, \color{green}{c_{\varnothing}}}=\gamma \cdot f_{\theta} \left(\mathbf{x}_{t}, t, {\color{blue}{c}} \right)+(1-\gamma) \cdot f_{\theta} \left(\mathbf{x}_{t}, t, {\color{green}{c_{\varnothing}}} \right)
 \end{equation}
 
 Trong đó, $c$ là điều kiện, $c_{\varnothing}$ là điều kiện rỗng,  kết quả sinh điều kiện được điều khiển bằng tham số $\gamma$, nếu $\gamma$ càng lớn thì kết quả sinh ra càng sát với điều kiện $c$, ngược lại thì kết quả sẽ nghiêng về kết quả sinh không có điều kiện.

@@ -23,20 +23,6 @@
 	\caption{Minh hoạ kỹ thuật đồ hoạ máy tính trong việc xây dựng người kỹ thuật số}
 	\label{fig:DigitalHuman}
 \end{figure}
-%
-%\begin{figure}[h!]
-%  \centering
-%  \includegraphics[width=0.5\linewidth]{cgi.png}
-%  \caption{Công nghệ CGI với người kỹ thuật số siêu thật \cite{edchrisjones}}
-%  \label{fig:cgi}
-%\end{figure}
-%
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[width=\linewidth]{obama_scan.jpg}
-%	\caption{ }
-%	\label{fig:obamascan}
-%\end{figure}
 
 Mỗi ngày, trên thế giới có hàng tỷ người nhìn vào màn hình RGB, kết quả hiển thị trên màn hình là đầu ra của mọi hệ thống phần mềm. Nên việc hiển thị từng pixel trên màn hình và cách để mô phỏng lại hình ảnh trên một cách chân thực nhất được các nhà khoa học về đồ họa máy tính (Computer Graphic) nghiên cứu từ những năm 1960s và đặc biệt là việc mô hình phỏng lại con người. Từ 2014, các hoạ sĩ 3D đã có thể tạo nên một nhân vật người siêu thật như \autoref{fig:CGI} trong khi các phần cứng máy tính còn chưa phát triển như hiện nay. 
 
@@ -146,19 +132,6 @@ Kết quả dự đoán của mô hình là $\hat{\mathbf{x}} \in \mathbb{R}^{1:
 
 \end{multicols}
 
-
-
-%Quá trình chuyển từ không gian Eule sang không gian Quaternion được minh hoạ ở phụ lục \ref{}
-%Chuỗi waveform sẽ được cắt thành các đoạn chồng nhau, áp dụng Hamming windows, và áp dụng thuật toán fast fourier transform để biến đổi chuỗi giọng nói thành các hệ số thể hiện cường độ của các tần số trong chuỗi giọng nói, các hệ số này được làm tròn thành các đoạn tần số (frequency bins), các đoạn hệ số này được chuẩn hoá theo hệ cơ số log để tương ứng với cảm nhận của tai người để có được đặc trưng MFCC $\mathbf{a} \in \mathbb{R}^{\text{size} \times \mathcal{C}}$ trong đó $\mathcal{C}=13$ là số frequency bins. 
-
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=3cm]{images/gesture_sample.png}
-%     \caption{Minh họa cử chỉ}
-%     \label{fig:gesture_sample}
-% \end{figure}
-
 \section{Các khó khăn cần giải quyết}
 \label{sec:difficult}
 
@@ -177,8 +150,6 @@ Cuối cùng, \textit{các bước xử lý cần được thực hiện tuần 
 
 \section{Đóng góp dự kiến}
 
-%	\item Tích hợp đặc trưng văn bản vào mô hình DiffuseStyleGesture:** Chúng tôi cải tiến DiffuseStyleGesture bằng cách đưa thông tin văn bản vào quá trình khử nhiễu có điều kiện, giúp hệ thống sinh ra các cử chỉ chi tiết và phù hợp hơn với nội dung hội thoại.
-
 \begin{itemize}
 	\item Dựa trên tập dữ liệu có sẵn, luận văn chuyển giọng nói trong tập dữ liệu thành văn bản, và dùng văn bản đó để làm dữ liệu huấn luyện mới như là một dữ liệu ngữ nghĩa bổ sung trong quá trình học.
 	
@@ -188,19 +159,6 @@ Cuối cùng, \textit{các bước xử lý cần được thực hiện tuần 
 	
 	\item Luận văn xây dựng hệ thống kết xuất, và minh hoạ chương trình bằng Unity
 \end{itemize}
-
-
-
-%	với thông tin thời gian cho việc sinh cử chỉ kèm theo lời nói dựa trên giọng nói. Nhờ mô hình diffusion, luận văn có thể kiểm soát một cách linh hoạt cử chỉ được sinh ra, ví dụ: chỉnh sửa phong cách của cử chỉ, thiết lập cử chỉ khởi tạo, và sinh cử chỉ đa dạng.
-
-%	\item Chúng tôi sử dụng cross-local attention và self-attention để để học được bối cảnh và những quan hệ giữa cử chỉ và lời nói.
-%	
-%	\item Các thử nghiệm mở rộng chỉ ra rằng mô hình của luận văn có thể sinh ra cử chỉ giống người, phù hợp với lời nói (speech-appropriateness), phù hợp với cảm xúc (style-appropriateness) vượt trội so với các phương pháp sinh cử chỉ hiện có.
-
-%\item **Sử dụng Unity để render, trích xuất dữ liệu và trực quan hoá kết quả sinh cử chỉ:** Chúng tôi triển khai Unity như một công cụ trực quan hóa để mô phỏng và hiển thị kết quả của hệ thống sinh cử chỉ. Với các tính năng mô phỏng 3D mạnh mẽ, Unity cho phép luận văn kiểm nghiệm và đánh giá hiệu quả của các cử chỉ được sinh ra từ mô hình, đồng thời hỗ trợ trực quan hóa các đặc trưng chuyển động của cử chỉ. Hệ thống cũng sẽ được phát triển để cho phép dễ dàng trích xuất dữ liệu cử chỉ và so sánh kết quả trực quan giữa các mô hình khác nhau, giúp nâng cao tính khả thi và giá trị thực nghiệm của hệ thống.
-%
-%\item **Xây dựng hệ thống kết xuất và minh hoạ chương trình bằng Unity:** Ngoài việc render và trực quan hóa kết quả sinh cử chỉ, luận văn phát triển hệ thống kết xuất hoàn chỉnh, bao gồm các thành phần giúp dễ dàng minh hoạ quá trình sinh cử chỉ theo từng giai đoạn. Hệ thống này không chỉ cung cấp công cụ để kiểm nghiệm chất lượng cử chỉ sinh mà còn giúp mô tả rõ ràng từng bước trong quá trình sinh cử chỉ, từ giai đoạn tiền xử lý dữ liệu, khử nhiễu, đến việc ứng dụng các đặc trưng văn bản và giọng nói để tạo ra cử chỉ. Điều này sẽ làm tăng tính minh bạch và khả năng giải thích của hệ thống, đồng thời hỗ trợ các nhà nghiên cứu và người dùng dễ dàng quan sát và hiểu sâu hơn về các bước sinh cử chỉ. 
-
 
 
 % Ngôn ngữ để viết và trình bày báo cáo khóa luận tốt nghiệp, đồ án tốt nghiệp, thực tập tốt nghiệp (sau đây gọi chung là báo cáo) là tiếng Việt hoặc tiếng Anh. 

@@ -27,7 +27,7 @@
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{AllStage}
+		\includegraphics[width=\linewidth]{AllStage}
 	\caption{Tổng quan mô hình OHGesture}
 	\label{fig:TrainingAndSampling}
 \end{figure}
@@ -160,7 +160,7 @@ Trong công đoạn \textit{5. Kết hợp đặc trưng} (\autoref{fig:CommonSt
 
 \begin{equation}
 	\label{eq:ConditionConcat}
-	\mathbf{z} = \operatorname{concat }(\mathbf{E}\ || \  \mathbf{S}) + \mathbf{T}
+	\mathbf{z}_{tk} = \operatorname{concat }(\mathbf{E}\ || \  \mathbf{S}) + \mathbf{T}
 \end{equation}
 
 
@@ -176,10 +176,10 @@ Ta sẽ cộng ma trận giọng nói và văn bản với nhau để được m
 
 \begin{equation}
 	\label{eq:FrameConcat}
-	\mathbf{H} = \operatorname{concat}( \mathbf{Z}\  || \   \operatorname{concat}(\mathbf{X}\ || \  (\mathbf{V} + \mathbf{A}) ) )
+	\mathbf{M} = \operatorname{concat}( \mathbf{Z}\  || \   \operatorname{concat}(\mathbf{X}\ || \  (\mathbf{V} + \mathbf{A}) ) )
 \end{equation}
 
-Sau khi có ma trận $\mathbf{H} \in \mathbb{R}^{1:M \times P}$ theo \autoref{eq:FrameConcat} thể hiện đăng trưng theo khung hình từ frame $1$ đến frame $M$, với mỗi frame có kích thước $P$ là tổng của các đặc trưng đã concat. Với $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$, $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$ và $\mathbf{A}, \mathbf{V} \in \mathbb{R}^{1:M \times 64}$, thì $P$ sẽ có kích thước $256 * 2 + 64$.
+Sau khi có ma trận $\mathbf{M} \in \mathbb{R}^{1:M \times P}$ theo \autoref{eq:FrameConcat} thể hiện đăng trưng theo khung hình từ frame $1$ đến frame $M$, với mỗi frame có kích thước $P$ là tổng của các đặc trưng đã concat. Với $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$, $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$ và $\mathbf{A}, \mathbf{V} \in \mathbb{R}^{1:M \times 64}$, thì $P$ sẽ có kích thước $256 * 2 + 64$. Sau đó, ma trận $\mathbf{m}$ sẽ được đi qua quá trình biến đổi tuyến tính: $\mathbf{m}^{[1:M] \times 256} = \operatorname{Linear}_{\theta}(M)$ để được ma trận $\mathbf{m} \in \mathbb{R}^{[1:M] \times 256}$.
 
 
 %Sau đó, vectơ $\mathbf{Z}$ và các bản sao của nó được ghép thành một chuỗi vector đặc trưng để khớp với dòng thời gian của giọng nói và đặc trưng cử chỉ, sau đó ghép với giọng nói $\mathbf{A}$ và cử chỉ $\mathbf{G}$ để làm đầu vào cho 
@@ -201,8 +201,8 @@ Công thức Attention trên có $\mathbf{Q}$, $\mathbf{K}$ ,$\mathbf{V}$ là c�
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{CrossLocalAttention}
-	\caption{Cơ chế Self-Attention trong Transformer Encoder và Cross-Local Attention}
+	\includegraphics[width=\textwidth]{CrossLocalAttention}
+	\caption{Cơ chế Attention trong Transformer Encoder và Cross-Local Attention}
 	\label{fig:CrossLocalAttention}
 \end{figure}
 
@@ -219,16 +219,17 @@ Kết quả cuối cùng là tổ hợp các giá trị trong \( \mathbf{V} \), 
 %\end{equation}
 \subsubsection{Kết hợp đặc trưng cục bộ với Cross-Local Attention}
 
-Ma trận $\mathbf{H}$ sẽ tiếp tục đi qua lớp Cross-Local Attention để tính tương quan giữa các đặc trưng cục bộ: 
+Ma trận $\mathbf{m} \in \mathbb{R}^{[1:M] \times 256}$ sẽ tiếp tục đi qua lớp Cross-Local Attention để tính tương quan giữa các đặc trưng cục bộ: 
 
 \begin{equation}
-	\mathbf{h}^{1:M}_{t}  = \operatorname{Linear}_{\theta}  ( \operatorname{Cross-Local\ Attention}(H) )
+	\mathbf{h}^{1:M}_{t}  = \operatorname{Linear}_{\theta}  ( \operatorname{Cross-Local\ Attention}( \mathbf{m}) )
 	\label{eq:CrossLocalAttention}
 \end{equation}
 
 %Sau đó để căn chỉnh theo miền thời gian các đặc trưng về cảm xúc và cử chỉ khởi tạo luận văn sẽ copy vector $\mathbf{Z}$ để các bản sao của nó được ghép thành một chuỗi vector đặc trưng tương đồng với $M$ khung hình. Sau đó đưa vào lớp local attention (chú ý cục bộ). 
-
-Tương tự ý tưởng từ phương pháp Routing Transformer \cite{roy2021efficient}, Cross-local Attention cho thấy rằng sự quan trọng trong việc xây dựng biểu diễn các vector đặc trưng trung gian trước khi đi qua lớp Transformer Encoder như \autoref{fig:OHGesture}. Các vector đặc trưng sẽ được cộng thêm một vector sinusoids hay mã hoá vị trí tương đối (Relative position encoding \cite{vaswani2017attention}) để thể hiện được đặc trưng thời gian trước khi đi qua lớp Cross-Local Attention.
+Cross-local Attention sẽ thực hiện với $\operatorname{Query} = \operatorname{Key} = \operatorname{Value} = \mathbf{m}$. 
+Tương tự ý tưởng từ phương pháp Routing Transformer \cite{roy2021efficient}, Cross-local Attention cho thấy rằng sự quan trọng trong việc xây dựng biểu diễn các vector đặc trưng trung gian trước khi đi qua lớp Transformer Encoder như \autoref{fig:OHGesture}. 
+Các vector đặc trưng sẽ được cộng thêm một vector sinusoids hay mã hoá vị trí tương đối (Relative position encoding \cite{vaswani2017attention}) để thể hiện được đặc trưng thời gian trước khi đi qua lớp Cross-Local Attention.
 
 
 Sau quá trình Cross-Local Attention, mô hình tiếp tục được đưa qua lớp tuyến tính theo \autoref{eq:CrossLocalAttention} để căn chỉnh tương ứng với $M$ khung hình, bao gồm $\mathbf{h}^{1:M}$.
@@ -248,13 +249,31 @@ Sau quá trình Cross-Local Attention, mô hình tiếp tục được đưa qua
 
 
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.42\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{z}
+		\caption{Cách concat đặc trưng để được $\mathbf{z}_{tk}$}
+		\label{fig:FeatureFusion}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.55\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{FeatureFusion}
+		\caption{Quá trình kết hợp đặc trưng theo từng frame}
+		\label{fig:ZToken}
+	\end{subfigure}
+\end{figure}
+
+
 %Sau đó quá trình tương tự như xử lý các vector đặc trưng của mô hình BERT 
 
 Kế thừa từ MDM \cite{tevet2022human}, vector $\mathbf{z}$ là token đầu tiên thể hiện thông tin cho toàn bộ chuỗi khung hình, tương tự như  $z_{\text{tk}}$ trong mô hình BERT \cite{devlin2019bertpretrainingdeepbidirectional}, với token $\texttt{CLS}$ đầu tiên thể hiện thông tin của toàn bộ đoạn văn bản.
 Ở đây, luận văn sử dụng $z_{\text{tk}}$ là $\mathbf{z} \in \mathbb{R}^{256}$ (\autoref{eq:ConditionConcat}) token đầu tiên biểu thị đặc trưng biểu thị cho toàn bộ chuỗi $M$ frame.
 
 \begin{equation}
-	\mathbf{x}^{1:M}_{0}  = \operatorname{Transformer\ Encoder}( \operatorname{concat}( \mathbf{z}\ ||\  \mathbf{h}^{1:M}_{t}  )))
+	\mathbf{x}^{1:M}_{0}  = \operatorname{Transformer\ Encoder}( \operatorname{concat}( \mathbf{z}_{tk} \ ||\  \mathbf{h}^{1:M}_{t}  )))
 	\label{eq:TransformerEncoder}
 \end{equation}
 
