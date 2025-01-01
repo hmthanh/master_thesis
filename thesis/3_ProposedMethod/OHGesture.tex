@@ -18,7 +18,7 @@ Những điểm giống và khác của việc áp dụng mô hình diffusion ch
 
 \textbf{Điểm giống}
 \begin{itemize}
-	\item Sử dụng mô hình Diffusion (\autoref{sec:summary_diffusion}) trên cử chỉ $\bx^{1:M \times D}$,  với $M$ frame theo thời gian, $D=1141$ là các điểm tọa độ chuyển động của mỗi khung hình (tương tự width và height trong ảnh).
+	\item Sử dụng mô hình Diffusion (\autoref{sec:summary_diffusion}) trên cử chỉ $\bx^{1:M \times D}$,  với $M$ khung hình theo thời gian, $D=1141$ là các điểm tọa độ chuyển động của mỗi khung hình (tương tự width và height trong ảnh).
 	\item Sử dụng Diffusion có điều kiện (\autoref{subsec:DiffusionCondition}) với $\bx_0$ objective (\autoref{subsec:X0Objective}).
 	\item Ở công đoạn \textit{4. Mã hóa đặc trưng} và công đoạn \textit{6. Giải mã đặc trưng} \autoref{fig:CommonStage}, mô hình sử dụng latent vector có số chiều là $256$.
 \end{itemize}
@@ -31,9 +31,9 @@ Những điểm giống và khác của việc áp dụng mô hình diffusion ch
 		\item Điều kiện cảm xúc: $c = \big[ \mathbf{s}, \mathbf{e}, \mathbf{a}, \mathbf{v} \big]$ và $c_{\varnothing} = \big[ \varnothing, \varnothing, \mathbf{a}, \mathbf{v}\big]$.
 		\item Nội suy trạng thái giữa hai cảm xúc $\mathbf{e}_1, \mathbf{e}_2$, sử dụng điều kiện: $c = \big[ \mathbf{s}, \mathbf{e}_1, \mathbf{a}, \mathbf{v} \big]$ và $c_{\varnothing} = \big[ \mathbf{s}, \mathbf{e}_2, \mathbf{a}, \mathbf{v} \big]$.
 	\end{itemize}
-	\item Ở công đoạn \textit{5. Kết hợp đặc trưng} \autoref{fig:CommonStage}, mô hình sử dụng Self-Attention: Mối liên hệ giữa các cảm xúc, cử chỉ khởi tạo và từng frame (tương tự DALL-E 2 tính mối liên hệ giữa văn bản và ảnh).
+	\item Ở công đoạn \textit{5. Kết hợp đặc trưng} \autoref{fig:CommonStage}, mô hình sử dụng Self-Attention: Mối liên hệ giữa các cảm xúc, cử chỉ khởi tạo và từng khung hình (tương tự DALL-E 2 tính mối liên hệ giữa văn bản và ảnh).
 	\item Ở công đoạn \textit{5. Kết hợp đặc trưng} \autoref{fig:CommonStage}, mô hình concat giọng nói và văn bản (Tương tự như ControlNet sử dụng Pixel-wise Condition)
-	%			\item Học mối liên hệ giữa điều kiện và các frame bằng Local-Cross Attention
+	%			\item Học mối liên hệ giữa điều kiện và các khung hình bằng Local-Cross Attention
 \end{itemize}
 
 Trong đó $\bx_0$ là chuỗi $M$ khung hình cử chỉ $\mathbf{x} \in \mathbb{R}^{1:M \times D}$ ($D = 1141$), với điều kiện $c = [\mathbf{s}, \mathbf{e}, \mathbf{a}, \mathbf{v}]$ bao gồm cử chỉ khởi tạo (seed gesture) $\mathbf{s}$,  cảm xúc (emotion) $\mathbf{e}$, chuỗi giọng nói (audio) $\mathbf{a}$ tương ứng cử chỉ, và văn bản  $\mathbf{v}$.
@@ -48,7 +48,7 @@ Trong công đoạn \textit{2. Xử lý đặc trưng} (\autoref{fig:CommonStage
 	\item \textbf{Văn bản} (Text):
 		Như đã trình bày trong \autoref{subsec:TypicalMethod}, \textit{MDM} \cite{tevet2022human}, \textit{DiffuseStyleGesture+} \cite{yang2022DiffuseStyleGestureplus} trong công đoạn này sử dụng các đoạn văn bản mô tả cử chỉ như là Prompt của Midjourney làm đầu vào cho mô hình, tuy nhiên văn bản mô tả được dùng để phân cụm từng cử chỉ. Trong khi mục tiêu của luận văn là sử dụng văn bản như là một đặc trưng ngữ nghĩa, để căn chỉnh từng đoạn văn bản tương ứng với  từng đoạn cử chỉ phục vụ cho việc xây dựng người kỹ thuật số.
 		
-		Vì vậy, trong công đoạn này đóng góp của luận văn là sử dụng dữ liệu tiếng nói có sẵn, sau khi tiền xử lý ở \autoref{sec:Preprocessing} để thu được văn bản,  luận văn sử dụng mô hình FastText  \cite{bojanowski2017enriching} để nhúng (embedding) văn bản thành các vector căn chỉnh tương ứng với số frame tương ứng với cử chỉ. Với các vùng không có văn bản sẽ được cho là ma trận $\mathbf{0}$, các vùng có từ vựng tương ứng sẽ được gán là giá trị nhúng  theo từng khung hình của cử chỉ để được ma trận văn bản $\mathbf{v}^{1:M \times 300}$.
+		Vì vậy, trong công đoạn này đóng góp của luận văn là sử dụng dữ liệu tiếng nói có sẵn, sau khi tiền xử lý ở \autoref{sec:Preprocessing} để thu được văn bản,  luận văn sử dụng mô hình FastText  \cite{bojanowski2017enriching} để nhúng (embedding) văn bản thành các vector căn chỉnh tương ứng với số khung hình tương ứng với cử chỉ. Với các vùng không có văn bản sẽ được cho là ma trận $\mathbf{0}$, các vùng có từ vựng tương ứng sẽ được gán là giá trị nhúng  theo từng khung hình của cử chỉ để được ma trận văn bản $\mathbf{v}^{1:M \times 300}$.
 		
 		\item \textbf{Giọng nói} (Speech): Tất cả dữ liệu giọng nói ở dạng wav sẽ được giảm số sample rate (downsampled) xuống $16 \mathrm{kHz}$, và giọng nói sẽ được lấy tương ứng với cử chỉ là 4s để được vector $\mathbf{a} \in \mathbb{R}^{64000}$. Tương tự DiffuseStyleGesture, luận văn sử dụng mô hình pre-train WavLM Large \cite{Chen_2022} nhúng waveform thô vào để được vector thể hiện đặc trưng âm thanh. Sau đó sử dụng nội suy tuyến tính (interpolation) để căn chỉnh đặc trưng của vector tiềm ẩn trong WavLM theo chiều thời gian thành $20 \text{fps}$ để được ma trận giọng nói $\mathbf{a} \in \mathbb{R}^{1:M \times 1024}$
 		
@@ -61,10 +61,10 @@ Trong công đoạn \textit{2. Xử lý đặc trưng} (\autoref{fig:CommonStage
 %		sau đó luận văn đưa qua một vector tuyến tính để được vector đặc trưng $\mathbf{E} \in \mathbb{R}^{64}$. Mục tiêu là để có thể concat được với vector khởi tạo $\mathbf{S} \in \mathbb{R}^{192} $ để tạo thành vector tiềm ẩn $256$ chiều. $\mathbf{E} \in \mathbb{R}^{64}$
 		
 		\item \textbf{Cử chỉ khởi tạo}: Cử chỉ khởi tạo (seed gesture) $\mathbf{s} \in \mathbb{R}^{1:N \times D}$ có được từ cử chỉ ground truth $
-		\mathbf{g} \in \mathbb{R}^{(N+M) \times D}$, với mỗi frame là dữ liệu bao gồm $75$ khớp xương, được xử lý theo công thức \autoref{eq:gesturevector} để được vector $1141$ chiều, trình bày ở công thức \autoref{eq:gesturevector}. Mô hình của luận văn cắt $N = 8$ frame đầu để làm cử chỉ khởi tạo $\mathbf{s} \in \mathbb{R}^{1:N \times D} $
+		\mathbf{g} \in \mathbb{R}^{(N+M) \times D}$, với mỗi khung hình là dữ liệu bao gồm $75$ khớp xương, được xử lý theo công thức \autoref{eq:gesturevector} để được vector $1141$ chiều, trình bày ở công thức \autoref{eq:gesturevector}. Mô hình của luận văn cắt $N = 8$ khung hình đầu để làm cử chỉ khởi tạo $\mathbf{s} \in \mathbb{R}^{1:N \times D} $
 		
 		\item \textbf{Cử chỉ thật}: Tương tự cử chỉ khởi tạo, từ $
-		\mathbf{g} \in \mathbb{R}^{(N+M) \times D}$, luận văn sử dụng $M = 80$ (4 giây với $20fps$) frame là dữ liệu cử chỉ thật $\mathbf{x}_{0} \in \mathbb{R}^{1:M \times D}$. 
+		\mathbf{g} \in \mathbb{R}^{(N+M) \times D}$, luận văn sử dụng $M = 80$ (4 giây với $20fps$) khung hình là dữ liệu cử chỉ thật $\mathbf{x}_{0} \in \mathbb{R}^{1:M \times D}$. 
 \end{itemize}
 %, sau đó sử dụng một lớp tuyến tính để giảm kích thước của đặc trưng xuống còn vector đặc trưng với $64$ để tạo thành ma trận cuối cùng $\mathbf{A} \in \mathbb{R}^{M \times 64}$.
 
@@ -88,7 +88,7 @@ Trong công đoạn \textit{3. Trích xuất đặc trưng} (\autoref{fig:Common
 	  
 	  \item \textbf{Văn bản $\mathbf{V} \in \mathbb{R}^{1:M \times 64}$}: Văn bản $\mathbf{v}^{1:M \times 300}$ sẽ được đi qua lớp tuyến tính (linear layer) để căn chỉnh tương ứng với vector âm thanh.
 	
-	\item \textbf{Cử chỉ khởi tạo $\mathbf{S} \in \mathbb{R}^{192}$}: Từ $\mathbf{s} \in \mathbb{R}^{1:N \times D}$ sẽ được đi qua một lớp tuyến tính (linear layer) để được vector $\mathbf{S} \in \mathbb{R}^{192}$, vector $\mathbf{S}$ sau đó được đi qua một lớp mặt nạ ngẫu nhiên (random mask) trong quá trình huấn luyện để bỏ trong trường hợp nếu một trong $N$ frame bị thiếu thì sẽ ảnh hưởng như thế nào đến cử chỉ dự đoán.
+	\item \textbf{Cử chỉ khởi tạo $\mathbf{S} \in \mathbb{R}^{192}$}: Từ $\mathbf{s} \in \mathbb{R}^{1:N \times D}$ sẽ được đi qua một lớp tuyến tính (linear layer) để được vector $\mathbf{S} \in \mathbb{R}^{192}$, vector $\mathbf{S}$ sau đó được đi qua một lớp mặt nạ ngẫu nhiên (random mask) trong quá trình huấn luyện để bỏ trong trường hợp nếu một trong $N$ khung hình bị thiếu thì sẽ ảnh hưởng như thế nào đến cử chỉ dự đoán.
 
   \item \textbf{Cảm xúc $\mathbf{E} \in \mathbb{R}^{64}$}: Từ vector cảm xúc $\mathbf{e} \in \mathbb{R}^{6}$ sẽ được đưa qua lớp tuyến tính (linear layer) để được vector đặc trưng $\mathbf{E} \in \mathbb{R}^{64}$. Mục tiêu là để có thể concat được với vector khởi tạo $\mathbf{S} \in \mathbb{R}^{192} $ để tạo thành vector tiềm ẩn $256$ chiều.
   
@@ -126,7 +126,7 @@ Ta sẽ cộng ma trận giọng nói và văn bản với nhau để được m
 	\mathbf{M} = \operatorname{concat}( \mathbf{Z}\  || \   \operatorname{concat}(\mathbf{X}\ || \  (\mathbf{V} + \mathbf{A}) ) )
 \end{equation}
 
-Sau khi có ma trận $\mathbf{M} \in \mathbb{R}^{1:M \times P}$ theo \autoref{eq:FrameConcat} thể hiện đặc trưng theo khung hình từ frame $1$ đến frame $M$, với mỗi frame có kích thước $P$ là tổng của các đặc trưng đã concat. Với $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$, $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$ và $\mathbf{A}, \mathbf{V} \in \mathbb{R}^{1:M \times 64}$, thì $P$ sẽ có kích thước $256 * 2 + 64$. Sau đó, ma trận $\mathbf{m}$ sẽ được đi qua quá trình biến đổi tuyến tính: $\mathbf{m}^{[1:M] \times 256} = \operatorname{Linear}_{\theta}(M)$ để được ma trận $\mathbf{m} \in \mathbb{R}^{[1:M] \times 256}$.
+Sau khi có ma trận $\mathbf{M} \in \mathbb{R}^{1:M \times P}$ theo \autoref{eq:FrameConcat} thể hiện đặc trưng theo khung hình từ khung hình $1$ đến khung hình $M$, với mỗi khung hình có kích thước $P$ là tổng của các đặc trưng đã concat. Với $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$, $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$ và $\mathbf{A}, \mathbf{V} \in \mathbb{R}^{1:M \times 64}$, thì $P$ sẽ có kích thước $256 * 2 + 64$. Sau đó, ma trận $\mathbf{m}$ sẽ được đi qua quá trình biến đổi tuyến tính: $\mathbf{m}^{[1:M] \times 256} = \operatorname{Linear}_{\theta}(M)$ để được ma trận $\mathbf{m} \in \mathbb{R}^{[1:M] \times 256}$.
 
 \subsubsection{Cơ chế attention trong quá trình kết hợp các đặc trưng}
 
@@ -182,14 +182,14 @@ Sau quá trình Cross-Local Attention, mô hình tiếp tục được đưa qua
 	\begin{subfigure}{0.55\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{FeatureFusion}
-		\caption{Quá trình kết hợp đặc trưng theo từng frame}
+		\caption{Quá trình kết hợp đặc trưng theo từng khung hình}
 		\label{fig:ZToken}
 	\end{subfigure}
 \end{figure}
 
 
 Kế thừa từ MDM \cite{tevet2022human}, vector $\mathbf{z}$ là token đầu tiên thể hiện thông tin cho toàn bộ chuỗi khung hình, tương tự như  $z_{\text{tk}}$ trong mô hình BERT \cite{devlin2019bertpretrainingdeepbidirectional}, với token $\texttt{CLS}$ đầu tiên thể hiện thông tin của toàn bộ đoạn văn bản.
-Ở đây, luận văn sử dụng $z_{\text{tk}}$ là $\mathbf{z} \in \mathbb{R}^{256}$ (\autoref{eq:ConditionConcat}) token đầu tiên biểu thị đặc trưng biểu thị cho toàn bộ chuỗi $M$ frame.
+Ở đây, luận văn sử dụng $z_{\text{tk}}$ là $\mathbf{z} \in \mathbb{R}^{256}$ (\autoref{eq:ConditionConcat}) token đầu tiên biểu thị đặc trưng biểu thị cho toàn bộ chuỗi $M$ khung hình.
 
 \begin{equation}
 	\mathbf{x}^{1:M}_{0}  = \operatorname{Transformer\ Encoder}( \operatorname{concat}( \mathbf{z}_{tk} \ ||\  \mathbf{h}^{1:M}_{t}  )))
@@ -272,7 +272,7 @@ Tương tự như các phương pháp sử dụng mô hình khử nhiễu có đ
 	\label{fig:OnlineAndOffline}
 \end{figure}
 
-Để có thể sinh cử chỉ với chiều dài tùy ý, luận văn cắt chuỗi ban đầu thành các đoạn ngắn có chiều dài $M$. Trong quá trình huấn luyện, cử chỉ khởi tạo đầu tiên có thể được tạo ra bằng cách lấy ngẫu nhiên cử chỉ từ tập dữ liệu hoặc từ lấy trung bình từ đoạn cắt được. Cụ thể ở đây, sẽ lấy góc quay trung bình trong các đoạn đã cắt được. Khi đó, chỉ cần lấy lần lượt các frame đã sinh ra và chọn $N = 8$ frame cuối cùng làm cử chỉ khởi tạo ở lượt tiếp theo. Đối với mỗi đoạn đã cắt ra, cử chỉ $\bx_{t}$ lần lượt sẽ được áp dụng hàm khử nhiều $\hat{\bx}_{0} = G_{\theta'} \left( \bx_{t}, t, c\right)$, sau khi có $\hat{\bx}_{0}$ sẽ được thêm nhiễu (diffuse) cho đến khi được  $\bx_{t-1}$, và $\bx_{t-1}$ sẽ tiếp tục được làm khử nhiễu cho đến bước khử nhiễu $t=1$ sẽ đạt được $\bx_{0}$ 
+Để có thể sinh cử chỉ với chiều dài tùy ý, luận văn cắt chuỗi ban đầu thành các đoạn ngắn có chiều dài $M$. Trong quá trình huấn luyện, cử chỉ khởi tạo đầu tiên có thể được tạo ra bằng cách lấy ngẫu nhiên cử chỉ từ tập dữ liệu hoặc từ lấy trung bình từ đoạn cắt được. Cụ thể ở đây, sẽ lấy góc quay trung bình trong các đoạn đã cắt được. Khi đó, chỉ cần lấy lần lượt các khung hình đã sinh ra và chọn $N = 8$ khung hình cuối cùng làm cử chỉ khởi tạo ở lượt tiếp theo. Đối với mỗi đoạn đã cắt ra, cử chỉ $\bx_{t}$ lần lượt sẽ được áp dụng hàm khử nhiều $\hat{\bx}_{0} = G_{\theta'} \left( \bx_{t}, t, c\right)$, sau khi có $\hat{\bx}_{0}$ sẽ được thêm nhiễu (diffuse) cho đến khi được  $\bx_{t-1}$, và $\bx_{t-1}$ sẽ tiếp tục được làm khử nhiễu cho đến bước khử nhiễu $t=1$ sẽ đạt được $\bx_{0}$ 
 
 \begin{algorithm}
 	\caption{Lấy mẫu (sampling) trong OHGesture}

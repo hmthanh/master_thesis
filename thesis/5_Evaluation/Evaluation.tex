@@ -46,7 +46,7 @@ FID thấp cho thấy phân phối của cử chỉ sinh ra gần giống với 
 
 \subsection{Kết quả đánh giá bằng MSE}
 
-Trong luận văn, chuỗi cử chỉ dự đoán sẽ được đoạn trên $M$ frame. Luận văn sử dụng Mean Square Error trên chuỗi cử chỉ $\mathbf{x}^{[1:M] \times D}$.
+Trong luận văn, chuỗi cử chỉ dự đoán sẽ được đoạn trên $M$ khung hình. Luận văn sử dụng Mean Square Error trên chuỗi cử chỉ $\mathbf{x}^{[1:M] \times D}$.
 
 \begin{table}[H]
 	\centering
@@ -132,7 +132,7 @@ Luận văn đề xuất Fréchet Gesture Distance (FGD), độ đo FID dựa tr
 		\quad OHGesture (Rotations) & 3.513       & 9519.129 \\
 		\hline
 	\end{tabular}
-	\caption{Kết quả đánh giá Fréchet Gesture Distance (FGD) trên $\bx^{1:M \times D}$ (từ frame 1 đến frame M, mỗi frame có D đặc trưng từng khung hình )}
+	\caption{Kết quả đánh giá Fréchet Gesture Distance (FGD) trên $\bx^{1:M \times D}$ (từ khung hình 1 đến khung hình M, mỗi khung hình có D đặc trưng từng khung hình )}
 		\label{table:EvalFGD}
 \end{table}
 
@@ -140,7 +140,7 @@ Luận văn đề xuất Fréchet Gesture Distance (FGD), độ đo FID dựa tr
 		\item \textbf{Vector đặc trưng}
 	Sử dụng tệp BVH để chuyển toàn bộ skeleton của mỗi khung hình thành vector đặc trưng $D = 1141 $ như công thức  \autoref{eq:gesturevector}
 	
-	\item  \textbf{Rotations}: Từ tệp BVH kết quả, luận văn trích xuất sự thay đổi của các góc quay (rotations), $D = 225$ ($225 = 75 \times 3$) của chuỗi cử chỉ với chiều dài mỗi đoạn là $M$ frame để đánh giá ở dòng OHGesture bên dưới. 
+	\item  \textbf{Rotations}: Từ tệp BVH kết quả, luận văn trích xuất sự thay đổi của các góc quay (rotations), $D = 225$ ($225 = 75 \times 3$) của chuỗi cử chỉ với chiều dài mỗi đoạn là $M$ khung hình để đánh giá ở dòng OHGesture bên dưới. 
 	
 \end{itemize}
 
