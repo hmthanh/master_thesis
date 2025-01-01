@@ -39,7 +39,7 @@ Những điểm giống và khác của việc áp dụng mô hình diffusion ch
 Trong đó $\bx_0$ là chuỗi $M$ khung hình cử chỉ $\mathbf{x} \in \mathbb{R}^{1:M \times D}$ ($D = 1141$), với điều kiện $c = [\mathbf{s}, \mathbf{e}, \mathbf{a}, \mathbf{v}]$ bao gồm cử chỉ khởi tạo (seed gesture) $\mathbf{s}$,  cảm xúc (emotion) $\mathbf{e}$, chuỗi giọng nói (audio) $\mathbf{a}$ tương ứng cử chỉ, và văn bản  $\mathbf{v}$.
 
 Mục tiêu của mô hình là học được tham số $\theta$ của hàm $G_{\theta}$ (\textbf{g}enerative) với đầu vào là ma trận cử chỉ $\bx^{1:M \times D}_t$, bước thời gian $t$ và điều kiện $c$.
-Tổng quan của mô hình đề xuất \textbf{OHGesture} được minh hoạ ở hình \autoref{fig:TrainingAndSampling}. Tương tự mô hình diffusion cơ bản bao gồm hai quá trình: quá trình tạo nhiễu (diffusion) $q$ và quá trình khử nhiễu (denoising process) $p_{\theta}$ với trọng số $\theta$. Công đoạn \textit{1. Tiền xử lý} sẽ được trình bày ở \autoref{sec:Preprocessing}.
+Tổng quan của mô hình đề xuất \textbf{OHGesture} được minh họa ở hình \autoref{fig:TrainingAndSampling}. Tương tự mô hình diffusion cơ bản bao gồm hai quá trình: quá trình tạo nhiễu (diffusion) $q$ và quá trình khử nhiễu (denoising process) $p_{\theta}$ với trọng số $\theta$. Công đoạn \textit{1. Tiền xử lý} sẽ được trình bày ở \autoref{sec:Preprocessing}.
 
 \subsection{Công đoạn xử lý đặc trưng}
 Trong công đoạn \textit{2. Xử lý đặc trưng} (\autoref{fig:CommonStage}), mục tiêu là chuyển dữ liệu  thành các ma trận hoặc vector trước khi đưa vào mô hình.
@@ -101,7 +101,7 @@ Trong công đoạn \textit{3. Trích xuất đặc trưng} (\autoref{fig:Common
 
 Trong công đoạn \textit{4. Mã hóa đặc trưng} (\autoref{fig:CommonStage}), mục tiêu là giảm số chiều của dữ liệu xuống kích thước thấp hơn, nhằm giảm việc bùng nổ khối lượng tính toán.
 
-Với dữ liệu chính trong quá trình Diffusion chính là chuỗi cử chỉ $\bx_t \in \mathbb{R}^{1:M \times D}$. Như minh hoạ ở \autoref{fig:OHGesture}, chuỗi cử chỉ với kích thước $M \times D$ sẽ đi qua lớp $\operatorname{Linear}_{\theta}$ để được ma trận $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$. Quá trình giảm chiều dữ liệu của $\bx$ sẽ được thực hiện trước khi chuỗi cử chỉ $\bx$ đi qua các lớp Cross-Local Attention và Transformer Encoder để tính sự tương quan giữa nhiều loại dữ liệu khác nhau.
+Với dữ liệu chính trong quá trình Diffusion chính là chuỗi cử chỉ $\bx_t \in \mathbb{R}^{1:M \times D}$. Như minh họa ở \autoref{fig:OHGesture}, chuỗi cử chỉ với kích thước $M \times D$ sẽ đi qua lớp $\operatorname{Linear}_{\theta}$ để được ma trận $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$. Quá trình giảm chiều dữ liệu của $\bx$ sẽ được thực hiện trước khi chuỗi cử chỉ $\bx$ đi qua các lớp Cross-Local Attention và Transformer Encoder để tính sự tương quan giữa nhiều loại dữ liệu khác nhau.
 
 
 \subsection{Công đoạn kết hợp đặc trưng}
@@ -208,7 +208,7 @@ Trong lớp Transformer Encoder mô hình sẽ áp dụng cơ chế tự chú ý
 
 Trong công đoạn \textit{6. Giải mã đặc trưng} (\autoref{fig:CommonStage}), sau khi tính được sự tương quan giữa các đặc trưng, mục tiêu là tăng kích thước dữ liệu trở về kích thước ban đầu.
 
-Như minh hoạ ở \autoref{fig:OHGesture}, ma trận tiềm ẩn, sau khi đi qua lớp Transformer Encoder để tính sự tương quan giữa nhiều loại dữ liệu khác nhau. Kết quả sẽ đi qua lớp $\operatorname{Linear}_{\theta}$ để tăng kích thước ma trận tiềm ẩn thành kích thước ban  đầu $\hat{\mathbf{x}}_{0} \in \mathbb{R}^{1:M \times D}$.
+Như minh họa ở \autoref{fig:OHGesture}, ma trận tiềm ẩn, sau khi đi qua lớp Transformer Encoder để tính sự tương quan giữa nhiều loại dữ liệu khác nhau. Kết quả sẽ đi qua lớp $\operatorname{Linear}_{\theta}$ để tăng kích thước ma trận tiềm ẩn thành kích thước ban  đầu $\hat{\mathbf{x}}_{0} \in \mathbb{R}^{1:M \times D}$.
 
 Công đoạn cuối cùng, kết xuất sẽ được trình bày ở \autoref{sec:Render}.
 
