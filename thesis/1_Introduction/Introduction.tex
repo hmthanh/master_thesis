@@ -20,11 +20,11 @@
 		\caption{\small Minh họa công trình tái tạo khuôn mặt tổng thống Obama \cite{metallo2015scanning}}
 		\label{fig:obamascan}
 	\end{subfigure}
-	\caption{Minh hoạ kỹ thuật đồ hoạ máy tính trong việc xây dựng người kỹ thuật số}
+	\caption{Minh họa kỹ thuật đồ họa máy tính trong việc xây dựng người kỹ thuật số}
 	\label{fig:DigitalHuman}
 \end{figure}
 
-Mỗi ngày, trên thế giới có hàng tỷ người nhìn vào màn hình RGB, kết quả hiển thị trên màn hình là đầu ra của mọi hệ thống phần mềm. Do đó, việc hiển thị từng pixel trên màn hình và cách để mô phỏng lại hình ảnh trên một cách chân thực nhất được các nhà khoa học về đồ họa máy tính (Computer Graphic) nghiên cứu từ những năm 1960s và đặc biệt là việc mô hình phỏng lại con người. Từ năm 2014, các hoạ sĩ 3D đã có thể tạo nên một nhân vật người siêu thật như \autoref{fig:CGI} trong khi đó các phần cứng máy tính còn chưa phát triển như hiện nay. 
+Mỗi ngày, trên thế giới có hàng tỷ người nhìn vào màn hình RGB, kết quả hiển thị trên màn hình là đầu ra của mọi hệ thống phần mềm. Do đó, việc hiển thị từng pixel trên màn hình và cách để mô phỏng lại hình ảnh trên một cách chân thực nhất được các nhà khoa học về đồ họa máy tính (Computer Graphic) nghiên cứu từ những năm 1960s và đặc biệt là việc mô hình phỏng lại con người. Từ năm 2014, các họa sĩ 3D đã có thể tạo nên một nhân vật người siêu thật như \autoref{fig:CGI} trong khi đó các phần cứng máy tính còn chưa phát triển như hiện nay. 
 
 Ngày nay, công nghệ đồ họa máy tính đã hoàn toàn có thể mô phỏng nhiều vật giống đến mức siêu thực (realistic), bao gồm các vật phức tạp như nước, đường xá, bánh mì,...  và thậm chí là cả cơ thể và khuôn mặt con người với độ chi tiết đến từng lông tơ, nốt mụn và vân mắt. 
 Vào năm 2015, bằng kỹ thuật quét 3 chiều ghi lại toàn bộ các góc của khuôn mặt, sự phản chiếu ánh sáng, trong công trình \cite{metallo2015scanning}
@@ -65,7 +65,7 @@ Việc ứng dụng trí tuệ nhân tạo để sinh cử chỉ con người l�
 
 \subsection{Kiến trúc khung xương của cử chỉ}
 
-Cử chỉ (gesture) trong luận văn là sự chuyển động của toàn bộ cơ thể của một nhân vật như hình \autoref{fig:Skeleton} theo từng khung hình. Để có thể biểu diễn các chuyển động của một nhân vật trong đồ hoạ máy tính, các chuyển động sẽ được biểu diễn thành chuyển động của các xương (bone) riêng lẻ. Bao gồm cánh tay (hand), chân (leg), đầu (head), xương sống (spine),... Kiến trúc đầy đủ của một nhân vật được trình bày ở phụ lục \autoref{appendix:BVHData:skeleton}.
+Cử chỉ (gesture) trong luận văn là sự chuyển động của toàn bộ cơ thể của một nhân vật như hình \autoref{fig:Skeleton} theo từng khung hình. Để có thể biểu diễn các chuyển động của một nhân vật trong đồ họa máy tính, các chuyển động sẽ được biểu diễn thành chuyển động của các xương (bone) riêng lẻ. Bao gồm cánh tay (hand), chân (leg), đầu (head), xương sống (spine),... Kiến trúc đầy đủ của một nhân vật được trình bày ở phụ lục \autoref{appendix:BVHData:skeleton}.
 
 Dữ liệu một nhân vật theo thời gian trong thực tế sẽ được thu nhận bằng các hệ thống chụp chuyển động (motion capture) với các hệ thống camera và cảm biến chuyên biệt. Kết quả của quá trình motion capture là các tệp được định nghĩa dưới dạng tệp BVH (Biovision Hierarchy).
 
@@ -90,7 +90,7 @@ Với kết quả cuối cùng là chuỗi cử chỉ thể hiện sự chuyển
 \begin{figure}[H]
 	\centering
 	\href{https://www.youtube.com/watch?v=B6nv1kQmi-Q}{\includegraphics[width=\linewidth]{FeatureProcessing}}
-	\caption{Minh hoạ một chuỗi cử chỉ, $N$ frame đầu được lấy làm cử chỉ khởi tạo $\mathbf{s}$ (seed gesture) và $M$ khung hình còn lại làm cử chỉ để học}
+	\caption{Minh họa một chuỗi cử chỉ, $N$ frame đầu được lấy làm cử chỉ khởi tạo $\mathbf{s}$ (seed gesture) và $M$ khung hình còn lại làm cử chỉ để học}
 	\label{fig:GestureSeries}
 \end{figure}
 
