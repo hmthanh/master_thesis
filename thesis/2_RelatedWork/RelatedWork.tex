@@ -122,75 +122,41 @@ Các phương pháp tiêu biểu cho mô hình sinh ngầm định là
 
 \subsection{So sánh các phương pháp sinh cử chỉ}
 
-%\begin{table}[H]
-%	\small
-%	\centering
-%	\renewcommand{\arraystretch}{1.5} % Tăng khoảng cách giữa các hàng
-%	\resizebox{\textwidth}{!}{ % Giảm kích thước bảng để vừa với trang
-%		\begin{tabular}{|p{0.2\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|p{0.2\textwidth}|}
-%			\hline
-%			\textbf{Phương pháp tiêu biểu} & \textbf{Ưu điểm} & \textbf{Nhược điểm} & \textbf{Loại phương pháp} \\ \hline
-%			Robot behavior toolkit \cite{huang2012robot} & 
-%			- Dễ hiểu và dễ triển khai. \newline 
-%			- Dễ giải thích và có thể kiểm soát được \newline
-%			- Hiệu quả trong các trường hợp đơn giản hoặc dữ liệu nhỏ. & 
-%			- Không tổng quát hóa tốt với dữ liệu phức tạp. \newline 
-%			- Đòi hỏi nhiều công sức trong việc xây dựng quy tắc thủ công. & 
-%			Mô hình dựa trên luật  \\ \hline
-%			MLP \cite{kucherenko2020gesticulator}, RNN \cite{bhattacharya2021speech2affectivegestures}, \cite{liu2022learning}, \cite{hasegawa2018evaluation}, \cite{yoon2020speech}, CNN \cite{habibie2021learning}, Transformer \cite{bhattacharya2021text2gestures}  & 
-%			- Khả năng ước lượng mật độ xác suất của dữ liệu \newline 
-%			- Có khả năng mở rộng và học từ dữ liệu lớn & 
-%			- Dễ bị ảnh hưởng bởi nhiễu \newline 
-%			- Kết quả thấp ở vùng dữ liệu hiếm \newline
-%			- Khả năng sinh không đa dạng & 
-%			Mô hình dựa trên Likelihood \\ \hline
-%			\textbf{DiffusionStyle-Gesture} \cite{yang2023diffusestylegesture}, MDM \cite{tevet2022human}, Motiondiffuse \cite{zhang2022motiondiffuse} &
-%			- Tạo ra dữ liệu chất lượng cao. \newline 
-%			- Linh hoạt và đa dạng \newline
-%			- Phủ được vùng có mật độ dữ liệu thấp & 
-%			- Cần cấu hình phức tạp để đạt hiệu năng tốt. \newline 
-%			- Mỗi lần lấy nhiễu ngẫu nhiên là khác nhau. \newline 
-%			- Quá trình lấy mẫu chậm & 
-%			Mô hình sinh ngầm định\\ \hline
-%		\end{tabular}
-%	}
-%	\caption{Bảng so sánh ưu và nhược điểm của các phương pháp}
-%	\label{table:CompareMethod}
-%\end{table}
-
 \begin{table}[H]
 	\small
 	\centering
 	\renewcommand{\arraystretch}{1.5} % Tăng khoảng cách giữa các hàng
-	\begin{tabularx}{\textwidth}{|X|X|X|} % Removed the 'Loại phương pháp' column
-		\hline
-		\textbf{Phương pháp tiêu biểu} & \textbf{Ưu điểm} & \textbf{Nhược điểm} \\ \hline
-		\textbf{Mô hình dựa trên luật:}
-		Robot behavior toolkit \cite{huang2012robot} & 
-		- Dễ hiểu và dễ triển khai. \newline 
-		- Dễ giải thích và có thể kiểm soát được \newline
-		- Hiệu quả trong các trường hợp đơn giản hoặc dữ liệu nhỏ. & 
-		- Không tổng quát hóa tốt với dữ liệu phức tạp. \newline 
-		- Đòi hỏi nhiều công sức trong việc xây dựng quy tắc thủ công. \\ \hline
-		\textbf{Mô hình dựa trên likelihood:}
-		MLP \cite{kucherenko2020gesticulator}, RNN \cite{bhattacharya2021speech2affectivegestures}, \cite{liu2022learning}, \cite{hasegawa2018evaluation}, \cite{yoon2020speech}, CNN \cite{habibie2021learning}, Transformer \cite{bhattacharya2021text2gestures}  & 
-		- Khả năng ước lượng mật độ xác suất của dữ liệu \newline 
-		- Có khả năng mở rộng và học từ dữ liệu lớn & 
-		- Dễ bị ảnh hưởng bởi nhiễu \newline 
-		- Kết quả thấp ở vùng dữ liệu hiếm \newline
-		- Khả năng sinh không đa dạng \\ \hline
-		\textbf{Mô hình sinh ngầm định:} \textit{DiffusionStyleGesture}\cite{yang2023diffusestylegesture}, MDM \cite{tevet2022human}, Motiondiffuse \cite{zhang2022motiondiffuse} &
-		- Tạo ra dữ liệu chất lượng cao. \newline 
-		- Linh hoạt và đa dạng \newline
-		- Phủ được vùng có mật độ dữ liệu thấp & 
-		- Cần cấu hình phức tạp để đạt hiệu năng tốt. \newline 
-		- Mỗi lần lấy nhiễu ngẫu nhiên là khác nhau. \newline 
-		- Quá trình lấy mẫu chậm \\ \hline
-	\end{tabularx}
+	\resizebox{\textwidth}{!}{ % Giảm kích thước bảng để vừa với trang
+		\begin{tabular}{|p{0.2\textwidth}|p{0.35\textwidth}|p{0.35\textwidth}|p{0.2\textwidth}|}
+			\hline
+			\textbf{Phương pháp tiêu biểu} & \textbf{Ưu điểm} & \textbf{Nhược điểm} & \textbf{Loại phương pháp} \\ \hline
+			Robot behavior toolkit \cite{huang2012robot} & 
+			- Dễ hiểu và dễ triển khai. \newline 
+			- Dễ giải thích và có thể kiểm soát được \newline
+			- Hiệu quả trong các trường hợp đơn giản hoặc dữ liệu nhỏ. & 
+			- Không tổng quát hóa tốt với dữ liệu phức tạp. \newline 
+			- Đòi hỏi nhiều công sức trong việc xây dựng quy tắc thủ công. & 
+			Mô hình dựa trên luật  \\ \hline
+			MLP \cite{kucherenko2020gesticulator}, RNN \cite{bhattacharya2021speech2affectivegestures}, \cite{liu2022learning}, \cite{hasegawa2018evaluation}, \cite{yoon2020speech}, CNN \cite{habibie2021learning}, Transformer \cite{bhattacharya2021text2gestures}  & 
+			- Khả năng ước lượng mật độ xác suất của dữ liệu \newline 
+			- Có khả năng mở rộng và học từ dữ liệu lớn & 
+			- Dễ bị ảnh hưởng bởi nhiễu \newline 
+			- Kết quả thấp ở vùng dữ liệu hiếm \newline
+			- Khả năng sinh không đa dạng & 
+			Mô hình dựa trên Likelihood \\ \hline
+			\textbf{DiffusionStyle-Gesture} \cite{yang2023diffusestylegesture}, MDM \cite{tevet2022human}, Motiondiffuse \cite{zhang2022motiondiffuse} &
+			- Tạo ra dữ liệu chất lượng cao. \newline 
+			- Linh hoạt và đa dạng \newline
+			- Phủ được vùng có mật độ dữ liệu thấp & 
+			- Cần cấu hình phức tạp để đạt hiệu năng tốt. \newline 
+			- Mỗi lần lấy nhiễu ngẫu nhiên là khác nhau. \newline 
+			- Quá trình lấy mẫu chậm & 
+			Mô hình sinh ngầm định\\ \hline
+		\end{tabular}
+	}
 	\caption{Bảng so sánh ưu và nhược điểm của các phương pháp}
 	\label{table:CompareMethod}
 \end{table}
-
 
 %\textbf{Bảng so sánh các phương pháp}
 %
