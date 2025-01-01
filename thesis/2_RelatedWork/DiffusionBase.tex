@@ -1,7 +1,7 @@
 \section{Công đoạn chung của phương pháp học sâu trong bài toán sinh cử chỉ}
 \label{sec:commonstage}
 
-Như đã trình bày ở \autoref{sec:Data}, cử chỉ bao gồm chuỗi chuyển động của toạ độ điểm 3D. Với mỗi tập dữ liệu số lượng xương (bone) mỗi khung hình sẽ khác nhau. 
+Như đã trình bày ở \autoref{sec:Data}, cử chỉ bao gồm chuỗi chuyển động của tọa độ điểm 3D. Với mỗi tập dữ liệu số lượng xương (bone) mỗi khung hình sẽ khác nhau. 
 
 Cách tiếp cận bằng học sâu với bài toán sinh cử chỉ (gesture generation) được thực hiện với nhiều phương pháp khác nhau. Tuy nhiên luận văn tổng quát hóa lại thành các công đoạn chính như \autoref{fig:CommonStage} sau:
 
@@ -73,7 +73,7 @@ Quá trình này được thực hiện từng $T$ bước, với nhiễu đư�
 	%	Ở công đoạn 
 	Trong công đoạn \textit{5. Kết hợp đặc trưng} (\autoref{fig:CommonStage}), mô hình sử dụng văn bản làm token $\texttt{CLS}$ đầu tiên của chuỗi cử chỉ trước khi đi qua lớp Transformer Encoder. Trong Transformer Encoder, cơ chế self-attention sẽ tính sự tương quan giữa văn bản với từng frame của cử chỉ. MDM dự đoán dữ liệu gốc thay vì dự đoán nhiễu.
 	
-	\item \textbf{DiffuseStyleGesture} \cite{yang2023diffusestylegesture} là mô hình Diffusion kế thừa từ \textit{MDM} \cite{tevet2022human}. Mô hình kết hợp điều kiện bao gồm âm thanh, cử chỉ khởi tạo và phong cách. Trong công đoạn \textit{1. Tiền xử lý} (\autoref{fig:CommonStage}) mô hình xử lý các toạ độ vector để thu được vectơ có số chiều $D=1141$ ở mỗi khung hình. Trong công đoạn \textit{2. Xử lý đặc trưng} (\autoref{fig:CommonStage}), DiffuseStyleGesture sử dụng WavLM để nhúng âm thanh. Trong công đoạn \textit{5. Kết hợp đặc trưng} (\autoref{fig:CommonStage}), mô hình cải tiến MDM bằng việc sử dụng Cross-Local Attention trước khi đi qua lớp Transformer Encoder.
+	\item \textbf{DiffuseStyleGesture} \cite{yang2023diffusestylegesture} là mô hình Diffusion kế thừa từ \textit{MDM} \cite{tevet2022human}. Mô hình kết hợp điều kiện bao gồm âm thanh, cử chỉ khởi tạo và phong cách. Trong công đoạn \textit{1. Tiền xử lý} (\autoref{fig:CommonStage}) mô hình xử lý các tọa độ vector để thu được vectơ có số chiều $D=1141$ ở mỗi khung hình. Trong công đoạn \textit{2. Xử lý đặc trưng} (\autoref{fig:CommonStage}), DiffuseStyleGesture sử dụng WavLM để nhúng âm thanh. Trong công đoạn \textit{5. Kết hợp đặc trưng} (\autoref{fig:CommonStage}), mô hình cải tiến MDM bằng việc sử dụng Cross-Local Attention trước khi đi qua lớp Transformer Encoder.
 %	 \textit{1. Tiền xử lý} (\autoref{fig:CommonStage}), dữ liệu cử chỉ $\bx^{J \times D}$ là số khung xương, với mỗi khung xương
 \end{itemize}
 

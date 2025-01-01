@@ -26,7 +26,7 @@ Một trong những đóng góp của luận văn là từ dữ liệu giọng n
 \begin{itemize}
 	\item \texttt{HIERARCHY}: là một cây định nghĩa thông tin khung xương bao gồm 75 bone $\{ \mathbf{b}_1, \mathbf{b}_2 \cdots \mathbf{b}_{75} \} $, mỗi bone bao gồm thông tin về vị trí ban đầu (\texttt{OFFSET}), và các loại tham số \texttt{CHANNELS} thể hiện thông tin về loại, thứ tự của góc quay (\texttt{Zrotation}, \texttt{Yrotation} \texttt{Xrotation}) và vị trí (\texttt{Xposition}, \texttt{Yposition}, \texttt{Zposition}) sẽ định nghĩa trong phần \texttt{MOTION}. Bone (thường là \texttt{Hips}) đầu tiên sẽ là bone gốc $\mathbf{b}_{\text{root}}$, là vị trí sau đó sẽ được forward kinematic (động học thuận) để được T-Shape là ví trí ban đầu của toàn bộ khung xương trước khi áp dụng chuyển động.
 	
-	\item \texttt{MOTION}: là chuỗi các khung hình. Với mỗi khung hình là dữ liệu chuyển động thể hiện sự thay đổi của toàn bộ $75$ khung xương đã định nghĩa ở \texttt{CHANNELS} trong \texttt{HIERARCHY}.
+	\item \texttt{MOTION}: là chuỗi các khung hình. Mỗi khung hình là dữ liệu chuyển động thể hiện sự thay đổi của toàn bộ $75$ khung xương đã định nghĩa trong \texttt{CHANNELS} của \texttt{HIERARCHY}.
 \end{itemize}
 
 
@@ -44,19 +44,19 @@ Mô hình của luận văn chuyển dữ liệu từ góc quay Euler sang góc 
 Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
 {
 	\begin{itemize}
-		\item $\mathbf{p}_{\text{root}} \in \mathbb{R}^3$: Toạ độ của điểm gốc
+		\item $\mathbf{p}_{\text{root}} \in \mathbb{R}^3$: tọa độ của điểm gốc
 		\item $\mathbf{r}_{\text{root}} \in \mathbb{R}^4$: Góc quay của điểm gốc
-		\item $\mathbf{p}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của toạ độ gốc
+		\item $\mathbf{p}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của tọa độ gốc
 		\item $\mathbf{r}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của góc quay gốc
 		
-		\item $\mathbf{p}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: Toạ độ của các khung xương
-		\item $\mathbf{r}_{\text{joins}} \in \mathbb{R}^{6 n_{\text{join} }}$: Góc quay của các khung xương theo mặc phẳng X và Y
-		\item $\mathbf{p}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của toạ độ các khung xương
+		\item $\mathbf{p}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: tọa độ của các khung xương
+		\item $\mathbf{r}_{\text{joins}} \in \mathbb{R}^{6 n_{\text{join} }}$: Góc quay của các khung xương theo mặt phẳng X và Y
+		\item $\mathbf{p}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của tọa độ các khung xương
 		\item $\mathbf{r}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của góc quay các khung xương
 		\item $\mathbf{d}_{\text{gaze}} \in \mathbb{R}^3$: Là hướng nhìn
 \end{itemize}}
 
-Chuỗi cử chỉ ban đầu có dữ liệu là góc quay sẽ được chuyển thành các góc quay radian, từ góc quay radian ở dạng Euler sẽ được chuyển sang góc quay Quaternion, với quá trình cụ thể được trình bày ở \autoref{appendix:BVHData:QuaternionConvert}.
+Chuỗi cử chỉ ban đầu có dữ liệu là góc quay sẽ được chuyển thành các góc quay radian, từ góc quay radian ở dạng Euler sẽ được chuyển sang góc quay Quaternion, với quá trình cụ thể được trình bày trong \autoref{appendix:BVHData:QuaternionConvert}.
 
 \textbf{Dữ liệu giọng nói}: $\mathbf{a}_{\text{raw}} \in \mathbb{R}^{ \text{length } }$ là chuỗi giọng nói thô được đọc ở sample rate 16000, sau đó được cắt thành $\mathbf{a} \in \mathbb{R}^{64000}$ tương ứng với 4 giây. Luận văn sử dụng thư viện \texttt{ffmpeg-normalize} để chuẩn hóa tiếng nói nhỏ hơn so với giọng nói gốc.
 
@@ -77,7 +77,7 @@ Quá trình huấn luyện được triển khai trên mã nguồn công khai t�
 \section{Quá trình sử dụng Unity để kết xuất}
 \label{sec:Render}
 
-Để trực quan hóa quá trình sinh cử chỉ từ dữ liệu đầu ra của mô hình, trong công đoạn \textit{7. Kết xuất} (\autoref{fig:CommonStage}) luận văn sử dụng Unity, kết thừa mã nguồn từ mô hình DeepPhase \cite{starke2022deepphase}  . Dữ liệu sau khi sinh là tệp BVH (BioVision Motion Capture). Trong Unity, luận văn bổ sung mã nguồn C-Sharp để kết xuất theo vị trí toạ độ và nhãn tương ứng, với vị trí và góc quay của các xương được biểu diễn dưới dạng quaternion.
+Để trực quan hóa quá trình sinh cử chỉ từ dữ liệu đầu ra của mô hình, trong công đoạn \textit{7. Kết xuất} (\autoref{fig:CommonStage}) luận văn sử dụng Unity, kết thừa mã nguồn từ mô hình DeepPhase \cite{starke2022deepphase}  . Dữ liệu sau khi sinh là tệp BVH (BioVision Motion Capture). Trong Unity, luận văn bổ sung mã nguồn C-Sharp để kết xuất theo vị trí tọa độ và nhãn tương ứng, với vị trí và góc quay của các xương được biểu diễn dưới dạng quaternion.
 
 Chi tiết phần render cử chỉ được sinh ra, tôi trình bày ở \autoref{Appendix3}.
 

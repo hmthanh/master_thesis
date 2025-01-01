@@ -74,7 +74,7 @@ Các tệp BVH bao gồm hai thành phần chính: {HIERARCHY} và {MOTION}. HIE
 
 \subsection{Kiến trúc chuyển động của cử chỉ}
 
-Dữ liệu chuyển động của cử chỉ như \autoref{fig:MotionPastAndFuture} hay phần MOTION của tệp BVH sẽ chứa thông tin về toạ độ và góc quay của một nhân vật theo từng khung hình. Dữ liệu mỗi khung hình là tập khung xương (skeleton) bao gồm $75$ xương (bone), $\{ \textbf{b}_{1}, \textbf{b}_{2}, \cdots , \textbf{b}_{75} \}$, mỗi xương thể hiện vị trí (position) $\{ p_{x}, p_{y}, p_{z} \}$ và góc quay (rotation) $\{ r_{x}, r_{y}, r_{z} \}$ chuyển động của một nhân vật theo thời gian.
+Dữ liệu chuyển động của cử chỉ như \autoref{fig:MotionPastAndFuture} hay phần MOTION của tệp BVH sẽ chứa thông tin về tọa độ và góc quay của một nhân vật theo từng khung hình. Dữ liệu mỗi khung hình là tập khung xương (skeleton) bao gồm $75$ xương (bone), $\{ \textbf{b}_{1}, \textbf{b}_{2}, \cdots , \textbf{b}_{75} \}$, mỗi xương thể hiện vị trí (position) $\{ p_{x}, p_{y}, p_{z} \}$ và góc quay (rotation) $\{ r_{x}, r_{y}, r_{z} \}$ chuyển động của một nhân vật theo thời gian.
 
 Kết quả của việc sinh cử chỉ (gesture generation) là sinh ra chuỗi chuyển động góc quay các xương của nhân vật theo từng khung hình (frame). Việc sinh cử chỉ (gesture generation) được đánh giá bằng việc tạo ra các cử chỉ tự nhiên, giống con người (human-likeness) và phù hợp với ngữ cảnh.
 

@@ -60,7 +60,7 @@ Mục tiêu của việc sinh cử chỉ (gesture generation) bằng phương ph
 %Sinh cử chỉ (gesture generation) là bài toán dựa vào những dữ liệu trước đó bao gồm văn bản và âm thanh, cử chỉ khởi tạo để nội suy ra chuỗi cử chỉ tiếp theo.
 Sinh cử chỉ là bài toán hồi quy (regression), với đầu vào là một chuỗi cử chỉ cho trước và kết quả đầu ra là chuỗi cử chỉ tiếp tục với cử chỉ trước đó.
 
-Mỗi khung hình chuyển động của một nhân vật hay khung xương (skeleton) bao gồm dữ liệu về toạ độ vị trí và vận tốc theo thời gian.
+Mỗi khung hình chuyển động của một nhân vật hay khung xương (skeleton) bao gồm dữ liệu về tọa độ vị trí và vận tốc theo thời gian.
 Ở đây dữ liệu của chúng tôi của một khung xương với mỗi khung hình (frame) bao gồm:
 
 \begin{equation} \label{eq:gesturevector}
@@ -74,14 +74,14 @@ Mỗi khung hình chuyển động của một nhân vật hay khung xương (sk
 
 Trong  đó với mỗi $\mathbf{g} \in \mathbb{R}^{1141}$ bao gồm:
 \begin{itemize}
-	\item $\mathbf{p}_{\text{root}} \in \mathbb{R}^3$: Toạ độ của điểm gốc
+	\item $\mathbf{p}_{\text{root}} \in \mathbb{R}^3$: tọa độ của điểm gốc
 	\item $\mathbf{r}_{\text{root}} \in \mathbb{R}^4$: Góc quay của điểm gốc
-	\item $\mathbf{p}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của toạ độ gốc
+	\item $\mathbf{p}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của tọa độ gốc
 	\item $\mathbf{r}'_{\text{root}} \in \mathbb{R}^3$: Vận tốc thay đổi của góc quay gốc
 	
-	\item $\mathbf{p}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: Toạ độ của các khung xương
+	\item $\mathbf{p}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: tọa độ của các khung xương
 	\item $\mathbf{r}_{\text{joins}} \in \mathbb{R}^{3 n_{\text{join} }}$: Góc quay của các khung xương
-	\item $\mathbf{p}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của toạ độ các khung xương
+	\item $\mathbf{p}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của tọa độ các khung xương
 	\item $\mathbf{r}'_{\text{joins}} \in \mathbb{R}^{3n_{\text{join} }}$: Vận tốc thay đổi của góc quay các khung xương
 	
 	\item $\mathbf{d}_{\text{gaze}} \in \mathbb{R}^3$: Là hướng nhìn
