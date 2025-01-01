@@ -36,7 +36,7 @@ Cách tiếp cận bằng học sâu với bài toán sinh cử chỉ (gesture g
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{ScoreMatching}
-	\caption{Minh hoạ nguyên lý chung của mô hình mô hình Diffusion.}
+	\caption{Minh họanguyên lý chung của mô hình mô hình Diffusion.}
 	\label{fig:ScoreMatching}
 \end{figure}
 
@@ -52,11 +52,11 @@ Quá trình này được thực hiện từng $T$ bước, với nhiễu đư�
 	\item \textit{MotionDiffuse} \cite{zhang2022motiondiffuse} sử dụng mô hình Diffusion có điều kiện, với điều kiện dựa trên là văn bản mà không bao gồm âm thanh. Ngoài ra mô hình dự đoán nhiễu, chứ không dự đoán chuỗi cử chỉ gốc. Mô hình MotionDiffuse sử dụng các lớp Self-Attention và Cross Attention để tính tương quan giữa đặc trưng văn bản và đặc trưng cử chỉ trong công đoạn \textit{5. Kết hợp đặc trưng} (\autoref{fig:CommonStage}).
 	
 	\item \textit{Flame} \cite{kim2023flame} sử dụng mô hình diffusion với kiến trúc transformer. Trong công đoạn \textit{2. Xử lý đặc trưng} (\autoref{fig:CommonStage}), mô hình sử dụng mô hình pre-train RoBERTa để nhúng (embedding) văn bản để được các vector đặc trưng văn bản, và sử dụng chúng làm điều kiện cho mô hình. 
-	Trong cộng đoạn \textit{5. Kết hợp đặc trưng} (\autoref{fig:CommonStage}), sử dụng văn bản làm token $\texttt{CLS}$ đầu tiên của chuỗi cử chỉ trước khi đi qua lớp Transformer Decoder .  Mô hình cũng dự đoán nhiễu đã được thêm vào mô hình Diffusion chứ không dự đoán chuỗi cử chỉ gốc.
+	Trong công đoạn \textit{5. Kết hợp đặc trưng} (\autoref{fig:CommonStage}), sử dụng văn bản làm token $\texttt{CLS}$ đầu tiên của chuỗi cử chỉ trước khi đi qua lớp Transformer Decoder .  Mô hình cũng dự đoán nhiễu đã được thêm vào mô hình Diffusion chứ không dự đoán chuỗi cử chỉ gốc.
 	
 	\item \textit{DiffWave} \cite{kong2020diffwave} sử dụng mô hình Diffusion với việc dự đoán nhiễu, các bước thời gian được đi qua nhiều lớp Fully Connected khác nhau và lớp kích hoạt Swish trước khi kết hợp các đặc trưng. Mô hình sử dụng kiến trúc dilated convolutions kế thừa từ WaveNet. Mô hình DiffWave giúp biểu diễn giọng nói được biểu diễn tốt hơn, tạo đầu vào hiệu quả hơn cho mô hình Diffusion.
 	
-	\item \textit{Listen, denoise, action} \cite{alexanderson2022listen} kế thừa từ mô hình DiffWave \cite{kong2020diffwave}, thay lớp dilated convolutions bằng Transformer , kết hợp với Conformers giúp cải thiện hiệu suất của mô hình.
+	\item \textit{Listen, denoise, action} \cite{alexanderson2022listen} kế thừa từ mô hình DiffWave \cite{kong2020diffwave}, thay lớp dilated convolutions bằng Transformer, kết hợp với Conformers giúp cải thiện hiệu suất của mô hình.
 	
 	\item \textit{DiffSHEG} \cite{chen2024diffsheg} sử dụng mô hình diffusion, trong công đoạn \textit{2. Xử lý đặc trưng}, mô hình DiffSHEG sử dụng HuBERT để biểu diễn âm thanh. Coi biểu cảm là tín hiệu cho cử chỉ. Mô hình đạt được sự kết hợp thời gian thực của đồng thời cả biểu cảm khuôn mặt (facial expression) và cử chỉ (gesture).
 	
@@ -66,7 +66,7 @@ Quá trình này được thực hiện từng $T$ bước, với nhiễu đư�
 \end{itemize}
 
 
-\subsubsection{Phương pháp được kết thừa trong luận văn}
+\subsubsection{Phương pháp được kế thừa trong luận văn}
 
 \begin{itemize}
 	\item \textit{MDM} \cite{tevet2022human}  áp dụng Diffusion có điều kiện cho bài toán sinh cử chỉ, với điều kiện là CLIP (Contrastive Language–Image Pre-training) của văn bản mô tả. MDM sử dụng kiến trúc transformer để tái tạo dữ liệu cử chỉ ban đầu, sử dụng Diffusion có điều kiện với điều kiện là đoạn văn bản mô tả chuyển động của cử chỉ. Tương tự các phương pháp diffusion sử dụng văn bản mô tả, trong công đoạn \textit{3. Trích xuất đặc trưng} (\autoref{fig:CommonStage}), đoạn văn bản sẽ được mặt nạ ngẫu nhiên (Random Mask) để ẩn đi các đoạn văn bản, từ đó giúp mô hình xác định mức độ quan trọng của từng đoạn văn bản đối với các cử chỉ khác nhau.
