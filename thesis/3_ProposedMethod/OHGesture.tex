@@ -38,21 +38,21 @@ Những điểm giống và khác của việc áp dụng mô hình diffusion ch
 
 Trong đó $\bx_0$ là chuỗi $M$ khung hình cử chỉ $\mathbf{x} \in \mathbb{R}^{1:M \times D}$ ($D = 1141$), với điều kiện $c = [\mathbf{s}, \mathbf{e}, \mathbf{a}, \mathbf{v}]$ bao gồm cử chỉ khởi tạo (seed gesture) $\mathbf{s}$,  cảm xúc (emotion) $\mathbf{e}$, chuỗi giọng nói (audio) $\mathbf{a}$ tương ứng cử chỉ, và văn bản  $\mathbf{v}$.
 
-Mục tiêu của mô hình là học được tham số $\theta$ của hàm $G_{\theta}$ (\textbf{g}enerative) với đầu vào là ma trận cử chỉ $\bx^{1:M \times D}_t$, bước thời gian $t$ và điều kiện $c$.
+Mục tiêu của mô hình là học được tham số $\theta$ của hàm $G_{\theta}$ (\textbf{g}enerative) với đầu vào là ma trận cử chỉ $\bx_t \in \mathbb{R}^{1:M \times D}$, bước thời gian $t$ và điều kiện $c$.
 Tổng quan của mô hình đề xuất \textbf{OHGesture} được minh họa ở hình \autoref{fig:TrainingAndSampling}. Tương tự mô hình diffusion cơ bản bao gồm hai quá trình: quá trình tạo nhiễu (diffusion) $q$ và quá trình khử nhiễu (denoising process) $p_{\theta}$ với trọng số $\theta$. Công đoạn \textit{1. Tiền xử lý} sẽ được trình bày ở \autoref{sec:Preprocessing}.
 
 \subsection{Công đoạn xử lý đặc trưng}
 Trong công đoạn \textit{2. Xử lý đặc trưng} (\autoref{fig:CommonStage}), mục tiêu là chuyển dữ liệu  thành các ma trận hoặc vector trước khi đưa vào mô hình.
 
 \begin{itemize}
-	\item \textbf{Văn bản} (Text):
+	\item \textbf{Văn bản} (Text) $\mathbf{v} \in \mathbb{R}^{1:M \times 300}$:
 		Như đã trình bày trong \autoref{subsec:TypicalMethod}, \textit{MDM} \cite{tevet2022human}, \textit{DiffuseStyleGesture+} \cite{yang2022DiffuseStyleGestureplus} trong công đoạn này sử dụng các đoạn văn bản mô tả cử chỉ như là Prompt của Midjourney làm đầu vào cho mô hình, tuy nhiên văn bản mô tả được dùng để phân cụm từng cử chỉ. Trong khi mục tiêu của luận văn là sử dụng văn bản như là một đặc trưng ngữ nghĩa, để căn chỉnh từng đoạn văn bản tương ứng với  từng đoạn cử chỉ phục vụ cho việc xây dựng người kỹ thuật số.
 		
-		Vì vậy, trong công đoạn này đóng góp của luận văn là sử dụng dữ liệu tiếng nói có sẵn, sau khi tiền xử lý ở \autoref{sec:Preprocessing} để thu được văn bản,  luận văn sử dụng mô hình FastText  \cite{bojanowski2017enriching} để nhúng (embedding) văn bản thành các vector căn chỉnh tương ứng với số khung hình tương ứng với cử chỉ. Với các vùng không có văn bản sẽ được cho là ma trận $\mathbf{0}$, các vùng có từ vựng tương ứng sẽ được gán là giá trị nhúng  theo từng khung hình của cử chỉ để được ma trận văn bản $\mathbf{v}^{1:M \times 300}$.
+		Vì vậy, trong công đoạn này đóng góp của luận văn là sử dụng dữ liệu tiếng nói có sẵn, sau khi tiền xử lý ở \autoref{sec:Preprocessing} để thu được văn bản,  luận văn sử dụng mô hình FastText  \cite{bojanowski2017enriching} để nhúng (embedding) văn bản thành các vector căn chỉnh tương ứng với số khung hình tương ứng với cử chỉ. Với các vùng không có văn bản sẽ được cho là ma trận $\mathbf{0}$, các vùng có từ vựng tương ứng sẽ được gán là giá trị nhúng  theo từng khung hình của cử chỉ để được ma trận văn bản $\mathbf{v} \in \mathbb{R}^{1:M \times 300}$.
 		
-		\item \textbf{Giọng nói} (Speech): Tất cả dữ liệu giọng nói ở dạng wav sẽ được giảm số sample rate (downsampled) xuống $16 \mathrm{kHz}$, và giọng nói sẽ được lấy tương ứng với cử chỉ là 4s để được vector $\mathbf{a} \in \mathbb{R}^{64000}$. Tương tự DiffuseStyleGesture, luận văn sử dụng mô hình pre-train WavLM Large \cite{Chen_2022} nhúng waveform thô vào để được vector thể hiện đặc trưng âm thanh. Sau đó sử dụng nội suy tuyến tính (interpolation) để căn chỉnh đặc trưng của vector tiềm ẩn trong WavLM theo chiều thời gian thành $20 \text{fps}$ để được ma trận giọng nói $\mathbf{a} \in \mathbb{R}^{1:M \times 1024}$
+		\item \textbf{Giọng nói} (Speech) $\mathbf{a} \in \mathbb{R}^{1:M \times 1024}$: Tất cả dữ liệu giọng nói ở dạng wav sẽ được giảm số sample rate (downsampled) xuống $16 \mathrm{kHz}$, và giọng nói sẽ được lấy tương ứng với cử chỉ là 4s để được vector $\mathbf{a} \in \mathbb{R}^{64000}$. Tương tự DiffuseStyleGesture, luận văn sử dụng mô hình pre-train WavLM Large \cite{Chen_2022} nhúng waveform thô vào để được vector thể hiện đặc trưng âm thanh. Sau đó sử dụng nội suy tuyến tính (interpolation) để căn chỉnh đặc trưng của vector tiềm ẩn trong WavLM theo chiều thời gian thành $20 \text{fps}$ để được ma trận giọng nói $\mathbf{a} \in \mathbb{R}^{1:M \times 1024}$
 		
-		\item \textbf{Cảm xúc} (Emotion): Cảm xúc là nhãn được chọn 1 trong 6 cảm xúc bao gồm: $\texttt{Happy}$, $\texttt{Sad}$, $\texttt{Neutral}$, $\texttt{Old}$, $\texttt{Relaxed}$ và $\texttt{Angry}$. 
+		\item \textbf{Cảm xúc} (Emotion) $\mathbf{e} \in \mathbb{R}^{6}$: Cảm xúc là nhãn được chọn 1 trong 6 cảm xúc bao gồm: $\texttt{Happy}$, $\texttt{Sad}$, $\texttt{Neutral}$, $\texttt{Old}$, $\texttt{Relaxed}$ và $\texttt{Angry}$. 
 		
 		Sau đó nhãn cảm xúc được đi qua lớp one-hot encoding để được vector  $\mathbf{e} \in \mathbb{R}^{6}$.
 		
@@ -60,11 +60,15 @@ Trong công đoạn \textit{2. Xử lý đặc trưng} (\autoref{fig:CommonStage
 		
 %		sau đó luận văn đưa qua một vector tuyến tính để được vector đặc trưng $\mathbf{E} \in \mathbb{R}^{64}$. Mục tiêu là để có thể concat được với vector khởi tạo $\mathbf{S} \in \mathbb{R}^{192} $ để tạo thành vector tiềm ẩn $256$ chiều. $\mathbf{E} \in \mathbb{R}^{64}$
 		
-		\item \textbf{Cử chỉ khởi tạo}: Cử chỉ khởi tạo (seed gesture) $\mathbf{s} \in \mathbb{R}^{1:N \times D}$ có được từ cử chỉ ground truth $
-		\mathbf{g} \in \mathbb{R}^{(N+M) \times D}$, với mỗi khung hình là dữ liệu bao gồm $75$ khớp xương, được xử lý theo công thức \autoref{eq:gesturevector} để được vector $1141$ chiều, trình bày ở công thức \autoref{eq:gesturevector}. Mô hình của luận văn cắt $N = 8$ khung hình đầu để làm cử chỉ khởi tạo $\mathbf{s} \in \mathbb{R}^{1:N \times D} $
-		
-		\item \textbf{Cử chỉ thật}: Tương tự cử chỉ khởi tạo, từ $
-		\mathbf{g} \in \mathbb{R}^{(N+M) \times D}$, luận văn sử dụng $M = 80$ (4 giây với $20fps$) khung hình là dữ liệu cử chỉ thật $\mathbf{x}_{0} \in \mathbb{R}^{1:M \times D}$. 
+		\item \textbf{Cử chỉ khởi tạo} (Seed Gesture) $\mathbf{s} \in \mathbb{R}^{1:N \times D}$:  là chuỗi cử chỉ $N=8$ khung hình bắt đầu, với mỗi khung hình là dữ liệu bao gồm $75$ khớp xương, được xử lý theo công thức \autoref{eq:gesturevector} để được vector $D=1141$ chiều.
+%		, trình bày ở công thức \autoref{eq:gesturevector}.
+%		Mô hình của luận văn cắt $N = 8$ khung hình đầu để làm cử chỉ khởi tạo $\mathbf{s} \in \mathbb{R}^{1:N \times D} $
+%		, được  có được từ cử chỉ ground truth $
+%		\mathbf{g} \in \mathbb{R}^{(N+M) \times D}$
+		\item \textbf{Cử chỉ thật} (Ground Truth) $\mathbf{x}_{0} \in \mathbb{R}^{1:M \times D}$ : 
+%		Tương tự cử chỉ khởi tạo, từ 
+%		$\mathbf{g} \in \mathbb{R}^{(N+M) \times D}$
+		Là chuỗi cử chỉ $M = 80$ khung hình (4 giây với $20fps$), dữ liệu cử chỉ thật được tiền xử lý để được ma trận $\mathbf{x}_{0} \in \mathbb{R}^{1:M \times D}$.
 \end{itemize}
 
 \subsection{Công đoạn trích xuất đặc trưng}
@@ -85,9 +89,9 @@ Trong công đoạn \textit{3. Trích xuất đặc trưng} (\autoref{fig:Common
 	
 	  \item \textbf{Giọng nói $\mathbf{A} \in \mathbb{R}^{1:M \times 64}$}: Từ giọng nói $\mathbf{a} \in \mathbb{R}^{1:M \times 1024}$ sẽ đi qua một lớp tuyến tính (linear layer) để giảm kích thước của đặc trưng xuống còn vector đặc trưng $64$ chiều để tạo thành ma trận cuối cùng $\mathbf{A} \in \mathbb{R}^{1:M \times 64}$.
 	  
-	  \item \textbf{Văn bản $\mathbf{V} \in \mathbb{R}^{1:M \times 64}$}: Văn bản $\mathbf{v}^{1:M \times 300}$ sẽ được đi qua lớp tuyến tính (linear layer) để căn chỉnh tương ứng với vector âm thanh.
+	  \item \textbf{Văn bản $\mathbf{V} \in \mathbb{R}^{1:M \times 64}$}: Văn bản sau quá trình tiền xử lý ở mục \autoref{sec:Preprocessing} sẽ được ma trận căn chỉnh tương ứng số khung hình $M$ để được ma trận $\mathbf{v} \in \mathbb{R}^{1:M \times 300}$, văn bản sau đó được đi qua hàm biến đổi tuyến tính nhằm giảm chiều đặc trưng, và thu được ma trận  $\mathbf{V} \in \mathbb{R}^{1:M \times 64}$ căn chỉnh tương ứng với ma trận âm thanh.
 	
-	\item \textbf{Cử chỉ khởi tạo $\mathbf{S} \in \mathbb{R}^{192}$}: Từ $\mathbf{s} \in \mathbb{R}^{1:N \times D}$ sẽ được đi qua một lớp tuyến tính (linear layer) để được vector $\mathbf{S} \in \mathbb{R}^{192}$, vector $\mathbf{S}$ sau đó được đi qua một lớp mặt nạ ngẫu nhiên (random mask) trong quá trình huấn luyện để bỏ trong trường hợp nếu một trong $N$ khung hình bị thiếu thì sẽ ảnh hưởng như thế nào đến cử chỉ dự đoán.
+	\item \textbf{Cử chỉ khởi tạo $\mathbf{S} \in \mathbb{R}^{192}$}: Từ cử chỉ khởi tạo $\mathbf{s} \in \mathbb{R}^{1:N \times D}$ sẽ đi qua lớp biến đổi tuyến tính (linear layer) để được vector $\mathbf{S} \in \mathbb{R}^{192}$, vector $\mathbf{S}$ sau đó được đi qua một lớp mặt nạ ngẫu nhiên (random mask) trong quá trình huấn luyện, mục tiêu là ẩn hoặc hiện từng đoạn cử chỉ trong $N$ khung hình, và để mô hình có thể học được nếu từng khung hình bị thiếu thì sẽ ảnh hưởng như thế nào đến cử chỉ dự đoán.
 
   \item \textbf{Cảm xúc $\mathbf{E} \in \mathbb{R}^{64}$}: Từ vector cảm xúc $\mathbf{e} \in \mathbb{R}^{6}$ sẽ được đưa qua lớp tuyến tính (linear layer) để được vector đặc trưng $\mathbf{E} \in \mathbb{R}^{64}$. Mục tiêu là để có thể concat được với vector khởi tạo $\mathbf{S} \in \mathbb{R}^{192} $ để tạo thành vector tiềm ẩn $256$ chiều.
   
@@ -105,43 +109,50 @@ Với dữ liệu chính trong quá trình Diffusion chính là chuỗi cử ch�
 
 \subsection{Công đoạn kết hợp đặc trưng}
 
-Trong công đoạn \textit{5. Kết hợp đặc trưng} (\autoref{fig:CommonStage}), mục tiêu là sử dụng các phép concat, cộng hoặc các lớp attention để tính sự tương quan giữa các đặc trưng.
+Trong công đoạn \textit{5. Kết hợp đặc trưng} (\autoref{fig:CommonStage}), mục tiêu là sử dụng các phép concat, cộng hoặc sử dụng các lớp attention để tính sự tương quan giữa các đặc trưng.
 
-Đầu tiên cử chỉ khởi tạo $\mathbf{S} \in \mathbb{R}^{192}$ và vector cảm xúc $\mathbf{E} \in \mathbb{R}^{64}$ được ghép lại với nhau để tạo thành một vectơ có kích thước $256$, bởi vì kích thước $256$ là kích thước vector tiềm ẩn được chọn để tính tương quan giữa các đặc trưng. Sau đó được cộng thêm vector timestep $\mathbf{T}$ để tạo thành vector $\mathbf{z} \in \mathbb{R}^{256}$.
+Đầu tiên cử chỉ khởi tạo $\mathbf{S} \in \mathbb{R}^{192}$ và vector cảm xúc $\mathbf{E} \in \mathbb{R}^{64}$ được ghép lại với nhau để tạo thành một vectơ có kích thước $256$, bởi vì kích thước $256$ là kích thước vector tiềm ẩn được chọn để tính tương quan giữa các đặc trưng. Sau đó được cộng thêm vector timestep $\mathbf{T}$ để tạo thành vector $\mathbf{z}_{tk} \in \mathbb{R}^{256}$.
 
 \begin{equation}
 	\label{eq:ConditionConcat}
 	\mathbf{z}_{tk} = \operatorname{concat }(\mathbf{E}\ || \  \mathbf{S}) + \mathbf{T}
 \end{equation}
 
+Quá trình kết hợp đặc trưng của $\mathbf{z}_{tk}$ này được minh họa ở \autoref{fig:FeatureFusion}.
+
 \subsubsection{Kết hợp đặc trưng theo khung hình}
 
-Sau đó, $\mathbf{z}$  replicate $M$ lần để căn chỉnh kích thước tương đương với kích thước khung hình để được $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$
+Sau đó, $\mathbf{z}_{tk} \xrightarrow{\operatorname{replicate}} \mathbf{Z}$  sao chép (replicate) $M$ lần để căn chỉnh kích thước tương đương với kích thước $M$ khung hình để được ma trận $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$ như \autoref{fig:OHGesture}.
 
-Ta sẽ cộng ma trận giọng nói và văn bản với nhau để được ma trận kết hợp thông tin của văn bản và giọng nói. Sau đó tiếp tục kết hợp concat với ma trận cử chỉ $\mathbf{X}$. Cuối cùng kết hợp với ma trận $\mathbf{Z}$ để được ma trận $\mathbf{H}$.
+Ta sẽ cộng ma trận giọng nói $\mathbf{A}$ và văn bản $\mathbf{V}$ với nhau để được ma trận kết hợp thông tin của văn bản và giọng nói. Sau đó tiếp tục kết hợp concat với ma trận cử chỉ $\mathbf{X}$. Cuối cùng $\operatorname{concat}$ với ma trận $\mathbf{Z}$ để được ma trận $\mathbf{M}$.
 
 \begin{equation}
 	\label{eq:FrameConcat}
 	\mathbf{M} = \operatorname{concat}( \mathbf{Z}\  || \   \operatorname{concat}(\mathbf{X}\ || \  (\mathbf{V} + \mathbf{A}) ) )
 \end{equation}
 
-Sau khi có ma trận $\mathbf{M} \in \mathbb{R}^{1:M \times P}$ theo \autoref{eq:FrameConcat} thể hiện đặc trưng theo khung hình từ khung hình $1$ đến khung hình $M$, với mỗi khung hình có kích thước $P$ là tổng của các đặc trưng đã concat. Với $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$, $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$ và $\mathbf{A}, \mathbf{V} \in \mathbb{R}^{1:M \times 64}$, thì $P$ sẽ có kích thước $256 * 2 + 64$. Sau đó, ma trận $\mathbf{m}$ sẽ được đi qua quá trình biến đổi tuyến tính: $\mathbf{m}^{1:M \times 256} = \operatorname{Linear}_{\theta}(M)$ để được ma trận $\mathbf{m} \in \mathbb{R}^{1:M \times 256}$.
+Ma trận $\mathbf{M} \in \mathbb{R}^{1:M \times P}$ theo \autoref{eq:FrameConcat} thể hiện đặc trưng theo khung hình từ khung hình $1$ đến khung hình $M$, với mỗi khung hình có kích thước $P$ là tổng của các đặc trưng đã concat. Với $\mathbf{X} \in \mathbb{R}^{1:M \times 256}$, $\mathbf{Z} \in \mathbb{R}^{1:M \times 256}$ và $\mathbf{A}, \mathbf{V} \in \mathbb{R}^{1:M \times 64}$, $P$ sẽ có kích thước $P = 256 + 256 + 64$. Sau đó, ma trận $\mathbf{m}$ sẽ được đi qua quá trình biến đổi tuyến tính để giảm chiều từ $P$ chiều xuống $256$ chiều để được ma trận $\mathbf{m}_{t} \in \mathbb{R}^{1:M \times 256}$.
+
+\begin{equation}
+	\label{eq:FeatureDimensionReducion}
+	\mathbf{m}_{t} = \operatorname{Linear}_{\theta}( \mathbf{M} )
+\end{equation}
 
 \subsubsection{Cơ chế attention trong quá trình kết hợp các đặc trưng}
 
-Trong mô hình của luận văn, mục tiêu của việc áp dụng cơ chế attention là tìm được sự tương quan của từng khung hình với nhau.
+Trong mô hình của luận văn sử dụng cơ chế attention \cite{vaswani2017attention} để kết hợp các đặc trưng, mục tiêu áp dụng cơ chế attention là tìm được sự tương quan của từng khung hình với nhau. Cơ chế attention được áp dụng trong Cross-Local Attention và Self-Attention trong lớp Transformer Encoder.
 
-Lớp attention có công thức như sau:
+Cơ chế attention có công thức như sau:
 
 \begin{equation} \label{eq:attention}
-	\operatorname{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}, \mathbf{M})=\operatorname{softmax}\left(\frac{\mathbf{Q} \mathbf{K}^{T}+\mathbf{M}}{\sqrt{C}}\right) \mathbf{V}
+	\operatorname{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}, \mathbf{Mask})=\operatorname{softmax}\left(\frac{\mathbf{Q} \mathbf{K}^{T}+\mathbf{Mask}}{\sqrt{C}}\right) \mathbf{V}
 \end{equation}
 
-Công thức Attention trên có $\mathbf{Q}$, $\mathbf{K}$ ,$\mathbf{V}$ là các ma trận sau khi đi qua các ma trận biến đối tuyến tính $\mathbf{Q} = \mathbf{X} \mathbf{W}_Q$, $\mathbf{K} = \mathbf{X} \mathbf{W}_K$, $\mathbf{V} = \mathbf{X} \mathbf{W}_V$. Với đầu vào là ma trận biểu thị chuỗi $M$ khung hình, với mỗi khung hình là một vector được concat từ các vector đặc trưng bao gồm cả cử chỉ khởi tạo, văn bản, giọng nói, cảm xúc và cử chỉ $\bx_t$ mà luận văn muốn thực hiện khử nhiễu. Quá trình Local-Cross Attention được điều khiển chỉ để tính các đặc trưng cục bộ của chuyển động của các cử chỉ và đặc trưng trong các khung hình lân cận.
+Công thức Attention trên có $\mathbf{Q}$ (Query), $\mathbf{K}$ (Key) ,$\mathbf{V}$ (Value) là các ma trận sau khi đi qua các ma trận biến đối tuyến tính $\mathbf{Q} = {X} \mathbf{W}_Q$, $\mathbf{K} = {X} \mathbf{W}_K$, $\mathbf{V} = {X} \mathbf{W}_V$. Với đầu vào là ma trận biểu thị chuỗi $M$ khung hình, với mỗi khung hình là một vector được concat từ các vector đặc trưng bao gồm cả cử chỉ khởi tạo, văn bản, giọng nói, cảm xúc và cử chỉ $\bx_t$ mà luận văn muốn thực hiện khử nhiễu. $\sqrt{C}$ là hằng số (\textbf{c}onstanst) chuẩn hóa kích thước ma trận. Quá trình Local-Cross Attention được điều khiển chỉ để tính các đặc trưng cục bộ của chuyển động của các cử chỉ và đặc trưng trong các khung hình lân cận.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{CrossLocalAttention}
+	\includegraphics[width=1\textwidth]{CrossLocalAttention}
 	\caption{Cơ chế Attention trong Transformer Encoder và Cross-Local Attention}
 	\label{fig:CrossLocalAttention}
 \end{figure}
@@ -152,19 +163,21 @@ Kết quả cuối cùng là tổ hợp các giá trị trong \( \mathbf{V} \), 
 
 \subsubsection{Kết hợp đặc trưng cục bộ với Cross-Local Attention}
 
-Ma trận $\mathbf{m} \in \mathbb{R}^{1:M \times 256}$ sẽ tiếp tục đi qua lớp Cross-Local Attention để tính tương quan giữa các đặc trưng cục bộ: 
+Ma trận $\mathbf{m}_{t} \in \mathbb{R}^{1:M \times 256}$ sẽ tiếp tục đi qua lớp Cross-Local Attention để tính tương quan giữa các đặc trưng cục bộ.
+%được ma trận $\mathbf{h}_t \in \mathbb{R}^{1:M \times D}$ : 
 
 \begin{equation}
-	\mathbf{h}^{1:M}_{t}  = \operatorname{Linear}_{\theta}  ( \operatorname{Cross-Local\ Attention}( \mathbf{m}) )
+	\mathbf{h}_{t}  = \operatorname{Linear}_{\theta}  ( \operatorname{Cross-Local\ Attention}( \mathbf{m}_{t}) )
 	\label{eq:CrossLocalAttention}
 \end{equation}
 
-Cross-local Attention sẽ thực hiện với $\operatorname{Query} = \operatorname{Key} = \operatorname{Value} = \mathbf{m}$. 
+% (\operatorname{Query}) (\operatorname{Key}) (\operatorname{Value}) 
+Cross-local Attention sẽ thực hiện với $\mathbf{Q} = \mathbf{K} = \mathbf{V} = \mathbf{m}_{t}$. 
 Tương tự ý tưởng từ phương pháp Routing Transformer \cite{roy2021efficient}, Cross-local Attention cho thấy rằng sự quan trọng trong việc xây dựng biểu diễn các vector đặc trưng trung gian trước khi đi qua lớp Transformer Encoder như \autoref{fig:OHGesture}. 
-Các vector đặc trưng sẽ được cộng thêm một vector mã hóa vị trí tương đối (Relative position encoding \cite{vaswani2017attention}) để thể hiện được đặc trưng thời gian trước khi đi qua lớp Cross-Local Attention.
+Các vector đặc trưng sẽ được cộng thêm một vector mã hóa vị trí tương đối \textbf{RPE} (\textbf{R}elative \textbf{P}osition \textbf{E}ncoding) để thể hiện được đặc trưng theo thứ tự thời gian trước khi đi qua lớp Cross-Local Attention.
+s
 
-
-Sau quá trình Cross-Local Attention, mô hình tiếp tục được đưa qua lớp tuyến tính theo \autoref{eq:CrossLocalAttention} để căn chỉnh tương ứng với $M$ khung hình, bao gồm $\mathbf{h}^{1:M}$.
+Sau quá trình Cross-Local Attention, mô hình tiếp tục được đưa qua lớp tuyến tính theo \autoref{eq:CrossLocalAttention} để căn chỉnh tương ứng với $M$ khung hình để được ma trận $\mathbf{h}_t \in \mathbb{R}^{1:M \times D}$.
 
 
 \subsubsection{Kết hợp đặc trưng toàn cục với Transformer Encoder}
@@ -173,39 +186,39 @@ Sau quá trình Cross-Local Attention, mô hình tiếp tục được đưa qua
 	\centering
 	\begin{subfigure}{0.42\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{z}
+		\includegraphics[width=0.9\textwidth]{z}
 		\caption{Cách concat đặc trưng để được $\mathbf{z}_{tk}$}
 		\label{fig:FeatureFusion}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.55\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{FeatureFusion}
-		\caption{Quá trình kết hợp đặc trưng theo từng khung hình}
+		\includegraphics[width=0.85\textwidth]{FeatureFusion}
+		\caption{Quá trình kết hợp đặc trưng từng khung hình}
 		\label{fig:ZToken}
 	\end{subfigure}
 \end{figure}
 
 
-Kế thừa từ MDM \cite{tevet2022human}, vector $\mathbf{z}$ là token đầu tiên thể hiện thông tin cho toàn bộ chuỗi khung hình, tương tự như  $z_{\text{tk}}$ trong mô hình BERT \cite{devlin2019bertpretrainingdeepbidirectional}, với token $\texttt{CLS}$ đầu tiên thể hiện thông tin của toàn bộ đoạn văn bản.
-Ở đây, luận văn sử dụng $z_{\text{tk}}$ là $\mathbf{z} \in \mathbb{R}^{256}$ (\autoref{eq:ConditionConcat}) token đầu tiên biểu thị đặc trưng biểu thị cho toàn bộ chuỗi $M$ khung hình.
+Kế thừa từ MDM \cite{tevet2022human}, vector $\mathbf{z}_{tk}$ là token đầu tiên thể hiện thông tin cho toàn bộ chuỗi khung hình, tương tự như  $\mathbf{z}_{tk}$ trong mô hình BERT \cite{devlin2019bertpretrainingdeepbidirectional}, token $\texttt{CLS}$ đầu tiên thể hiện thông tin của toàn bộ đoạn văn bản.
+Ở đây, luận văn sử dụng $\mathbf{z}_{tk}$ là $\mathbf{z}_{tk} \in \mathbb{R}^{256}$ (\autoref{eq:ConditionConcat}) token đầu tiên biểu thị đặc trưng biểu thị cho toàn bộ chuỗi $M$ khung hình.
 
 \begin{equation}
-	\mathbf{x}^{1:M}_{0}  = \operatorname{Transformer\ Encoder}( \operatorname{concat}( \mathbf{z}_{tk} \ ||\  \mathbf{h}^{1:M}_{t}  )))
+	\mathbf{X}_{0}  = \operatorname{Transformer\ Encoder}( \operatorname{concat}( \mathbf{z}_{tk} \ ||\  \mathbf{h}^{1:M}_{t}  )))
 	\label{eq:TransformerEncoder}
 \end{equation}
 
 
-Các vector $\mathbf{h}$ biểu thị cho chuỗi $M$ khung hình, tương tự như phương pháp Reformer \cite{kitaev2020reformer}, trước khi đi vào lớp Self-Attention trong Transformer Encoder, mô hình sẽ sử dụng lớp mã hóa vị trí tương đối (Relative Position Encoding - RPE) để thay thế mã hóa vị trí tuyệt đối, giúp mô hình hiệu quả hơn trong việc xử lý chuỗi dài.
+Các vector $\mathbf{h}_t$ biểu thị cho chuỗi $M$ khung hình, tương tự như phương pháp Reformer \cite{kitaev2020reformer}, trước khi đi vào lớp Self-Attention trong Transformer Encoder, mô hình sẽ sử dụng lớp mã hóa vị trí tương đối (Relative Position Encoding - RPE) để thay thế mã hóa vị trí tuyệt đối, giúp mô hình hiệu quả hơn trong việc xử lý chuỗi dài.
 Khi vào lớp Transformer Encoder \cite{vaswani2017attention} giúp tính toán được mối liên hệ giữa các chuỗi dữ liệu. 
-Trong lớp Transformer Encoder mô hình sẽ áp dụng cơ chế tự chú ý tương tự như \autoref{eq:attention} trên nhưng không sử dụng mặt nạ. 
+Trong lớp Transformer Encoder mô hình sẽ áp dụng cơ chế tự chú ý tương tự như \autoref{eq:attention} trên nhưng không sử dụng mặt nạ $\mathbf{Mask}$. Giúp tính sự tương quan giữa toàn bộ chuỗi.
 
 
 \subsection{Công đoạn giải mã đặc trưng}
 
 Trong công đoạn \textit{6. Giải mã đặc trưng} (\autoref{fig:CommonStage}), sau khi tính được sự tương quan giữa các đặc trưng, mục tiêu là tăng kích thước dữ liệu trở về kích thước ban đầu.
 
-Như minh họa ở \autoref{fig:OHGesture}, ma trận tiềm ẩn, sau khi đi qua lớp Transformer Encoder để tính sự tương quan giữa nhiều loại dữ liệu khác nhau. Kết quả sẽ đi qua lớp $\operatorname{Linear}_{\theta}$ để tăng kích thước ma trận tiềm ẩn thành kích thước ban  đầu $\hat{\mathbf{x}}_{0} \in \mathbb{R}^{1:M \times D}$.
+Như minh họa ở \autoref{fig:OHGesture}, ma trận tiềm ẩn $\mathbf{X}_{0}$, sau khi đi qua lớp Transformer Encoder để tính sự tương quan giữa nhiều loại dữ liệu khác nhau. Kết quả sẽ đi qua lớp biến đổi tuyến tính $\hat{\mathbf{x}}_{0} =  \operatorname{Linear}_{\theta}(\mathbf{X}_{0} ) $ để tăng kích thước ma trận tiềm ẩn thành kích thước ban đầu $\hat{\mathbf{x}}_{0} \in \mathbb{R}^{1:M \times D}$.
 
 Công đoạn cuối cùng, kết xuất sẽ được trình bày ở \autoref{sec:Render}.
 

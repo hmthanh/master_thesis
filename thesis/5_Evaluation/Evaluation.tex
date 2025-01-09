@@ -6,10 +6,13 @@
 
 Quá trình đánh giá được thực hiện qua hai độ đo chính là: Mean Opinion Scores (MOS) và Fréchet Inception Distance (FID).
 
-\subsection{Mean Opinion Scores (MOS)}
+\subsection{Đánh giá dựa trên cảm nhận của con người}
+
+\subsubsection{Mean Opinion Scores (MOS)}
 
 Hiện tại, chưa có một độ đo chung cho bài toán sinh cử chỉ, đặc biệt là sinh cử chỉ từ giọng nói, vì vậy luận văn dựa vào đánh giá chủ quan của con người để thực hiện các đánh giá thực nghiệm. 
 Tương tự như các phương pháp trước đây \cite{yoon2022genea}, \cite{kucherenko2021large}, các mô hình sinh cử chỉ điều khiển bằng giọng nói vẫn thiếu các chỉ số mục tiêu phản ánh một cách nhất quán với nhận thức chủ quan của con người  \cite{alexanderson2022listen}.
+
 MOS được đo lường thông qua ba tiêu chí:
 
 \begin{itemize}
@@ -18,55 +21,73 @@ MOS được đo lường thông qua ba tiêu chí:
 	\item Gesture-style Appropriateness (Sự phù hợp giữa phong cách cử chỉ)
 \end{itemize}
 
+Một trong những đóng góp của luận văn là xây dựng  \hyperlink{https://genea-workshop.github.io/leaderboard/}{GENEA Leaderboard} \footnote{  \url{https://genea-workshop.github.io/leaderboard} } \cite{nagy2024towards}. Hệ thống này bao gồm HEMVIP (\textbf{H}uman \textbf{E}valuation of \textbf{M}ultiple \textbf{V}ideos in \textbf{P}arallel) nhằm so sánh kết quả sinh trực quan giữa các video được tạo ra từ kết quả kết xuất.
 
-\subsection{Fréchet Inception Distance (FID)}
-FID đo sự tương đồng về phân phối giữa cử chỉ sinh ra $\mathbf{g}$ và cử chỉ thực tế $\mathbf{r}$. Công thức tính FID là:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{hemvip}
+	\caption{Hệ thống HEMVIP nhằm đánh giá kết quả sau khi kết xuất của hai mô hình}
+\end{figure}
+
+Trong nhóm GENEA (\textbf{G}eneration and \textbf{E}valuation of \textbf{N}on-verbal Behaviour for \textbf{E}mbodied \textbf{A}gents), chúng tôi sẽ thuê các người đánh giá trên Prolific và thực hiện nghiên cứu người dùng (User Study) theo kết quả kết xuất trên video, người tham gia sẽ đánh giá \textit{Bên Trái Tốt Hơn} (Left Better), \textit{Bằng Nhau} hoặc \textit{Bên Phải Tốt Hơn} (Right Better). Điểm số sẽ cập nhật sẽ là $-1$, $0$ và $1$ cho mô hình cho các kết quả sinh bao gồm cả dữ liệu thật. Kết quả so sánh của toán bộ mô hình sẽ được cập nhật bằng hệ thống đánh giá Elo (Elo rating system).
+
+Mã nguồn của chương trình được công khai ở \hyperlink{https://github.com/hemvip/hemvip.github.io/}{github.com/hemvip.github.io}
+\footnote{HEMVIP 2 \url{https://github.com/hemvip/hemvip.github.io}}.
+
+
+\subsection{Đánh giá dựa trên các độ đo số học}
+
+\subsubsection{Sai số toàn phương trung bình (Mean Square Error)}
+
+Độ đo sai số toàn phương trung bình giữa chuỗi cử chỉ dự đoán $\hat{\mathbf{y}}_i^{1:M \times D}$ và chuỗi cử chỉ thật $\mathbf{y}_i^{1:M \times D}$ được thực hiện theo công thức sau:
 
 \begin{equation}
-	\text{FID} = \left\| \mu_r - \mu_g \right\|^2 + \operatorname{Tr}\left( \Sigma_r + \Sigma_g - 2 \sqrt{\Sigma_r \Sigma_g} \right)
+\text{MSE} = \frac{1}{n} \sum_{i=1}^n \left\| \mathbf{y}_i^{1:M \times D} - \hat{\mathbf{y}}_i^{1:M \times D} \right\|^2
+\end{equation}
+
+Trong đó:  
+\begin{itemize}
+	\item $n$ là số lượng mẫu dữ liệu.
+	\item $\mathbf{y}_i^{1:M \times D}$ là giá trị thực (ground truth) của mẫu thứ $i$, với $M$ là số khung (frames) và $D$ là số chiều dữ liệu.
+	\item $\hat{\mathbf{y}}_i^{1:M \times D}$ là giá trị dự đoán của mẫu thứ $i$, có cùng kích thước $M \times D$.
+	\item $\left\| \mathbf{y}_i^{1:M \times D} - \hat{\mathbf{y}}_i^{1:M \times D} \right\|^2$ là bình phương chuẩn của sự chênh lệch giữa ma trận thực và ma trận dự đoán.
+\end{itemize}
+
+MSE đo lường độ chênh lệch trung bình bình phương giữa các chuỗi cử chỉ thực và chuỗi cử chỉ dự đoán, càng nhỏ thì mô hình dự đoán càng chính xác. Kết quả đánh giá được cập nhật ở \autoref{subsec:MSEResult}.
+
+\subsubsection{Fréchet Gesture Distance (FGD)}
+
+Tương tự các phương pháp sinh ảnh sử dụng độ đo FID (Fréchet Inception Distance) nhằm đo khoảng cách phân phối của dữ liệu thật và dữ liệu dự đoán.
+Khoảng cách Fréchet trong cử chỉ hay FGD (\textbf{F}réchet \textbf{G}esture \textbf{D}istance) đo sự tương đồng về phân phối giữa chuỗi cử chỉ sinh ra $\hat{\mathbf{y}}_i^{1:M \times D}$ và cử chỉ thực tế  $\mathbf{y}_i^{1:M \times D}$:
+
+\begin{equation}
+	\text{FGD} = \left\| \hat{\mu} - \mu \right\|^2 + \operatorname{Tr}\left( \Sigma + \hat{\Sigma} - 2 \sqrt{\Sigma \hat{\Sigma}} \right)
 	\label{eq:fidscore}
 \end{equation}
 
-
-Trong đó:
+Trong đó trong đó $n$ là số lượng mẫu dữ liệu, các tham số:
 
 \begin{itemize}
-	\item $\mu$: Trung bình các đặc trưng của cử chỉ.
-	\item $\Sigma$: Ma trận hiệp phương sai của đặc trưng.
-	\item $\operatorname{Tr}$: Tổng đường chéo chính của ma trận hiệp phương sai.
-	\item $\sqrt{\Sigma_r \Sigma_g}$: Sự tương đồng giữa các phân phối cử chỉ thực tế và cử chỉ sinh ra.
+	\item $\mu = \frac{1}{n} \sum_{i=1}^n \mathbf{y}_i^{1:M \times D}$ và $\hat{\mu} = \frac{1}{n} \sum_{i=1}^n \hat{\mathbf{y}}_i^{1:M \times D}$ lần lượt là vector trung bình của các đặc trưng (features) từ tập dữ liệu thực $\mathbf{y}_i^{1:M \times D}$ và tập dữ liệu sinh $\hat{\mathbf{y}}_i^{1:M \times D}$.
+	 
+	\item $\Sigma = \frac{1}{n-1} \sum_{i=1}^n \left( \mathbf{y}_i^{1:M \times D} - \mu \right) \left( \mathbf{y}_i^{1:M \times D} - \mu \right)^T$ và
+	
+	$\hat{\Sigma} = \frac{1}{n-1} \sum_{i=1}^n \left( \hat{\mathbf{y}}_i^{1:M \times D} - \hat{\mu} \right) \left( \hat{\mathbf{y}}_i^{1:M \times D} - \hat{\mu} \right)^T$: là ma trận hiệp phương sai (covariance matrix) của các đặc trưng từ tập dữ liệu thực và sinh.
+	
+	\item $\operatorname{Tr}(\cdot)$ là toán tử vết (trace) của ma trận, tính tổng các phần tử trên đường chéo chính.
+	
+	\item $\sqrt{\Sigma \hat{\Sigma}}$: là căn bậc hai ma trận (matrix square root) của tích hai ma trận hiệp phương sai.
 \end{itemize}
 
-FID thấp cho thấy phân phối của cử chỉ sinh ra gần giống với cử chỉ thực tế, trong khi FID cao gợi ý sự khác biệt lớn, cho thấy chất lượng cử chỉ sinh ra kém hơn.
-
+FGD thấp cho thấy phân phối của cử chỉ sinh ra gần giống với cử chỉ thực tế, trong khi FID cao gợi ý sự khác biệt lớn, cho thấy chất lượng cử chỉ sinh ra kém hơn. Trong luận văn, quá trình đánh giá được thực hiện trên chuỗi cử chỉ dự đoán $\hat{\mathbf{x}}^{0} \in \mathbb{R}^{1:M \times D}$ và chuỗi cử chỉ thật $\mathbf{x}_{0} \in \mathbb{R}^{1:M \times D}$.
 
 
 \section{Kết quả đánh giá}
 \label{sec:result}
 
-\subsection{Kết quả đánh giá bằng MSE}
+\subsection{Kết quả đánh giá nghiên cứu người dùng}
 
-Trong luận văn, chuỗi cử chỉ dự đoán sẽ được đoạn trên $M$ khung hình. Luận văn sử dụng Mean Square Error trên chuỗi cử chỉ $\mathbf{x}^{1:M \times D}$.
-
-\begin{table}[H]
-	\centering
-	\resizebox{\textwidth}{!}{%
-		\begin{tabular}{lcccccc}
-			\hline
-			\multicolumn{1}{c}{Cảm xúc} & Tự Nhiên & Buồn Bã &  Vui Vẻ  & Thư Giãn & Lớn Tuổi & Giận Dữ \\ \hline
-			DiffuseStyleGesture  & 75.04 & 51.40 & 110.18 & 130.83     & 116.03    & 78.53     \\
-			ZeroEGG & 136.33 & 81.22 & 290.47 & 140.24     & 102.44    & 181.07     \\
-			\hline
-			Mô hình đề xuất                     &         &         &         &           &          &                 \\
-			\quad \textbf{OHGesture} & 161.22 & 89.58 & 279.95 & 156.93   & 99.86   & 215.24    \\
-			\hline
-		\end{tabular}%
-	}
-	\caption{Kết quả đánh giá Mean Square Error theo 6 cảm xúc}
-	\label{table:EvaluationMSE}
-\end{table}
-
-\subsection{Kết quả đánh giá bằng MOS}
+\subsubsection{Kết quả đánh giá bằng MOS}
 
 Ở đây luận văn sử dụng lại kết quả đánh giá của mô hình baseline \textbf{DiffuseStyleGesture} \cite{yang2023diffusestylegesture} trong độ đo về  cảm nhận đánh giá của con người do lĩnh vực sinh cử chỉ vẫn còn rất mới, chi phí để ước lượng các mô hình còn lớn nên luận văn không thể đánh giá được mô hình OHGesture. Vì vậy các kết quả này chưa bao gồm thông tin kết quả về mô hình \textbf{OHGesture} mà luận văn đề xuất.
 
@@ -111,12 +132,38 @@ Trong luận văn, chuỗi cử chỉ dự đoán sẽ được đoạn trên $M
 		\quad$+$ Forward attention & 3.75 $\pm$ 0.15          & 3.23 $\pm$ 0.24          \\
 		\hline
 	\end{tabular}
-	\caption{Kết quả đánh giá bằng MOS trên Genea (năm 2022)}
+	\caption{Kết quả đánh giá bằng MOS}
 	\label{table:MOSScore}
 \end{table}
 %Kết quả của các nghiên cứu loại bỏ (Ablation studies). "$-$" chỉ các mô-đun không được sử dụng và "$+$" chỉ các mô-đun bổ sung. Chữ in đậm chỉ ra chỉ số tốt nhất
 
-\subsection{Kết quả đánh giá bằng FGD}
+\subsection{Kết quả đánh giá theo độ đo số học}
+
+\subsubsection{Kết quả đánh giá bằng MSE}
+\label{subsec:MSEResult}
+
+Trong luận văn, chuỗi cử chỉ dự đoán sẽ được đoạn trên $M$ khung hình. Luận văn sử dụng Mean Square Error trên chuỗi cử chỉ $\mathbf{x}^{1:M \times D}$.
+
+\begin{table}[H]
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{lcccccc}
+			\hline
+			\multicolumn{1}{c}{Cảm xúc} & Tự Nhiên & Buồn Bã &  Vui Vẻ  & Thư Giãn & Lớn Tuổi & Giận Dữ \\ \hline
+			DiffuseStyleGesture  & 75.04 & 51.40 & 110.18 & 130.83     & 116.03    & 78.53     \\
+			ZeroEGG & 136.33 & 81.22 & 290.47 & 140.24     & 102.44    & 181.07     \\
+			\hline
+			Mô hình đề xuất                     &         &         &         &           &          &                 \\
+			\quad \textbf{OHGesture} & 161.22 & 89.58 & 279.95 & 156.93   & 99.86   & 215.24    \\
+			\hline
+		\end{tabular}%
+	}
+	\caption{Kết quả đánh giá Mean Square Error theo 6 cảm xúc}
+	\label{table:EvaluationMSE}
+\end{table}
+
+
+\subsubsection{Kết quả đánh giá bằng FGD}
 
 Luận văn đề xuất Fréchet Gesture Distance (FGD), độ đo FID dựa trên cử chỉ (gesture), và xây dựng mã nguồn \hyperlink{https://github.com/GestureScore/GestureScore}{GestureScore} \footnote{Github/GestureScore: \url{https://github.com/GestureScore/GestureScore}} . Trong GestureScore, luận văn xây dựng một Inception V3 model, để mã hóa chuỗi khung hình $\bx^{1:M \times D}$ thành vector tiềm ẩn kích thước $32 \times 32$. Sử dụng vector này làm đầu vào cho \autoref{eq:fidscore}. Sau đây là \autoref{table:EvalFGD} đánh giá kết quả của mô hình OHGesture bằng GestureScore
 

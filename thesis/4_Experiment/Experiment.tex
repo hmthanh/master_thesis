@@ -66,10 +66,21 @@ Toàn bộ dữ liệu sẽ được lưu bằng $\texttt{h5}$ được dùng đ
 
 \section{Quá trình huấn luyện}
 
-Toàn bộ quá trình huấn luyện mô hình được thực hiện trong vòng 1 ngày với các tham số sau: số bước huấn luyện $T = 1000$, sử dụng GPU Nvidia 3090, và chia tập dữ liệu theo tỷ lệ $8:1:1$ cho các tập training, testing và validation. Learning rate được thiết lập là $3 \times 10^{-5}$, với batch size là $640$ và tổng cộng $43,853$ mẫu. 
-$\gamma = 0.1$.
+Toàn bộ quá trình huấn luyện mô hình được thực hiện trong gần 2 tuần với các tham số sau: số bước huấn luyện $T = 1000$, sử dụng GPU Nvidia 3090. Learning rate được thiết lập là $3 \times 10^{-5}$, với kích thước lô huấn luyện (batch size) là $640$ và quá trình huấn luyện thực hiện tổng cộng $43,853$ mẫu, tức ta sẽ lấy ngẫu nhiên $t$ bước vào hàm $f_{\theta}$ để thực hiện dự đoán $\mathbf{x}_{0}$. Tham số điều khiển cảm xúc là $\gamma = 0.1$. Tỷ lệ sử dụng mặt nạ ngẫu nhiên (random mask) cho cảm xúc và cử chỉ khởi tạo là $10\%$, quá trình sử dụng mặt nạ ngẫu nhiên với hàm Bernoulli nhằm ẩn hiện ma trận thông tin của cảm xúc và cử chỉ khởi tạo.
 
-$\beta$ bắt đầu từ $0.5 \rightarrow 0.999$
+Giá trị của $\beta$ bắt đầu từ $0.5 \rightarrow 0.999$.
+
+Hàm $\operatorname{HuberLoss} (\mathbf{x}_{0},  \hat{\mathbf{x}}_{0} )$ được tính như sau:
+
+\begin{itemize}
+\item Nếu $|\mathbf{x}_0 - \hat{\mathbf{x}}_0| \leq \delta$ thì $\mathcal{L}_{ \delta, \mathbf{x}_0, \hat{\mathbf{x}}_0} = \frac{1}{2} (\mathbf{x}_0 - \mathbf{x}_0)^2$: Nhỏ hơn ngưỡng thì bình phương khoảng cách. Lúc này HuberLoss hoạt động giống như MSE. MSE nhạy cảm hơn với các lỗi nhỏ giúp đạo hàm (gradient) mượt mà hơn.
+
+\item Nếu $|\mathbf{x}_0 - \hat{\mathbf{x}}_0| > \delta$ thì $\mathcal{L}_{ \delta, \mathbf{x}_0, \hat{\mathbf{x}}_0}  =  \delta \cdot |\mathbf{x}_0 - \mathbf{x}_0| - \frac{1}{2} \delta^2$: Lớn hơn ngưỡng thì được tính bằng khoảng cách tuyệt đối MAE. MAE nhằm giảm độ nhạy với lỗi lớn, không phạt nặng lỗi lớn để giúp mô hình ổn định hơn đối với trường hợp ngoại lai.
+
+\end{itemize}
+
+%Trong thực nghiệm, 	
+
 
 Quá trình huấn luyện được triển khai trên mã nguồn công khai tại: \hyperlink{https://github.com/hmthanh/OHGesture}{Github/OHGesture} \footnote{\url{https://github.com/hmthanh/OHGesture}}.
 
